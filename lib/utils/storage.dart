@@ -126,9 +126,9 @@ class StorageHelper {
 }
 
 class SharedBox {
-  String boxName;
+  String? boxName;
   SharedBox({this.boxName});
-  StreamingSharedPreferences prefs;
+  StreamingSharedPreferences? prefs;
 
   Future<void> init() async {
     if (prefs != null) {
@@ -145,11 +145,11 @@ class SharedBox {
     Map<String, dynamic> mapData = Map();
     try {
       await init();
-      Preference<Set<String>> keys = prefs.getKeys();
+      Preference<Set<String>> keys = prefs!.getKeys();
       keys.getValue().forEach((element) {
-        if (element.startsWith(this.boxName + ".")) {
+        if (element.startsWith(boxName! + ".")) {
           mapData[element] =
-              prefs.getString(element, defaultValue: "").getValue();
+              prefs!.getString(element, defaultValue: "").getValue();
         }
       });
     } catch (e) {
@@ -163,10 +163,10 @@ class SharedBox {
     Map<String, dynamic> mapData = Map();
     try {
       await init();
-      Preference<Set<String>> keys = prefs.getKeys();
+      Preference<Set<String>> keys = prefs!.getKeys();
       keys.getValue().forEach((element) {
-        if (element.startsWith(this.boxName + ".")) {
-          String temp = prefs.getString(element, defaultValue: "").getValue();
+        if (element.startsWith(boxName! + ".")) {
+          String temp = prefs!.getString(element, defaultValue: "").getValue();
           if (temp != "") {
             mapData[element] = jsonDecode(temp);
           }
@@ -179,11 +179,11 @@ class SharedBox {
     return mapData;
   }
 
-  Future<String> get(String keyName) async {
+  Future<String?> get(String keyName) async {
     try {
       await init();
       Preference<String> data =
-          prefs.getString(this.boxName + "." + keyName, defaultValue: "");
+          prefs!.getString(boxName! + "." + keyName, defaultValue: "");
       return data.getValue();
     } catch (e) {
       print("SharedBox.get() Error");
@@ -192,12 +192,12 @@ class SharedBox {
     return null;
   }
 
-  Future<Map> getMap(String keyName) async {
+  Future<Map?> getMap(String keyName) async {
     Map json = Map();
     try {
       await init();
       Preference<String> data =
-          prefs.getString(this.boxName + "." + keyName, defaultValue: "");
+          prefs!.getString(boxName! + "." + keyName, defaultValue: "");
       String val = data.getValue();
       if (val == "") {
         return null;
@@ -213,14 +213,14 @@ class SharedBox {
 
   StreamSubscription<String> watch(String keyName) {
     Preference<String> prefStr =
-        prefs.getString(this.boxName + "." + keyName, defaultValue: "");
+        prefs!.getString(boxName! + "." + keyName, defaultValue: "");
     return prefStr.listen(null, cancelOnError: true);
   }
 
   Future<bool> put(String keyName, String data) async {
     try {
       await init();
-      bool result = await prefs.setString(this.boxName + "." + keyName, data);
+      bool result = await prefs!.setString(boxName! + "." + keyName, data);
       return result;
     } catch (e) {
       print("SharedBox.put() Error");
@@ -233,7 +233,7 @@ class SharedBox {
     try {
       await init();
       String json = jsonEncode(data);
-      bool result = await prefs.setString(this.boxName + "." + keyName, json);
+      bool result = await prefs!.setString(boxName! + "." + keyName, json);
       return result;
     } catch (e) {
       print("SharedBox.putMap() Error");
@@ -245,7 +245,7 @@ class SharedBox {
   Future<bool> delete(String keyName) async {
     try {
       await init();
-      bool result = await prefs.remove(this.boxName + "." + keyName);
+      bool result = await prefs!.remove(boxName! + "." + keyName);
       return result;
     } catch (e) {}
     return false;
@@ -253,11 +253,11 @@ class SharedBox {
 
   Future<void> clearBox() async {
     try {
-      Preference<Set<String>> prefsKeys = prefs.getKeys();
+      Preference<Set<String>> prefsKeys = prefs!.getKeys();
       Set<String> x = prefsKeys.getValue();
       x.forEach((element) async {
-        if (element.startsWith(this.boxName + ".")) {
-          await prefs.remove(element);
+        if (element.startsWith(boxName! + ".")) {
+          await prefs!.remove(element);
         }
       });
     } catch (e) {}
@@ -270,7 +270,7 @@ class SharedHelper {
   SharedHelper._internal();
   Map<String, SharedBox> _boxes = Map();
 
-  SharedBox getBox(String boxName) {
+  SharedBox? getBox(String boxName) {
     if (!_boxes.containsKey(boxName)) {
       _boxes[boxName] = SharedBox(boxName: boxName);
     }
@@ -279,8 +279,8 @@ class SharedHelper {
 
   Future<void> clearBox(String boxName) async {
     try {
-      SharedBox box = this.getBox(boxName);
-      await box.clearBox();
+      SharedBox? box = this.getBox(boxName);
+      await box!.clearBox();
     } catch (e) {}
   }
 

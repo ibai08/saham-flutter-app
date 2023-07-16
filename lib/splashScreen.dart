@@ -31,7 +31,7 @@ class _SplashScreenState extends State<SplashScreen> {
       Get.toNamed("/update");
     } else {
       print("homeeee");
-      Get.toNamed("/");
+      Get.offNamed("/home");
     }
   }
 
@@ -56,7 +56,7 @@ class _SplashScreenState extends State<SplashScreen> {
             Get.toNamed("/update-app");
           } else {
             print("versionCheck()");
-            Get.to(() => Home());
+           Get.offNamed('/home');
           }
         }
       } catch (ex) {

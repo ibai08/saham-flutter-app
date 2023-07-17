@@ -69,11 +69,20 @@ class MyApp extends StatelessWidget {
     return GetMaterialApp(
       title: 'Saham XYZ App',
       theme: ThemeData(
-        primarySwatch: Colors.red,
+        inputDecorationTheme: InputDecorationTheme(
+          labelStyle: TextStyle(color: AppColors.black),
+          contentPadding: const EdgeInsets.only(bottom: 5, top: 20),
+          enabledBorder: UnderlineInputBorder(
+            borderSide: BorderSide(
+              width: 0.2,
+              color: AppColors.darkGrey4,
+            ),
+          )
+        ),
       ),
       initialRoute: '/',
       getPages: [
-        GetPage(name: '/home', page: () =>  MyHomePage()),
+        GetPage(name: '/home', page: () => const  MyHomePage()),
         GetPage(name: '/maintenance', page: () => MaintenanceView()),
         // GetPage(name: '/update-app', page: () => UpdateVersionView()),
       ],
@@ -84,7 +93,7 @@ class MyApp extends StatelessWidget {
 }
 
 class MyHomePage extends StatefulWidget {
-  MyHomePage({Key? key}) : super(key: key);
+  const MyHomePage({Key? key}) : super(key: key);
 
   @override
   _MyHomePageState createState() => _MyHomePageState();
@@ -152,52 +161,67 @@ class _MyHomePageState extends State<MyHomePage> with WidgetsBindingObserver, Ti
   Widget build(BuildContext context) {
     return GetX<HomeTabController>(
       builder: (controller) {
-        
-        final tab = controller.homeTab.value;
-        return WillPopScope(
-          onWillPop: () async {
-            return true;
-          },
-          child: Scaffold(
-            body: _layoutPage.elementAt(tab.index),
-            bottomNavigationBar: Container(
-              height: 90,
-              padding: const EdgeInsets.symmetric(horizontal: 10.0),
-              decoration: const BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(30.0),
-                  topRight: Radius.circular(30.0),
-                ),
+      
+      final tab = controller.homeTab.value;
+      return WillPopScope(
+        onWillPop: () async {
+          if (tab != HomeTab.home) {
+            Get.until((route) => Get.currentRoute == '/home');
+            return false;
+          } else {
+            bool result = await showDialog(
+              context: context,
+              builder: (ctx) {
+                return DialogConfirmation(
+                  title: 'Peringatan',
+                  desc: 'Anda yakin ingin keluar dari aplikasi',
+                  caps: 'KELUAR',
+                );
+              }
+            );
+            return result;
+          }
+        },
+        child: Scaffold(
+          body: _layoutPage.elementAt(tab.index),
+          bottomNavigationBar: Container(
+            height: 90,
+            padding: const EdgeInsets.symmetric(horizontal: 10.0),
+            decoration: const BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(30.0),
+                topRight: Radius.circular(30.0),
               ),
-              child: Container(
-                      padding: const EdgeInsets.symmetric(horizontal: 9),
-                      child: TabBar(
-                        controller: _tabController,
-                        labelColor: Colors.black,
-                        unselectedLabelColor: Colors.black,
-                        indicatorSize: TabBarIndicatorSize.tab,
-                        // indicatorPadding: EdgeInsets.all(5.0),
-                        indicatorColor: Colors.blue,
-                        indicator: BoxDecoration(
-                          border: Border(
-                            top: BorderSide(color: Color(0xFF350699), width: 3.0),
-                          ),
-                          gradient: LinearGradient(
-                            colors: [
-                              const Color(0xFF2E2AFF).withOpacity(0.1),
-                              const Color(0xFF2E2AFF).withOpacity(0),
-                            ],
-                            begin: Alignment.topCenter,
-                            end: Alignment.bottomCenter,
-                            stops: [0.0, 1.0],
-                            tileMode: TileMode.clamp,
-                          ),
-                        ),
-                        tabs: tabViews,
-                        onTap: _onTapItem,
-                      ),
-                    ),
+            ),
+            child: Container(
+              padding: const EdgeInsets.symmetric(horizontal: 9),
+              child: TabBar(
+                controller: _tabController,
+                labelColor: Colors.black,
+                unselectedLabelColor: Colors.black,
+                indicatorSize: TabBarIndicatorSize.tab,
+                // indicatorPadding: EdgeInsets.all(5.0),
+                indicatorColor: Colors.blue,
+                indicator: BoxDecoration(
+                  border: const Border(
+                    top: BorderSide(color: Color(0xFF350699), width: 3.0),
+                  ),
+                  gradient: LinearGradient(
+                    colors: [
+                      const Color(0xFF2E2AFF).withOpacity(0.1),
+                      const Color(0xFF2E2AFF).withOpacity(0),
+                    ],
+                    begin: Alignment.topCenter,
+                    end: Alignment.bottomCenter,
+                    stops: [0.0, 1.0],
+                    tileMode: TileMode.clamp,
+                  ),
+                ),
+                tabs: tabViews,
+                onTap: _onTapItem,
+              ),
+            ),
           ),
         ));
       }

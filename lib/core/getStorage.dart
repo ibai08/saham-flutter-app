@@ -176,6 +176,7 @@ class SharedHelper {
   static final SharedHelper instance = SharedHelper._internal();
 
   SharedHelper._internal();
+  // ignore: prefer_final_fields
   Map<String, SharedBoxHelper> _boxes = Map();
 
   SharedBoxHelper getBox(String boxName) {

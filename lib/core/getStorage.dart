@@ -1,6 +1,4 @@
 import 'dart:convert';
-
-import 'package:get/state_manager.dart';
 import 'package:get_storage/get_storage.dart';
 
 class ConfigKey {

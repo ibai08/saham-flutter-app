@@ -11,18 +11,10 @@ import 'package:saham_01_app/maintenance.dart';
 import 'package:saham_01_app/models/entities/user.dart';
 import 'package:saham_01_app/splashScreen.dart';
 import 'package:get/get.dart';
-import 'package:flutter_app_badger/flutter_app_badger.dart';
-import 'package:flutter_redux/flutter_redux.dart';
 import 'package:saham_01_app/utils/store/appstate.dart';
-import 'package:saham_01_app/models/entities/inbox.dart';
-import 'package:saham_01_app/utils/store/reducer.dart';
-import 'package:saham_01_app/utils/store/reducer/operation.dart';
-import 'package:saham_01_app/utils/store/reducer/route.dart';
 import 'package:saham_01_app/utils/store/route.dart';
 import 'package:saham_01_app/views/pages/market.dart';
-import 'package:saham_01_app/views/widgets/badgeCountNotif.dart';
 import 'package:saham_01_app/views/widgets/dialogConfirmation.dart';
-import 'package:redux/redux.dart';
 // import 'package:mixpanel_flutter/mixpanel_flutter.dart';
 // import 'package:redux/redux.dart';
 // import 'package:saham_01_app/updateVersion.dart';
@@ -83,6 +75,7 @@ class MyApp extends StatelessWidget {
       initialRoute: '/',
       getPages: [
         GetPage(name: '/home', page: () => const  MyHomePage()),
+        GetPage(name: '/homepage', page: () => Home()),
         GetPage(name: '/maintenance', page: () => MaintenanceView()),
         // GetPage(name: '/update-app', page: () => UpdateVersionView()),
       ],
@@ -163,6 +156,7 @@ class _MyHomePageState extends State<MyHomePage> with WidgetsBindingObserver, Ti
       builder: (controller) {
       
       final tab = controller.homeTab.value;
+      _tabController.animateTo(tab.index);
       return WillPopScope(
         onWillPop: () async {
           if (tab != HomeTab.home) {
@@ -214,7 +208,7 @@ class _MyHomePageState extends State<MyHomePage> with WidgetsBindingObserver, Ti
                     ],
                     begin: Alignment.topCenter,
                     end: Alignment.bottomCenter,
-                    stops: [0.0, 1.0],
+                    stops: const [0.0, 1.0],
                     tileMode: TileMode.clamp,
                   ),
                 ),

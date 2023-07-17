@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:get/get.dart';
 import 'package:get/get_state_manager/get_state_manager.dart';
 import 'package:saham_01_app/constants/app_colors.dart';
 import 'package:saham_01_app/utils/store/appstate.dart';
@@ -102,7 +103,9 @@ class NavMain extends AppBar {
                 height: 50,
                 // decoration: BoxDecoration(border: Border.all(width: 1, color: Colors.black)),
                 child: InkWell(
-                  onTap: () {},
+                  onTap: () {
+                    backPage!();
+                  },
                   child: Image.asset(
                     "assets/icon/light/arrow-left.png",
                     height: 24,

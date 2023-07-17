@@ -4,11 +4,11 @@ import 'package:flutter/material.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
-import 'package:tradersfamily_app/models/flspots.dart';
+import 'package:saham_01_app/models/flspots.dart';
 import 'dart:convert';
 
 class ChartSaham extends StatefulWidget {
-  const ChartSaham({Key key});
+  const ChartSaham({Key? key});
 
   @override
   State<ChartSaham> createState() => _ChartSahamState();
@@ -16,7 +16,7 @@ class ChartSaham extends StatefulWidget {
 
 class _ChartSahamState extends State<ChartSaham> {
   List<Color> gradientColors = [
-    Color.fromRGBO(255, 56, 68, 1.0),
+    const Color.fromRGBO(255, 56, 68, 1.0),
     Colors.white70,
   ];
 
@@ -31,10 +31,10 @@ class _ChartSahamState extends State<ChartSaham> {
     // List<dynamic> items = jsonData['data'];
     List<FlSpot> spots = data.map((item) {
       final dateFormatter = DateFormat('yyyy-MM-dd HH:mm');
-      final date = dateFormatter.parse(item.x);
+      final date = dateFormatter.parse(item.x!);
       final seconds = date.millisecondsSinceEpoch / 1000.0;
       double x = seconds.toDouble();
-      double y = double.tryParse(item.y) ?? 0.0;
+      double y = double.tryParse(item.y!) ?? 0.0;
       return FlSpot(x, y);
     }).toList();
     setState(() {
@@ -46,8 +46,8 @@ class _ChartSahamState extends State<ChartSaham> {
   List<FlSpot> chartData = [];
 
   bool showAvg = false;
-  double minX;
-  double maxX;
+  double? minX;
+  double? maxX;
 
   void updateMaxX() {
     double minChartX = double.infinity;
@@ -73,7 +73,7 @@ class _ChartSahamState extends State<ChartSaham> {
       setState(() {
         DateTime today = DateTime.now();
         DateTime startOfDay = DateTime(today.year, today.month, today.day);
-        DateTime endOfDay = startOfDay.add(Duration(days: 1));
+        DateTime endOfDay = startOfDay.add(const Duration(days: 1));
         chartData = _spots.where((spot) {
           DateTime spotDate = DateTime.fromMillisecondsSinceEpoch(spot.x.toInt() * 1000);
           return spotDate.isAfter(startOfDay) && spotDate.isBefore(endOfDay);
@@ -104,7 +104,7 @@ class _ChartSahamState extends State<ChartSaham> {
         //   child: flSpotsData[0],
         // ),
         // _spots != null ? Text('Berhasil') : Text('Gak Berhasil'), 
-        SizedBox(height: 16.0,),
+        const SizedBox(height: 16.0,),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
@@ -131,7 +131,7 @@ class _ChartSahamState extends State<ChartSaham> {
         case '1D':
           DateTime today = DateTime.now();
           DateTime startOfDay = DateTime(today.year, today.month, today.day);
-          DateTime endOfDay = startOfDay.add(Duration(days: 1));
+          DateTime endOfDay = startOfDay.add(const Duration(days: 1));
           chartData = _spots.where((spot) {
             DateTime spotDate = DateTime.fromMillisecondsSinceEpoch(spot.x.toInt() * 1000);
             return spotDate.isAfter(startOfDay) && spotDate.isBefore(endOfDay);
@@ -139,7 +139,7 @@ class _ChartSahamState extends State<ChartSaham> {
           break;
         case '1W':
           DateTime today = DateTime.now();
-          DateTime oneWeekAgo = today.subtract(Duration(days: 7));
+          DateTime oneWeekAgo = today.subtract(const Duration(days: 7));
           DateTime startOfDay = DateTime(today.year, today.month, today.day);
           chartData = _spots.where((spot) {
             DateTime spotDate = DateTime.fromMillisecondsSinceEpoch(spot.x.toInt() * 1000);
@@ -148,7 +148,7 @@ class _ChartSahamState extends State<ChartSaham> {
           break;
         case '1M':
           DateTime today = DateTime.now();
-          DateTime oneMonthAgo = today.subtract(Duration(days: 30));
+          DateTime oneMonthAgo = today.subtract(const Duration(days: 30));
           DateTime startOfDay = DateTime(today.year, today.month, today.day);
           chartData = _spots.where((spot) {
             DateTime spotDate = DateTime.fromMillisecondsSinceEpoch(spot.x.toInt() * 1000);
@@ -157,7 +157,7 @@ class _ChartSahamState extends State<ChartSaham> {
           break;
         case '3M':
           DateTime today = DateTime.now();
-          DateTime threeWeekAgo = today.subtract(Duration(days: 91));
+          DateTime threeWeekAgo = today.subtract(const Duration(days: 91));
           DateTime startOfDay = DateTime(today.year, today.month, today.day);
           chartData = _spots.where((spot) {
             DateTime spotDate = DateTime.fromMillisecondsSinceEpoch(spot.x.toInt() * 1000);
@@ -166,7 +166,7 @@ class _ChartSahamState extends State<ChartSaham> {
           break;
         case '1Y':
           DateTime today = DateTime.now();
-          DateTime oneYearAgo = today.subtract(Duration(days: 365));
+          DateTime oneYearAgo = today.subtract(const Duration(days: 365));
           DateTime startOfDay = DateTime(today.year, today.month, today.day);
           chartData = _spots.where((spot) {
             DateTime spotDate = DateTime.fromMillisecondsSinceEpoch(spot.x.toInt() * 1000);
@@ -175,7 +175,7 @@ class _ChartSahamState extends State<ChartSaham> {
           break;
         case '5Y':
           DateTime today = DateTime.now();
-          DateTime fiveYearAgo = today.subtract(Duration(days: 1825));
+          DateTime fiveYearAgo = today.subtract(const Duration(days: 1825));
           DateTime startOfDay = DateTime(today.year, today.month, today.day);
           chartData = _spots.where((spot) {
             DateTime spotDate = DateTime.fromMillisecondsSinceEpoch(spot.x.toInt() * 1000);
@@ -188,7 +188,7 @@ class _ChartSahamState extends State<ChartSaham> {
         default:
           DateTime today = DateTime.now();
           DateTime startOfDay = DateTime(today.year, today.month, today.day);
-          DateTime endOfDay = startOfDay.add(Duration(days: 1));
+          DateTime endOfDay = startOfDay.add(const Duration(days: 1));
           chartData = _spots.where((spot) {
             DateTime spotDate = DateTime.fromMillisecondsSinceEpoch(spot.x.toInt() * 1000);
             return spotDate.isAfter(startOfDay) && spotDate.isBefore(endOfDay);
@@ -262,8 +262,8 @@ class _ChartSahamState extends State<ChartSaham> {
               final x = DateTime.fromMillisecondsSinceEpoch(touchedSpot.x.toInt() * 1000);
               final formattedX = DateFormat('yyyy-MM-dd').format(x);
               return LineTooltipItem(
-                '$formattedX',
-                TextStyle(
+                formattedX,
+                const TextStyle(
                   color: Colors.black,
                   fontWeight: FontWeight.bold,
                 ),
@@ -282,9 +282,9 @@ class _ChartSahamState extends State<ChartSaham> {
               FlDotData(
                 show: true,
                 getDotPainter: (spot, percent, barData, index) {
-                  final radius = 5.0; 
-                  final color = Colors.red; 
-                  final strokeWidth = 0.0; 
+                  const radius = 5.0; 
+                  const color = Colors.red; 
+                  const strokeWidth = 0.0; 
 
                   return FlDotCirclePainter(
                     radius: radius,
@@ -329,7 +329,7 @@ class _ChartSahamState extends State<ChartSaham> {
         LineChartBarData(
           spots: chartData,
           isCurved: false,
-          color: Color.fromRGBO(255, 56, 68, 1.0),
+          color: const Color.fromRGBO(255, 56, 68, 1.0),
           barWidth: 1,
           dotData: FlDotData(show: false),
           isStrokeCapRound: false,
@@ -341,7 +341,7 @@ class _ChartSahamState extends State<ChartSaham> {
               colors: gradientColors
                   .map((color) => color.withOpacity(0.5))
                   .toList(),
-                  transform: GradientRotation(180 * (pi / 90))
+                  transform: const GradientRotation(180 * (pi / 90))
             ),
           ),
         ),
@@ -366,11 +366,11 @@ class CustomButtons extends StatelessWidget {
         setActiveButton(buttonText);
       },
       child: Container(
-        padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+        padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
         decoration: BoxDecoration(
-          color: isActive ? Color.fromRGBO(53, 6, 153, 1.0) : null,
+          color: isActive ? const Color.fromRGBO(53, 6, 153, 1.0) : null,
           borderRadius: BorderRadius.circular(8),
-          border: isActive ? Border.all(color: Color.fromRGBO(53, 6, 153, 1.0)) : null
+          border: isActive ? Border.all(color: const Color.fromRGBO(53, 6, 153, 1.0)) : null
         ),
         child: Text(
           buttonText,

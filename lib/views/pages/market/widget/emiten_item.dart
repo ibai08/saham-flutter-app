@@ -1,5 +1,7 @@
+// ignore_for_file: avoid_unnecessary_containers
+
 import 'package:flutter/material.dart';
-import 'package:tradersfamily_app/config/const.dart';
+import '../../../../constants/app_colors.dart';
 
 class EmitenItem extends StatelessWidget {
   @override
@@ -7,28 +9,28 @@ class EmitenItem extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Padding(
-          padding: const EdgeInsets.only( bottom: 10),
+        const Padding(
+          padding: EdgeInsets.only( bottom: 10),
         ),
         Container(
           child: ListView(
             shrinkWrap: true,
-            physics: NeverScrollableScrollPhysics(),
+            physics: const NeverScrollableScrollPhysics(),
             // padding: EdgeInsets.symmetric(horizontal: 10),
             children: <Widget>[
               Container(
                 width: MediaQuery.of(context).size.width,
-                margin: EdgeInsets.only(bottom: 10),
+                margin: const EdgeInsets.only(bottom: 10),
                 height: 70,
-                decoration: BoxDecoration(
+                decoration: const BoxDecoration(
                   color: Colors.white,
-                  borderRadius: BorderRadius.all(Radius.circular(8)),
+                  borderRadius: const BorderRadius.all(const Radius.circular(8)),
                 ),
                 // ITEM 1
                 child: Column(
                   children: [
                     Container(
-                      padding: EdgeInsets.all(15),
+                      padding: const EdgeInsets.all(15),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
@@ -42,13 +44,13 @@ class EmitenItem extends StatelessWidget {
                                   ),
                                 ),
                               ),
-                              SizedBox(width: 8),
+                              const SizedBox(width: 8),
                               Container(
                                 child: Column(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    Text(
+                                    const Text(
                                       'ASLC',
                                       style: TextStyle(
                                         fontSize: 14,
@@ -56,9 +58,9 @@ class EmitenItem extends StatelessWidget {
                                         fontFamily: 'Manrope'
                                       ),
                                     ),
-                                    Text(
+                                    const Text(
                                       'Autopedia Sukses Lestari Tbk.',
-                                      style: TextStyle(
+                                      style: const TextStyle(
                                         fontSize: 10,
                                         fontWeight: FontWeight.w400,
                                         fontFamily: 'Manrope'
@@ -67,12 +69,12 @@ class EmitenItem extends StatelessWidget {
                                   ],
                                 ),
                               ),
-                              SizedBox(width: 95,),
+                              const SizedBox(width: 95,),
                               Container(
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.end,
                                   children: [
-                                    Text(
+                                    const Text(
                                       '101',
                                       style: TextStyle(
                                         fontSize: 14,
@@ -86,7 +88,7 @@ class EmitenItem extends StatelessWidget {
                                         fontSize: 10,
                                         fontWeight: FontWeight.w400,
                                         fontFamily: 'Manrope',
-                                        color: ConstColor.textGreenLight
+                                        color: AppColors.textGreenLight
                                       ),
                                     )
                                   ],
@@ -101,19 +103,19 @@ class EmitenItem extends StatelessWidget {
                 ),
               ),
               // ITEM 2
-              SizedBox(width: 10,),
+              const SizedBox(width: 10,),
               Container(
                 width: MediaQuery.of(context).size.width,
-                margin: EdgeInsets.only(bottom: 10),
+                margin: const EdgeInsets.only(bottom: 10),
                 height: 70,
-                decoration: BoxDecoration(
+                decoration: const BoxDecoration(
                   color: Colors.white,
-                  borderRadius: BorderRadius.all(Radius.circular(8)),
+                  borderRadius: const BorderRadius.all(Radius.circular(8)),
                 ),
                 child: Column(
                   children: [
                     Container(
-                      padding: EdgeInsets.all(15),
+                      padding: const EdgeInsets.all(15),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
@@ -127,12 +129,12 @@ class EmitenItem extends StatelessWidget {
                                   ),
                                 ),
                               ),
-                              SizedBox(width: 8),
+                              const SizedBox(width: 8),
                               Container(
                                 child: Column(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
+                                  children: const [
                                     Text(
                                       'KAYU',
                                       style: TextStyle(
@@ -152,12 +154,13 @@ class EmitenItem extends StatelessWidget {
                                   ],
                                 ),
                               ),
-                              SizedBox(width: 135,),
+                              const SizedBox(width: 135,),
+                              // ignore: avoid_unnecessary_containers
                               Container(
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.end,
                                   children: [
-                                    Text(
+                                    const Text(
                                       '107',
                                       style: TextStyle(
                                         fontSize: 14,
@@ -171,7 +174,7 @@ class EmitenItem extends StatelessWidget {
                                         fontSize: 10,
                                         fontWeight: FontWeight.w400,
                                         fontFamily: 'Manrope',
-                                        color: ConstColor.textGreenLight
+                                        color: AppColors.textGreenLight
                                       ),
                                     )
                                   ],
@@ -186,19 +189,19 @@ class EmitenItem extends StatelessWidget {
                 ),
               ),
               // ITEM 3
-              SizedBox(width: 10,),
+              const SizedBox(width: 10,),
               Container(
                 width: MediaQuery.of(context).size.width,
-                margin: EdgeInsets.only(bottom: 10),
+                margin: const EdgeInsets.only(bottom: 10),
                 height: 70,
-                decoration: BoxDecoration(
+                decoration: const BoxDecoration(
                   color: Colors.white,
-                  borderRadius: BorderRadius.all(Radius.circular(8)),
+                  borderRadius: const BorderRadius.all(Radius.circular(8)),
                 ),
                 child: Column(
                   children: [
                     Container(
-                      padding: EdgeInsets.all(15),
+                      padding: const EdgeInsets.all(15),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
@@ -212,12 +215,12 @@ class EmitenItem extends StatelessWidget {
                                   ),
                                 ),
                               ),
-                              SizedBox(width: 8),
+                              const SizedBox(width: 8),
                               Container(
                                 child: Column(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
+                                  children: const [
                                     Text(
                                       'DILD',
                                       style: TextStyle(
@@ -237,30 +240,28 @@ class EmitenItem extends StatelessWidget {
                                   ],
                                 ),
                               ),
-                              SizedBox(width: 110,),
-                              Container(
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.end,
-                                  children: [
-                                    Text(
-                                      '264',
-                                      style: TextStyle(
-                                        fontSize: 14,
-                                        fontWeight: FontWeight.w600,
-                                        fontFamily: 'Manrope'
-                                      ),
+                              const SizedBox(width: 110,),
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.end,
+                                children: [
+                                  const Text(
+                                    '264',
+                                    style: TextStyle(
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.w600,
+                                      fontFamily: 'Manrope'
                                     ),
-                                    Text(
-                                      '+6(+2.33%)',
-                                      style: TextStyle(
-                                        fontSize: 10,
-                                        fontWeight: FontWeight.w400,
-                                        fontFamily: 'Manrope',
-                                        color: ConstColor.textGreenLight
-                                      ),
-                                    )
-                                  ],
-                                ),
+                                  ),
+                                  Text(
+                                    '+6(+2.33%)',
+                                    style: TextStyle(
+                                      fontSize: 10,
+                                      fontWeight: FontWeight.w400,
+                                      fontFamily: 'Manrope',
+                                      color: AppColors.textGreenLight
+                                    ),
+                                  )
+                                ],
                               ),
                             ],
                           )
@@ -271,19 +272,19 @@ class EmitenItem extends StatelessWidget {
                 ),
               ),
               // ITEM 4
-              SizedBox(width: 10),
+              const SizedBox(width: 10),
               Container(
                 width: MediaQuery.of(context).size.width,
-                margin: EdgeInsets.only(bottom: 10),
+                margin: const EdgeInsets.only(bottom: 10),
                 height: 70,
-                decoration: BoxDecoration(
+                decoration: const BoxDecoration(
                   color: Colors.white,
                   borderRadius: BorderRadius.all(Radius.circular(8)),
                 ),
                 child: Column(
                   children: [
                     Container(
-                      padding: EdgeInsets.all(15),
+                      padding: const EdgeInsets.all(15),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
@@ -297,12 +298,12 @@ class EmitenItem extends StatelessWidget {
                                   ),
                                 ),
                               ),
-                              SizedBox(width: 8),
+                              const SizedBox(width: 8),
                               Container(
                                 child: Column(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
+                                  children: const [
                                     Text(
                                       'DOOH',
                                       style: TextStyle(
@@ -322,12 +323,12 @@ class EmitenItem extends StatelessWidget {
                                   ],
                                 ),
                               ),
-                              SizedBox(width: 125,),
+                              const SizedBox(width: 125,),
                               Container(
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.end,
                                   children: [
-                                    Text(
+                                    const Text(
                                       '73',
                                       style: TextStyle(
                                         fontSize: 14,
@@ -341,7 +342,7 @@ class EmitenItem extends StatelessWidget {
                                         fontSize: 10,
                                         fontWeight: FontWeight.w400,
                                         fontFamily: 'Manrope',
-                                        color: ConstColor.accentRed
+                                        color: AppColors.accentRed
                                       ),
                                     )
                                   ],
@@ -356,24 +357,25 @@ class EmitenItem extends StatelessWidget {
                 ),
               ),
               // ITEM 5
-              SizedBox(width: 10),
+              const SizedBox(width: 10),
               Container(
                 width: MediaQuery.of(context).size.width,
-                margin: EdgeInsets.only(bottom: 10),
+                margin: const EdgeInsets.only(bottom: 10),
                 height: 70,
-                decoration: BoxDecoration(
+                decoration: const BoxDecoration(
                   color: Colors.white,
                   borderRadius: BorderRadius.all(Radius.circular(8)),
                 ),
                 child: Column(
                   children: [
                     Container(
-                      padding: EdgeInsets.all(15),
+                      padding: const EdgeInsets.all(15),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Row(
                             children: [
+                              // ignore: sized_box_for_whitespace
                               Container(
                                 width: 45,
                                 child: CircleAvatar(
@@ -382,12 +384,12 @@ class EmitenItem extends StatelessWidget {
                                   ),
                                 ),
                               ),
-                              SizedBox(width: 8),
+                              const SizedBox(width: 8),
                               Container(
                                 child: Column(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
+                                  children: const [
                                     Text(
                                       'SLIS',
                                       style: TextStyle(
@@ -407,12 +409,12 @@ class EmitenItem extends StatelessWidget {
                                   ],
                                 ),
                               ),
-                              SizedBox(width: 110,),
+                              const SizedBox(width: 110,),
                               Container(
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.end,
                                   children: [
-                                    Text(
+                                    const Text(
                                       '162',
                                       style: TextStyle(
                                         fontSize: 14,
@@ -426,7 +428,7 @@ class EmitenItem extends StatelessWidget {
                                         fontSize: 10,
                                         fontWeight: FontWeight.w400,
                                         fontFamily: 'Manrope',
-                                        color: ConstColor.textGrayLight
+                                        color: AppColors.textGrayLight
                                       ),
                                     )
                                   ],

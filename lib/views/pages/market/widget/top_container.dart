@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:tradersfamily_app/pages/market/widget/line_chart.dart';
+import 'package:saham_01_app/views/pages/market/widget/line_chart.dart';
 
 class MarketCard extends StatelessWidget {
   @override
@@ -19,19 +19,19 @@ class MarketCard extends StatelessWidget {
               Expanded(
                 child: Row(
                   children: [
-                    Text(
+                    const Text(
                       'IHSG',
                       style: TextStyle(
                         fontSize: 16.0,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
-                    SizedBox(width: 8.0),
+                    const SizedBox(width: 8.0),
                     Image.asset('assets/market-close.png'),
                   ],
                 ),
               ),
-              Text(
+              const Text(
                 '6,687.00',
                 style: TextStyle(
                   fontSize: 16.0,
@@ -41,7 +41,7 @@ class MarketCard extends StatelessWidget {
             ],
           ),
           Row(
-            children: [
+            children: const [
               Expanded(
                 child: Text(
                   'Indeks Harga Saham Gabungan',
@@ -59,9 +59,9 @@ class MarketCard extends StatelessWidget {
               ),
             ],
           ),
-          SizedBox(height: 10.0),
-          ChartSaham(),
-          SizedBox(height: 10.0),
+          const SizedBox(height: 10.0),
+          const ChartSaham(),
+          const SizedBox(height: 10.0),
         ],
       ),
     );

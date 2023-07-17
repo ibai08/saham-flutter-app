@@ -1,8 +1,9 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:tradersfamily_app/config/const.dart';
-import 'package:tradersfamily_app/models/emiten.dart';
+
+import '../../../../constants/app_colors.dart';
+import '../../../../models/emiten.dart';
 
 class EmitenCategory extends StatefulWidget {
   @override
@@ -11,10 +12,11 @@ class EmitenCategory extends StatefulWidget {
 
 class _EmitenCategoryState extends State<EmitenCategory> {
   String activeButton = 'Most Active';
-  List<Map<String, String>> activeDataButton = [];
+  List<Map<String, String?>> activeDataButton = [];
 
   Future<EmitenModels> getDataFromJson() async {
-    String jsonString = await rootBundle.loadString('assets/dummy/emitenItem.json');
+    String jsonString =
+        await rootBundle.loadString('assets/dummy/emitenItem.json');
     Map<String, dynamic> jsonData = jsonDecode(jsonString);
     return EmitenModels.fromJson(jsonData);
   }
@@ -24,45 +26,50 @@ class _EmitenCategoryState extends State<EmitenCategory> {
     setState(() {
       activeButton = buttonName;
       if (buttonName == 'Most Active') {
-        activeDataButton = emitenModels.mostActiveData.map((data) => {
-          'imageText': data.imageText,
-          'name': data.name,
-          'companyName': data.companyName,
-          'rank': data.rank,
-          'percentage': data.percentage,
-        }).toList();
+        activeDataButton = emitenModels.mostActiveData?.map((data) => {
+              'imageText': data.imageText,
+              'name': data.name,
+              'companyName': data.companyName,
+              'rank': data.rank,
+              'percentage': data.percentage,
+            }).toList() ??
+            [];
       } else if (buttonName == 'Top Gamer (by %)') {
-        activeDataButton = emitenModels.topGamerData.map((data) => {
-          'imageText': data.imageText,
-          'name': data.name,
-          'companyName': data.companyName,
-          'rank': data.rank,
-          'percentage': data.percentage,
-        }).toList();
+        activeDataButton = emitenModels.topGamerData?.map((data) => {
+              'imageText': data.imageText,
+              'name': data.name,
+              'companyName': data.companyName,
+              'rank': data.rank,
+              'percentage': data.percentage,
+            }).toList() ??
+            [];
       } else if (buttonName == 'Top Loser (by %)') {
-        activeDataButton = emitenModels.topLoserData.map((data) => {
-          'imageText': data.imageText,
-          'name': data.name,
-          'companyName': data.companyName,
-          'rank': data.rank,
-          'percentage': data.percentage,
-        }).toList();
+        activeDataButton = emitenModels.topLoserData?.map((data) => {
+              'imageText': data.imageText,
+              'name': data.name,
+              'companyName': data.companyName,
+              'rank': data.rank,
+              'percentage': data.percentage,
+            }).toList() ??
+            [];
       } else if (buttonName == 'Top Volume') {
-        activeDataButton = emitenModels.topVolumeData.map((data) => {
-          'imageText': data.imageText,
-          'name': data.name,
-          'companyName': data.companyName,
-          'rank': data.rank,
-          'percentage': data.percentage,
-        }).toList();
+        activeDataButton = emitenModels.topVolumeData?.map((data) => {
+              'imageText': data.imageText,
+              'name': data.name,
+              'companyName': data.companyName,
+              'rank': data.rank,
+              'percentage': data.percentage,
+            }).toList() ??
+            [];
       } else {
-        activeDataButton = emitenModels.mostActiveData.map((data) => {
-          'imageText': data.imageText,
-          'name': data.name,
-          'companyName': data.companyName,
-          'rank': data.rank,
-          'percentage': data.percentage,
-        }).toList();
+        activeDataButton = emitenModels.mostActiveData?.map((data) => {
+              'imageText': data.imageText,
+              'name': data.name,
+              'companyName': data.companyName,
+              'rank': data.rank,
+              'percentage': data.percentage,
+            }).toList() ??
+            [];
       }
     });
   }
@@ -70,13 +77,14 @@ class _EmitenCategoryState extends State<EmitenCategory> {
   void _initData() async {
     EmitenModels emitenModels = await getDataFromJson();
     setState(() {
-      activeDataButton = emitenModels.mostActiveData.map((data) => {
-        'imageText': data.imageText,
-        'name': data.name,
-        'companyName': data.companyName,
-        'rank': data.rank,
-        'percentage': data.percentage,
-      }).toList();
+      activeDataButton = emitenModels.mostActiveData?.map((data) => {
+            'imageText': data.imageText,
+            'name': data.name,
+            'companyName': data.companyName,
+            'rank': data.rank,
+            'percentage': data.percentage,
+          }).toList() ??
+          [];
     });
   }
 
@@ -229,7 +237,7 @@ class EmitenItems extends StatelessWidget {
                         fontSize: 14,
                         fontWeight: FontWeight.w600,
                         fontFamily: 'Manrope',
-                        color: ConstColor.textGreenLight,
+                        color: AppColors.textGreenLight,
                       ),
                     ),
                   ],
@@ -244,9 +252,10 @@ class EmitenItems extends StatelessWidget {
 }
 
 class EmitenItemsLooping extends StatelessWidget {
-  final List<Map<String, String>> emitenData;
+  final List<Map<String, String?>> emitenData;
 
-  EmitenItemsLooping(this.emitenData);
+  // ignore: use_key_in_widget_constructors
+  const EmitenItemsLooping(this.emitenData);
 
   @override
   Widget build(BuildContext context) {
@@ -258,11 +267,11 @@ class EmitenItemsLooping extends StatelessWidget {
             itemCount: emitenData.length,
             itemBuilder: (context, index) {
               return EmitenItems(
-                emitenData[index]['imageText'],
-                emitenData[index]['name'],
-                emitenData[index]['companyName'],
-                emitenData[index]['rank'],
-                emitenData[index]['percentage'],
+                emitenData[index]['imageText'] ?? '',
+                emitenData[index]['name'] ?? '',
+                emitenData[index]['companyName'] ?? '',
+                emitenData[index]['rank'] ?? '',
+                emitenData[index]['percentage'] ?? '',
               );
             },
           )

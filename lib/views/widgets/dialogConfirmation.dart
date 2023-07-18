@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 
 class DialogConfirmation extends StatefulWidget {
-  DialogConfirmation(
+  // ignore: use_key_in_widget_constructors
+  const DialogConfirmation(
       {this.title, this.desc, this.action, this.caps, this.tapWidget});
   final String? title;
   final String? desc;
@@ -39,19 +40,19 @@ class _DialogConfirmationState extends State<DialogConfirmation> {
     }
 
     return AlertDialog(
-      contentPadding: EdgeInsets.only(left: 20, right: 20, top: 15, bottom: 0),
-      actionsPadding: EdgeInsets.only(bottom: 5, right: 10),
-      titlePadding: EdgeInsets.only(top: 20, left: 20, right: 20, bottom: 0),
+      contentPadding: const EdgeInsets.only(left: 20, right: 20, top: 15, bottom: 0),
+      actionsPadding: const EdgeInsets.only(bottom: 5, right: 10),
+      titlePadding: const EdgeInsets.only(top: 20, left: 20, right: 20, bottom: 0),
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(10),
       ),
       title: Text(
         title!,
-        style: TextStyle(fontWeight: FontWeight.w600, fontSize: 16),
+        style: const TextStyle(fontWeight: FontWeight.w600, fontSize: 16),
       ),
       content: Text(
         desc!,
-        style: TextStyle(color: Colors.black87, fontSize: 14),
+        style: const TextStyle(color: Colors.black87, fontSize: 14),
       ),
       actions: <Widget>[
         TextButton(

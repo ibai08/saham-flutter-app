@@ -17,9 +17,9 @@ class BadgeCountNotif extends StatelessWidget {
             height: 15,
             width: 15,
             child: Center(
-              child: new Text(
+              child:  Text(
                 inboxCount! > 99 ? "99+" : inboxCount.toString(),
-                style: new TextStyle(
+                style: const TextStyle(
                     color: Colors.white,
                     fontSize: 8.5,
                     fontWeight: FontWeight.bold),
@@ -27,6 +27,6 @@ class BadgeCountNotif extends StatelessWidget {
               ),
             ),
           )
-        : SizedBox();
+        : const SizedBox();
   }
 }

@@ -2,19 +2,21 @@ export 'package:saham_01_app/views/pages/market/widget/slider.dart';
 import 'package:flutter/material.dart';
 
 class IndexSaham extends StatelessWidget {
+  const IndexSaham({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        SizedBox(height: 10,),
+        const SizedBox(height: 10,),
         
         // Saham Box Slider
         SingleChildScrollView(
           scrollDirection: Axis.horizontal,
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
+            children: const <Widget>[
               IndexSahamBox('IDX30', '-0.43'),
               SizedBox(width: 10),
               IndexSahamBox('LQ45', '+0.64'),
@@ -34,7 +36,7 @@ class IndexSahamBox extends StatelessWidget {
   final String buttonText;
   final String descText;
 
-  IndexSahamBox(this.buttonText, this.descText);
+  const IndexSahamBox(this.buttonText, this.descText, {Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -49,8 +51,8 @@ class IndexSahamBox extends StatelessWidget {
       child: Container(
         width: 120,
         height: 94,
-        margin: EdgeInsets.only(bottom: 10.0),
-        padding: EdgeInsets.all(8),
+        margin: const EdgeInsets.only(bottom: 10.0),
+        padding: const EdgeInsets.all(8),
         decoration: BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.circular(8),
@@ -60,14 +62,14 @@ class IndexSahamBox extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Container(
-              padding: EdgeInsets.all(10.0),
+              padding: const EdgeInsets.all(10.0),
               decoration: BoxDecoration(
-                color: Color.fromRGBO(53, 6, 153, 1.0),
+                color: const Color.fromRGBO(53, 6, 153, 1.0),
                 borderRadius: BorderRadius.circular(8.0)
               ),
               child: Text(
                 buttonText,
-                style: TextStyle(
+                style: const TextStyle(
                   color: Colors.white,
                   fontWeight: FontWeight.bold,
                   fontSize: 14.0,
@@ -75,7 +77,7 @@ class IndexSahamBox extends StatelessWidget {
                 ),
               ),
             ),
-            SizedBox(height: 10,),
+            const SizedBox(height: 10,),
             Text(
               descText,
               style: TextStyle(

@@ -6,6 +6,8 @@ import '../../../../constants/app_colors.dart';
 import '../../../../models/emiten.dart';
 
 class EmitenCategory extends StatefulWidget {
+  const EmitenCategory({Key? key}) : super(key: key);
+
   @override
   _EmitenCategoryState createState() => _EmitenCategoryState();
 }
@@ -99,22 +101,22 @@ class _EmitenCategoryState extends State<EmitenCategory> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        SizedBox(height: 10),
+        const SizedBox(height: 10),
         SingleChildScrollView(
           scrollDirection: Axis.horizontal,
           child: Row(
             children: <Widget>[
               CustomButtons('Most Active', activeButton, setActiveButton),
-              SizedBox(width: 10),
+              const SizedBox(width: 10),
               CustomButtons('Top Gamer (by %)', activeButton, setActiveButton),
-              SizedBox(width: 10),
+              const SizedBox(width: 10),
               CustomButtons('Top Loser (by %)', activeButton, setActiveButton),
-              SizedBox(width: 10),
+              const SizedBox(width: 10),
               CustomButtons('Top Volume', activeButton, setActiveButton),
             ],
           ),
         ),
-        SizedBox(height: 10),
+        const SizedBox(height: 10),
         EmitenItemsLooping(activeDataButton),
       ],
     );
@@ -126,7 +128,7 @@ class CustomButtons extends StatelessWidget {
   final String activeButton;
   final Function setActiveButton;
 
-  CustomButtons(this.buttonText, this.activeButton, this.setActiveButton);
+  const CustomButtons(this.buttonText, this.activeButton, this.setActiveButton, {Key? key}) : super(key: key);
 
   bool get isActive => buttonText == activeButton;
 
@@ -137,12 +139,12 @@ class CustomButtons extends StatelessWidget {
         setActiveButton(buttonText);
       },
       child: Container(
-        padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
         decoration: BoxDecoration(
-          color: isActive ? Color.fromRGBO(46, 42, 255, 0.5) : null,
+          color: isActive ? const Color.fromRGBO(46, 42, 255, 0.5) : null,
           borderRadius: BorderRadius.circular(8),
           border: isActive
-              ? Border.all(color: Color.fromRGBO(53, 6, 153, 1.0))
+              ? Border.all(color: const Color.fromRGBO(53, 6, 153, 1.0))
               : Border.all(color: Colors.grey),
         ),
         child: Text(
@@ -164,37 +166,37 @@ class EmitenItems extends StatelessWidget {
   final String rank;
   final String percentage;
 
-  EmitenItems(
+  const EmitenItems(
     this.imageText,
     this.name,
     this.companyName,
     this.rank,
-    this.percentage,
-  );
+    this.percentage, {Key? key}
+  ) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.only(bottom: 10),
-      padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-      decoration: BoxDecoration(
+      margin: const EdgeInsets.only(bottom: 10),
+      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+      decoration: const BoxDecoration(
         color: Colors.white,
-        borderRadius: BorderRadius.all(Radius.circular(8)),
+        borderRadius: const BorderRadius.all(Radius.circular(8)),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Container(
-            padding: EdgeInsets.only(left: 3, bottom: 3, top: 3),
+            padding: const EdgeInsets.only(left: 3, bottom: 3, top: 3),
             child: Row(
               children: [
-                Container(
+                SizedBox(
                   width: 45,
                   child: CircleAvatar(
                     child: Image.asset(imageText),
                   ),
                 ),
-                SizedBox(width: 8),
+                const SizedBox(width: 8),
                 Expanded(
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -202,7 +204,7 @@ class EmitenItems extends StatelessWidget {
                     children: [
                       Text(
                         name,
-                        style: TextStyle(
+                        style: const TextStyle(
                           fontSize: 14,
                           fontWeight: FontWeight.w600,
                           fontFamily: 'Manrope',
@@ -210,7 +212,7 @@ class EmitenItems extends StatelessWidget {
                       ),
                       Text(
                         companyName,
-                        style: TextStyle(
+                        style: const TextStyle(
                           fontSize: 10,
                           fontWeight: FontWeight.w400,
                           fontFamily: 'Manrope',
@@ -219,13 +221,13 @@ class EmitenItems extends StatelessWidget {
                     ],
                   ),
                 ),
-                SizedBox(width: 75),
+                const SizedBox(width: 75),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.end,
                   children: [
                     Text(
                       rank,
-                      style: TextStyle(
+                      style: const TextStyle(
                         fontSize: 14,
                         fontWeight: FontWeight.w600,
                         fontFamily: 'Manrope',

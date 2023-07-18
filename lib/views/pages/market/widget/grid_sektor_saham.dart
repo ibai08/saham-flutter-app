@@ -5,7 +5,7 @@ class GridSektor extends StatefulWidget {
   final String sektorImage;
   final String sektorPrice;
 
-  GridSektor(this.sektorText, this.sektorImage, this.sektorPrice);
+  const GridSektor(this.sektorText, this.sektorImage, this.sektorPrice, {Key? key}) : super(key: key);
 
   @override
   _GridSektorState createState() => _GridSektorState();
@@ -41,7 +41,7 @@ class _GridSektorState extends State<GridSektor> {
           child: Container(
             width: containerWidth,
             height: containerHeight,
-            padding: EdgeInsets.all(10),
+            padding: const EdgeInsets.all(10),
             decoration: BoxDecoration(
               color: Colors.white,
               borderRadius: BorderRadius.circular(8),
@@ -52,8 +52,8 @@ class _GridSektorState extends State<GridSektor> {
               children: [
                 Expanded(
                   child: Container(
-                    padding: EdgeInsets.only(top: 10.0),
-                    decoration: BoxDecoration(
+                    padding: const EdgeInsets.only(top: 10.0),
+                    decoration: const BoxDecoration(
                       color: Colors.white,
                     ),
                     child: Image.asset(
@@ -63,28 +63,24 @@ class _GridSektorState extends State<GridSektor> {
                     ),
                   ),
                 ),
-                SizedBox(width: 10),
-                Container(
-                  child: Text(
-                    widget.sektorText,
-                    style: TextStyle(
-                      fontSize: 14,
-                      fontFamily: 'Manrope',
-                      fontWeight: FontWeight.w500,
-                      color: Colors.black,
-                    ),
+                const SizedBox(width: 10),
+                Text(
+                  widget.sektorText,
+                  style: const TextStyle(
+                    fontSize: 14,
+                    fontFamily: 'Manrope',
+                    fontWeight: FontWeight.w500,
+                    color: Colors.black,
                   ),
                 ),
-                SizedBox(height: 6),
-                Container(
-                  child: Text(
-                    widget.sektorPrice,
-                    style: TextStyle(
-                      fontSize: 14,
-                      fontFamily: 'Manrope',
-                      fontWeight: FontWeight.w500,
-                      color: Colors.red,
-                    ),
+                const SizedBox(height: 6),
+                Text(
+                  widget.sektorPrice,
+                  style: const TextStyle(
+                    fontSize: 14,
+                    fontFamily: 'Manrope',
+                    fontWeight: FontWeight.w500,
+                    color: Colors.red,
                   ),
                 ),
               ],

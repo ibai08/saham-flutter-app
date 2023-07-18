@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 
 class EmitenCategory extends StatefulWidget {
+  const EmitenCategory({Key? key}) : super(key: key);
+
   @override
   _EmitenCategoryState createState() => _EmitenCategoryState();
 }
@@ -29,7 +31,7 @@ class _EmitenCategoryState extends State<EmitenCategory> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        SizedBox(height: 10,),
+        const SizedBox(height: 10,),
         
         // Button
         SingleChildScrollView(
@@ -37,18 +39,18 @@ class _EmitenCategoryState extends State<EmitenCategory> {
           child: Row(
             children: <Widget>[
               CustomButtons('Most Active', activeButton, setActiveButton),
-              SizedBox(width: 10),
+              const SizedBox(width: 10),
               CustomButtons('Top Gamer (by %)', activeButton, setActiveButton),
-              SizedBox(width: 10),
+              const SizedBox(width: 10),
               CustomButtons('Top Loser (by %)', activeButton, setActiveButton),
-              SizedBox(width: 10),
+              const SizedBox(width: 10),
               CustomButtons('Top Volume', activeButton, setActiveButton),
             ],
           ),
         ),
         Text(
           dataToShow,
-          style: TextStyle(
+          style: const TextStyle(
             fontSize: 16,
             fontWeight: FontWeight.bold,
           ),
@@ -63,7 +65,7 @@ class CustomButtons extends StatelessWidget {
   final String activeButton;
   final Function setActiveButton;
 
-  CustomButtons(this.buttonText, this.activeButton, this.setActiveButton);
+  const CustomButtons(this.buttonText, this.activeButton, this.setActiveButton, {Key? key}) : super(key: key);
 
   bool get isActive => buttonText == activeButton;
 
@@ -74,11 +76,11 @@ class CustomButtons extends StatelessWidget {
         setActiveButton(buttonText);
       },
       child: Container(
-        padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
         decoration: BoxDecoration(
-          color: isActive ? Color.fromRGBO(46, 42, 255, 0.5) : null,
+          color: isActive ? const Color.fromRGBO(46, 42, 255, 0.5) : null,
           borderRadius: BorderRadius.circular(8),
-          border: isActive ? Border.all(color: Color.fromRGBO(53, 6, 153, 1.0)) : Border.all(color: Colors.grey)
+          border: isActive ? Border.all(color: const Color.fromRGBO(53, 6, 153, 1.0)) : Border.all(color: Colors.grey)
         ),
         child: Text(
           buttonText,

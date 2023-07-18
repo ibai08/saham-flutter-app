@@ -56,35 +56,31 @@ class _MarketPageState extends State<MarketPage> {
       ),
       body: ListView(
         children: <Widget>[
+          MarketCard(),
           Container(
-            child: MarketCard(),
-          ),
-          Container(
-            margin: EdgeInsets.symmetric(vertical: 6.0, horizontal: 16.0),
+            margin: const EdgeInsets.symmetric(vertical: 6.0, horizontal: 16.0),
             child: Column(
               children: [
-                Container(
-                  child: StockInfoRow(
-                    title1: 'Open',
-                    value1: '6,704.23',
-                    title2: 'Lot',
-                    value2: '179.42M',
-                    title3: 'High',
-                    value3: '6,727.29',
-                    title4: 'Value',
-                    value4: '7.66T',
-                    title5: 'Low',
-                    value5: '6,669.24',
-                    title6: 'Freq',
-                    value6: '12.20M',
-                  ),
+                const StockInfoRow(
+                  title1: 'Open',
+                  value1: '6,704.23',
+                  title2: 'Lot',
+                  value2: '179.42M',
+                  title3: 'High',
+                  value3: '6,727.29',
+                  title4: 'Value',
+                  value4: '7.66T',
+                  title5: 'Low',
+                  value5: '6,669.24',
+                  title6: 'Freq',
+                  value6: '12.20M',
                 ),
                 Container(
-                  margin: EdgeInsets.only(top: 16.0, right: 16.0),
+                  margin: const EdgeInsets.only(top: 16.0, right: 16.0),
                   child: Column(
                     children: [
                       Row(
-                        children: [
+                        children: const [
                           Text(
                             'Emiten Berdasarkan Kategori',
                             style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600, height: 1.8, fontFamily: 'Manrope'),
@@ -103,7 +99,7 @@ class _MarketPageState extends State<MarketPage> {
                   ),
                 ),
                 Container(
-                  margin: EdgeInsets.only(bottom: 20.0, right: 16.0),
+                  margin: const EdgeInsets.only(bottom: 20.0, right: 16.0),
                   child: Column(
                     children: [
                       EmitenSlider.EmitenCategory(),
@@ -111,14 +107,14 @@ class _MarketPageState extends State<MarketPage> {
                       Row(
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
-                          Text(
+                          const Text(
                             'Lihat Semua',
                             style: TextStyle(
                               fontSize: 12.0,
                               fontFamily: 'Manrope',          
                             ),
                           ),
-                          SizedBox(width: 3.5),
+                          const SizedBox(width: 3.5),
                           Image.asset(
                             'assets/icon/light/arrow-right.png',
                             width: 13.5,
@@ -129,35 +125,33 @@ class _MarketPageState extends State<MarketPage> {
                   ),
                 ),
                 Container(
-                  margin: EdgeInsets.only(bottom: 20.0, right: 16.0),
+                  margin: const EdgeInsets.only(bottom: 20.0, right: 16.0),
                   child: Column(
                     children: [
-                      Align(
+                      const Align(
                         alignment: AlignmentDirectional.centerStart,
-                        child: Container(
-                          child: Text(
-                            'Index Saham',
-                            style: TextStyle(
-                              fontSize: 16,
-                              fontWeight: FontWeight.w600,
-                              fontFamily: 'Manrope'
-                            ),
+                        child: Text(
+                          'Index Saham',
+                          style: TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.w600,
+                            fontFamily: 'Manrope'
                           ),
                         ),
                       ),
-                      SizedBox(width: 10),
+                      const SizedBox(width: 10),
                       IndexSaham(),
                       Row(
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
-                          Text(
+                          const Text(
                             'Lihat Semua',
                             style: TextStyle(
                               fontSize: 12.0,
                               fontFamily: 'Manrope',      
                             ),
                           ),
-                          SizedBox(width: 3.5),
+                          const SizedBox(width: 3.5),
                           Image.asset(
                             'assets/icon/light/arrow-right.png',
                             width: 13.5,
@@ -168,29 +162,27 @@ class _MarketPageState extends State<MarketPage> {
                   ),
                 ),
                 Container(
-                  margin: EdgeInsets.only(bottom: 16.0, right: 16.0),
+                  margin: const EdgeInsets.only(bottom: 16.0, right: 16.0),
                   child: Column(
                     children: [
-                      Align(
-                        alignment: AlignmentDirectional.centerStart,
-                        child: Container(
-                          child: Text(
-                            'Sektor Saham',
-                            style: TextStyle(
-                              fontSize: 16,
-                              fontWeight: FontWeight.w600,
-                              fontFamily: 'Manrope',
-                            ),
+                      const Align(
+                      alignment: AlignmentDirectional.centerStart,
+                        child: Text(
+                          'Sektor Saham',
+                          style: TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.w600,
+                            fontFamily: 'Manrope',
                           ),
                         ),
                       ),
-                      SizedBox(height: 16),
+                      const SizedBox(height: 16),
                       GridView.count(
                         mainAxisSpacing: 10,
                         crossAxisSpacing: 10,
                         crossAxisCount: 3,
                         shrinkWrap: true,
-                        physics: NeverScrollableScrollPhysics(),
+                        physics: const NeverScrollableScrollPhysics(),
                         children: [
                           GridSektor('Bahan Baku', 'assets/package.png', '-0.97%'),
                           GridSektor('Primer', 'assets/coffee.png', '-0.35%'),

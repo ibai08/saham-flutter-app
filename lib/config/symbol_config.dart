@@ -1,0 +1,18 @@
+List<Map<String, String>> symbolConfig = [
+  {'symbol': 'BBCA', 'title': 'Bank Central Asia Tbk.'},
+  {'symbol': 'PACK', 'title': 'Solusi Kemasan Digital Tbk.'},
+  {'symbol': 'CHIP', 'title': 'Pelita Teknologi Global Tbk.'},
+  {'symbol': 'VAST', 'title': 'Vastland Indonesia Tbk.'},
+  {'symbol': 'HILL', 'title': 'Hillcon Tbk.'},
+  {'symbol': 'HALO', 'title': 'Haloni Jane Tbk.'},
+  {'symbol': 'PTMP', 'title': 'Mitra Pack Tbk.'},
+  {'symbol': 'TCKA', 'title': 'Tigaraksa Satria Tbk.'},
+  {'symbol': 'BDKR', 'title': 'Berdikari pondasi Perkasa Tbk.'},
+  {'symbol': 'FUTR', 'title': 'Lini Imaji Kreasi Ekosistem Tbk.'},
+  {'symbol': 'TFCO', 'title': 'Tifico Fiber Indonesia Tbk.'},
+  {'symbol': 'TELE', 'title': 'Omni Inovasi Indonesia Tbk.'},
+  {'symbol': 'PGEO', 'title': 'Pertamina Geothermal Energy Tbk.'},
+  {'symbol': 'TCID', 'title': 'Mandom Indonesia Tbk.'},
+  {'symbol': 'TIFA', 'title': 'Tifa Finance Tbk.'},
+  {'symbol': 'TINS', 'title': 'Timah Tbk.'},
+];

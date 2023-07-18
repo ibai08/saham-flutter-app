@@ -8,7 +8,7 @@ import 'package:saham_01_app/models/flspots.dart';
 import 'dart:convert';
 
 class ChartSaham extends StatefulWidget {
-  const ChartSaham({Key? key});
+  const ChartSaham({Key? key}) :super(key: key);
 
   @override
   State<ChartSaham> createState() => _ChartSahamState();

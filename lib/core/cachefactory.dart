@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_collection_literals
+
 import 'dart:convert';
 
 import 'package:mutex/mutex.dart';

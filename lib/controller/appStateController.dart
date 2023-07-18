@@ -1,7 +1,11 @@
+// ignore_for_file: file_names
+
 import 'package:get/get.dart';
 
 import '../models/entities/user.dart';
 import '../utils/store/route.dart';
+
+
 
 class AppStateController extends GetxController {
   var user = UserInfo.init().obs;

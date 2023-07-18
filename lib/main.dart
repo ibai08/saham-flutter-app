@@ -4,15 +4,14 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:saham_01_app/config/tab_list.dart';
 import 'package:saham_01_app/constants/app_colors.dart';
-import 'package:saham_01_app/controller/homeTabController.dart';
+import 'package:saham_01_app/controller/appStatesController.dart';
+// import 'package:saham_01_app/controller/homeTabController.dart';
 import 'package:saham_01_app/firebase_options.dart';
 import 'package:flutter/material.dart';
 import 'package:saham_01_app/maintenance.dart';
 import 'package:saham_01_app/models/entities/user.dart';
 import 'package:saham_01_app/splashScreen.dart';
 import 'package:get/get.dart';
-import 'package:saham_01_app/utils/store/appstate.dart';
-import 'package:saham_01_app/utils/store/route.dart';
 import 'package:saham_01_app/views/pages/market.dart';
 import 'package:saham_01_app/views/widgets/dialogConfirmation.dart';
 // import 'package:mixpanel_flutter/mixpanel_flutter.dart';
@@ -40,18 +39,17 @@ void main() async {
   //     ));
 
   
-  Get.put(HomeTabController());
   runApp(const MyApp());
 }
 
-class AppStateController extends GetxController {
-  final _storage = GetStorage();
+// class AppStateController extends GetxController {
+//   final _storage = GetStorage();
 
-  final Rx<AppState> _state = AppState(
-    user: UserInfo.init(),
-    homeTab: HomeTab.home
-  ).obs;
-}
+//   final Rx<AppState> _state = AppState(
+//     user: UserInfo.init(),
+//     homeTab: HomeTab.home
+//   ).obs;
+// }
 
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
@@ -81,6 +79,9 @@ class MyApp extends StatelessWidget {
       ],
       home: const SplashScreen(),
       debugShowCheckedModeBanner: false,
+      initialBinding: BindingsBuilder(() {
+        Get.put<AppStateController>(AppStateController());
+      }),
     );
   }
 }
@@ -103,17 +104,17 @@ class _MyHomePageState extends State<MyHomePage> with WidgetsBindingObserver, Ti
   ];
 
   late TabController _tabController;
-  late HomeTabController _homeTabController;
 
   void _onTapItem(int index) {
-    if (_homeTabController.currentTab == HomeTab.values[index]) {
+    final appStateController = Get.find<AppStateController>();
+    if (appStateController.currentTab == HomeTab.values[index]) {
       StatefulWidget temp = _layoutPage[index];
       if (temp is ScrollUpWidget) {
         (temp as ScrollUpWidget).onResetTab();
       }
     }
     // FirebaseCrashlytics.instance.log("Home Screen: ${HomeTab.values[index]}");
-    _homeTabController.setHomeTab(HomeTab.values[index]);
+    appStateController.setHomeTab(HomeTab.values[index]);
   }
 
   // void _onTapItem(int index) {
@@ -136,7 +137,7 @@ class _MyHomePageState extends State<MyHomePage> with WidgetsBindingObserver, Ti
   @override
   void initState() {
     super.initState();
-    _homeTabController = Get.put(HomeTabController());
+    // _homeTabController = Get.put(HomeTabController());
     _tabController = TabController(length: tabViews.length, vsync: this);
   }
 
@@ -152,7 +153,7 @@ class _MyHomePageState extends State<MyHomePage> with WidgetsBindingObserver, Ti
   @override
 
   Widget build(BuildContext context) {
-    return GetX<HomeTabController>(
+    return GetX<AppStateController>(
       builder: (controller) {
       
       final tab = controller.homeTab.value;

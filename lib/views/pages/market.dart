@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:saham_01_app/constants/app_colors.dart';
-import 'package:saham_01_app/controller/homeTabController.dart';
-import 'package:saham_01_app/utils/store/route.dart';
+import 'package:saham_01_app/controller/appStatesController.dart';
 // import 'package:tradersfamily_app/appbar/navmain.dart';
 import 'package:saham_01_app/views/pages/market/widget/index_saham.dart';
 // import 'package:tradersfamily_app/pages/market/widget/slider.dart';
@@ -13,7 +12,6 @@ import 'package:saham_01_app/views/pages/market/widget/emiten_slider.dart' as Em
 
 
 
-import '../../config/tab_list.dart';
 import '../appbar/navmain.dart';
 
 
@@ -23,7 +21,7 @@ class MarketPage extends StatefulWidget {
 }
 
 class _MarketPageState extends State<MarketPage> {
-  final HomeTabController homeTabController = Get.put(HomeTabController());
+  final AppStateController appStateController = Get.put(AppStateController());
   // late TabController _tabController;
 
   // @override
@@ -51,7 +49,7 @@ class _MarketPageState extends State<MarketPage> {
         backPage: () async {
           // Get.until(ModalRoute.withName("/home"));
           Get.toNamed('/home');
-          homeTabController.setHomeTab(HomeTab.home);
+          appStateController.setHomeTab(HomeTab.home);
           // _tabController.index = homeTabController.homeTab.value.index;
           print("berhasil");
         },

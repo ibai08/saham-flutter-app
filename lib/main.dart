@@ -104,6 +104,7 @@ class _MyHomePageState extends State<MyHomePage> with WidgetsBindingObserver, Ti
   ];
 
   late TabController _tabController;
+  final appStateController = Get.find<AppStateController>();
 
   void _onTapItem(int index) {
     final appStateController = Get.find<AppStateController>();
@@ -161,13 +162,13 @@ class _MyHomePageState extends State<MyHomePage> with WidgetsBindingObserver, Ti
       return WillPopScope(
         onWillPop: () async {
           if (tab != HomeTab.home) {
-            Get.until((route) => Get.currentRoute == '/home');
+            appStateController.setAppState(Operation.bringToHome, HomeTab.home);
             return false;
           } else {
             bool result = await showDialog(
               context: context,
               builder: (ctx) {
-                return DialogConfirmation(
+                return const DialogConfirmation(
                   title: 'Peringatan',
                   desc: 'Anda yakin ingin keluar dari aplikasi',
                   caps: 'KELUAR',

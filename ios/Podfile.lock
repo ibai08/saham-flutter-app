@@ -1,9 +1,20 @@
 PODS:
+  - device_info (0.0.1):
+    - Flutter
+  - Firebase/Analytics (10.6.0):
+    - Firebase/Core
+  - Firebase/Core (10.6.0):
+    - Firebase/CoreOnly
+    - FirebaseAnalytics (~> 10.6.0)
   - Firebase/CoreOnly (10.6.0):
     - FirebaseCore (= 10.6.0)
   - Firebase/RemoteConfig (10.6.0):
     - Firebase/CoreOnly
     - FirebaseRemoteConfig (~> 10.6.0)
+  - firebase_analytics (10.1.6):
+    - Firebase/Analytics (= 10.6.0)
+    - firebase_core
+    - Flutter
   - firebase_core (2.8.0):
     - Firebase/CoreOnly (= 10.6.0)
     - Flutter
@@ -13,6 +24,24 @@ PODS:
     - Flutter
   - FirebaseABTesting (10.12.0):
     - FirebaseCore (~> 10.0)
+  - FirebaseAnalytics (10.6.0):
+    - FirebaseAnalytics/AdIdSupport (= 10.6.0)
+    - FirebaseCore (~> 10.0)
+    - FirebaseInstallations (~> 10.0)
+    - GoogleUtilities/AppDelegateSwizzler (~> 7.8)
+    - GoogleUtilities/MethodSwizzler (~> 7.8)
+    - GoogleUtilities/Network (~> 7.8)
+    - "GoogleUtilities/NSData+zlib (~> 7.8)"
+    - nanopb (< 2.30910.0, >= 2.30908.0)
+  - FirebaseAnalytics/AdIdSupport (10.6.0):
+    - FirebaseCore (~> 10.0)
+    - FirebaseInstallations (~> 10.0)
+    - GoogleAppMeasurement (= 10.6.0)
+    - GoogleUtilities/AppDelegateSwizzler (~> 7.8)
+    - GoogleUtilities/MethodSwizzler (~> 7.8)
+    - GoogleUtilities/Network (~> 7.8)
+    - "GoogleUtilities/NSData+zlib (~> 7.8)"
+    - nanopb (< 2.30910.0, >= 2.30908.0)
   - FirebaseCore (10.6.0):
     - FirebaseCoreInternal (~> 10.0)
     - GoogleUtilities/Environment (~> 7.8)
@@ -33,11 +62,46 @@ PODS:
   - Flutter (1.0.0)
   - flutter_app_badger (1.3.0):
     - Flutter
+  - FMDB (2.7.5):
+    - FMDB/standard (= 2.7.5)
+  - FMDB/standard (2.7.5)
+  - GoogleAppMeasurement (10.6.0):
+    - GoogleAppMeasurement/AdIdSupport (= 10.6.0)
+    - GoogleUtilities/AppDelegateSwizzler (~> 7.8)
+    - GoogleUtilities/MethodSwizzler (~> 7.8)
+    - GoogleUtilities/Network (~> 7.8)
+    - "GoogleUtilities/NSData+zlib (~> 7.8)"
+    - nanopb (< 2.30910.0, >= 2.30908.0)
+  - GoogleAppMeasurement/AdIdSupport (10.6.0):
+    - GoogleAppMeasurement/WithoutAdIdSupport (= 10.6.0)
+    - GoogleUtilities/AppDelegateSwizzler (~> 7.8)
+    - GoogleUtilities/MethodSwizzler (~> 7.8)
+    - GoogleUtilities/Network (~> 7.8)
+    - "GoogleUtilities/NSData+zlib (~> 7.8)"
+    - nanopb (< 2.30910.0, >= 2.30908.0)
+  - GoogleAppMeasurement/WithoutAdIdSupport (10.6.0):
+    - GoogleUtilities/AppDelegateSwizzler (~> 7.8)
+    - GoogleUtilities/MethodSwizzler (~> 7.8)
+    - GoogleUtilities/Network (~> 7.8)
+    - "GoogleUtilities/NSData+zlib (~> 7.8)"
+    - nanopb (< 2.30910.0, >= 2.30908.0)
+  - GoogleUtilities/AppDelegateSwizzler (7.11.1):
+    - GoogleUtilities/Environment
+    - GoogleUtilities/Logger
+    - GoogleUtilities/Network
   - GoogleUtilities/Environment (7.11.1):
     - PromisesObjC (< 3.0, >= 1.2)
   - GoogleUtilities/Logger (7.11.1):
     - GoogleUtilities/Environment
+  - GoogleUtilities/MethodSwizzler (7.11.1):
+    - GoogleUtilities/Logger
+  - GoogleUtilities/Network (7.11.1):
+    - GoogleUtilities/Logger
+    - "GoogleUtilities/NSData+zlib"
+    - GoogleUtilities/Reachability
   - "GoogleUtilities/NSData+zlib (7.11.1)"
+  - GoogleUtilities/Reachability (7.11.1):
+    - GoogleUtilities/Logger
   - GoogleUtilities/UserDefaults (7.11.1):
     - GoogleUtilities/Logger
   - Mixpanel-swift (4.1.0):
@@ -46,16 +110,30 @@ PODS:
   - mixpanel_flutter (2.1.1):
     - Flutter
     - Mixpanel-swift (= 4.1.0)
+  - nanopb (2.30909.0):
+    - nanopb/decode (= 2.30909.0)
+    - nanopb/encode (= 2.30909.0)
+  - nanopb/decode (2.30909.0)
+  - nanopb/encode (2.30909.0)
   - package_info_plus (0.4.5):
     - Flutter
   - path_provider_ios (0.0.1):
+    - Flutter
+  - permission_handler_apple (9.1.1):
     - Flutter
   - PromisesObjC (2.2.0)
   - shared_preferences_foundation (0.0.1):
     - Flutter
     - FlutterMacOS
+  - sqflite (0.0.2):
+    - Flutter
+    - FMDB (>= 2.7.5)
+  - url_launcher_ios (0.0.1):
+    - Flutter
 
 DEPENDENCIES:
+  - device_info (from `.symlinks/plugins/device_info/ios`)
+  - firebase_analytics (from `.symlinks/plugins/firebase_analytics/ios`)
   - firebase_core (from `.symlinks/plugins/firebase_core/ios`)
   - firebase_remote_config (from `.symlinks/plugins/firebase_remote_config/ios`)
   - Flutter (from `Flutter`)
@@ -63,21 +141,32 @@ DEPENDENCIES:
   - mixpanel_flutter (from `.symlinks/plugins/mixpanel_flutter/ios`)
   - package_info_plus (from `.symlinks/plugins/package_info_plus/ios`)
   - path_provider_ios (from `.symlinks/plugins/path_provider_ios/ios`)
+  - permission_handler_apple (from `.symlinks/plugins/permission_handler_apple/ios`)
   - shared_preferences_foundation (from `.symlinks/plugins/shared_preferences_foundation/ios`)
+  - sqflite (from `.symlinks/plugins/sqflite/ios`)
+  - url_launcher_ios (from `.symlinks/plugins/url_launcher_ios/ios`)
 
 SPEC REPOS:
   trunk:
     - Firebase
     - FirebaseABTesting
+    - FirebaseAnalytics
     - FirebaseCore
     - FirebaseCoreInternal
     - FirebaseInstallations
     - FirebaseRemoteConfig
+    - FMDB
+    - GoogleAppMeasurement
     - GoogleUtilities
     - Mixpanel-swift
+    - nanopb
     - PromisesObjC
 
 EXTERNAL SOURCES:
+  device_info:
+    :path: ".symlinks/plugins/device_info/ios"
+  firebase_analytics:
+    :path: ".symlinks/plugins/firebase_analytics/ios"
   firebase_core:
     :path: ".symlinks/plugins/firebase_core/ios"
   firebase_remote_config:
@@ -92,27 +181,42 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/package_info_plus/ios"
   path_provider_ios:
     :path: ".symlinks/plugins/path_provider_ios/ios"
+  permission_handler_apple:
+    :path: ".symlinks/plugins/permission_handler_apple/ios"
   shared_preferences_foundation:
     :path: ".symlinks/plugins/shared_preferences_foundation/ios"
+  sqflite:
+    :path: ".symlinks/plugins/sqflite/ios"
+  url_launcher_ios:
+    :path: ".symlinks/plugins/url_launcher_ios/ios"
 
 SPEC CHECKSUMS:
+  device_info: d7d233b645a32c40dfdc212de5cf646ca482f175
   Firebase: f13680471b021937f2230ea8503c7809d8c29806
+  firebase_analytics: 97d12c9683531ba3f923a798a95362e7590f0757
   firebase_core: 58542d7399889ebdbb034baa72d081e54c5c814d
   firebase_remote_config: e8717e2fbe51de4ee9ea816578c0f4225d20cc02
   FirebaseABTesting: 09c328e6a86d562b4e1146c8a9073deadc566b77
+  FirebaseAnalytics: 9f382605c5ee412b039212f054bf7a403d9850c1
   FirebaseCore: fa80ad16a62d52f67274b5b88304c3a318bbf9a4
   FirebaseCoreInternal: 950500ad8a08963657f6d8c67b579740c06d6aa1
   FirebaseInstallations: 7b99ef103f013624444c614397038219c45f8e63
   FirebaseRemoteConfig: 7ef4dd164f3066c64ca1efab0f990152a6b94fc0
   Flutter: 50d75fe2f02b26cc09d224853bb45737f8b3214a
   flutter_app_badger: b87fc231847b03b92ce1412aa351842e7e97932f
+  FMDB: 2ce00b547f966261cd18927a3ddb07cb6f3db82a
+  GoogleAppMeasurement: 686b48c3c895f3c55c70719041913d5d150b74f6
   GoogleUtilities: 9aa0ad5a7bc171f8bae016300bfcfa3fb8425749
   Mixpanel-swift: 7b46c63259dec8398a7df9f8a1298fd00b6b3cb3
   mixpanel_flutter: a530f9f27534f3c96a074e483ee425387f524e1c
+  nanopb: b552cce312b6c8484180ef47159bc0f65a1f0431
   package_info_plus: 6c92f08e1f853dc01228d6f553146438dafcd14e
   path_provider_ios: 14f3d2fd28c4fdb42f44e0f751d12861c43cee02
+  permission_handler_apple: e76247795d700c14ea09e3a2d8855d41ee80a2e6
   PromisesObjC: 09985d6d70fbe7878040aa746d78236e6946d2ef
   shared_preferences_foundation: 297b3ebca31b34ec92be11acd7fb0ba932c822ca
+  sqflite: 6d358c025f5b867b29ed92fc697fd34924e11904
+  url_launcher_ios: ae1517e5e344f5544fb090b079e11f399dfbe4d2
 
 PODFILE CHECKSUM: a5adfe7971131cf0589107393691ada35be2b45f
 

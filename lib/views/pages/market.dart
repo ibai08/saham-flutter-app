@@ -48,8 +48,7 @@ class _MarketPageState extends State<MarketPage> {
         // },
         backPage: () async {
           // Get.until(ModalRoute.withName("/home"));
-          Get.toNamed('/home');
-          appStateController.setHomeTab(HomeTab.home);
+          appStateController.setAppState(Operation.bringToHome, HomeTab.home);
           // _tabController.index = homeTabController.homeTab.value.index;
           print("berhasil");
         },

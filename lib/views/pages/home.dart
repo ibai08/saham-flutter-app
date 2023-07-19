@@ -142,6 +142,8 @@ class _HomeState extends State<Home> with AutomaticKeepAliveClientMixin {
 }
 
 class TotalBalance extends StatelessWidget {
+  const TotalBalance({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Padding(

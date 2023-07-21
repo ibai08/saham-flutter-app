@@ -14,6 +14,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:saham_01_app/constants/app_colors.dart';
+import 'package:saham_01_app/core/getStorage.dart';
 
 import '../../interface/scrollUpWidget.dart';
 import '../appbar/navmain.dart';
@@ -50,11 +51,19 @@ class _HomeState extends State<Home> with AutomaticKeepAliveClientMixin {
     }
   }
 
+  // SharedBoxHelper boxs = SharedHelper.instance.getBox(BoxName.signal);
+
+  // void init() async {
+  //   Map<String, dynamic> value = await boxs.getAll();
+  //   print(value);
+  // }
+
   @override
   void initState() {
     Future.delayed(Duration(microseconds: 0)).then((_) async {
       // await initializePageAsync();
       // await getEventPage();
+      // init();
       if (mounted) {
         setState(() {});
       }

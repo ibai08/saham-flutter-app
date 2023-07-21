@@ -5,6 +5,7 @@ import 'package:get_storage/get_storage.dart';
 import 'package:saham_01_app/config/tab_list.dart';
 import 'package:saham_01_app/constants/app_colors.dart';
 import 'package:saham_01_app/controller/appStatesController.dart';
+import 'package:saham_01_app/core/getStorage.dart';
 // import 'package:saham_01_app/controller/homeTabController.dart';
 import 'package:saham_01_app/firebase_options.dart';
 import 'package:flutter/material.dart';
@@ -37,8 +38,8 @@ void main() async {
   //       user: UserInfo.init(),
   //       homeTab: HomeTab.home,
   //     ));
-
   
+  StorageController.instance;
   runApp(const MyApp());
 }
 
@@ -53,6 +54,7 @@ void main() async {
 
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
+  
 
   @override
   Widget build(BuildContext context) {

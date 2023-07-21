@@ -5,7 +5,7 @@ import 'dart:convert';
 import 'package:mutex/mutex.dart';
 import 'package:saham_01_app/core/getStorage.dart';
 
-class CacheFactor {
+class CacheFactory {
   static Mutex mSync = Mutex();
   static Map<String, Mutex> mapMutex = Map();
   static Mutex? getMutex(String key) {

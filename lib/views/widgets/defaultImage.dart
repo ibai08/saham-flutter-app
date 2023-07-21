@@ -9,7 +9,7 @@ class DefaultImage extends StatelessWidget {
 
   final AssetImage? image;
   final String? option;
-  final ImageProvider<Object>? tex;
+  final File? tex;
   final double? width;
   final double? paddingTop;
 
@@ -24,7 +24,13 @@ class DefaultImage extends StatelessWidget {
           color: Colors.white,
           image: DecorationImage(
               fit: BoxFit.cover,
-              image: tex ?? const AssetImage('assets/icon/brands/tf-square-pad-bg-darkgreen.png')
+              image: option == null
+                  ? const AssetImage(
+                      'assets/icon/brands/tf-square-pad-bg-darkgreen.png',
+                    ) as ImageProvider
+                  : FileImage(
+                      tex!,
+                    )
     )));
   }
 }

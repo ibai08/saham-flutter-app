@@ -3,6 +3,8 @@
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:saham_01_app/models/entities/firebase.dart';
+import 'package:saham_01_app/models/entities/mrg.dart';
 
 
 import '../models/entities/user.dart';
@@ -28,12 +30,12 @@ class AppKeys {
   static final navKey = GlobalKey<NavigatorState>();
 }
 
-
 class AppStateController extends GetxController {
 
   Rx<UserInfo> users = UserInfo.init().obs;
   Rx<UserInfo> usersEdit = UserInfo.init().obs;
   Rx<HomeTab> homeTab = HomeTab.home.obs;
+  Rx<UserMRG> userMrg = UserMRG.init().obs;
 
   HomeTab get currentTab => homeTab.value;
 
@@ -100,6 +102,22 @@ class AppStateController extends GetxController {
         }
         break;
 
+      case Operation.setFCMToken:
+        if(payload is String) {
+          FirebaseState(fcmToken: payload);
+        }
+        break;
+
+      //MRG Controller
+      case Operation.setUserMRG:
+        if (payload is Map) {
+          try {
+            UserMRG.fromMap(payload);
+          } catch (xerr) {}
+        }
+        break;
+
+      //Hometab and navigation controller
       case Operation.bringToHome:
         Get.until((route) => route.isFirst); // Kembali ke halaman beranda
         if (payload is HomeTab) {
@@ -131,3 +149,5 @@ class AppStateController extends GetxController {
     setHomeTab(HomeTab.home);
   }
 }
+
+AppStateController? appStateController;

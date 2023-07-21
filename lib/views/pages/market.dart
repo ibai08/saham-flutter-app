@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:saham_01_app/constants/app_colors.dart';
 import 'package:saham_01_app/controller/appStatesController.dart';
+import 'package:saham_01_app/core/getStorage.dart';
 // import 'package:tradersfamily_app/appbar/navmain.dart';
 import 'package:saham_01_app/views/pages/market/widget/index_saham.dart';
 // import 'package:tradersfamily_app/pages/market/widget/slider.dart';
@@ -35,6 +36,15 @@ class _MarketPageState extends State<MarketPage> {
   //   _tabController.dispose();
   //   super.dispose();
   // }
+  // SharedBoxHelper boxs = SharedHelper.instance.getBox(BoxName.cache);
+  // void saya() async {
+  //   await boxs.delete('kuncitest');
+  // }
+
+  // void initState() {
+  //   saya();
+  // }     
+
   
   @override
   Widget build(BuildContext context) {

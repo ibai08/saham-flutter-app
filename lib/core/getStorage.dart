@@ -1,5 +1,8 @@
+import 'dart:async';
 import 'dart:convert';
+import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:rx_shared_preferences/rx_shared_preferences.dart';
 
 class ConfigKey {
   static String installReferrer = "installReferrer";
@@ -116,13 +119,16 @@ class SharedBoxHelper {
 
   Future<Map<String, dynamic>> getAll() async {
     await init();
-    Map<String, dynamic> mapData = Map();
-    Map<String, dynamic> allData = GetStorage().getKeys();
-    allData.forEach((key, value) {
+    Map<String, dynamic> mapData = {};
+    List<String> allKeys = GetStorage().getKeys().toList();
+    for (String key in allKeys) {
       if (key.startsWith(boxName! + '.')) {
-        mapData[key] = value;
+        dynamic value = GetStorage().read(key);
+        if (value != null) {
+          mapData[key] = value;
+        }
       }
-    });
+    }
     return mapData;
   }
 
@@ -139,6 +145,10 @@ class SharedBoxHelper {
       return null;
     }
     return jsonDecode(val);
+  }
+
+  Rx<String?> watch(String keyName) {
+    return GetStorage().read<String>(boxName! + '.' + keyName).obs;
   }
 
   Future<bool> put(String keyName, String data) async {
@@ -162,10 +172,11 @@ class SharedBoxHelper {
 
   Future<void> clearBox() async {
     await init();
-    Map<String, dynamic> allData = GetStorage().getKeys();
-    allData.removeWhere((key, value) => key.startsWith(boxName! + '.'));
-    for (String key in allData.keys) {
-      GetStorage().remove(key);
+    List<String> allKeys = GetStorage().getKeys().toList();
+    for (String key in allKeys) {
+      if (key.startsWith(boxName! + '.')) {
+        GetStorage().remove(key);
+      }
     }
   }
 }

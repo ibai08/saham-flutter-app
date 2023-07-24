@@ -4,9 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 // import 'package:package_info/package_info.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
+import 'package:saham_01_app/core/config.dart';
 // import 'package:saham_01_app/widget/btnBlock.dart';
 
-import 'utils/remoteConfig.dart';
 // import 'function/launchUrl.dart';
 
 class UpdateVersionView extends StatefulWidget {

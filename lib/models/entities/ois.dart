@@ -1209,34 +1209,34 @@ class TransactionPaymentSlim {
 }
 
 class OisDashboardPageData {
-  double lastSync;
-  int totalChannel;
-  int totalSignal;
-  int totalSubscriber;
-  int totalPayment;
-  double totalBalance;
-  double totalActiveBalance;
-  List<TransactionPaymentSlim> transactionPayment;
+  double? lastSync;
+  int? totalChannel;
+  int? totalSignal;
+  int? totalSubscriber;
+  int? totalPayment;
+  double? totalBalance;
+  double? totalActiveBalance;
+  List<TransactionPaymentSlim>? transactionPayment;
   String? bankName;
   String? bankAccount;
   String? bankUsername;
 
   OisDashboardPageData(
-      {required this.lastSync,
-      required this.totalChannel,
-      required this.totalSignal,
-      required this.totalSubscriber,
-      required this.totalPayment,
-      required this.totalBalance,
-      required this.totalActiveBalance,
-      required this.transactionPayment,
+      {this.lastSync,
+      this.totalChannel,
+      this.totalSignal,
+      this.totalSubscriber,
+      this.totalPayment,
+      this.totalBalance,
+      this.totalActiveBalance,
+      this.transactionPayment,
       this.bankName,
       this.bankAccount,
       this.bankUsername});
 
   Map toMap() {
     List<Map> data = [];
-    transactionPayment.forEach((v) {
+    transactionPayment?.forEach((v) {
       data.add(v.toMap());
     });
 

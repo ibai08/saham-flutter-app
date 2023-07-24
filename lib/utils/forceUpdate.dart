@@ -1,6 +1,6 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:package_info_plus/package_info_plus.dart';
-import 'remoteConfig.dart';
+import 'package:saham_01_app/core/config.dart';
 
 Future<bool> versionCheck() async {
   //Get Current installed version of app

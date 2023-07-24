@@ -3,7 +3,7 @@ import 'package:saham_01_app/core/getStorage.dart';
 
 var settings = {"mode": "production"};
 
-FirebaseRemoteConfig? remoteConfig;
+RemoteConfig? remoteConfig;
 const String tableCfg = 'cfg';
 const String columnId = 'id';
 const String columnParams = 'params';

@@ -132,6 +132,26 @@ class SharedBoxHelper {
     return mapData;
   }
 
+  Future<Map<String, dynamic>> getAllMap() async {
+    Map<String, dynamic> mapData = Map();
+    try {
+      await init();
+      List<String> allKeys = GetStorage().getKeys().toList();
+      for (String key in allKeys) {
+        if (key.startsWith(boxName! + '.')) {
+          String? temp = GetStorage().read<String>(key);
+          if (temp != null && temp.isNotEmpty) {
+            mapData[key] = jsonDecode(temp);
+          }
+        }
+      }
+    } catch (e) {
+      print("SharedBox.getAllMap() Error");
+      print(e);
+    }
+    return mapData;
+  }
+
   Future<String?> get(String keyName) async {
     await init();
     String? data = GetStorage().read(boxName! + '.' + keyName)?.toString();

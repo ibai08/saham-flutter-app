@@ -3,8 +3,11 @@
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:saham_01_app/models/entities/askap.dart';
 import 'package:saham_01_app/models/entities/firebase.dart';
+import 'package:saham_01_app/models/entities/inbox.dart';
 import 'package:saham_01_app/models/entities/mrg.dart';
+import 'package:saham_01_app/models/entities/ois.dart';
 
 
 import '../models/entities/user.dart';
@@ -36,6 +39,11 @@ class AppStateController extends GetxController {
   Rx<UserInfo> usersEdit = UserInfo.init().obs;
   Rx<HomeTab> homeTab = HomeTab.home.obs;
   Rx<UserMRG> userMrg = UserMRG.init().obs;
+  Rx<FirebaseState> fbState = FirebaseState().obs;
+  Rx<OisSearch> oisSearch = OisSearch.init().obs;
+  Rx<UserAskap> userAskap = UserAskap.init().obs;
+  Rx<int> inboxCount = 0.obs;
+  Rx<InboxCount> inboxCountTag = InboxCount.init().obs;
 
   HomeTab get currentTab => homeTab.value;
 
@@ -51,8 +59,33 @@ class AppStateController extends GetxController {
     usersEdit.value = userEdit;
   }
 
+  void setFirebase(FirebaseState firebaseState) {
+    fbState.value = firebaseState;
+  }
+
+  void setInboxCount(int inbox) {
+    inboxCount.value = inbox;
+  }
+
+  void setInboxCountTag(InboxCount inboxCount) {
+    inboxCountTag.value = inboxCount;
+  }
+
+  void setUserMrg(UserMRG userMRG) {
+    userMrg.value = userMRG;
+  }
+
+  void setOisSearch(OisSearch setOisSearch) {
+    oisSearch.value = setOisSearch;
+  }
+
+  void setUserAskap(UserAskap usersAskap) {
+    userAskap.value = usersAskap;
+  }
+
   void setAppState(Operation operation, dynamic payload) {
     switch (operation) {
+      // USER Controller
       case Operation.setUser:
         if (payload is Map && payload.containsKey("user") && payload["user"] is Map) {
           setUser(UserInfo.fromMap(payload["user"]));
@@ -92,6 +125,10 @@ class AppStateController extends GetxController {
         setUser(UserInfo.init());
         setUserEdit(UserInfo.init());
         setHomeTab(HomeTab.home);
+        setUserMrg(UserMRG.init());
+        setUserAskap(UserAskap.init());
+        setInboxCount(0);
+        setInboxCountTag(InboxCount.init());
         break;
 
       case Operation.updateAvatar:
@@ -102,17 +139,27 @@ class AppStateController extends GetxController {
         }
         break;
 
+      // FIREBASE Controller
       case Operation.setFCMToken:
         if(payload is String) {
-          FirebaseState(fcmToken: payload);
+          setFirebase(FirebaseState(fcmToken: payload));
         }
+        break;
+        
+      // INBOX Controller
+      case Operation.setInboxCount:
+        setInboxCount(payload);
+        break;
+
+      case Operation.setInboxCountTag:
+        setInboxCountTag(payload);
         break;
 
       //MRG Controller
       case Operation.setUserMRG:
         if (payload is Map) {
           try {
-            UserMRG.fromMap(payload);
+            setUserMrg(UserMRG.fromMap(payload));
           } catch (xerr) {}
         }
         break;

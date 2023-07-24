@@ -79,7 +79,7 @@ class ChannelModel {
           "namarekening": bankOwner,
           "pricing": pricing?.map((price) => price.toMap()).toList()
         });
-    await ChannelModel.instance.getDetail(id, clearCache: true);
+    await ChannelModel.instance.getDetail(id!, clearCache: true);
     await UserModel.instance.refreshUserData();
     //delete ois dashboard & channel cache
     SharedBoxHelper cache = SharedHelper.instance.getBox(BoxName.cache);

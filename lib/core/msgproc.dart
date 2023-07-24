@@ -4,9 +4,11 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:saham_01_app/controller/appStatesController.dart';
 import 'package:saham_01_app/core/msgdef.dart';
 import 'package:saham_01_app/function/helper.dart';
+import 'package:saham_01_app/models/askap.dart';
 import 'package:saham_01_app/models/channel.dart';
 import 'package:saham_01_app/models/entities/inbox.dart';
 import 'package:saham_01_app/models/inbox.dart';
+import 'package:saham_01_app/models/mrg.dart';
 import 'package:saham_01_app/models/signal.dart';
 import 'package:saham_01_app/models/user.dart';
 
@@ -135,11 +137,11 @@ class MessageProcessor {
 
               switch (type) {
                 case InboxType.wptfpost:
-                  Map message = jsonDecode(valueMap["message"]);
+                  Map message = jsonDecode(valueMap?["message"]);
                   appStateController?.setAppState(Operation.pushNamed, {
                     "route": '/inbox/wptfpost',
                     "arguments": {
-                      "inboxid": valueMap["id"],
+                      "inboxid": valueMap?["id"],
                       "postid": message["postId"]
                     }
                   });
@@ -151,8 +153,8 @@ class MessageProcessor {
                   });
                   break;
                 case InboxType.signal:
-                  Map tmpData = jsonDecode(valueMap["message"]);
-                  Map params = jsonDecode(valueMap["params"]);
+                  Map tmpData = jsonDecode(valueMap?["message"]);
+                  Map params = jsonDecode(valueMap?["params"]);
 
                   if (params is Map && params.containsKey("type") && params["type"] == "signal") {
                     int signalid = 0;
@@ -163,18 +165,18 @@ class MessageProcessor {
                       "route": '/dsc/signal',
                       "arguments": {
                         "signalid": signalid,
-                        "inboxid": valueMap["id"],
-                        "baca": valueMap["baca"]
+                        "inboxid": valueMap?["id"],
+                        "baca": valueMap?["baca"]
                       }
                     });
                   }
                   break;
                 case InboxType.payment:
-                  Map message = jsonDecode(valueMap["message"]);
+                  Map message = jsonDecode(valueMap?["message"]);
                   appStateController?.setAppState(Operation.pushNamed, {
                     "route": '/dsc/payment/status',
                     "arguments": {
-                      "inboxid": valueMap["id"],
+                      "inboxid": valueMap?["id"],
                       "billNo": message["billNo"]
                     }
                   });

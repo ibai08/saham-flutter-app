@@ -29,7 +29,7 @@ class CacheFactory {
     Map? tmp = Map();
     Mutex? m = getMutex(key);
     dynamic result;
-    await m!.acquire();
+    await m?.acquire();
     try {
       SharedBoxHelper boxCache = SharedHelper.instance.getBox(BoxName.cache);
       tmp = await boxCache.getMap(key);
@@ -45,7 +45,7 @@ class CacheFactory {
     } catch (x) {
       throw x;
     } finally {
-      m.release();
+      m?.release();
     }
     return result;
   }

@@ -176,19 +176,19 @@ class UserAskap {
       "askapid": askapid,
       "realAccounts": realAccounts == null
           ? []
-          : realAccounts!.map<Map>((json) => json.toMap()).toList(),
+          : realAccounts?.map<Map>((json) => json.toMap()).toList(),
       "demoAccounts": demoAccounts == null
           ? []
-          : demoAccounts!.map<Map>((json) => json.toMap()).toList(),
+          : demoAccounts?.map<Map>((json) => json.toMap()).toList(),
       "transactions": transactions == null
           ? []
-          : transactions!.map<Map>((json) => json.toMap()).toList(),
+          : transactions?.map<Map>((json) => json.toMap()).toList(),
       "lastSync": lastSync ?? 0,
       "hasError": hasError ?? true,
       "hasDeposit": hasDeposit ?? true,
       "accountTypes": accountTypes == null
           ? []
-          : accountTypes!.map<Map>((json) => json.toMap()).toList(),
+          : accountTypes?.map<Map>((json) => json.toMap()).toList(),
     };
   }
 }

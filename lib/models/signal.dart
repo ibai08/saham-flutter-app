@@ -52,7 +52,7 @@ class SignalModel {
       ChannelCardSlim channel = await ChannelModel.instance.getDetail(tmpSignal.channel!.id!);
       if (channel == null) {
         throw Exception("CHANNEL_NOT_FOUND");
-      } else if (channel.subscribed! && channel.username != appStateController!.users.value.username) {
+      } else if (channel.subscribed! && channel.username != appStateController?.users.value.username) {
         throw Exception("CHANNEL_NOT_SUBSCRIBED");
       } else {
         _signalCache[signalid!] = tmpSignal;

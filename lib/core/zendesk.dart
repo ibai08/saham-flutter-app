@@ -29,7 +29,7 @@ class MainZendesk {
 
   Future<void> initZendesk() async {
     try {
-      String zendeskKey = remoteConfig!.getString("zendesk_token");
+      String? zendeskKey = remoteConfig?.getString("zendesk_token");
       String defaultKey = '2s2WJDCUfkCkSLhf09CiAHZl9bXI2Bj8';
       await zendesk.init(zendeskKey == "" ? defaultKey : zendeskKey);
       gs.write('zendesk_token', zendeskKey == "" ? defaultKey : zendeskKey);
@@ -130,9 +130,9 @@ class MainZendesk {
       if (!hasVisitorInfo()) {
         if (appStateController!.users.value.id! > 0) {
           setVisitorInfo(
-          email: '${appStateController!.users.value.email}',
-          name: '${appStateController!.users.value.fullname}',
-          phone: '${appStateController!.users.value.phone}');
+          email: '${appStateController?.users.value.email}',
+          name: '${appStateController?.users.value.fullname}',
+          phone: '${appStateController?.users.value.phone}');
         }
       }
       List<String>? listUserInfo = await getVisitorInfo();

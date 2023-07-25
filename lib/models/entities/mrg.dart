@@ -196,27 +196,27 @@ class UserMRG {
   Map toMap() {
     return {
       "mrgid": mrgid,
-      "bankInfo": bankInfo!.toMap(),
+      "bankInfo": bankInfo?.toMap(),
       "imgID": imgID,
       "realAccounts": realAccounts == null
           ? []
-          : realAccounts!.map<Map>((json) => json.toMap()).toList(),
+          : realAccounts?.map<Map>((json) => json.toMap()).toList(),
       "demoAccounts": demoAccounts == null
           ? []
-          : demoAccounts!.map<Map>((json) => json.toMap()).toList(),
+          : demoAccounts?.map<Map>((json) => json.toMap()).toList(),
       "contestAccounts": contestAccounts == null
           ? []
-          : contestAccounts!.map<Map>((json) => json.toMap()).toList(),
+          : contestAccounts?.map<Map>((json) => json.toMap()).toList(),
       "canWd": canWd,
       "transactions": transactions == null
           ? []
-          : transactions!.map<Map>((json) => json.toMap()).toList(),
+          : transactions?.map<Map>((json) => json.toMap()).toList(),
       "lastSync": lastSync ?? 0,
       "hasError": hasError ?? true,
       "hasDeposit": hasDeposit ?? true,
       "accountTypes": accountTypes == null
           ? []
-          : accountTypes!.map<Map>((json) => json.toMap()).toList()
+          : accountTypes?.map<Map>((json) => json.toMap()).toList()
     };
   }
 }

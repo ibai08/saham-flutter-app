@@ -59,7 +59,7 @@ String? translateFromPattern(String string) {
       }
     }
 
-    return template!.replaceAllMapped(exp, (m) {
+    return template?.replaceAllMapped(exp, (m) {
       var matched = m.group(0);
       if (parsedParam.containsKey(matched)) {
         return parsedParam[matched];

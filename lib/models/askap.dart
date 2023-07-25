@@ -25,7 +25,7 @@ class AskapModel {
         accountTypes: await getAccountTypes(clearCache: clearCache),
         hasDeposit: await hasDeposit(),
       );
-      appStateController!.setAppState(Operation.setUserAskap, user.toMap());
+      appStateController?.setAppState(Operation.setUserAskap, user.toMap());
     } catch (xerr) {
       print(xerr);
     }
@@ -68,7 +68,7 @@ class AskapModel {
         refreshSecond = 0;
       }
       dynamic data = await CacheFactory.getCache(
-          sprintf(CacheKey.userAskapByID, [appStateController!.users.value.id]), () async {
+          sprintf(CacheKey.userAskapByID, [appStateController?.users.value.id]), () async {
         Map fetchData = await TF2Request.authorizeRequest(
             method: "GET", url: getHostName() + "/askap/api/v1/account/check/");
         return fetchData["message"];
@@ -118,7 +118,7 @@ class AskapModel {
         refreshSecond = 0;
       }
       dynamic data = await CacheFactory.getCache(
-        sprintf(CacheKey.realAccAskapByID, [appStateController!.users.value.id]), () async {
+        sprintf(CacheKey.realAccAskapByID, [appStateController?.users.value.id]), () async {
         Map fetchData = await TF2Request.authorizeRequest(
           url: getHostName() + "/askap/api/v1/account/",
           method: 'GET',
@@ -147,7 +147,7 @@ class AskapModel {
         refreshSecond = 0;
       }
       dynamic data = await CacheFactory.getCache(
-          sprintf(CacheKey.demoAccAskapByID, [appStateController!.users.value.id]), () async {
+          sprintf(CacheKey.demoAccAskapByID, [appStateController?.users.value.id]), () async {
         Map fetchData = await TF2Request.authorizeRequest(
           url: getHostName() + "/askap/api/v1/account/demo/",
           method: 'GET',
@@ -226,7 +226,7 @@ class AskapModel {
         refreshSecond = 0;
       }
       dynamic data = await CacheFactory.getCache(
-          sprintf(CacheKey.transactionAskapByID, [appStateController!.users.value.id]),
+          sprintf(CacheKey.transactionAskapByID, [appStateController?.users.value.id]),
           () async {
         Map fetchData = await TF2Request.authorizeRequest(
           url: getHostName() + "/askap/api/v1/transaction/latest/",

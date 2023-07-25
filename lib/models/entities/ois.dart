@@ -284,8 +284,8 @@ class ChannelSummary {
   Map<String, dynamic> toMap() {
     try {
       return {
-        "detail": detail!.toMap(),
-        "growth": listGrowth!.map<Map>((growth) => growth.toMap()).toList()
+        "detail": detail?.toMap(),
+        "growth": listGrowth?.map<Map>((growth) => growth.toMap()).toList()
       };
     } catch (xerr) {}
 
@@ -697,7 +697,7 @@ class SignalInfo {
 
   Map<String, dynamic> toMap() {
     return {
-      "channel": channel!.toMap(),
+      "channel": channel?.toMap(),
       "id": id,
       "symbol": symbol ?? '',
       "op": op,
@@ -1053,7 +1053,7 @@ class ChannelCardSlim {
               : 0,
       "account": account,
       "isPrivate": isPrivate,
-      "pricing": pricing!.map((p) => p.toMap()).toList(),
+      "pricing": pricing?.map((p) => p.toMap()).toList(),
       "contactEmail": contactEmail,
       "medals": medals,
       "point": point,

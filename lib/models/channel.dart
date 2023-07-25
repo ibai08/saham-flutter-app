@@ -525,7 +525,7 @@ class ChannelModel {
     }
 
     dynamic data = await CacheFactory.getCache(
-        sprintf(CacheKey.channelHistoryList, [appStateController!.users.value.id]), () async {
+        sprintf(CacheKey.channelHistoryList, [appStateController?.users.value.id]), () async {
       Map fetchData = await TF2Request.authorizeRequest(
           url: getHostName() + "/ois/api/v1/channel/history/point/",
           method: 'POST',
@@ -550,7 +550,7 @@ class ChannelModel {
     }
 
     dynamic data = await CacheFactory.getCache(
-        sprintf(CacheKey.channelRedeemHistory, [appStateController!.users.value.id]),
+        sprintf(CacheKey.channelRedeemHistory, [appStateController?.users.value.id]),
         () async {
       Map fetchData = await TF2Request.authorizeRequest(
           url: getHostName() + "/ois/api/v1/channel/history/point/redeem/",
@@ -594,7 +594,7 @@ class ChannelModel {
     }
     dynamic qualification = await CacheFactory.getCache(
         sprintf(CacheKey.channelMyHistoryPointById,
-            [channelid, appStateController!.users.value.id]), () async {
+            [channelid, appStateController?.users.value.id]), () async {
       Map fetchData = await TF2Request.authorizeRequest(
           url: getHostName() + "/ois/api/v1/channel/medal/qualification/",
           method: "POST",

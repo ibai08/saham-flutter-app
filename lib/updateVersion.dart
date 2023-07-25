@@ -100,26 +100,26 @@ class _UpdateVersionViewState extends State<UpdateVersionView> {
                     //     ),
                     //   );
                     // }
-                    return SizedBox();
+                    return const SizedBox();
                   }),
               RichText(
                 textAlign: TextAlign.center,
                 text: TextSpan(
                   style: TextStyle(color: Colors.grey[900]),
                   children: [
-                    TextSpan(
+                    const TextSpan(
                       text: "Versi terbaru: ",
                     ),
                     TextSpan(
                         text:
-                            "${remoteConfig!.getString('force_update_version_string')}",
-                        style: TextStyle(
+                            "${remoteConfig?.getString('force_update_version_string')}",
+                        style: const  TextStyle(
                           fontWeight: FontWeight.w600,
                         )),
                   ],
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 10,
               ),
               // BtnBlock(

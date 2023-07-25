@@ -215,10 +215,10 @@ class UserModel {
       });
 
 
-      FirebaseCrashlytics.instance.setUserIdentifier('${appStateController!.users.value.id}');
-      FirebaseCrashlytics.instance.setCustomKey("email", '${appStateController!.users.value.email}');
-      FirebaseCrashlytics.instance.setCustomKey("username", '${appStateController!.users.value.username}');
-      firebaseAnalytics.setUserId('${appStateController!.users.value.id}');
+      FirebaseCrashlytics.instance.setUserIdentifier('${appStateController?.users.value.id}');
+      FirebaseCrashlytics.instance.setCustomKey("email", '${appStateController?.users.value.email}');
+      FirebaseCrashlytics.instance.setCustomKey("username", '${appStateController?.users.value.username}');
+      firebaseAnalytics.setUserId('${appStateController?.users.value.id}');
       MainZendesk().setVisitorInfo(
         email: '${appStateController?.users.value.email}',
         name: '${appStateController?.users.value.fullname}',
@@ -356,7 +356,7 @@ class UserModel {
       }
       firebaseAnalytics.logEvent(
           name: "logout",
-          parameters: {"userid": appStateController!.users.value.id}).then((x) {});
+          parameters: {"userid": appStateController?.users.value.id}).then((x) {});
       await SharedHelper.instance.clearAll();
       appStateController?.setAppState(Operation.clearState, null);
       await FCM.instance.deleteInstanceID();

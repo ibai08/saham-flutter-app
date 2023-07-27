@@ -2,24 +2,24 @@ import 'package:dio/dio.dart';
 import 'package:saham_01_app/core/config.dart';
 
 String getHostName() {
-  return settings["mode"] == "production" ? remoteConfig!.getString('tf2_production_host') : remoteConfig!.getString('tf2_development_host');
+  return settings["mode"] == "production" ? remoteConfig.getString('tf2_production_host') : remoteConfig.getString('tf2_development_host');
 }
 
 String getMainSite() {
-  return remoteConfig!.getString('main_site');
+  return remoteConfig.getString('main_site');
 }
 
 class TF2Request {
-  static Future<Map> request({String method = 'POST', String? url, Map? postParam}) async {
+  static Future<Map> request({String method = 'POST', String url, Map postParam}) async {
     Response res;
     Map data = {};
     Dio dio = Dio();
     dio.options.connectTimeout = 10000;
     dio.options.receiveTimeout = 30000;
     if (method == 'GET') {
-      res = await dio.get(url!);
+      res = await dio.get(url);
     } else {
-      res = await dio.post(url!, data: postParam ?? {});
+      res = await dio.post(url, data: postParam ?? {});
     }
     data = res.data;
 
@@ -30,7 +30,7 @@ class TF2Request {
     return data;
   }
 
-  static Future<Map> authorizeRequest({String method = 'POST', String? url, Map? postParam, FormData? formData}) async {
+  static Future<Map> authorizeRequest({String method = 'POST', String url, Map postParam, FormData formData}) async {
     Response res;
     Dio dio = Dio();
     dio.options.connectTimeout = 10000;
@@ -40,14 +40,14 @@ class TF2Request {
     postParam ??= {};
     do {
       reqNo++;
-      String? token = await getCfgAsync("token");
-      dio.options.headers = {"Authorizations": "Bearer " + token!};
+      String token = await getCfgAsync("token");
+      dio.options.headers = {"Authorizations": "Bearer " + token};
       if (method == 'GET') {
-        res = await dio.get(url!);
+        res = await dio.get(url);
       } else {
         Map<String, dynamic> temp = {};
         if (formData == null) {
-          res = await dio.post(url!, data: (formData ?? postParam));
+          res = await dio.post(url, data: (formData ?? postParam));
         } else {
           for (var field in formData.fields) {
             temp[field.key] = field.value;
@@ -56,7 +56,7 @@ class TF2Request {
             temp[file.key] = file.value;
           }
           FormData fd = FormData.fromMap(temp);
-          res = await dio.post(url!, data: (formData != null ? fd : postParam));
+          res = await dio.post(url, data: (formData != null ? fd : postParam));
         }
       }
 
@@ -80,7 +80,7 @@ class TF2Request {
   }
 
   static Future<bool> refreshLogin() async {
-    String? enc = await getCfgAsync("crd");
+    String enc = await getCfgAsync("crd");
     Map data = {};
     if (enc != null) {
       Response res;

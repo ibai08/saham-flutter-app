@@ -1,13 +1,11 @@
 import 'dart:convert';
 import 'dart:io';
-import 'dart:math';
 
 import 'package:dio/dio.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:http_parser/http_parser.dart';
 import 'package:image/image.dart';
 import 'package:intl/intl.dart';
-import 'package:saham_01_app/controller/appStateController.dart';
 import 'package:saham_01_app/controller/appStatesController.dart';
 import 'package:saham_01_app/core/analytics.dart';
 import 'package:saham_01_app/core/cachefactory.dart';
@@ -16,7 +14,6 @@ import 'package:saham_01_app/core/firebasecm.dart';
 import 'package:saham_01_app/core/getStorage.dart';
 import 'package:saham_01_app/core/http.dart';
 import 'package:saham_01_app/core/string.dart';
-import 'package:saham_01_app/core/zendesk.dart';
 import 'package:saham_01_app/models/askap.dart';
 import 'package:saham_01_app/models/entities/user.dart';
 import 'package:saham_01_app/models/mrg.dart';
@@ -26,27 +23,27 @@ class UserModel {
   static UserModel instance = UserModel._privateConstructor();
 
   Future<void> refreshController() async {
-    Map? user = await getUserData();
-    appStateController?.setAppState(Operation.setUser, {"user": user});
+    Map user = await getUserData();
+    appStateController.setAppState(Operation.setUser, {"user": user});
   }
 
   bool hasLogin() {
-    return appStateController!.users.value.id! > 0;
+    return appStateController.users.value.id > 0;
   }
 
-  Future<Map?> getUserData() async {
-    String? mData = await getCfgAsync("usrdat");
+  Future<Map> getUserData() async {
+    String mData = await getCfgAsync("usrdat");
     if (mData != null && mData != "") {
       return jsonDecode(mData);
     }
     return null;
   }
 
-  Future<String?> getCredentials() async {
+  Future<String> getCredentials() async {
     return getCfgAsync("crd");
   }
 
-  Future<String?> getUserToken() async {
+  Future<String> getUserToken() async {
     return getCfgAsync("token");
   }
 
@@ -182,22 +179,22 @@ class UserModel {
         throw Exception("UNABLE_SAVE_TO_DATA");
       }
 
-      FCM.instance.getToken().then((fcmToken) => FCM.instance.userSetFCMToken(fcmToken!).then((x) => null), onError: (error) async {
+      FCM.instance.getToken().then((fcmToken) => FCM.instance.userSetFCMToken(fcmToken).then((x) => null), onError: (error) async {
         await updateCfgAsync("fcm_token_saved", "0");
       });
 
       await refreshController();
       afterLogin().then((value) => null);
-      appStateController?.setAppState(Operation.bringToHome, HomeTab.home);
+      appStateController.setAppState(Operation.bringToHome, HomeTab.home);
 
       if (arguments != null) {
         if (arguments is Map && arguments.containsKey("route") && arguments.containsKey("arguments")) {
-          appStateController?.setAppState(Operation.pushNamed, arguments);
+          appStateController.setAppState(Operation.pushNamed, arguments);
         } else if (arguments is String) {
-          appStateController?.setAppState(Operation.pushNamed, {"route": "/forms/login", "arguments": arguments});
+          appStateController.setAppState(Operation.pushNamed, {"route": "/forms/login", "arguments": arguments});
         }
-      } else if (!appStateController!.users.value.verify!) {
-        appStateController?.setAppState(Operation.pushNamed, {"route": "/forms/login"});
+      } else if (!appStateController.users.value.verify) {
+        appStateController.setAppState(Operation.pushNamed, {"route": "/forms/login"});
       }
 
       await SharedHelper.instance.clearBox(BoxName.cache);
@@ -215,18 +212,18 @@ class UserModel {
       });
 
 
-      FirebaseCrashlytics.instance.setUserIdentifier('${appStateController?.users.value.id}');
-      FirebaseCrashlytics.instance.setCustomKey("email", '${appStateController?.users.value.email}');
-      FirebaseCrashlytics.instance.setCustomKey("username", '${appStateController?.users.value.username}');
-      firebaseAnalytics.setUserId('${appStateController?.users.value.id}');
-      MainZendesk().setVisitorInfo(
-        email: '${appStateController?.users.value.email}',
-        name: '${appStateController?.users.value.fullname}',
-        phone: '${appStateController?.users.value.phone}'
-      );
-      MainZendesk().removeTag(ZendeskTag.logout).then((value) => null).catchError((e) => print(e));
-      MainZendesk().removeTag(ZendeskTag.newVisitor).then((value) => null).catchError((e) => print(e));
-      MainZendesk().removeTag(ZendeskTag.login).then((value) => null).catchError((e) => print(e));
+      FirebaseCrashlytics.instance.setUserIdentifier('${appStateController.users.value.id}');
+      FirebaseCrashlytics.instance.setCustomKey("email", '${appStateController.users.value.email}');
+      FirebaseCrashlytics.instance.setCustomKey("username", '${appStateController.users.value.username}');
+      firebaseAnalytics.setUserId('${appStateController.users.value.id}');
+      // MainZendesk().setVisitorInfo(
+      //   email: '${appStateController.users.value.email}',
+      //   name: '${appStateController.users.value.fullname}',
+      //   phone: '${appStateController.users.value.phone}'
+      // );
+      // MainZendesk().removeTag(ZendeskTag.logout).then((value) => null).catchError((e) => print(e));
+      // MainZendesk().removeTag(ZendeskTag.newVisitor).then((value) => null).catchError((e) => print(e));
+      // MainZendesk().removeTag(ZendeskTag.login).then((value) => null).catchError((e) => print(e));
       return true;
     } catch (xerr) {
       await SharedHelper.instance.clearAll();
@@ -252,8 +249,8 @@ class UserModel {
       Dio dio = Dio(); // with default Options
       dio.options.connectTimeout = 5000; //5s
       dio.options.receiveTimeout = 3000;
-      String? token = await getUserToken();
-      dio.options.headers = {"Authorization": "Bearer " + token!};
+      String token = await getUserToken();
+      dio.options.headers = {"Authorization": "Bearer " + token};
       res = await dio.post(getHostName() + "/traders/api/v1/user/edit/profile/",
           data: user.toMap());
       data = res.data;
@@ -272,7 +269,7 @@ class UserModel {
 
     if (data["message"] is Map) {
       UserInfo tmpuser = UserInfo.fromMap(data["message"]);
-      if (tmpuser.id! > 0) {
+      if (tmpuser.id > 0) {
         await updateCfgAsync("usrdat", jsonEncode(data["message"]));
         await refreshController();
         //refresh
@@ -284,7 +281,7 @@ class UserModel {
   }
 
   Future<bool> refreshLogin() async {
-    String? enc = await getCredentials();
+    String enc = await getCredentials();
     if (enc != null) {
       Response res;
       Map data = {};
@@ -322,8 +319,8 @@ class UserModel {
       Dio dio = Dio(); // with default Options
       dio.options.connectTimeout = 5000; //5s
       dio.options.receiveTimeout = 3000;
-      String? token = await UserModel.instance.getUserToken();
-      dio.options.headers = {"Authorization": "Bearer " + token!};
+      String token = await UserModel.instance.getUserToken();
+      dio.options.headers = {"Authorization": "Bearer " + token};
       res = await dio.post(getHostName() + "/traders/api/v1/user/changepass/",
           data: {"oldpassword": oldpassword, "newpassword": newpassword});
       if (res.data is Map) {
@@ -356,9 +353,9 @@ class UserModel {
       }
       firebaseAnalytics.logEvent(
           name: "logout",
-          parameters: {"userid": appStateController?.users.value.id}).then((x) {});
+          parameters: {"userid": appStateController.users.value.id}).then((x) {});
       await SharedHelper.instance.clearAll();
-      appStateController?.setAppState(Operation.clearState, null);
+      appStateController.setAppState(Operation.clearState, null);
       await FCM.instance.deleteInstanceID();
       CacheFactory.releaseAllMutex();
     } catch (xerr) {
@@ -369,31 +366,31 @@ class UserModel {
   Future<void> refreshFCMToken() async {
     bool isLogin = hasLogin();
     if (isLogin) {
-      String? fcmToken = await FCM.instance.getToken();
+      String fcmToken = await FCM.instance.getToken();
       await FCM.instance.userSetFCMToken(fcmToken);
     }
   }
 
   Future<bool> register(
-      {String? email,
-      String? name,
-      String? password,
-      String? passconfirm,
-      String? phone,
-      String? branch,
+      {String email,
+      String name,
+      String password,
+      String passconfirm,
+      String phone,
+      String branch,
       int subscribe = 1,
       dynamic arguments}) async {
     bool emailValid =
-        RegExp(r"^[a-zA-Z0-9._]+@[a-zA-Z0-9]+\.[a-zA-Z]+").hasMatch(email!);
+        RegExp(r"^[a-zA-Z0-9._]+@[a-zA-Z0-9]+\.[a-zA-Z]+").hasMatch(email);
     if (!emailValid) {
       throw Exception("EMAIL_IS_NOT_VALID");
-    } else if (name!.length < 4 || name.length > 50) {
+    } else if (name.length < 4 || name.length > 50) {
       throw Exception("NAME_MUST_BETWEEN_4_AND_50_CHARACTERS");
-    } else if (password!.length < 6 || password.length > 12) {
+    } else if (password.length < 6 || password.length > 12) {
       throw Exception("PASSWORD_MUST_BETWEEN_6_AND_12_CHARACTERS");
-    } else if (password.compareTo(passconfirm!) != 0) {
+    } else if (password.compareTo(passconfirm) != 0) {
       throw Exception("PASSWORD_AND_CONFIRM_DOESNT_MATCH");
-    } else if (!validateMobileNumber(phone!)) {
+    } else if (!validateMobileNumber(phone)) {
       throw Exception("INVALID_PHONE_NUMBER");
     } else if (subscribe < 0 || subscribe > 1) {
       throw Exception("INVALID_SUBSCRIPTION");
@@ -447,28 +444,28 @@ class UserModel {
   }
 
   Future<bool> registerWithCity(
-      {String? email,
-      String? name,
-      String? password,
-      String? passconfirm,
-      String? phone,
-      String? city,
+      {String email,
+      String name,
+      String password,
+      String passconfirm,
+      String phone,
+      String city,
       String token = "",
       int subscribe = 1,
       dynamic arguments}) async {
     bool emailValid = RegExp(r"^[a-zA-Z0-9._]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
-        .hasMatch(email!.replaceAll(' ', ''));
+        .hasMatch(email.replaceAll(' ', ''));
     if (!emailValid) {
       throw Exception("EMAIL_IS_NOT_VALID");
-    } else if (name!.length < 4 || name.length > 50) {
+    } else if (name.length < 4 || name.length > 50) {
       throw Exception("NAME_MUST_BETWEEN_4_AND_50_CHARACTERS");
-    } else if (token == "" && (password!.length < 6 || password.length > 12)) {
+    } else if (token == "" && (password.length < 6 || password.length > 12)) {
       throw Exception("PASSWORD_MUST_BETWEEN_4_AND_12_CHARACTERS");
-    } else if (token == "" && password?.compareTo(passconfirm!) != 0) {
+    } else if (token == "" && password.compareTo(passconfirm) != 0) {
       throw Exception("PASSWORD_AND_CONFIRM_DOESNT_MATCH");
-    } else if (!validateMobileNumber(phone!)) {
+    } else if (!validateMobileNumber(phone)) {
       throw Exception("INVALID_PHONE_NUMBER");
-    } else if (city!.isEmpty) {
+    } else if (city.isEmpty) {
       throw Exception("PLEASE_SELECT_CITY");
     } else if (subscribe < 0 || subscribe > 1) {
       throw Exception("INVALID_SUBSCRIPTION");
@@ -536,7 +533,7 @@ class UserModel {
 
     var file = MultipartFile.fromBytes(
         encodeJpg(
-            copyResize(decodeImage(await image.readAsBytes())!, width: 500),
+            copyResize(decodeImage(await image.readAsBytes()), width: 500),
             quality: 70),
         contentType: MediaType("image", "jpeg"),
         filename: "avatar.jpeg");
@@ -548,8 +545,8 @@ class UserModel {
     int i = 0;
     do {
       i++;
-      String? token = await getUserToken();
-      dio.options.headers = {"Authorization": "Bearer " + token!};
+      String token = await getUserToken();
+      dio.options.headers = {"Authorization": "Bearer " + token};
       res = await dio.post(
           getHostName() + "/traders/api/v1/user/upload/avatar/",
           data: formData);
@@ -566,9 +563,9 @@ class UserModel {
           return false;
         }
 
-        UserInfo? user = appStateController?.users.value;
-        user?.avatar = res.data["message"]["avatar"];
-        await updateCfgAsync("usrdat", jsonEncode(user?.toMap()));
+        UserInfo user = appStateController.users.value;
+        user.avatar = res.data["message"]["avatar"];
+        await updateCfgAsync("usrdat", jsonEncode(user.toMap()));
         break;
       }
     } while (i < 2);

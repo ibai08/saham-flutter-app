@@ -14,7 +14,7 @@ import 'package:saham_01_app/models/user.dart';
 class InboxModel {
   InboxModel._privateConstructor();
   static final InboxModel instance = InboxModel._privateConstructor();
-  RxMap<int, dynamic> _obsBox = RxMap<int, dynamic>();
+  final RxMap<int, dynamic> _obsBox = RxMap<int, dynamic>();
 
   SharedBoxHelper getBox() {
     return SharedHelper.instance.getBox(BoxName.inbox);
@@ -28,10 +28,10 @@ class InboxModel {
     _obsBox.remove(identifier);
   }
 
-  Future<void> refreshInboxByIdAsync({int? id}) async {
+  Future<void> refreshInboxByIdAsync({int id}) async {
     try {
       Map res;
-      if (appStateController!.users.value.id! > 0) {
+      if (appStateController.users.value.id > 0) {
         res = await TF2Request.authorizeRequest(
             method: 'GET',
             url: getHostName() + "/traders/api/v2/my-inbox/$id/");
@@ -62,7 +62,7 @@ class InboxModel {
     } catch (ex) {}
   }
 
-  Future<void> refreshAllBoxAsync({clearCache = true,animateDelay = true, load = false,InboxType? type}) async {
+  Future<void> refreshAllBoxAsync({clearCache = true,animateDelay = true, load = false,InboxType type}) async {
     try {
       SharedBoxHelper _inboxBox = SharedHelper.instance.getBox(BoxName.inbox);
 
@@ -114,7 +114,7 @@ class InboxModel {
       }
 
       // sort data sebelum ditampilkan
-      Map? sortedData = sortInbox(Map.fromIterable(inbox.values.where((v) {
+      Map sortedData = sortInbox(Map.fromIterable(inbox.values.where((v) {
         Map params = jsonDecode(v["params"]);
         if (enumFromString(params["type"], InboxType.values) == type ||
             type == null) {
@@ -155,8 +155,8 @@ class InboxModel {
         await Future.delayed(const Duration(milliseconds: 500));
       }
 
-      Map? itemInbox = await _inboxBox.getMap(inboxid.toString());
-      Map params = jsonDecode(itemInbox?["params"]);
+      Map itemInbox = await _inboxBox.getMap(inboxid.toString());
+      Map params = jsonDecode(itemInbox["params"]);
       List<InboxTag> tags = [];
       if (params.containsKey("tags") && params["tags"] is List) {
         tags = (params["tags"] as List)
@@ -179,7 +179,7 @@ class InboxModel {
     }
   }
 
-  Map? sortInbox(Map data) {
+  Map sortInbox(Map data) {
     try {
       var sortedKeys = data.keys.toList(growable: false)
         ..sort((k1, k2) => data[k2]["created"].compareTo(data[k1]["created"]));
@@ -199,8 +199,8 @@ class InboxModel {
     int reqNo = 0;
     do {
       reqNo++;
-      String? token = await UserModel.instance.getUserToken();
-      dio.options.headers = {"Authorization": "Bearer " + token!};
+      String token = await UserModel.instance.getUserToken();
+      dio.options.headers = {"Authorization": "Bearer " + token};
       Map postParam = {"deleted": 1, "id": inboxid};
       res = await dio.post(getHostName() + "/traders/api/v1/my-inbox/delete/",
           data: postParam);
@@ -226,7 +226,7 @@ class InboxModel {
   }
 
   Future<bool> setReadInboxMessageOnServer(int inboxid) async {
-    if (appStateController!.users.value.id! > 0) {
+    if (appStateController.users.value.id > 0) {
       Map data = await TF2Request.authorizeRequest(
           url: getHostName() + "/traders/api/v1/my-inbox/read/",
           method: 'POST',
@@ -239,16 +239,16 @@ class InboxModel {
 
     // buat inbox count guest
     SharedBoxHelper cache = SharedHelper.instance.getBox(BoxName.cache);
-    Map? inboxRead = await cache.getMap(CacheKey.inboxRead);
+    Map inboxRead = await cache.getMap(CacheKey.inboxRead);
     inboxRead ??= {};
     inboxRead[inboxid.toString()] = 1;
     await cache.putMap(CacheKey.inboxRead, inboxRead);
 
     SharedBoxHelper box = SharedHelper.instance.getBox(BoxName.inbox);
-    Map? itemInbox = await box.getMap(inboxid.toString());
-    itemInbox?["baca"] = 1;
+    Map itemInbox = await box.getMap(inboxid.toString());
+    itemInbox["baca"] = 1;
     await box.put(inboxid.toString(), jsonEncode(itemInbox));
-    Map params = jsonDecode(itemInbox?["params"]);
+    Map params = jsonDecode(itemInbox["params"]);
     List<InboxTag> tags = [];
     if (params.containsKey("tags") && params["tags"] is List) {
       tags = (params["tags"] as List)
@@ -283,7 +283,7 @@ class InboxModel {
   }
 
   Future<int> synchronizeInbox(
-      {int limit = 10, List<dynamic>? loaded, InboxType? type}) async {
+      {int limit = 10, List<dynamic> loaded, InboxType type}) async {
     Map postParam = {"limit": limit};
     if (loaded != null) {
       postParam["loaded"] = loaded;
@@ -306,7 +306,7 @@ class InboxModel {
       } else {
         int success = 0;
         for (int i = 0; i < msglength; i++) {
-          if ((data["message"][i] is! Map)) {
+          if ((data["message"][i] is Map)) {
             throw Exception("INVALID_INBOX_DATA_RESPONSE");
           }
           Map row = data["message"][i];
@@ -336,7 +336,7 @@ class InboxModel {
     return 0;
   }
 
-  Future<void> refreshAllBoxNewAsync({clearCache = true, animateDelay = true, load = false, InboxTag? type}) async {
+  Future<void> refreshAllBoxNewAsync({clearCache = true, animateDelay = true, load = false, InboxTag type}) async {
     try {
       if (type == null) {
         _obsBox.forEach((key, value) async {
@@ -411,7 +411,7 @@ class InboxModel {
       inbox = await _inboxBox.getAllMap();
 
       // sort data sebelum ditampilkan
-      Map? sortedData = sortInbox(Map.fromIterable(inbox.values.where((v) {
+      Map sortedData = sortInbox(Map.fromIterable(inbox.values.where((v) {
         Map params = jsonDecode(v["params"]);
         List<InboxTag> tags = [];
 
@@ -445,7 +445,7 @@ class InboxModel {
   }
 
   Future<int> synchronizeInboxNew(
-      {int limit = 10, List<dynamic>? loaded, InboxTag? type}) async {
+      {int limit = 10, List<dynamic> loaded, InboxTag type}) async {
     Map postParam = {"limit": limit};
     if (loaded != null) {
       postParam["loaded"] = loaded;
@@ -456,7 +456,7 @@ class InboxModel {
 
     Map data;
 
-    if (appStateController!.users.value.id! > 0) {
+    if (appStateController.users.value.id > 0) {
       data = await TF2Request.authorizeRequest(
           method: 'POST',
           url: getHostName() + "/traders/api/v2/my-inbox/",
@@ -477,7 +477,7 @@ class InboxModel {
       } else {
         int success = 0;
         for (int i = 0; i < msglength; i++) {
-          if (data["message"][i] is! Map) {
+          if (data["message"][i] is Map) {
             throw Exception("INVALID_INBOX_DATA_RESPONSE");
           }
           Map row = data["message"][i];
@@ -508,13 +508,13 @@ class InboxModel {
   }
 
   Future<bool> updateInboxAsync(
-      {int? id,
-      String? title,
-      String? description,
-      String? message,
-      String? params,
-      int? baca,
-      int? created}) async {
+      {int id,
+      String title,
+      String description,
+      String message,
+      String params,
+      int baca,
+      int created}) async {
     SharedBoxHelper box = SharedHelper.instance.getBox(BoxName.inbox);
     await box.put(
         id.toString(),
@@ -530,7 +530,7 @@ class InboxModel {
 
     String lastInbox = await getCfgAsync("lastInbox") ?? "0";
     int tsLastInbox = int.tryParse(lastInbox) ?? 0;
-    if (tsLastInbox < created!) {
+    if (tsLastInbox < created) {
       await updateCfgAsync("lastInbox", created.toString());
     }
     return true;
@@ -543,7 +543,7 @@ class InboxModel {
         url: getHostName() + "/traders/api/v2/my-inbox/unread/tag/"
       );
       if (!data.containsKey("error") && data.containsKey("message") && data["message"] is Map) {
-        appStateController?.setAppState(Operation.setInboxCountTag, InboxCount.fromMap(data["message"]));
+        appStateController.setAppState(Operation.setInboxCountTag, InboxCount.fromMap(data["message"]));
       }
     } else {
       SharedBoxHelper box = SharedHelper.instance.getBox(BoxName.inbox);
@@ -583,14 +583,14 @@ class InboxModel {
         }
       });
 
-      appStateController?.setAppState(Operation.setInboxCountTag, inboxCount);
+      appStateController.setAppState(Operation.setInboxCountTag, inboxCount);
     }
   }
 
   Future<Map> getInboxRead() async {
     SharedBoxHelper cache = SharedHelper.instance.getBox(BoxName.cache);
 
-    Map? inboxRead = await cache.getMap(CacheKey.inboxRead);
+    Map inboxRead = await cache.getMap(CacheKey.inboxRead);
 
     inboxRead = inboxRead ?? {};
     return inboxRead;

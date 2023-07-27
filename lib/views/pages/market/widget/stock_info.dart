@@ -1,20 +1,20 @@
 import 'package:flutter/material.dart';
 
 class StockInfoRow extends StatelessWidget {
-  final String? title1;
-  final String? value1;
-  final String? title2;
-  final String? value2;
-  final String? title3;
-  final String? value3;
-  final String? title4;
-  final String? value4;
-  final String? title5;
-  final String? value5;
-  final String? title6;
-  final String? value6;
+  final String title1;
+  final String value1;
+  final String title2;
+  final String value2;
+  final String title3;
+  final String value3;
+  final String title4;
+  final String value4;
+  final String title5;
+  final String value5;
+  final String title6;
+  final String value6;
 
-  const StockInfoRow({Key? key, 
+  const StockInfoRow({Key key, 
     this.title1,
     this.value1,
     this.title2,
@@ -42,7 +42,7 @@ class StockInfoRow extends StatelessWidget {
                   child: Row(
                     children: [
                       Text(
-                        title1!,
+                        title1,
                         style: const TextStyle(
                           fontSize: 16.0,
                           fontWeight: FontWeight.bold,
@@ -57,7 +57,7 @@ class StockInfoRow extends StatelessWidget {
                       ),
                       const SizedBox(width: 4.0),
                       Text(
-                        value1!,
+                        value1,
                         style: const TextStyle(
                           fontSize: 16.0,
                         ),
@@ -66,7 +66,7 @@ class StockInfoRow extends StatelessWidget {
                   ),
                 ),
                 Text(
-                  title2!,
+                  title2,
                   style: const TextStyle(
                     fontSize: 16.0,
                     fontWeight: FontWeight.bold,
@@ -81,7 +81,7 @@ class StockInfoRow extends StatelessWidget {
                 ),
                 const SizedBox(width: 4.0),
                 Text(
-                  value2!,
+                  value2,
                   style: const TextStyle(
                     fontSize: 16.0,
                   ),
@@ -94,7 +94,7 @@ class StockInfoRow extends StatelessWidget {
                   child: Row(
                     children: [
                       Text(
-                        title3!,
+                        title3,
                         style: const TextStyle(
                           fontSize: 16.0,
                           fontWeight: FontWeight.bold,
@@ -109,7 +109,7 @@ class StockInfoRow extends StatelessWidget {
                       ),
                       const SizedBox(width: 4.0),
                       Text(
-                        value3!,
+                        value3,
                         style: const TextStyle(
                           fontSize: 16.0,
                         ),
@@ -118,7 +118,7 @@ class StockInfoRow extends StatelessWidget {
                   ),
                 ),
                 Text(
-                  title4!,
+                  title4,
                   style: const TextStyle(
                     fontSize: 16.0,
                     fontWeight: FontWeight.bold,
@@ -133,7 +133,7 @@ class StockInfoRow extends StatelessWidget {
                 ),
                 const SizedBox(width: 22.0),
                 Text(
-                  value4!,
+                  value4,
                   style: const TextStyle(
                     fontSize: 16.0,
                   ),
@@ -146,7 +146,7 @@ class StockInfoRow extends StatelessWidget {
                   child: Row(
                     children: [
                       Text(
-                        title5!,
+                        title5,
                         style: const TextStyle(
                           fontSize: 16.0,
                           fontWeight: FontWeight.bold,
@@ -161,7 +161,7 @@ class StockInfoRow extends StatelessWidget {
                       ),
                       const SizedBox(width: 4.0),
                       Text(
-                        value5!,
+                        value5,
                         style: const TextStyle(
                           fontSize: 16.0,
                         ),
@@ -170,7 +170,7 @@ class StockInfoRow extends StatelessWidget {
                   ),
                 ),
                 Text(
-                  title6!,
+                  title6,
                   style: const TextStyle(
                     fontSize: 16.0,
                     fontWeight: FontWeight.bold,
@@ -185,7 +185,7 @@ class StockInfoRow extends StatelessWidget {
                 ),
                 const SizedBox(width: 11.5),
                 Text(
-                  value6!,
+                  value6,
                   style: const TextStyle(
                     fontSize: 16.0,
                   ),

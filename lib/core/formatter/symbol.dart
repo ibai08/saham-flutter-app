@@ -26,12 +26,12 @@ List<String> extNumberFormat = [
 ];
 
 class SymbolInputFormatter extends TextInputFormatter {
-  int? digit;
-  Function? fnSymbol;
+  int digit;
+  Function fnSymbol;
   SymbolInputFormatter(this.fnSymbol);
   TextEditingValue formatEditUpdate(
       TextEditingValue oldValue, TextEditingValue newValue) {
-    TradeSymbol symbol = fnSymbol!();
+    TradeSymbol symbol = fnSymbol();
     digit = symbol.digit;
 
     // default offset
@@ -54,7 +54,7 @@ class SymbolInputFormatter extends TextInputFormatter {
           selection: TextSelection.collapsed(offset: decimalPos));
     }
 
-    double? value = double.tryParse(newValue.text);
+    double value = double.tryParse(newValue.text);
     if (value == null) {
       return oldValue;
     }
@@ -76,7 +76,7 @@ class SymbolInputFormatter extends TextInputFormatter {
           firstDecimal = "1";
           return newValue.copyWith(
               text: double.parse(firstDecimal + "." + lastDecimal)
-                  .toStringAsFixed(digit!),
+                  .toStringAsFixed(digit),
               selection: const TextSelection.collapsed(offset: 1));
         }
       }
@@ -86,7 +86,7 @@ class SymbolInputFormatter extends TextInputFormatter {
         firstDecimal = "0";
         return newValue.copyWith(
             text: double.parse(firstDecimal + "." + lastDecimal)
-                .toStringAsFixed(digit!),
+                .toStringAsFixed(digit),
             selection: const TextSelection.collapsed(offset: 0));
       }
 
@@ -94,10 +94,10 @@ class SymbolInputFormatter extends TextInputFormatter {
         return oldValue;
       }
 
-      if (lastDecimal.length > digit!) {
+      if (lastDecimal.length > digit) {
         String newText = double.parse(
                 firstDecimal + "." + lastDecimal.substring(0, digit))
-            .toStringAsFixed(digit!);
+            .toStringAsFixed(digit);
         if (newText.length < offset) {
           offset--;
         }
@@ -109,14 +109,14 @@ class SymbolInputFormatter extends TextInputFormatter {
     if (newValue.selection.baseOffset == 0) {
       return newValue;
     }
-    if (digit! > extDecimalArray.length ||
-        digit! > extNumberFormat.length) {
+    if (digit > extDecimalArray.length ||
+        digit > extNumberFormat.length) {
       return newValue;
     }
-    if (!newValue.text.contains(".") && newValue.text.length > 1) {
-      value = value / extDecimalArray[digit!];
+    if (newValue.text.contains(".") && newValue.text.length > 1) {
+      value = value / extDecimalArray[digit];
     }
-    String newText = value.toStringAsFixed(digit!);
+    String newText = value.toStringAsFixed(digit);
     return newValue.copyWith(
         text: newText, selection: TextSelection.collapsed(offset: offset));
   }

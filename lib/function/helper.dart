@@ -7,10 +7,10 @@ import 'lang.dart';
 String enumToString(Object o) => o.toString().split('.').last;
 
 T enumFromString<T>(String key, List<T> values) {
-  return values.firstWhere((v) => key == enumToString(v!), orElse: () => null!);
+  return values.firstWhere((v) => key == enumToString(v), orElse: () => null);
 }
 
-String? translateFromPattern(String string) {
+String translateFromPattern(String string) {
   if (lang.containsKey(string)) {
     return lang[string];
   }
@@ -26,7 +26,7 @@ String? translateFromPattern(String string) {
     return (RegExp(test.replaceAll(exp, "(.*)")))
         .allMatches(string)
         .isNotEmpty;
-  }, orElse: () => null!);
+  }, orElse: () => null);
 
   if (pattern == null) {
     return string;
@@ -46,11 +46,11 @@ String? translateFromPattern(String string) {
     for (int i = 0; i < params.length; i++) {
       var isDateTime = RegExp(
               r"^([0-9]{4})-([0-1][0-9])-([0-3][0-9])T([0-1][0-9]|[2][0-3]):([0-5][0-9]):([0-5][0-9])Z$")
-          .hasMatch(variables[i]!);
+          .hasMatch(variables[i]);
       if (isDateTime) {
-        if (DateTime.tryParse(variables[i]!) != null) {
+        if (DateTime.tryParse(variables[i]) != null) {
           parsedParam[params[i]] = DateFormat("dd-MM-yyyy HH:mm")
-              .format(DateTime.parse(variables[i]!).toLocal());
+              .format(DateTime.parse(variables[i]).toLocal());
         } else {
           parsedParam[params[i]] = variables[i];
         }
@@ -64,7 +64,7 @@ String? translateFromPattern(String string) {
       if (parsedParam.containsKey(matched)) {
         return parsedParam[matched];
       }
-      return matched!;
+      return matched;
     });
   } else {
     return template;

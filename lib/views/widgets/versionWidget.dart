@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 
 class VersionWidget extends StatefulWidget {
-  const VersionWidget({Key? key}) : super(key: key);
+  const VersionWidget({Key key}) : super(key: key);
 
   @override
   State<VersionWidget> createState() => _VersionWidgetState();
@@ -33,7 +33,7 @@ class _VersionWidgetState extends State<VersionWidget> {
         stream: packageInfoStreamCtrl.stream,
         builder: (context, snapshot) {
           if (snapshot.hasData) {
-            PackageInfo packageInfo = snapshot.data!;
+            PackageInfo packageInfo = snapshot.data;
             return Padding(
               padding: const EdgeInsets.only(top: 10, bottom: 45),
               child: Text(

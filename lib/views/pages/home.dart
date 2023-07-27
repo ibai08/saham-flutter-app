@@ -20,7 +20,7 @@ import '../../interface/scrollUpWidget.dart';
 import '../appbar/navmain.dart';
 
 class Home extends StatefulWidget implements ScrollUpWidget {
-  Home({Key? key}) : super(key: key);
+  Home({Key key}) : super(key: key);
 
   @override
   _HomeState createState() => _HomeState();
@@ -28,7 +28,7 @@ class Home extends StatefulWidget implements ScrollUpWidget {
   @override
   void onResetTab() {
     refreshController.position
-        ?.moveTo(0, duration: Duration(milliseconds: 600));
+        ?.moveTo(0, duration: const Duration(milliseconds: 600));
   }
 
   @override
@@ -60,7 +60,7 @@ class _HomeState extends State<Home> with AutomaticKeepAliveClientMixin {
 
   @override
   void initState() {
-    Future.delayed(Duration(microseconds: 0)).then((_) async {
+    Future.delayed(const Duration(microseconds: 0)).then((_) async {
       // await initializePageAsync();
       // await getEventPage();
       // init();
@@ -83,7 +83,7 @@ class _HomeState extends State<Home> with AutomaticKeepAliveClientMixin {
         physics: const BouncingScrollPhysics(),
         scrollDirection: Axis.vertical,
         children: <Widget>[
-          TotalBalance(),
+          const TotalBalance(),
           const SizedBox(height: 20),
           ChannelTranding(),
           const SizedBox(height: 20),
@@ -151,7 +151,7 @@ class _HomeState extends State<Home> with AutomaticKeepAliveClientMixin {
 }
 
 class TotalBalance extends StatelessWidget {
-  const TotalBalance({Key? key}) : super(key: key);
+  const TotalBalance({Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -206,7 +206,7 @@ class TotalBalance extends StatelessWidget {
             // ==> BOX BUYING POWER
             Container(
               decoration: BoxDecoration(
-                  color: AppColors.purplePrimary, borderRadius: BorderRadius.only(bottomLeft: Radius.circular(8), bottomRight: Radius.circular(8))),
+                  color: AppColors.purplePrimary, borderRadius: const BorderRadius.only(bottomLeft: const Radius.circular(8), bottomRight: const Radius.circular(8))),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -275,31 +275,31 @@ class ChannelTranding extends StatelessWidget {
       children: [
         // ==> JUDUL CHANNEL TRANDING
         Container(
-          padding: EdgeInsets.symmetric(horizontal: 18),
-          child: Text(
+          padding: const EdgeInsets.symmetric(horizontal: 18),
+          child: const Text(
             "Channel Tranding",
-            style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600, height: 1.8, fontFamily: 'Manrope'),
+            style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w600, height: 1.8, fontFamily: 'Manrope'),
           ),
         ),
-        SizedBox(height: 10),
+        const SizedBox(height: 10),
         // ==> BOX CHANNEL TRANDING
         SingleChildScrollView(
-          padding: EdgeInsets.symmetric(horizontal: 18),
+          padding: const EdgeInsets.symmetric(horizontal: 18),
           scrollDirection: Axis.horizontal,
           child: Row(
             children: [
               Container(
                 width: 250,
                 height: 165,
-                decoration: BoxDecoration(
+                decoration: const BoxDecoration(
                   color: Colors.white,
-                  borderRadius: BorderRadius.all(Radius.circular(8)),
+                  borderRadius: const BorderRadius.all(const Radius.circular(8)),
                 ),
                 child: Column(
                   children: [
                     // ==> NAMA USER DAN LEVEL DAN SUBSCRIBER // ==> AVATAR USER
                     Container(
-                      padding: EdgeInsets.all(10),
+                      padding: const EdgeInsets.all(10),
                       child: Row(
                         children: [
                           Container(
@@ -310,17 +310,17 @@ class ChannelTranding extends StatelessWidget {
                               ),
                             ),
                           ),
-                          SizedBox(width: 8),
+                          const SizedBox(width: 8),
                           Container(
                             child: Column(
                               mainAxisAlignment: MainAxisAlignment.center,
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                Text(
+                                const Text(
                                   "Tanjiro Kamado",
                                   style: TextStyle(fontSize: 14, fontWeight: FontWeight.w400, fontFamily: 'Manrope'),
                                 ),
-                                Text(
+                                const Text(
                                   "Legend | 136 Subscribers",
                                   style: TextStyle(fontSize: 10, fontWeight: FontWeight.w400, fontFamily: 'Manrope'),
                                 ),
@@ -336,7 +336,7 @@ class ChannelTranding extends StatelessWidget {
                       child: Row(
                         children: [
                           Image.asset("assets/icon/light/trending-up.png"),
-                          SizedBox(width: 8),
+                          const SizedBox(width: 8),
                           Text(
                             "+102.8%",
                             style: TextStyle(
@@ -356,20 +356,20 @@ class ChannelTranding extends StatelessWidget {
                         child: ElevatedButton(
                           onPressed: () {},
                           style: ElevatedButton.styleFrom(
-                            primary: Color(0xFF350699),
+                            primary: const Color(0xFF350699),
                           ),
-                          child: Text("Subscribe for Rp300.000", style: TextStyle(fontSize: 12, fontWeight: FontWeight.w400, fontFamily: 'Manrope')),
+                          child: const Text("Subscribe for Rp300.000", style: const TextStyle(fontSize: 12, fontWeight: FontWeight.w400, fontFamily: 'Manrope')),
                         ),
                       ),
                     ),
                   ],
                 ),
               ),
-              SizedBox(width: 10),
+              const SizedBox(width: 10),
               Container(
                 width: 250,
                 height: 165,
-                decoration: BoxDecoration(
+                decoration: const BoxDecoration(
                   color: Colors.white,
                   borderRadius: BorderRadius.all(Radius.circular(8)),
                 ),
@@ -377,7 +377,7 @@ class ChannelTranding extends StatelessWidget {
                   children: [
                     // ==> NAMA USER DAN LEVEL DAN SUBSCRIBER // ==> AVATAR USER
                     Container(
-                      padding: EdgeInsets.all(10),
+                      padding: const EdgeInsets.all(10),
                       child: Row(
                         children: [
                           Container(
@@ -388,19 +388,19 @@ class ChannelTranding extends StatelessWidget {
                               ),
                             ),
                           ),
-                          SizedBox(width: 8),
+                          const SizedBox(width: 8),
                           Container(
                             child: Column(
                               mainAxisAlignment: MainAxisAlignment.center,
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                Text(
+                                const Text(
                                   "Nezuko Kamado",
-                                  style: TextStyle(fontSize: 14, fontWeight: FontWeight.w400, fontFamily: 'Manrope'),
+                                  style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w400, fontFamily: 'Manrope'),
                                 ),
-                                Text(
+                                const Text(
                                   "Legend | 100 Subscribers",
-                                  style: TextStyle(fontSize: 10, fontWeight: FontWeight.w400, fontFamily: 'Manrope'),
+                                  style: const TextStyle(fontSize: 10, fontWeight: FontWeight.w400, fontFamily: 'Manrope'),
                                 ),
                               ],
                             ),
@@ -414,8 +414,8 @@ class ChannelTranding extends StatelessWidget {
                       child: Row(
                         children: [
                           Image.asset("assets/icon/light/trending-up.png"),
-                          SizedBox(width: 8),
-                          Text(
+                          const SizedBox(width: 8),
+                          const Text(
                             "+102.8%",
                             style: TextStyle(
                               fontSize: 20,
@@ -434,28 +434,28 @@ class ChannelTranding extends StatelessWidget {
                         child: ElevatedButton(
                           onPressed: () {},
                           style: ElevatedButton.styleFrom(
-                            primary: Color(0xFF350699),
+                            primary: const Color(0xFF350699),
                           ),
-                          child: Text("Subscribe for Rp300.000", style: TextStyle(fontSize: 12, fontWeight: FontWeight.w400, fontFamily: 'Manrope')),
+                          child: const Text("Subscribe for Rp300.000", style: const TextStyle(fontSize: 12, fontWeight: FontWeight.w400, fontFamily: 'Manrope')),
                         ),
                       ),
                     ),
                   ],
                 ),
               ),
-              SizedBox(width: 10),
+              const SizedBox(width: 10),
               Container(
                 width: 250,
                 height: 165,
-                decoration: BoxDecoration(
+                decoration: const BoxDecoration(
                   color: Colors.white,
-                  borderRadius: BorderRadius.all(Radius.circular(8)),
+                  borderRadius: BorderRadius.all(const Radius.circular(8)),
                 ),
                 child: Column(
                   children: [
                     // ==> NAMA USER DAN LEVEL DAN SUBSCRIBER // ==> AVATAR USER
                     Container(
-                      padding: EdgeInsets.all(10),
+                      padding: const EdgeInsets.all(10),
                       child: Row(
                         children: [
                           Container(
@@ -466,19 +466,19 @@ class ChannelTranding extends StatelessWidget {
                               ),
                             ),
                           ),
-                          SizedBox(width: 8),
+                          const SizedBox(width: 8),
                           Container(
                             child: Column(
                               mainAxisAlignment: MainAxisAlignment.center,
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                Text(
+                                const Text(
                                   "Serizawa Tamao",
-                                  style: TextStyle(fontSize: 14, fontWeight: FontWeight.w400, fontFamily: 'Manrope'),
+                                  style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w400, fontFamily: 'Manrope'),
                                 ),
-                                Text(
+                                const Text(
                                   "Legend | 200 Subscribers",
-                                  style: TextStyle(fontSize: 10, fontWeight: FontWeight.w400, fontFamily: 'Manrope'),
+                                  style: const TextStyle(fontSize: 10, fontWeight: FontWeight.w400, fontFamily: 'Manrope'),
                                 ),
                               ],
                             ),
@@ -492,10 +492,10 @@ class ChannelTranding extends StatelessWidget {
                       child: Row(
                         children: [
                           Image.asset("assets/icon/light/trending-up.png"),
-                          SizedBox(width: 8),
-                          Text(
+                          const SizedBox(width: 8),
+                          const Text(
                             "+102.8%",
-                            style: TextStyle(
+                            style: const TextStyle(
                               fontSize: 20,
                               fontWeight: FontWeight.w600,
                               color: Color(0xFF00B451),
@@ -512,9 +512,9 @@ class ChannelTranding extends StatelessWidget {
                         child: ElevatedButton(
                           onPressed: () {},
                           style: ElevatedButton.styleFrom(
-                            primary: Color(0xFF350699),
+                            primary: const Color(0xFF350699),
                           ),
-                          child: Text("Subscribe for Rp300.000", style: TextStyle(fontSize: 12, fontWeight: FontWeight.w400, fontFamily: 'Manrope')),
+                          child: const Text("Subscribe for Rp300.000", style: TextStyle(fontSize: 12, fontWeight: FontWeight.w400, fontFamily: 'Manrope')),
                         ),
                       ),
                     ),
@@ -524,20 +524,20 @@ class ChannelTranding extends StatelessWidget {
             ],
           ),
         ),
-        SizedBox(height: 10),
+        const SizedBox(height: 10),
         // ==> BUTTON LIHAT SEMUA
         Padding(
-          padding: EdgeInsets.symmetric(horizontal: 18),
+          padding: const EdgeInsets.symmetric(horizontal: 18),
           child: InkWell(
             onTap: () {},
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                Text(
+                const Text(
                   "Lihat Semua",
                   style: TextStyle(fontSize: 12, fontWeight: FontWeight.w400),
                 ),
-                SizedBox(width: 3),
+                const SizedBox(width: 3),
                 Image.asset("assets/icon/light/arrow-right.png", width: 12, height: 12)
               ],
             ),
@@ -556,8 +556,8 @@ class NewProfitSignal extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         // ==> TITLE SIGNAL BARU PROFIT
-        Padding(
-          padding: const EdgeInsets.only(left: 18, bottom: 10),
+        const Padding(
+          padding: EdgeInsets.only(left: 18, bottom: 10),
           child: Text(
             "Signal baru saja profit",
             style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600, height: 1.8, fontFamily: 'Manrope'),
@@ -567,21 +567,21 @@ class NewProfitSignal extends StatelessWidget {
         Container(
           child: ListView(
             shrinkWrap: true,
-            physics: NeverScrollableScrollPhysics(),
-            padding: EdgeInsets.symmetric(horizontal: 18),
+            physics: const NeverScrollableScrollPhysics(),
+            padding: const EdgeInsets.symmetric(horizontal: 18),
             children: <Widget>[
               Container(
                 width: MediaQuery.of(context).size.width,
                 height: 150,
-                decoration: BoxDecoration(
+                decoration: const BoxDecoration(
                   color: Colors.white,
-                  borderRadius: BorderRadius.all(Radius.circular(8)),
+                  borderRadius: const BorderRadius.all(Radius.circular(8)),
                 ),
                 child: Column(
                   children: [
                     // ==> NAMA USER DAN LEVEL DAN SUBSCRIBER // ==> AVATAR USER
                     Container(
-                      padding: EdgeInsets.all(15),
+                      padding: const EdgeInsets.all(15),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
@@ -595,19 +595,19 @@ class NewProfitSignal extends StatelessWidget {
                                   ),
                                 ),
                               ),
-                              SizedBox(width: 8),
+                              const SizedBox(width: 8),
                               Container(
                                 child: Column(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    Text(
+                                    const Text(
                                       "Tanjiro Kamado",
-                                      style: TextStyle(fontSize: 14, fontWeight: FontWeight.w400, fontFamily: 'Manrope'),
+                                      style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w400, fontFamily: 'Manrope'),
                                     ),
-                                    Text(
+                                    const Text(
                                       "Legend | 136 Subscribers",
-                                      style: TextStyle(fontSize: 10, fontWeight: FontWeight.w400, fontFamily: 'Manrope'),
+                                      style: const TextStyle(fontSize: 10, fontWeight: FontWeight.w400, fontFamily: 'Manrope'),
                                     ),
                                   ],
                                 ),
@@ -627,8 +627,8 @@ class NewProfitSignal extends StatelessWidget {
                       ),
                     ),
                     // ==> DIVIDER GARIS
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 15),
+                    const Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 15),
                       child: Divider(
                         height: 1,
                         thickness: 1,
@@ -638,7 +638,7 @@ class NewProfitSignal extends StatelessWidget {
                       ),
                     ),
                     Padding(
-                      padding: EdgeInsets.all(15),
+                      padding: const EdgeInsets.all(15),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
@@ -648,13 +648,13 @@ class NewProfitSignal extends StatelessWidget {
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                Text("BRIS", style: TextStyle(fontSize: 14, fontWeight: FontWeight.w600, fontFamily: 'Manrope')),
-                                Text("Bank Syariah Indonesia Tbk.",
+                                const Text("BRIS", style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w600, fontFamily: 'Manrope')),
+                                const Text("Bank Syariah Indonesia Tbk.",
                                     style: TextStyle(fontSize: 10, fontWeight: FontWeight.w400, fontFamily: 'Manrope')),
                               ],
                             ),
                           ),
-                          SizedBox(width: 5),
+                          const SizedBox(width: 5),
                           Container(
                             width: 175,
                             height: 40,
@@ -676,11 +676,11 @@ class NewProfitSignal extends StatelessWidget {
                   ],
                 ),
               ),
-              SizedBox(height: 10),
+              const SizedBox(height: 10),
               Container(
                 width: MediaQuery.of(context).size.width,
                 height: 150,
-                decoration: BoxDecoration(
+                decoration: const BoxDecoration(
                   color: Colors.white,
                   borderRadius: BorderRadius.all(Radius.circular(8)),
                 ),
@@ -688,7 +688,7 @@ class NewProfitSignal extends StatelessWidget {
                   children: [
                     // ==> NAMA USER DAN LEVEL DAN SUBSCRIBER // ==> AVATAR USER
                     Container(
-                      padding: EdgeInsets.all(15),
+                      padding: const EdgeInsets.all(15),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
@@ -702,17 +702,17 @@ class NewProfitSignal extends StatelessWidget {
                                   ),
                                 ),
                               ),
-                              SizedBox(width: 8),
+                              const SizedBox(width: 8),
                               Container(
                                 child: Column(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    Text(
+                                    const Text(
                                       "Tanjiro Kamado",
                                       style: TextStyle(fontSize: 14, fontWeight: FontWeight.w400, fontFamily: 'Manrope'),
                                     ),
-                                    Text(
+                                    const Text(
                                       "Legend | 136 Subscribers",
                                       style: TextStyle(fontSize: 10, fontWeight: FontWeight.w400, fontFamily: 'Manrope'),
                                     ),
@@ -734,18 +734,18 @@ class NewProfitSignal extends StatelessWidget {
                       ),
                     ),
                     // ==> DIVIDER GARIS
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 15),
-                      child: Divider(
+                    const Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 15),
+                      child: const Divider(
                         height: 1,
                         thickness: 1,
                         indent: 1,
                         endIndent: 0,
-                        color: Color(0xFFC9CCCF),
+                        color: const Color(0xFFC9CCCF),
                       ),
                     ),
                     Padding(
-                      padding: EdgeInsets.all(15),
+                      padding: const EdgeInsets.all(15),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
@@ -755,13 +755,13 @@ class NewProfitSignal extends StatelessWidget {
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                Text("BRIS", style: TextStyle(fontSize: 14, fontWeight: FontWeight.w600, fontFamily: 'Manrope')),
-                                Text("Bank Syariah Indonesia Tbk.",
-                                    style: TextStyle(fontSize: 10, fontWeight: FontWeight.w400, fontFamily: 'Manrope')),
+                                const Text("BRIS", style: TextStyle(fontSize: 14, fontWeight: FontWeight.w600, fontFamily: 'Manrope')),
+                                const Text("Bank Syariah Indonesia Tbk.",
+                                    style: const TextStyle(fontSize: 10, fontWeight: FontWeight.w400, fontFamily: 'Manrope')),
                               ],
                             ),
                           ),
-                          SizedBox(width: 5),
+                          const SizedBox(width: 5),
                           Container(
                             width: 175,
                             height: 40,
@@ -787,17 +787,17 @@ class NewProfitSignal extends StatelessWidget {
           ),
         ),
         Padding(
-          padding: EdgeInsets.symmetric(horizontal: 18, vertical: 10),
+          padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 10),
           child: InkWell(
             onTap: () {},
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                Text(
+                const Text(
                   "Lihat Semua",
                   style: TextStyle(fontSize: 12, fontWeight: FontWeight.w400),
                 ),
-                SizedBox(width: 3),
+                const SizedBox(width: 3),
                 Image.asset("assets/icon/light/arrow-right.png", width: 12, height: 12)
               ],
             ),

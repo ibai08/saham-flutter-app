@@ -8,7 +8,7 @@ import 'package:saham_01_app/core/getStorage.dart';
 class CacheFactory {
   static Mutex mSync = Mutex();
   static Map<String, Mutex> mapMutex = Map();
-  static Mutex? getMutex(String key) {
+  static Mutex getMutex(String key) {
     mSync.acquire();
     if (!mapMutex.containsKey(key)) {
       mapMutex[key] = Mutex();
@@ -26,10 +26,10 @@ class CacheFactory {
   }
 
   static Future<dynamic> getCache(String key, Function func, int refreshSeconds) async {
-    Map? tmp = Map();
-    Mutex? m = getMutex(key);
+    Map tmp = Map();
+    Mutex m = getMutex(key);
     dynamic result;
-    await m?.acquire();
+    await m.acquire();
     try {
       SharedBoxHelper boxCache = SharedHelper.instance.getBox(BoxName.cache);
       tmp = await boxCache.getMap(key);
@@ -45,7 +45,7 @@ class CacheFactory {
     } catch (x) {
       throw x;
     } finally {
-      m?.release();
+      m.release();
     }
     return result;
   }

@@ -1,5 +1,5 @@
 class FlSpotsModels {
-  List<Data>? data;
+  List<Data> data;
 
   FlSpotsModels({this.data});
 
@@ -7,7 +7,7 @@ class FlSpotsModels {
     if (json['data'] != null) {
       data = <Data>[];
       json['data'].forEach((v) {
-        data?.add(Data.fromJson(v));
+        data.add(Data.fromJson(v));
       });
     }
   }
@@ -15,15 +15,15 @@ class FlSpotsModels {
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
     if (this.data != null) {
-      data['data'] = this.data?.map((v) => v.toJson()).toList();
+      data['data'] = this.data.map((v) => v.toJson()).toList();
     }
     return data;
   }
 }
 
 class Data {
-  String? x;
-  String? y;
+  String x;
+  String y;
 
   Data({this.x, this.y});
 

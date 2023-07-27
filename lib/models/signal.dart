@@ -16,13 +16,13 @@ import 'package:sprintf/sprintf.dart';
 class SignalModel {
   static final SignalModel instance = SignalModel._privateConstructor();
   SignalModel._privateConstructor();
-  late SharedBoxHelper _signalBox;
+  SharedBoxHelper _signalBox;
 
   RxMap<int, SignalInfo> _signalCache = <int, SignalInfo>{}.obs;
 
-  Future<void> subsribeSignalAsync({int? signalid, bool? clearCache}) async {
-    SignalInfo? tmpSignal;
-    if (clearCache!) {
+  Future<void> subsribeSignalAsync({int signalid, bool clearCache}) async {
+    SignalInfo tmpSignal;
+    if (clearCache) {
       _signalBox.delete(signalid.toString());
     }
     if (_signalCache.containsKey(signalid)) {
@@ -36,11 +36,11 @@ class SignalModel {
 
     do {
       tryCount++;
-      Map<dynamic, dynamic>? tmpSignalMap = await _signalBox.getMap(signalid.toString());
+      Map<dynamic, dynamic> tmpSignalMap = await _signalBox.getMap(signalid.toString());
       if (tmpSignalMap != null) {
         tmpSignal = SignalInfo.fromMap(tmpSignalMap);
       } else {
-        tmpSignal = await getSignalDetailAsync(signalid!);
+        tmpSignal = await getSignalDetailAsync(signalid);
       }
 
       if (tmpSignal != null) {
@@ -49,13 +49,13 @@ class SignalModel {
     } while (tryCount > 1);
 
     if (tmpSignal != null) {
-      ChannelCardSlim channel = await ChannelModel.instance.getDetail(tmpSignal.channel!.id!);
+      ChannelCardSlim channel = await ChannelModel.instance.getDetail(tmpSignal.channel.id);
       if (channel == null) {
         throw Exception("CHANNEL_NOT_FOUND");
-      } else if (channel.subscribed! && channel.username != appStateController?.users.value.username) {
+      } else if (channel.subscribed && channel.username != appStateController.users.value.username) {
         throw Exception("CHANNEL_NOT_SUBSCRIBED");
       } else {
-        _signalCache[signalid!] = tmpSignal;
+        _signalCache[signalid] = tmpSignal;
       }
     }
     return null;
@@ -170,7 +170,7 @@ class SignalModel {
   }
 
   Future<List<SignalInfo>> getChannelSignals({
-    int? channelid, int? active, int? offset
+    int channelid, int active, int offset
   }) async {
     List<SignalInfo> listSignalInfo = [];
     Map fetchData = await TF2Request.authorizeRequest(
@@ -216,7 +216,7 @@ class SignalModel {
     return listSignalInfo;
   }
 
-  Future<List<SignalCardSlim>?> getRecentSignalAsync({int limit = 10, int offset = 0, int filter = 0}) async {
+  Future<List<SignalCardSlim>> getRecentSignalAsync({int limit = 10, int offset = 0, int filter = 0}) async {
     List<SignalCardSlim> listSignalBadgeSlim = [];
     try {
       Map fetchData = await TF2Request.authorizeRequest(
@@ -245,7 +245,7 @@ class SignalModel {
       });
 
       listSignalBadgeSlim.sort((a, b) {
-        return DateTime.parse(b.createdAt!).compareTo(DateTime.parse(a.createdAt!));
+        return DateTime.parse(b.createdAt).compareTo(DateTime.parse(a.createdAt));
       });
       return listSignalBadgeSlim;
     } catch (xerr) {
@@ -255,7 +255,7 @@ class SignalModel {
     return null;
   }
 
-  Future<SignalInfo?> getSignalDetailAsync(int signalid, {bool clearCache = false}) async {
+  Future<SignalInfo> getSignalDetailAsync(int signalid, {bool clearCache = false}) async {
     try {
       dynamic data = await _signalBox.get(signalid.toString());
       SignalInfo _signalData;
@@ -306,13 +306,13 @@ class SignalModel {
     return null;
   }
 
-  Future<int> createSignal({int? channelid, String? cmd, String? symbol, double? price, double? sl, double? tp, int? hour}) async {
+  Future<int> createSignal({int channelid, String cmd, String symbol, double price, double sl, double tp, int hour}) async {
     Map<String, dynamic> postParam = {
       "CHANNELID": channelid,
       "SYMBOL": symbol,
       "CMD": cmd,
       "PRICE": price,
-      "EXPIRED": hour! * 3600,
+      "EXPIRED": hour * 3600,
       "SL": sl,
       "TP": tp
     };
@@ -328,7 +328,7 @@ class SignalModel {
     return fetchData["message"];
   }
 
-  Future<List> getAccountSymbols({String? mt4, String? symbol}) async {
+  Future<List> getAccountSymbols({String mt4, String symbol}) async {
     Map postParam = {"account": mt4, "symbol": symbol};
 
     Map fetchData = await TF2Request.authorizeRequest(
@@ -340,11 +340,11 @@ class SignalModel {
   }
 
   Future<dynamic> copySignal(
-      {int? signalid,
-      String? mt4id,
-      String? symbol,
-      double? volume,
-      String? broker}) async {
+      {int signalid,
+      String mt4id,
+      String symbol,
+      double volume,
+      String broker}) async {
     Map postParam = {
       "SIGNALID": signalid,
       "MT4ID": mt4id,
@@ -358,7 +358,7 @@ class SignalModel {
     return fetchData["message"];
   }
 
-  Future<dynamic> cancelSignal({int? signalId}) async {
+  Future<dynamic> cancelSignal({int signalId}) async {
     Map postParam = {"SIGNALID": signalId};
 
     Map fetchData = await TF2Request.authorizeRequest(
@@ -371,7 +371,7 @@ class SignalModel {
       {int refreshSeconds = 18000}) async {
     List data = await CacheFactory.getCache(
         sprintf(
-            CacheKey.signalTradeByIDnUserID, [signalid, appStateController?.users.value.id]),
+            CacheKey.signalTradeByIDnUserID, [signalid, appStateController.users.value.id]),
         () async {
       Map fetchData = await TF2Request.authorizeRequest(
           url: getHostName() + "/ois/api/v1/signal/trade/byme/",
@@ -391,11 +391,11 @@ class SignalModel {
   }
 
   Future<bool> updateSignal(
-      {int? signalId,
+      {int signalId,
       double price = 0,
-      double? tp,
-      double? sl,
-      int? expired}) async {
+      double tp,
+      double sl,
+      int expired}) async {
     Map fetchData = await TF2Request.authorizeRequest(
         url: getHostName() + "/ois/api/v1/signal/update/",
         postParam: {

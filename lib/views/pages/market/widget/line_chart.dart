@@ -8,7 +8,7 @@ import 'package:saham_01_app/models/flspots.dart';
 import 'dart:convert';
 
 class ChartSaham extends StatefulWidget {
-  const ChartSaham({Key? key}) :super(key: key);
+  const ChartSaham({Key key}) :super(key: key);
 
   @override
   State<ChartSaham> createState() => _ChartSahamState();
@@ -31,10 +31,10 @@ class _ChartSahamState extends State<ChartSaham> {
     // List<dynamic> items = jsonData['data'];
     List<FlSpot> spots = data.map((item) {
       final dateFormatter = DateFormat('yyyy-MM-dd HH:mm');
-      final date = dateFormatter.parse(item.x!);
+      final date = dateFormatter.parse(item.x);
       final seconds = date.millisecondsSinceEpoch / 1000.0;
       double x = seconds.toDouble();
-      double y = double.tryParse(item.y!) ?? 0.0;
+      double y = double.tryParse(item.y) ?? 0.0;
       return FlSpot(x, y);
     }).toList();
     setState(() {
@@ -46,8 +46,8 @@ class _ChartSahamState extends State<ChartSaham> {
   List<FlSpot> chartData = [];
 
   bool showAvg = false;
-  double? minX;
-  double? maxX;
+  double minX;
+  double maxX;
 
   void updateMaxX() {
     double minChartX = double.infinity;

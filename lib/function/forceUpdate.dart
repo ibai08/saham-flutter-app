@@ -8,10 +8,10 @@ Future<bool> versionCheck() async {
   double currentVersion = double.parse(info.buildNumber.trim());
   try {
     // Using default duration to force fetching from remote server.
-    await remoteConfig?.fetchAndActivate();
-    remoteConfig?.getString('force_update_current_version');
+    await remoteConfig.fetchAndActivate();
+    remoteConfig.getString('force_update_current_version');
     double newVersion = double.parse(
-        remoteConfig!.getString('force_update_current_version').trim());
+        remoteConfig.getString('force_update_current_version').trim());
     if (newVersion > currentVersion) {
       return true;
     }

@@ -5,7 +5,6 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:get/get_state_manager/get_state_manager.dart';
 import 'package:saham_01_app/constants/app_colors.dart';
-import 'package:saham_01_app/utils/store/appstate.dart';
 
 // class NavMain extends AppBar {
 //   NavMain({Key? key, Widget? title})
@@ -33,11 +32,11 @@ import 'package:saham_01_app/utils/store/appstate.dart';
 
 class NavMain extends AppBar {
   NavMain({
-    Key? key, 
-    Widget? title, 
-    String? username, 
-    String? currentPage, 
-    Function? backPage
+    Key key, 
+    Widget title, 
+    String username, 
+    String currentPage, 
+    Function backPage
   }) : super(
         key: key,
         toolbarHeight: currentPage == "HomePage" ? 80 : 50,
@@ -59,7 +58,7 @@ class NavMain extends AppBar {
                         style: const TextStyle(color: Colors.black, fontSize: 20),
                         children: <TextSpan>[
                           TextSpan(
-                            text: '$username',
+                            text: username,
                             style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
                           ),
                         ],
@@ -104,7 +103,7 @@ class NavMain extends AppBar {
                 // decoration: BoxDecoration(border: Border.all(width: 1, color: Colors.black)),
                 child: InkWell(
                   onTap: () {
-                    backPage!();
+                    backPage();
                   },
                   child: Image.asset(
                     "assets/icon/light/arrow-left.png",
@@ -118,7 +117,7 @@ class NavMain extends AppBar {
                 height: 50,
                 // decoration: BoxDecoration(border: Border.all(width: 1, color: Colors.black)),
                 child: Text(
-                  "$currentPage",
+                  currentPage,
                   style: const TextStyle(
                     color: Colors.black,
                     fontSize: 20,

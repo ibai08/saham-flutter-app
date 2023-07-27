@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 class PasswordIcon extends StatelessWidget {
   final bool seePass;
-  const PasswordIcon({Key? key, required this.seePass}) : super(key: key);
+  const PasswordIcon({Key key, @required this.seePass}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

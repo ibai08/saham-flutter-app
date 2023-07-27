@@ -1,9 +1,9 @@
 class MostActiveData {
-  String? imageText;
-  String? name;
-  String? companyName;
-  String? rank;
-  String? percentage;
+  String imageText;
+  String name;
+  String companyName;
+  String rank;
+  String percentage;
 
   MostActiveData({this.imageText, this.name, this.companyName, this.rank, this.percentage});
 
@@ -27,11 +27,11 @@ class MostActiveData {
 }
 
 class TopGamerData {
-  String? imageText;
-  String? name;
-  String? companyName;
-  String? rank;
-  String? percentage;
+  String imageText;
+  String name;
+  String companyName;
+  String rank;
+  String percentage;
 
   TopGamerData({this.imageText, this.name, this.companyName, this.rank, this.percentage});
 
@@ -55,11 +55,11 @@ class TopGamerData {
 }
 
 class TopLoserData {
-  String? imageText;
-  String? name;
-  String? companyName;
-  String? rank;
-  String? percentage;
+  String imageText;
+  String name;
+  String companyName;
+  String rank;
+  String percentage;
 
   TopLoserData({this.imageText, this.name, this.companyName, this.rank, this.percentage});
 
@@ -83,11 +83,11 @@ class TopLoserData {
 }
 
 class TopVolumeData {
-  String? imageText;
-  String? name;
-  String? companyName;
-  String? rank;
-  String? percentage;
+  String imageText;
+  String name;
+  String companyName;
+  String rank;
+  String percentage;
 
   TopVolumeData({this.imageText, this.name, this.companyName, this.rank, this.percentage});
 
@@ -111,11 +111,11 @@ class TopVolumeData {
 }
 
 class EmitenData {
-  String? imageText;
-  String? name;
-  String? companyName;
-  String? rank;
-  String? percentage;
+  String imageText;
+  String name;
+  String companyName;
+  String rank;
+  String percentage;
 
   EmitenData({this.imageText, this.name, this.companyName, this.rank, this.percentage});
 

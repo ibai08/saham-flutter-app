@@ -3,20 +3,20 @@ import 'package:saham_01_app/constants/app_colors.dart';
 
 class DropdownWithLabel<T> extends StatelessWidget {
   const DropdownWithLabel({
-    Key? key,
+    Key key,
     this.title,
-    required this.value,
-    required this.label,
-    required this.onChange,
-    required this.items,
+    @required this.value,
+    @required this.label,
+    @required this.onChange,
+    @required this.items,
     this.error,
   }) : super(key: key);
-  final String ?title;
+  final String title;
   final T value;
   final String label;
   final Function onChange;
   final List<DropdownMenuItem<T>> items;
-  final String? error;
+  final String error;
 
   @override
   Widget build(BuildContext context) {

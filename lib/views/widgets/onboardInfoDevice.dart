@@ -9,11 +9,11 @@ class OnBoardInfoDevice extends StatelessWidget {
   final double align;
   final String dText;
   const OnBoardInfoDevice({
-    Key? key,
-    required this.opacity,
-    required this.imagePop,
-    required this.align,
-    required this.dText,
+    Key key,
+    @required this.opacity,
+    @required this.imagePop,
+    @required this.align,
+    @required this.dText,
   }) : super(key: key);
 
   @override

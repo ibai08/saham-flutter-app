@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 
 class PullLeftRight extends StatelessWidget {
   const PullLeftRight({
-    Key? key, 
+    Key key, 
     this.title, 
     this.desc, 
     this.isBoldTitle, 
@@ -12,17 +12,17 @@ class PullLeftRight extends StatelessWidget {
     this.bordered
   }) :super(key: key);
 
-  final String? title;
-  final String? desc;
-  final bool? isBoldTitle;
-  final double? height;
-  final bool? bordered;
+  final String title;
+  final String desc;
+  final bool isBoldTitle;
+  final double height;
+  final bool bordered;
 
   @override
   Widget build(BuildContext context) {
     bool boldTitile = false;
     bool borderedBottom = false;
-    double? heightTxt = height;
+    double heightTxt = height;
     heightTxt ??= 2.3;
     if (isBoldTitle == true) boldTitile = true;
     if (bordered == true) {
@@ -40,7 +40,7 @@ class PullLeftRight extends StatelessWidget {
               Expanded(
                 flex: 5,
                 child: Text(
-                  title!,
+                  title,
                   textAlign: TextAlign.left,
                   style: TextStyle(
                     fontSize: 14,
@@ -52,7 +52,7 @@ class PullLeftRight extends StatelessWidget {
               Expanded(
                 flex: 4,
                 child: Text(
-                  desc!,
+                  desc,
                   textAlign: TextAlign.right,
                   style: const TextStyle(
                     fontWeight: FontWeight.w600,

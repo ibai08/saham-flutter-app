@@ -6,11 +6,11 @@ class DialogConfirmation extends StatefulWidget {
   // ignore: use_key_in_widget_constructors
   const DialogConfirmation(
       {this.title, this.desc, this.action, this.caps, this.tapWidget});
-  final String? title;
-  final String? desc;
-  final Function? action;
-  final String? caps;
-  final Widget? tapWidget;
+  final String title;
+  final String desc;
+  final Function action;
+  final String caps;
+  final Widget tapWidget;
   @override
   _DialogConfirmationState createState() => _DialogConfirmationState();
 }
@@ -18,10 +18,10 @@ class DialogConfirmation extends StatefulWidget {
 class _DialogConfirmationState extends State<DialogConfirmation> {
   @override
   Widget build(BuildContext context) {
-    String? title = widget.title;
-    String? desc = widget.desc;
-    String? caps = widget.caps;
-    Function? action = widget.action;
+    String title = widget.title;
+    String desc = widget.desc;
+    String caps = widget.caps;
+    Function action = widget.action;
 
     if (widget.title == null) {
       title = "Konfirmasi";
@@ -49,11 +49,11 @@ class _DialogConfirmationState extends State<DialogConfirmation> {
         borderRadius: BorderRadius.circular(10),
       ),
       title: Text(
-        title!,
+        title,
         style: const TextStyle(fontWeight: FontWeight.w600, fontSize: 16),
       ),
       content: Text(
-        desc!,
+        desc,
         style: const TextStyle(color: Colors.black87, fontSize: 14),
       ),
       actions: <Widget>[

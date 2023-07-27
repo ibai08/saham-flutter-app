@@ -19,10 +19,10 @@ class AppStateController extends GetxController {
   // var inboxCountTag = InboxCount.init().obs;
 
   void remake({
-    UserInfo? mUser,
-    UserInfo? mUserEdit,
+    UserInfo mUser,
+    UserInfo mUserEdit,
     // FirebaseState mFbState,
-    HomeTab? mHomeTab,
+    HomeTab mHomeTab,
     // UserMRG mUserMRG,
     // OisSearch mOisSearch,
     // UserAskap mUserAskap,

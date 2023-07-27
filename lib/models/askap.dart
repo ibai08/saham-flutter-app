@@ -60,7 +60,7 @@ class AskapModel {
   static Future<int> getBrokerAccount({bool clearCache = false}) async {
     try {
       if (!UserModel.instance.hasLogin()) {
-        throw new Exception("PLEASE_LOGIN_FIRST");
+        throw Exception("PLEASE_LOGIN_FIRST");
       }
 
       int refreshSecond = 3600 * 5;
@@ -68,7 +68,7 @@ class AskapModel {
         refreshSecond = 0;
       }
       dynamic data = await CacheFactory.getCache(
-          sprintf(CacheKey.userAskapByID, [appStateController?.users.value.id]), () async {
+          sprintf(CacheKey.userAskapByID, [appStateController.users.value.id]), () async {
         Map fetchData = await TF2Request.authorizeRequest(
             method: "GET", url: getHostName() + "/askap/api/v1/account/check/");
         return fetchData["message"];
@@ -135,7 +135,7 @@ class AskapModel {
     return [];
   }
 
-  static Future<List<DemoAccAskap>?> getDemoAccAskap(
+  static Future<List<DemoAccAskap>> getDemoAccAskap(
       {bool clearCache = false}) async {
     try {
       if (!UserModel.instance.hasLogin()) {
@@ -147,7 +147,7 @@ class AskapModel {
         refreshSecond = 0;
       }
       dynamic data = await CacheFactory.getCache(
-          sprintf(CacheKey.demoAccAskapByID, [appStateController?.users.value.id]), () async {
+          sprintf(CacheKey.demoAccAskapByID, [appStateController.users.value.id]), () async {
         Map fetchData = await TF2Request.authorizeRequest(
           url: getHostName() + "/askap/api/v1/account/demo/",
           method: 'GET',
@@ -214,7 +214,7 @@ class AskapModel {
     return [];
   }
 
-  static Future<List<UserTransactionsAskap>?> getLatestTransactions(
+  static Future<List<UserTransactionsAskap>> getLatestTransactions(
       {bool clearCache = false}) async {
     try {
       if (!UserModel.instance.hasLogin()) {
@@ -247,7 +247,7 @@ class AskapModel {
   static Future<bool> register(Map data) async {
     bool isLogin = UserModel.instance.hasLogin();
     if (!isLogin) {
-      throw new Exception("PLEASE_LOGIN_FIRST");
+      throw Exception("PLEASE_LOGIN_FIRST");
     }
 
     Response res;
@@ -258,8 +258,8 @@ class AskapModel {
     var i = 0;
     do {
       i++;
-      String? token = await UserModel.instance.getUserToken();
-      dio.options.headers = {"Authorization": "Bearer " + token!};
+      String token = await UserModel.instance.getUserToken();
+      dio.options.headers = {"Authorization": "Bearer " + token};
       res =
           await dio.post(getHostName() + "/askap/api/v1/register/", data: data);
 
@@ -294,8 +294,8 @@ class AskapModel {
     var i = 0;
     do {
       i++;
-      String? token = await UserModel.instance.getUserToken();
-      dio.options.headers = {"Authorization": "Bearer " + token!};
+      String token = await UserModel.instance.getUserToken();
+      dio.options.headers = {"Authorization": "Bearer " + token};
       res =
           await dio.post(getHostName() + "/askap/api/v1/deposit/", data: data);
 
@@ -330,8 +330,8 @@ class AskapModel {
     var i = 0;
     do {
       i++;
-      String? token = await UserModel.instance.getUserToken();
-      dio.options.headers = {"Authorization": "Bearer " + token!};
+      String token = await UserModel.instance.getUserToken();
+      dio.options.headers = {"Authorization": "Bearer " + token};
       res =
           await dio.post(getHostName() + "/askap/api/v1/withdraw/", data: data);
 
@@ -361,15 +361,15 @@ class AskapModel {
   }
 
   static Future<String> requestRealAccountUploads(
-      {Map<String, Future<XFile>>? documents}) async {
+      {Map<String, Future<XFile>> documents}) async {
     if (documents != null) {
       Map<String, dynamic> files = {};
       for (var key in documents.keys) {
-        XFile? doc = await documents[key];
+        XFile doc = await documents[key];
 
         files[key] = MultipartFile.fromBytes(
             encodeJpg(
-                copyResize(decodeImage(await doc!.readAsBytes())!, width: 500),
+                copyResize(decodeImage(await doc.readAsBytes()), width: 500),
                 quality: 70),
             contentType: MediaType("image", "jpeg"),
             filename: key + ".jpeg");
@@ -385,7 +385,7 @@ class AskapModel {
     }
   }
 
-  static Future<String> requestRealAccount({Map? data}) async {
+  static Future<String> requestRealAccount({Map data}) async {
     Map fetchData = await TF2Request.authorizeRequest(
         url: getHostName() + "/askap/api/v1/account/request/",
         method: 'POST',

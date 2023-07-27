@@ -25,11 +25,11 @@ class OisModel {
     if (clearCache) {
       cache.delete(CacheKey.oisDashboard);
     } else {
-      Map? cachedData = await cache.getMap(CacheKey.oisDashboard);
+      Map cachedData = await cache.getMap(CacheKey.oisDashboard);
       // check if there is valid cached data..
       if (cachedData != null && cachedData.containsKey("lastSync")) {
         page = OisDashboardPageData.fromMap(cachedData);
-        if ((now - page.lastSync!) < 43200) {
+        if ((now - page.lastSync) < 43200) {
           //return cached data
           return page;
         }
@@ -110,7 +110,7 @@ class OisModel {
     return data.map((x) => ChannelCardSlim.fromMap(x)).toList();
   }
 
-  Future<bool> subscribe(ChannelCardSlim channel, {String? token}) async {
+  Future<bool> subscribe(ChannelCardSlim channel, {String token}) async {
     Map postParam = {"CHANNELID": channel.id};
     if (token != null) {
       postParam["TOKEN"] = token;
@@ -123,12 +123,12 @@ class OisModel {
 
     if (!data.containsKey("error") && data.containsKey("message")) {
       // update cache data...
-      if (appStateController!.users.value.id! > 0) {
+      if (appStateController.users.value.id > 0) {
         if (data != null) {
-          await ChannelModel.instance.getDetail(channel.id!, clearCache: true);
+          await ChannelModel.instance.getDetail(channel.id, clearCache: true);
           await ChannelModel.instance.getMySubscriptions(clearCache: true);
           OisModel.instance.logActions(
-              channelId: channel.id!,
+              channelId: channel.id,
               actionName: 'subscribe',
               stateName: 'channel_detail');
         }
@@ -148,12 +148,12 @@ class OisModel {
 
     if (!data.containsKey("error") && data.containsKey("message")) {
       // update cache data...
-      if (appStateController!.users.value.id! > 0) {
+      if (appStateController.users.value.id > 0) {
         if (data != null) {
-          await ChannelModel.instance.getDetail(channel.id!, clearCache: true);
+          await ChannelModel.instance.getDetail(channel.id, clearCache: true);
           await ChannelModel.instance.getMySubscriptions(clearCache: true);
           OisModel.instance.logActions(
-              channelId: channel.id!,
+              channelId: channel.id,
               actionName: 'unsubscribe',
               stateName: 'channel_detail');
         }
@@ -174,8 +174,8 @@ class OisModel {
     int reqNo = 0;
     do {
       reqNo++;
-      String? token = await UserModel.instance.getUserToken();
-      dio.options.headers = {"Authorization": "Bearer " + token!};
+      String token = await UserModel.instance.getUserToken();
+      dio.options.headers = {"Authorization": "Bearer " + token};
       res = await dio
           .get(getHostName() + "/ois/api/v1/subscribe/payment/channels/");
       data = res.data;
@@ -213,8 +213,8 @@ class OisModel {
     int reqNo = 0;
     do {
       reqNo++;
-      String? token = await UserModel.instance.getUserToken();
-      dio.options.headers = {"Authorization": "Bearer " + token!};
+      String token = await UserModel.instance.getUserToken();
+      dio.options.headers = {"Authorization": "Bearer " + token};
       Map postParam = {
         "CHANNELID": channel.id,
         "DURATION": duration,
@@ -255,8 +255,8 @@ class OisModel {
     int reqNo = 0;
     do {
       reqNo++;
-      String? token = await UserModel.instance.getUserToken();
-      dio.options.headers = {"Authorization": "Bearer " + token!};
+      String token = await UserModel.instance.getUserToken();
+      dio.options.headers = {"Authorization": "Bearer " + token};
       Map postParam = {"BILL_NO": billNo};
       res = await dio.post(
           getHostName() + "/ois/api/v1/subscribe/payment/detail/",
@@ -291,8 +291,8 @@ class OisModel {
     int reqNo = 0;
     do {
       reqNo++;
-      String? token = await UserModel.instance.getUserToken();
-      dio.options.headers = {"Authorization": "Bearer " + token!};
+      String token = await UserModel.instance.getUserToken();
+      dio.options.headers = {"Authorization": "Bearer " + token};
       res = await dio
           .get(getHostName() + "/ois/api/v1/subscribe/payment/history/");
       data = res.data;
@@ -327,8 +327,8 @@ class OisModel {
     int reqNo = 0;
     do {
       reqNo++;
-      String? token = await UserModel.instance.getUserToken();
-      dio.options.headers = {"Authorization": "Bearer " + token!};
+      String token = await UserModel.instance.getUserToken();
+      dio.options.headers = {"Authorization": "Bearer " + token};
       Map postParam = {"BILL_NO": billNo};
       res = await dio.post(
           getHostName() + "/ois/api/v1/subscribe/payment/cancel/",
@@ -363,8 +363,8 @@ class OisModel {
     int reqNo = 0;
     do {
       reqNo++;
-      String? token = await UserModel.instance.getUserToken();
-      dio.options.headers = {"Authorization": "Bearer " + token!};
+      String token = await UserModel.instance.getUserToken();
+      dio.options.headers = {"Authorization": "Bearer " + token};
       res = await dio
           .get(getHostName() + "/ois/api/v1/subscribe/payment/pending/");
       data = res.data;
@@ -386,14 +386,14 @@ class OisModel {
     throw Exception("INVALID_RESPONSE_FROM_SERVER");
   }
 
-  Future<int> submitRequestWithdrawal({Map? data}) async {
+  Future<int> submitRequestWithdrawal({Map data}) async {
     Map fetchData = await TF2Request.authorizeRequest(
         url: getHostName() + "/ois/api/v1/channel/withdraw/", postParam: data);
     return fetchData["message"];
   }
 
   Future<void> logActions(
-      {int? channelId, String? actionName, String? stateName}) async {
+      {int channelId, String actionName, String stateName}) async {
     if (UserModel.instance.hasLogin()) {
       assert(stateName != null);
       assert(actionName != null);

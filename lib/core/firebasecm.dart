@@ -18,7 +18,7 @@ class FCM {
   FirebaseMessaging _fcm = FirebaseMessaging.instance;
   bool init = false;
   FirebaseAuth fauth = FirebaseAuth.instance;
-  late FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin;
+  FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin;
   static final FCM instance = FCM._internal();
   FCM._internal();
 
@@ -61,11 +61,11 @@ class FCM {
 
       final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
 
-      await flutterLocalNotificationsPlugin.resolvePlatformSpecificImplementation<AndroidFlutterLocalNotificationsPlugin>()?.createNotificationChannel(channel);
+      await flutterLocalNotificationsPlugin.resolvePlatformSpecificImplementation<AndroidFlutterLocalNotificationsPlugin>().createNotificationChannel(channel);
 
       FirebaseMessaging.onMessage.listen((RemoteMessage message) async {
-        RemoteNotification? notification = message.notification;
-        AndroidNotification? android = message.notification?.android;
+        RemoteNotification notification = message.notification;
+        AndroidNotification android = message.notification.android;
 
         if (notification != null && android != null) {
           flutterLocalNotificationsPlugin.show(
@@ -124,15 +124,15 @@ class FCM {
     await _fcm.getToken();
   }
 
-  Future<String?> getToken() {
+  Future<String> getToken() {
     return _fcm.getToken();
   }
 
-  Future<void> userSetFCMToken(String? token) async {
-    String? userJWT = await getCfgAsync("token");
+  Future<void> userSetFCMToken(String token) async {
+    String userJWT = await getCfgAsync("token");
     if (userJWT != null && userJWT != '') {
       try {
-        await updateCfgAsync("fcm_token", token!);
+        await updateCfgAsync("fcm_token", token);
         await TF2Request.authorizeRequest(
             method: 'POST',
             url: getHostName() + "/traders/api/v1/user/userSetFCMToken/",

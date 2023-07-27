@@ -55,7 +55,7 @@ class MessageProcessor {
             if (event == MessageEvent.onLaunch) {
               await Future.delayed(Duration(seconds: 2));
             }
-            appStateController?.setAppState(Operation.pushNamed, {"route": "/dsc/signal/", "arguments": signalid});
+            appStateController.setAppState(Operation.pushNamed, {"route": "/dsc/signal/", "arguments": signalid});
           } else if (event == MessageEvent.onMessage) {
 
           }
@@ -75,7 +75,7 @@ class MessageProcessor {
               await Future.delayed(Duration(seconds: 2));
             }
 
-            appStateController?.setAppState(Operation.pushNamed, {"route": "/dsc/signal/", "arguments": channelid});
+            appStateController.setAppState(Operation.pushNamed, {"route": "/dsc/signal/", "arguments": channelid});
           } else if (event == MessageEvent.onMessage) {
 
           }
@@ -93,7 +93,7 @@ class MessageProcessor {
             if (event == MessageEvent.onLaunch) {
               await Future.delayed(Duration(seconds: 2));
             }
-            appStateController?.setAppState(Operation.pushNamed, {"route": "/more/mrg"});
+            appStateController.setAppState(Operation.pushNamed, {"route": "/more/mrg"});
           } else if (event == MessageEvent.onMessage) {
 
           }
@@ -112,7 +112,7 @@ class MessageProcessor {
             if (event == MessageEvent.onLaunch) {
               await Future.delayed(Duration(seconds: 2));
             }
-            appStateController?.setAppState(Operation.pushNamed, {"route": "/more/askap"});
+            appStateController.setAppState(Operation.pushNamed, {"route": "/more/askap"});
           } else if (event == MessageEvent.onMessage) {
 
           }
@@ -125,7 +125,7 @@ class MessageProcessor {
               await Future.delayed(Duration(seconds: 2));
             }
 
-            appStateController?.setAppState(Operation.bringToHome, HomeTab.home);
+            appStateController.setAppState(Operation.bringToHome, HomeTab.home);
 
             String inboxType = data["inboxType"];
             InboxType type = enumFromString(inboxType, InboxType.values);
@@ -133,50 +133,50 @@ class MessageProcessor {
 
             if (inboxId > 0 && type != null) {
               await InboxModel.instance.refreshInboxByIdAsync(id: inboxId);
-              Map? valueMap = await InboxModel.instance.getBox().getMap(inboxId.toString());
+              Map valueMap = await InboxModel.instance.getBox().getMap(inboxId.toString());
 
               switch (type) {
                 case InboxType.wptfpost:
-                  Map message = jsonDecode(valueMap?["message"]);
-                  appStateController?.setAppState(Operation.pushNamed, {
+                  Map message = jsonDecode(valueMap["message"]);
+                  appStateController.setAppState(Operation.pushNamed, {
                     "route": '/inbox/wptfpost',
                     "arguments": {
-                      "inboxid": valueMap?["id"],
+                      "inboxid": valueMap["id"],
                       "postid": message["postId"]
                     }
                   });
                   break;
                 case InboxType.html:
-                  appStateController?.setAppState(Operation.bringToHome, {
+                  appStateController.setAppState(Operation.bringToHome, {
                     "route": '/inbox/html',
                     "arguments": valueMap
                   });
                   break;
                 case InboxType.signal:
-                  Map tmpData = jsonDecode(valueMap?["message"]);
-                  Map params = jsonDecode(valueMap?["params"]);
+                  Map tmpData = jsonDecode(valueMap["message"]);
+                  Map params = jsonDecode(valueMap["params"]);
 
                   if (params is Map && params.containsKey("type") && params["type"] == "signal") {
                     int signalid = 0;
                     if (tmpData["signalid"] is String || tmpData["signalid"] is int) {
                       signalid = int.tryParse(tmpData["signalid"].toString()) ?? 0;
                     }
-                    appStateController?.setAppState(Operation.pushNamed, {
+                    appStateController.setAppState(Operation.pushNamed, {
                       "route": '/dsc/signal',
                       "arguments": {
                         "signalid": signalid,
-                        "inboxid": valueMap?["id"],
-                        "baca": valueMap?["baca"]
+                        "inboxid": valueMap["id"],
+                        "baca": valueMap["baca"]
                       }
                     });
                   }
                   break;
                 case InboxType.payment:
-                  Map message = jsonDecode(valueMap?["message"]);
-                  appStateController?.setAppState(Operation.pushNamed, {
+                  Map message = jsonDecode(valueMap["message"]);
+                  appStateController.setAppState(Operation.pushNamed, {
                     "route": '/dsc/payment/status',
                     "arguments": {
-                      "inboxid": valueMap?["id"],
+                      "inboxid": valueMap["id"],
                       "billNo": message["billNo"]
                     }
                   });

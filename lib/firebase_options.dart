@@ -57,7 +57,7 @@ class DefaultFirebaseOptions {
 
   static const FirebaseOptions android = FirebaseOptions(
     apiKey: 'AIzaSyBjLwQdBvV9XrN-CAK_JW57qCcZpjJ9iN8',
-    appId: '1:961411800758:android:d64176801a6abb37449017',
+    appId: '1:961411800758:android:d54bbd1bee70e238449017',
     messagingSenderId: '961411800758',
     projectId: 'prototype-saham',
     storageBucket: 'prototype-saham.appspot.com',
@@ -65,11 +65,11 @@ class DefaultFirebaseOptions {
 
   static const FirebaseOptions ios = FirebaseOptions(
     apiKey: 'AIzaSyAuEVmRUkZAJNR_NWpAVSn1K1iV2EfKfKQ',
-    appId: '1:961411800758:ios:ed11b782d8289f8f449017',
+    appId: '1:961411800758:ios:b245683ab11f3229449017',
     messagingSenderId: '961411800758',
     projectId: 'prototype-saham',
     storageBucket: 'prototype-saham.appspot.com',
-    iosClientId: '961411800758-ej748bomph4m9t4o5l2lgcia919j5phd.apps.googleusercontent.com',
-    iosBundleId: 'com.example.saham01App',
+    iosClientId: '961411800758-4b14c4lom7qt0o1d2ao6318ji73onnpe.apps.googleusercontent.com',
+    iosBundleId: 'co.id.tradersfamily',
   );
 }

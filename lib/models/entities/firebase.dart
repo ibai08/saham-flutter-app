@@ -1,5 +1,5 @@
 class FirebaseState {
-  String? fcmToken;
+  String fcmToken;
 
   FirebaseState({ this.fcmToken });
 

@@ -4,13 +4,13 @@ import 'package:flutter/material.dart';
 import 'package:saham_01_app/constants/app_colors.dart';
 
 class BadgeCountNotif extends StatelessWidget {
-  const BadgeCountNotif({Key? key, this.inboxCount}) : super(key: key);
+  const BadgeCountNotif({Key key, this.inboxCount}) : super(key: key);
 
-  final int? inboxCount;
+  final int inboxCount;
 
   @override
   Widget build(BuildContext context) {
-    return inboxCount != null && inboxCount! > 0
+    return inboxCount != null && inboxCount > 0
         ? Container(
             decoration: BoxDecoration(
               color: AppColors.primaryRed,
@@ -20,7 +20,7 @@ class BadgeCountNotif extends StatelessWidget {
             width: 15,
             child: Center(
               child:  Text(
-                inboxCount! > 99 ? "99+" : inboxCount.toString(),
+                inboxCount > 99 ? "99+" : inboxCount.toString(),
                 style: const TextStyle(
                     color: Colors.white,
                     fontSize: 8.5,

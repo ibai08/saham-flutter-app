@@ -8,7 +8,7 @@ class SymbolModel {
   static final SymbolModel instance = SymbolModel._privateConstructor();
 
   List<TradeSymbol> getSymbols() {
-    List symbolList = jsonDecode(remoteConfig!.getString("ois_symbols"));
+    List symbolList = jsonDecode(remoteConfig.getString("ois_symbols"));
 
     List<TradeSymbol> symbols =
         symbolList.map((map) => TradeSymbol.fromTF2v1API(map)).toList();

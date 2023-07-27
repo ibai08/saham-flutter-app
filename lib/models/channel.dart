@@ -20,15 +20,15 @@ class ChannelModel {
   static final ChannelModel instance = ChannelModel._privateConstructor();
 
   Future<void> createChannel(
-      {String? name,
-      double? harga,
-      String? caption,
-      String? bankName,
-      String? bankRekening,
-      String? bankOwner,
-      int? real,
-      String? account,
-      List<ChannelPricing>? pricing}) async {
+      {String name,
+      double harga,
+      String caption,
+      String bankName,
+      String bankRekening,
+      String bankOwner,
+      int real,
+      String account,
+      List<ChannelPricing> pricing}) async {
     Map fetchData = await TF2Request.authorizeRequest(
         method: 'POST',
         url: getHostName() + "/ois/api/v1/channel/create/",
@@ -41,7 +41,7 @@ class ChannelModel {
           "namarekening": bankOwner,
           "mt4server": real,
           "mt4acc": account,
-          "pricing": pricing?.map((price) => price.toMap()).toList()
+          "pricing": pricing.map((price) => price.toMap()).toList()
         });
 
     if (fetchData["message"] is int) {
@@ -56,15 +56,15 @@ class ChannelModel {
   }
 
   Future<void> updateChannel(
-      {int? id,
-      String? name,
-      double? harga,
-      int? real,
-      String? account,
-      String? bankName,
-      String? bankRekening,
-      String? bankOwner,
-      List<ChannelPricing>? pricing}) async {
+      {int id,
+      String name,
+      double harga,
+      int real,
+      String account,
+      String bankName,
+      String bankRekening,
+      String bankOwner,
+      List<ChannelPricing> pricing}) async {
       await TF2Request.authorizeRequest(
         method: 'POST',
         url: getHostName() + "/ois/api/v1/channel/update/",
@@ -77,9 +77,9 @@ class ChannelModel {
           "bank": bankName,
           "rekening": bankRekening,
           "namarekening": bankOwner,
-          "pricing": pricing?.map((price) => price.toMap()).toList()
+          "pricing": pricing.map((price) => price.toMap()).toList()
         });
-    await ChannelModel.instance.getDetail(id!, clearCache: true);
+    await ChannelModel.instance.getDetail(id, clearCache: true);
     await UserModel.instance.refreshUserData();
     //delete ois dashboard & channel cache
     SharedBoxHelper cache = SharedHelper.instance.getBox(BoxName.cache);
@@ -87,23 +87,23 @@ class ChannelModel {
     await cache.delete(CacheKey.oisMyChannel);
   }
 
-  Future<int> muteChannel({int? channelid, bool? mute}) async {
+  Future<int> muteChannel({int channelid, bool mute}) async {
     Map fetchData = await TF2Request.authorizeRequest(
         url: getHostName() + "/ois/api/v1/channel/mute/",
-        postParam: {"CHANNELID": channelid, "MUTE": mute! ? 0 : 1});
+        postParam: {"CHANNELID": channelid, "MUTE": mute,  0 : 1});
     return fetchData["message"];
   }
 
   Future<ChannelCardSlim> getDetail(int channelid,
       {bool clearCache = false}) async {
-    int refreshSecond = remoteConfig!
+    int refreshSecond = remoteConfig
         .getInt("channel_detail_expire"); //3600 * 24 * 7; // seminggu
     if (clearCache) {
       refreshSecond = 0;
     }
     dynamic v = await CacheFactory.getCache(
         sprintf(
-            CacheKey.channelByIDforUserID, [channelid, appStateController?.users.value.id]),
+            CacheKey.channelByIDforUserID, [channelid, appStateController.users.value.id]),
         () async {
       Map fetchData = await TF2Request.authorizeRequest(
           url: getHostName() + "/ois/api/v1/channel/detail/",
@@ -126,7 +126,7 @@ class ChannelModel {
 
   Future<ChannelSummaryDetail> getSummary2(int channelid,
       {bool isAlltime = false}) async {
-    String? start = remoteConfig?.getString("tf_point_start_date");
+    String start = remoteConfig.getString("tf_point_start_date");
     if (isAlltime) {
       start = "1970-01-01 17:00:00 UTC";
     }
@@ -158,8 +158,8 @@ class ChannelModel {
     } while (isNext >= 0);
 
     result.sort((a, b) {
-      DateTime aClose = DateTime.parse(a.closeTime!);
-      DateTime bClose = DateTime.parse(b.closeTime!);
+      DateTime aClose = DateTime.parse(a.closeTime);
+      DateTime bClose = DateTime.parse(b.closeTime);
       return aClose.compareTo(bClose);
     });
 
@@ -175,7 +175,7 @@ class ChannelModel {
   }
 
   Future<List<ChannelCardSlim>> searchChannel(
-      {String? findtext, int? offset, int? sort}) async {
+      {String findtext, int offset, int sort}) async {
     List<ChannelCardSlim> listChannelCardSlim = [];
     try {
       Map fetchData = await TF2Request.authorizeRequest(
@@ -183,7 +183,7 @@ class ChannelModel {
           postParam: {
             "title": findtext,
             "offset": offset,
-            "sort": sortMap[sort!]["name"]
+            "sort": sortMap[sort]["name"]
           });
       List signalList = fetchData["message"];
       // List<String> keyRequired = [
@@ -204,7 +204,7 @@ class ChannelModel {
       for (Map v in signalList) {
         //cek apakah semua key tersedia...
         // for (String key in keyRequired) {
-        //   if (!v.containsKey(key)) {
+        //   if (v.containsKey(key)) {
         //     continue outerloop;
         //   }
         // }
@@ -343,7 +343,7 @@ class ChannelModel {
   }
 
   Future<List<int>> getRecommendedChannel(
-      {bool clearCache = false, List? exceptions}) async {
+      {bool clearCache = false, List exceptions}) async {
     try {
       exceptions ??= [];
 
@@ -375,7 +375,7 @@ class ChannelModel {
   }
 
   Future<List<int>> getRecommendedManualChannel(
-      {bool clearCache = false, int offset = 0, int? sort}) async {
+      {bool clearCache = false, int offset = 0, int sort}) async {
     try {
       int refreshSecond = 3600 * 5;
       if (clearCache) {
@@ -386,7 +386,7 @@ class ChannelModel {
         Map fetchData = await TF2Request.authorizeRequest(
             url: getHostName() + "/ois/api/v1/channel/recommend/manual/",
             method: "POST",
-            postParam: {"sort": sortMap[sort!]["name"], "offset": offset});
+            postParam: {"sort": sortMap[sort]["name"], "offset": offset});
 
         var temp = [];
         for (Map v in fetchData["message"]) {
@@ -428,7 +428,7 @@ class ChannelModel {
       }
       dynamic data = await CacheFactory.getCache(
           sprintf(
-              CacheKey.channelsMySubscriptionsByUserId, [appStateController?.users.value.id]),
+              CacheKey.channelsMySubscriptionsByUserId, [appStateController.users.value.id]),
           () async {
         Map fetchData = await TF2Request.authorizeRequest(
           url: getHostName() + "/ois/api/v1/my/subscriptions/",
@@ -470,7 +470,7 @@ class ChannelModel {
       }
       dynamic data = await CacheFactory.getCache(
           sprintf(
-              CacheKey.channelsMySubscribersByUserId, [appStateController?.users.value.id]),
+              CacheKey.channelsMySubscribersByUserId, [appStateController.users.value.id]),
           () async {
         Map fetchData = await TF2Request.authorizeRequest(
           url: getHostName() + "/ois/api/v1/my/subscribers/",
@@ -490,14 +490,14 @@ class ChannelModel {
     return [];
   }
 
-  Future<bool> uploadAvatarChannel({File? image, int? channelid}) async {
+  Future<bool> uploadAvatarChannel({File image, int channelid}) async {
     if (!UserModel.instance.hasLogin()) {
       throw Exception("PLEASE_LOGIN_FIRST");
     }
 
     var file = MultipartFile.fromBytes(
         encodeJpg(
-            copyResize(decodeImage(await image!.readAsBytes())!, width: 500),
+            copyResize(decodeImage(await image.readAsBytes()), width: 500),
             quality: 70),
         contentType: MediaType("image", "jpeg"),
         filename: "avatar.jpeg");
@@ -514,8 +514,8 @@ class ChannelModel {
   }
 
   Future<List<HistoryPoint>> getHistoryPoint(
-      {int? channelId, bool clearCache = false}) async {
-    if (appStateController!.users.value.id! < 1) {
+      {int channelId, bool clearCache = false}) async {
+    if (appStateController.users.value.id < 1) {
       throw Exception("PLEASE_LOGIN_FIRST");
     }
 
@@ -525,7 +525,7 @@ class ChannelModel {
     }
 
     dynamic data = await CacheFactory.getCache(
-        sprintf(CacheKey.channelHistoryList, [appStateController?.users.value.id]), () async {
+        sprintf(CacheKey.channelHistoryList, [appStateController.users.value.id]), () async {
       Map fetchData = await TF2Request.authorizeRequest(
           url: getHostName() + "/ois/api/v1/channel/history/point/",
           method: 'POST',
@@ -539,8 +539,8 @@ class ChannelModel {
   }
 
   Future<List<RedeemHistory>> getRedeemHistory(
-      {int? channelId, bool clearCache = false}) async {
-    if (appStateController!.users.value.id! < 1) {
+      {int channelId, bool clearCache = false}) async {
+    if (appStateController.users.value.id < 1) {
       throw Exception("PLEASE_LOGIN_FIRST");
     }
 
@@ -550,7 +550,7 @@ class ChannelModel {
     }
 
     dynamic data = await CacheFactory.getCache(
-        sprintf(CacheKey.channelRedeemHistory, [appStateController?.users.value.id]),
+        sprintf(CacheKey.channelRedeemHistory, [appStateController.users.value.id]),
         () async {
       Map fetchData = await TF2Request.authorizeRequest(
           url: getHostName() + "/ois/api/v1/channel/history/point/redeem/",
@@ -584,7 +584,7 @@ class ChannelModel {
 
   Future<RulesPoint> getDetailRulesPoint(int channelid,
       {bool clearCache = false}) async {
-    if (appStateController!.users.value.id! < 1) {
+    if (appStateController.users.value.id < 1) {
       throw Exception("PLEASE_LOGIN_FIRST");
     }
 
@@ -594,7 +594,7 @@ class ChannelModel {
     }
     dynamic qualification = await CacheFactory.getCache(
         sprintf(CacheKey.channelMyHistoryPointById,
-            [channelid, appStateController?.users.value.id]), () async {
+            [channelid, appStateController.users.value.id]), () async {
       Map fetchData = await TF2Request.authorizeRequest(
           url: getHostName() + "/ois/api/v1/channel/medal/qualification/",
           method: "POST",

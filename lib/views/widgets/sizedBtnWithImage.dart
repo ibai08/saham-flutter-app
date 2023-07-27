@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 
 class BtnWithIcon extends StatelessWidget {
   BtnWithIcon(
-      {Key? key, this.title, this.icon, this.color, this.txtColor, this.url});
+      {Key key, this.title, this.icon, this.color, this.txtColor, this.url});
   final title;
   final icon;
   final color;

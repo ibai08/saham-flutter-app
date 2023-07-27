@@ -3,8 +3,8 @@ import 'package:saham_01_app/views/widgets/imageFromNetwork.dart';
 
 class ChannelAvatar extends StatelessWidget {
   ChannelAvatar({this.width, this.imageUrl});
-  final double? width;
-  final String? imageUrl;
+  final double width;
+  final String imageUrl;
   @override
   Widget build(BuildContext context) {
     Widget defaultImage = Container(

@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 
 class BtnWithIcon extends StatelessWidget {
   const BtnWithIcon({
-    Key? key, 
+    Key key, 
     this.title,
     this.icon,
     this.color,
@@ -17,7 +17,7 @@ class BtnWithIcon extends StatelessWidget {
   final color;
   final tap;
   final txtColor;
-  final Widget? image;
+  final Widget image;
 
   @override
   Widget build(BuildContext context) => Container(

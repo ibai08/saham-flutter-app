@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 class SearchIconFormWidget extends StatelessWidget {
   const SearchIconFormWidget({
-    Key? key,
+    Key key,
   }) : super(key: key);
 
   @override

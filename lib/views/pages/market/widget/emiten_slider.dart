@@ -6,7 +6,7 @@ import '../../../../constants/app_colors.dart';
 import '../../../../models/emiten.dart';
 
 class EmitenCategory extends StatefulWidget {
-  const EmitenCategory({Key? key}) : super(key: key);
+  const EmitenCategory({Key key}) : super(key: key);
 
   @override
   _EmitenCategoryState createState() => _EmitenCategoryState();
@@ -14,7 +14,7 @@ class EmitenCategory extends StatefulWidget {
 
 class _EmitenCategoryState extends State<EmitenCategory> {
   String activeButton = 'Most Active';
-  List<Map<String, String?>> activeDataButton = [];
+  List<Map<String, String>> activeDataButton = [];
 
   Future<EmitenModels> getDataFromJson() async {
     String jsonString =
@@ -128,7 +128,7 @@ class CustomButtons extends StatelessWidget {
   final String activeButton;
   final Function setActiveButton;
 
-  const CustomButtons(this.buttonText, this.activeButton, this.setActiveButton, {Key? key}) : super(key: key);
+  const CustomButtons(this.buttonText, this.activeButton, this.setActiveButton, {Key key}) : super(key: key);
 
   bool get isActive => buttonText == activeButton;
 
@@ -171,7 +171,7 @@ class EmitenItems extends StatelessWidget {
     this.name,
     this.companyName,
     this.rank,
-    this.percentage, {Key? key}
+    this.percentage, {Key key}
   ) : super(key: key);
 
   @override
@@ -254,7 +254,7 @@ class EmitenItems extends StatelessWidget {
 }
 
 class EmitenItemsLooping extends StatelessWidget {
-  final List<Map<String, String?>> emitenData;
+  final List<Map<String, String>> emitenData;
 
   // ignore: use_key_in_widget_constructors
   const EmitenItemsLooping(this.emitenData);

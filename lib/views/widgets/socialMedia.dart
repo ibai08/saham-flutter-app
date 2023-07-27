@@ -5,7 +5,7 @@ import 'package:saham_01_app/core/config.dart';
 import 'package:saham_01_app/function/launchUrl.dart';
 
 class SocialMedia extends StatelessWidget {
-  const SocialMedia({Key? key}) : super(key: key);
+  const SocialMedia({Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) => Container(
@@ -64,9 +64,9 @@ class SocialMedia extends StatelessWidget {
 }
 
 class SocialMediaItem extends StatelessWidget {
-  const SocialMediaItem({Key? key, this.images, this.link}) : super(key: key);
-  final IconData? images;
-  final String? link;
+  const SocialMediaItem({Key key, this.images, this.link}) : super(key: key);
+  final IconData images;
+  final String link;
 
   @override
   Widget build(BuildContext context) => IconButton(

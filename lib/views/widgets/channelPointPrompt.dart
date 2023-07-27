@@ -12,12 +12,12 @@ class ChannelPointPrompt extends StatelessWidget {
   final int needMedal;
 
   const ChannelPointPrompt(
-      {Key? key,
-      required this.level,
-      required this.channelName,
-      required this.point,
-      required this.medal,
-      required this.needMedal})
+      {Key key,
+      @required this.level,
+      @required this.channelName,
+      @required this.point,
+      @required this.medal,
+      @required this.needMedal})
       : super(key: key);
 
   @override

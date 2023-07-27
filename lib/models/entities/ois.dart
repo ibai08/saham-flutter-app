@@ -67,9 +67,9 @@ List<ChannelCardSlim> listChannelCardSlimFromListMap(List channelData) {
 }
 
 class OisSearch {
-  String? search;
-  SearchType? type;
-  List<SignalStatus>? signalStates;
+  String search;
+  SearchType type;
+  List<SignalStatus> signalStates;
 
   OisSearch({this.search, this.type, this.signalStates});
 
@@ -90,18 +90,18 @@ class OisSearch {
 }
 
 class ChannelInfo {
-  int? id;
-  int? userid;
-  String? username;
-  String? title;
-  String? caption;
-  double? price;
-  int? status;
-  int? createdTimeStamp;
-  String? avatar;
-  int? medals;
-  double? point;
-  int? subscriber;
+  int id;
+  int userid;
+  String username;
+  String title;
+  String caption;
+  double price;
+  int status;
+  int createdTimeStamp;
+  String avatar;
+  int medals;
+  double point;
+  int subscriber;
 
   // static List<String> _keyRequired = [
   //   "id",
@@ -160,7 +160,7 @@ class ChannelInfo {
   factory ChannelInfo.fromMap(Map data) {
     try {
       // _keyRequired.forEach((v) {
-      //   if (!data.containsKey(v)) {
+      //   if (data.containsKey(v)) {
       //     throw new Exception("INVALID_CHANNEL_MAP_INFO");
       //   }
       // });
@@ -180,7 +180,7 @@ class ChannelInfo {
           subscriber: data["subscriber"]);
     } catch (xerr) {}
 
-    return null!;
+    return null;
   }
 
   Map<String, dynamic> toMap() {
@@ -203,8 +203,8 @@ class ChannelInfo {
 }
 
 class ChannelSummary {
-  ChannelSummaryDetail? detail;
-  List<ChannelSummaryGrowth>? listGrowth;
+  ChannelSummaryDetail detail;
+  List<ChannelSummaryGrowth> listGrowth;
   // static List<String> _keyRequired = ["detail", "growth"];
 
   ChannelSummary({this.detail, this.listGrowth});
@@ -250,13 +250,13 @@ class ChannelSummary {
       print(xerr);
     }
 
-    return null!;
+    return null;
   }
 
   factory ChannelSummary.fromMap(Map data) {
     try {
       // _keyRequired.forEach((v) {
-      //   if (!data.containsKey(v)) {
+      //   if (data.containsKey(v)) {
       //     throw new Exception("INVALID_CHANNEL_MAP_INFO");
       //   }
       // });
@@ -278,41 +278,41 @@ class ChannelSummary {
       return ChannelSummary(detail: tmpDetail);
     } catch (xerr) {}
 
-    return null!;
+    return null;
   }
 
   Map<String, dynamic> toMap() {
     try {
       return {
-        "detail": detail?.toMap(),
-        "growth": listGrowth?.map<Map>((growth) => growth.toMap()).toList()
+        "detail": detail.toMap(),
+        "growth": listGrowth.map<Map>((growth) => growth.toMap()).toList()
       };
     } catch (xerr) {}
 
-    return null!;
+    return null;
   }
 }
 
 class ChannelSummaryDetail {
-  int? signalSettle;
-  int? signalCount;
-  int? signalActive;
-  int? profitCount;
-  int? lossCount;
-  int? expiredCount;
-  int? activeCount;
-  int? averagePostPerWeek;
-  double? profitTotal;
-  double? lossTotal;
-  int? pips;
-  double? avgPips;
-  double? avgPipsMonthly;
-  String? favouriteSymbol;
-  int? weekAge;
-  int? consecutiveProfitCount;
-  double? consecutiveProfitSum;
-  int? consecutiveLossCount;
-  double? consecutiveLossSum;
+  int signalSettle;
+  int signalCount;
+  int signalActive;
+  int profitCount;
+  int lossCount;
+  int expiredCount;
+  int activeCount;
+  int averagePostPerWeek;
+  double profitTotal;
+  double lossTotal;
+  int pips;
+  double avgPips;
+  double avgPipsMonthly;
+  String favouriteSymbol;
+  int weekAge;
+  int consecutiveProfitCount;
+  double consecutiveProfitSum;
+  int consecutiveLossCount;
+  double consecutiveLossSum;
 
   ChannelSummaryDetail._privateConstructor(
       {this.signalCount,
@@ -400,7 +400,7 @@ class ChannelSummaryDetail {
           consecutiveLossSum: data["consecutiveLossSum"]);
     } catch (xerr) {}
 
-    return null!;
+    return null;
   }
 
   factory ChannelSummaryDetail.fromMapApi2(Map data) {
@@ -433,7 +433,7 @@ class ChannelSummaryDetail {
       print(x);
     }
 
-    return null!;
+    return null;
   }
   Map<String, dynamic> toMap() {
     return {
@@ -458,11 +458,11 @@ class ChannelSummaryDetail {
 }
 
 class ChannelSummaryGrowth {
-  int? id;
-  String? label;
-  String? closeTime;
-  String? createdAt;
-  double? profit;
+  int id;
+  String label;
+  String closeTime;
+  String createdAt;
+  double profit;
   ChannelSummaryGrowth._privateConstructor(
       {this.id, this.label, this.closeTime, this.profit, this.createdAt});
 
@@ -485,7 +485,7 @@ class ChannelSummaryGrowth {
           profit: data["profit"]);
     } catch (xerr) {}
 
-    return null!;
+    return null;
   }
 
   factory ChannelSummaryGrowth.fromMapApiv2(Map data) {
@@ -500,7 +500,7 @@ class ChannelSummaryGrowth {
       print(e);
     }
 
-    return null!;
+    return null;
   }
 
   Map<String, dynamic> toMap() {
@@ -509,7 +509,7 @@ class ChannelSummaryGrowth {
 }
 
 class ChannelStat {
-  List<ChannelSymbolStat>? listSymbolStat;
+  List<ChannelSymbolStat> listSymbolStat;
   ChannelStat._privateConstructor({this.listSymbolStat});
 
   factory ChannelStat.fromTF2v1API(Map input) {
@@ -531,17 +531,17 @@ class ChannelStat {
       print(xerr);
     }
 
-    return null!;
+    return null;
   }
 }
 
 class ChannelSymbolStat {
-  String? symbol;
-  int? signalCount;
-  int? buyCount;
-  int? sellCount;
-  double? profitSum;
-  double? lossSum;
+  String symbol;
+  int signalCount;
+  int buyCount;
+  int sellCount;
+  double profitSum;
+  double lossSum;
 
   ChannelSymbolStat._privateConstructor(
       {this.symbol,
@@ -569,21 +569,21 @@ class ChannelSymbolStat {
 }
 
 class SignalInfo {
-  ChannelInfo? channel;
-  int? id;
-  String? symbol;
-  int? op;
-  double? price;
-  double? sl;
-  double? tp;
-  int? active;
-  double? profit;
-  int? pips;
-  double? closePrice;
-  String? closeTime;
-  String? openTime;
-  int? expired;
-  String? createdAt;
+  ChannelInfo channel;
+  int id;
+  String symbol;
+  int op;
+  double price;
+  double sl;
+  double tp;
+  int active;
+  double profit;
+  int pips;
+  double closePrice;
+  String closeTime;
+  String openTime;
+  int expired;
+  String createdAt;
 
   // static List<String> _keyRequired = [
   //   "channel",
@@ -603,33 +603,33 @@ class SignalInfo {
   // ];
 
   factory SignalInfo.createObject({
-    int? id,
-    String? symbol,
-    int? op,
-    double? price,
-    double? sl,
-    double? tp,
-    int? active,
-    double? profit,
-    int? pips,
-    double? closePrice,
-    String? closeTime,
-    String? openTime,
-    int? expired,
-    int? notified,
-    int? channelId,
-    String? title,
-    double? channelPrice,
-    String? username,
-    int? userid,
-    String? createdAt,
-    int? subs,
-    String? caption,
-    int? channelStatus,
-    int? channelCreatedTimeStamp,
-    String? channelAvatar,
-    int? medals,
-    double? point,
+    int id,
+    String symbol,
+    int op,
+    double price,
+    double sl,
+    double tp,
+    int active,
+    double profit,
+    int pips,
+    double closePrice,
+    String closeTime,
+    String openTime,
+    int expired,
+    int notified,
+    int channelId,
+    String title,
+    double channelPrice,
+    String username,
+    int userid,
+    String createdAt,
+    int subs,
+    String caption,
+    int channelStatus,
+    int channelCreatedTimeStamp,
+    String channelAvatar,
+    int medals,
+    double point,
   }) {
     ChannelInfo oc = ChannelInfo.createObject(
         id: channelId,
@@ -665,7 +665,7 @@ class SignalInfo {
   factory SignalInfo.fromMap(Map data) {
     try {
       // _keyRequired.forEach((v) {
-      //   if (!data.containsKey(v)) {
+      //   if (data.containsKey(v)) {
       //     throw new Exception("INVALID_SIGNAL_MAP_INFO");
       //   }
       // });
@@ -692,12 +692,12 @@ class SignalInfo {
           createdAt: data["createdAt"]);
     } catch (xerr) {}
 
-    return null!;
+    return null;
   }
 
   Map<String, dynamic> toMap() {
     return {
-      "channel": channel?.toMap(),
+      "channel": channel.toMap(),
       "id": id,
       "symbol": symbol ?? '',
       "op": op,
@@ -738,22 +738,22 @@ class SignalInfo {
 }
 
 class SignalTradeCopyLog {
-  SignalInfo? signal;
-  List<SignalTradeCopyLogSlim>? listTrade;
+  SignalInfo signal;
+  List<SignalTradeCopyLogSlim> listTrade;
 
   SignalTradeCopyLog({this.signal, this.listTrade});
 }
 
 class SignalTradeCopyLogSlim {
-  int? channelID;
-  String? channelName;
-  int? signalID;
-  int? mt4ID;
-  String? broker;
-  String? symbol;
-  double? volume;
-  int? orderID;
-  String? createdAt;
+  int channelID;
+  String channelName;
+  int signalID;
+  int mt4ID;
+  String broker;
+  String symbol;
+  double volume;
+  int orderID;
+  String createdAt;
 
   SignalTradeCopyLogSlim._privateConstructor({
     this.channelID,
@@ -782,7 +782,7 @@ class SignalTradeCopyLogSlim {
   factory SignalTradeCopyLogSlim.fromMap(Map data) {
     try {
       // _keyRequired.forEach((v) {
-      //   if (!data.containsKey(v)) {
+      //   if (data.containsKey(v)) {
       //     throw new Exception("INVALID_SIGNAL_BADGE_MAP_INFO");
       //   }
       // });
@@ -800,7 +800,7 @@ class SignalTradeCopyLogSlim {
       );
     } catch (xerr) {}
 
-    return null!;
+    return null;
   }
 
   factory SignalTradeCopyLogSlim.fromTF2v1API(Map data) {
@@ -818,7 +818,7 @@ class SignalTradeCopyLogSlim {
       );
     } catch (xerr) {}
 
-    return null!;
+    return null;
   }
 
   Map<String, dynamic> toMap() {
@@ -837,17 +837,17 @@ class SignalTradeCopyLogSlim {
 }
 
 class SignalCardSlim {
-  int? channelId;
-  String? channelName;
-  int? channelSubscriber;
-  String? channelAvatar;
-  int? signalid;
-  String? symbol;
-  String? createdAt;
-  int? expired;
-  int? subs;
-  int? medals;
-  int? op;
+  int channelId;
+  String channelName;
+  int channelSubscriber;
+  String channelAvatar;
+  int signalid;
+  String symbol;
+  String createdAt;
+  int expired;
+  int subs;
+  int medals;
+  int op;
   factory SignalCardSlim.fromMap(Map data) {
     try {
       return SignalCardSlim._privateConstructor(
@@ -866,7 +866,7 @@ class SignalCardSlim {
       print(xerr.toString());
     }
 
-    return null!;
+    return null;
   }
 
   Map<String, dynamic> toMap() {
@@ -900,29 +900,29 @@ class SignalCardSlim {
 }
 
 class ChannelCardSlim {
-  int? id;
-  String? name;
-  String? username;
-  int? subscriber;
-  double? postPerWeek;
-  double? profit;
-  double? pips;
-  String? avatar;
-  double? price;
-  int? signals;
-  bool? subscribed;
-  DateTime? subsDate;
-  DateTime? subsExpired;
-  int? weekAge;
-  bool? mute;
-  bool? real;
-  String? account;
-  bool? isPrivate;
-  List<ChannelPricing>? pricing;
-  String? contactEmail;
-  int? medals;
-  double? point;
-  DateTime? createdTime;
+  int id;
+  String name;
+  String username;
+  int subscriber;
+  double postPerWeek;
+  double profit;
+  double pips;
+  String avatar;
+  double price;
+  int signals;
+  bool subscribed;
+  DateTime subsDate;
+  DateTime subsExpired;
+  int weekAge;
+  bool mute;
+  bool real;
+  String account;
+  bool isPrivate;
+  List<ChannelPricing> pricing;
+  String contactEmail;
+  int medals;
+  double point;
+  DateTime createdTime;
   factory ChannelCardSlim.fromMap(Map data) {
     try {
       double diffWeek = (double.tryParse(data["diff_week"].toString()) ?? 1.00);
@@ -968,7 +968,7 @@ class ChannelCardSlim {
           medals: int.tryParse(data["medals"].toString()) ?? 0,
           createdTime: int.tryParse(data["created_time"].toString()) != null
               ? DateTime.fromMillisecondsSinceEpoch(
-                  int.tryParse(data["created_time"].toString())! * 1000,
+                  int.tryParse(data["created_time"].toString()) * 1000,
                   isUtc: true)
               : DateTime.parse(data["created_time"]),
           point: double.tryParse(data["point"].toString()) ?? 0.0);
@@ -1005,7 +1005,7 @@ class ChannelCardSlim {
         createdTime: null);
   }
 
-  Future<Rx<String?>?> watchChannelCache(int userid) async {
+  Future<Rx<String>> watchChannelCache(int userid) async {
     try {
       SharedBoxHelper box = SharedHelper.instance.getBox(BoxName.cache);
       return box.
@@ -1035,7 +1035,7 @@ class ChannelCardSlim {
       "signals": signals,
       "subscribed": subscribed == null
           ? null
-          : subscribed!
+          : subscribed
               ? 1
               : 0,
       "subsDate": subsDate.toString(),
@@ -1043,17 +1043,17 @@ class ChannelCardSlim {
       "diff_week": weekAge,
       "mute": mute == null
           ? null
-          : mute!
+          : mute
               ? 1
               : 0,
       "real": real == null
           ? null
-          : real!
+          : real
               ? 1
               : 0,
       "account": account,
       "isPrivate": isPrivate,
-      "pricing": pricing?.map((p) => p.toMap()).toList(),
+      "pricing": pricing.map((p) => p.toMap()).toList(),
       "contactEmail": contactEmail,
       "medals": medals,
       "point": point,
@@ -1088,8 +1088,8 @@ class ChannelCardSlim {
 }
 
 class ChannelPricing {
-  int? qty;
-  double? price;
+  int qty;
+  double price;
 
   ChannelPricing({this.qty, this.price});
 
@@ -1105,24 +1105,24 @@ class ChannelPricing {
 }
 
 class SignalPageData {
-  List<SignalCardSlim>? listSignal;
-  List<ChannelCardSlim>? listChannel;
+  List<SignalCardSlim> listSignal;
+  List<ChannelCardSlim> listChannel;
   SignalPageData({this.listSignal, this.listChannel});
   SignalPageData remake(
-      {List<SignalCardSlim>? mListSignal, List<ChannelCardSlim>? mlistChannel}) {
-    List<SignalCardSlim>? tmpSignal =
+      {List<SignalCardSlim> mListSignal, List<ChannelCardSlim> mlistChannel}) {
+    List<SignalCardSlim> tmpSignal =
         mListSignal ?? listSignal;
-    List<ChannelCardSlim>? tmpChannel =
+    List<ChannelCardSlim> tmpChannel =
         mlistChannel ?? listChannel;
     return SignalPageData(listSignal: tmpSignal, listChannel: tmpChannel);
   }
 
   Map toMap() {
     Map data = {"signal": [], "channel": []};
-    listSignal?.forEach((v) {
+    listSignal.forEach((v) {
       data["signal"].add(v.toMap());
     });
-    listSignal?.forEach((v) {
+    listSignal.forEach((v) {
       data["channel"].add(v.toMap());
     });
     return data;
@@ -1136,9 +1136,9 @@ class SignalPageData {
 }
 
 class HomePageData {
-  List<SignalInfo>? listSignal;
-  List<ChannelMostProfitEntity>? listChannel;
-  List<ChannelCardSlim>? listPopularChannel;
+  List<SignalInfo> listSignal;
+  List<ChannelMostProfitEntity> listChannel;
+  List<ChannelCardSlim> listPopularChannel;
 
   HomePageData({this.listSignal, this.listChannel, this.listPopularChannel});
 }
@@ -1149,18 +1149,18 @@ class TransactionPaymentSlim {
   TransactionStatus status;
   double jumlah;
   String username;
-  double? comm;
-  double? adminFee;
+  double comm;
+  double adminFee;
   DateTime tgl;
-  String? description;
+  String description;
 
   TransactionPaymentSlim(
-      {required this.reff,
-      required this.type,
-      required this.status,
-      required this.jumlah,
-      required this.username,
-      required this.tgl,
+      {@required this.reff,
+      @required this.type,
+      @required this.status,
+      @required this.jumlah,
+      @required this.username,
+      @required this.tgl,
       this.comm,
       this.adminFee,
       this.description});
@@ -1188,7 +1188,7 @@ class TransactionPaymentSlim {
         !data.containsKey("comm") ||
         !data.containsKey("admin_fee") ||
         !data.containsKey("tgl")) {
-      return null!;
+      return null;
     }
 
     TransactionType type = data["code"] < TransactionType.values.length
@@ -1202,24 +1202,24 @@ class TransactionPaymentSlim {
         jumlah: double.tryParse(data["jumlah"].toString()) ?? 0,
         comm: double.tryParse(data["comm"].toString()) ?? 0.0,
         adminFee: double.tryParse(data["admin_fee"].toString()) ?? 0.0,
-        tgl: DateTime.tryParse(data["tgl"].toString())!,
+        tgl: DateTime.tryParse(data["tgl"].toString()),
         username: data["username"].toString(),
         description: data["description"].toString());
   }
 }
 
 class OisDashboardPageData {
-  double? lastSync;
-  int? totalChannel;
-  int? totalSignal;
-  int? totalSubscriber;
-  int? totalPayment;
-  double? totalBalance;
-  double? totalActiveBalance;
-  List<TransactionPaymentSlim>? transactionPayment;
-  String? bankName;
-  String? bankAccount;
-  String? bankUsername;
+  double lastSync;
+  int totalChannel;
+  int totalSignal;
+  int totalSubscriber;
+  int totalPayment;
+  double totalBalance;
+  double totalActiveBalance;
+  List<TransactionPaymentSlim> transactionPayment;
+  String bankName;
+  String bankAccount;
+  String bankUsername;
 
   OisDashboardPageData(
       {this.lastSync,
@@ -1236,7 +1236,7 @@ class OisDashboardPageData {
 
   Map toMap() {
     List<Map> data = [];
-    transactionPayment?.forEach((v) {
+    transactionPayment.forEach((v) {
       data.add(v.toMap());
     });
 
@@ -1266,11 +1266,11 @@ class OisDashboardPageData {
         !data.containsKey("bankName") ||
         !data.containsKey("bankAccount") ||
         !data.containsKey("bankUsername")) {
-      return null!;
+      return null;
     }
 
-    if (data["transactionPayment"] is! List) {
-      return null!;
+    if (data["transactionPayment"] is List) {
+      return null;
     }
 
     List<TransactionPaymentSlim> listPayment = [];
@@ -1301,7 +1301,7 @@ class OisMyChannelPageData {
   Map listChannelBalance;
 
   OisMyChannelPageData(
-      {required this.lastSync, required this.listMyChannel,required this.listChannelBalance});
+      {@required this.lastSync, @required this.listMyChannel, @required this.listChannelBalance});
 
   Map toMap() {
     List<Map> data = [];
@@ -1328,8 +1328,8 @@ class OisMyChannelPageData {
       return OisMyChannelPageData.init();
     }
 
-    if (data["listMyChannel"] is! List ||
-        data["listChannelBalance"] is! Map ||
+    if (data["listMyChannel"] is List ||
+        data["listChannelBalance"] is Map ||
         data["listChannelBalance"].length == 0) {
       return OisMyChannelPageData.init();
     }
@@ -1342,15 +1342,15 @@ class OisMyChannelPageData {
 }
 
 class PaymentActions {
-  final List<PaymentChannels>? paymentChannels;
-  final List<PaymentDurationInMonths>? paymentDurations;
+  final List<PaymentChannels> paymentChannels;
+  final List<PaymentDurationInMonths> paymentDurations;
 
   PaymentActions({this.paymentChannels, this.paymentDurations});
 }
 
 class PaymentChannels {
-  final int? id;
-  final String? name;
+  final int id;
+  final String name;
 
   PaymentChannels({this.id, this.name});
 
@@ -1360,8 +1360,8 @@ class PaymentChannels {
 }
 
 class PaymentDurationInMonths {
-  final String? name;
-  final int? value;
+  final String name;
+  final int value;
 
   PaymentDurationInMonths({this.name, this.value});
 
@@ -1371,17 +1371,17 @@ class PaymentDurationInMonths {
 }
 
 class PaymentDetails {
-  final int? billNo;
-  final int? qty;
-  final double? price;
-  final double? billTotal;
-  final DateTime? billDate;
-  final DateTime? billExpired;
-  final String? paymentMethod;
-  final String? trxId;
-  final String? channelName;
-  final int? status;
-  final DateTime? paymentDate;
+  final int billNo;
+  final int qty;
+  final double price;
+  final double billTotal;
+  final DateTime billDate;
+  final DateTime billExpired;
+  final String paymentMethod;
+  final String trxId;
+  final String channelName;
+  final int status;
+  final DateTime paymentDate;
 
   PaymentDetails(
       {this.qty,
@@ -1415,12 +1415,12 @@ class PaymentDetails {
 }
 
 class ChannelSubscriber {
-  final int? channelId;
-  final String? title;
-  final int? userId;
-  final String? username;
-  final DateTime? subsDate;
-  final DateTime? subsExpired;
+  final int channelId;
+  final String title;
+  final int userId;
+  final String username;
+  final DateTime subsDate;
+  final DateTime subsExpired;
 
   ChannelSubscriber(
       {this.channelId,
@@ -1449,13 +1449,13 @@ class ChannelSubscriber {
 }
 
 class ChannelMostProfitEntity {
-  final int? id;
-  final String? title;
-  final String? username;
-  final double? profit;
-  final int? pips;
-  final int? monthd;
-  final String? avatar;
+  final int id;
+  final String title;
+  final String username;
+  final double profit;
+  final int pips;
+  final int monthd;
+  final String avatar;
 
   const ChannelMostProfitEntity(
       {this.id,
@@ -1505,21 +1505,21 @@ class HistoryPoint {
     this.sendMail,
   });
 
-  int? id;
-  int? channelId;
-  DateTime? utcInsertAt;
-  int? settleSignals;
-  int? totalSignalsCreated;
-  int? totalSignalsClosed;
-  int? totalPips;
-  double? avgPips;
-  double? avgPipsMonthly;
-  double? point;
-  int? medal;
-  double? prevPoint;
-  int? prevMedal;
-  int? prevChannelMedal;
-  int? sendMail;
+  int id;
+  int channelId;
+  DateTime utcInsertAt;
+  int settleSignals;
+  int totalSignalsCreated;
+  int totalSignalsClosed;
+  int totalPips;
+  double avgPips;
+  double avgPipsMonthly;
+  double point;
+  int medal;
+  double prevPoint;
+  int prevMedal;
+  int prevChannelMedal;
+  int sendMail;
 
   factory HistoryPoint.fromMap(Map<String, dynamic> json) => HistoryPoint(
         id: json["id"],
@@ -1570,13 +1570,13 @@ class RedeemHistory {
     this.medal,
   });
 
-  int? id;
-  int? channelId;
-  DateTime? utcInsertAt;
-  double? point;
-  int? medal;
-  RedeemStatus? status;
-  String? code;
+  int id;
+  int channelId;
+  DateTime utcInsertAt;
+  double point;
+  int medal;
+  RedeemStatus status;
+  String code;
 
   factory RedeemHistory.fromMap(Map<String, dynamic> json) => RedeemHistory(
         id: json["id"],
@@ -1611,11 +1611,11 @@ class Level {
     this.urlRule,
   });
 
-  List<LevelElement>? level;
-  int? exchangePointMultiplier;
-  int? minDate;
-  int? maxDate;
-  String? urlRule;
+  List<LevelElement> level;
+  int exchangePointMultiplier;
+  int minDate;
+  int maxDate;
+  String urlRule;
 
   factory Level.fromMap(Map<String, dynamic> json) => Level(
         level: List<LevelElement>.from(
@@ -1627,7 +1627,7 @@ class Level {
       );
 
   Map<String, dynamic> toMap() => {
-        "level": List<dynamic>.from(level!.map((x) => x.toJson())),
+        "level": List<dynamic>.from(level.map((x) => x.toJson())),
         "exchange_point_multiplier": exchangePointMultiplier,
         "minDate": minDate,
         "maxDate": maxDate,
@@ -1643,10 +1643,10 @@ class LevelElement {
     this.money,
   });
 
-  String? name;
-  int? minMedal;
-  int? maxMedal;
-  int? money;
+  String name;
+  int minMedal;
+  int maxMedal;
+  int money;
 
   factory LevelElement.fromJson(Map<String, dynamic> json) => LevelElement(
         name: json["name"],
@@ -1667,11 +1667,11 @@ class RulesPoint {
   RulesPoint._privateConstructor();
   static final RulesPoint instance = RulesPoint._privateConstructor();
 
-  int? currentMonthPips;
-  int? currentMonthPipsMin;
-  int? lastMonthPips;
-  double? average;
-  int? count;
+  int currentMonthPips;
+  int currentMonthPipsMin;
+  int lastMonthPips;
+  double average;
+  int count;
 
   factory RulesPoint.fromMap(Map json) {
     try {

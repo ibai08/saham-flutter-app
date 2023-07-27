@@ -4,14 +4,14 @@ import 'package:flutter/material.dart';
 
 class DefaultImage extends StatelessWidget {
   const DefaultImage(
-      {Key? key, this.option, this.image, this.width, this.tex, this.paddingTop})
+      {Key key, this.option, this.image, this.width, this.tex, this.paddingTop})
       : super(key: key);
 
-  final AssetImage? image;
-  final String? option;
-  final File? tex;
-  final double? width;
-  final double? paddingTop;
+  final AssetImage image;
+  final String option;
+  final File tex;
+  final double width;
+  final double paddingTop;
 
   @override
   Widget build(BuildContext context) {
@@ -29,7 +29,7 @@ class DefaultImage extends StatelessWidget {
                       'assets/icon/brands/tf-square-pad-bg-darkgreen.png',
                     ) as ImageProvider
                   : FileImage(
-                      tex!,
+                      tex,
                     )
     )));
   }

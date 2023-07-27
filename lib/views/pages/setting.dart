@@ -14,6 +14,7 @@ class Setting extends StatefulWidget {
 }
 
 class _SettingState extends State<Setting> {
+  final AppStateController appStateController = Get.put(AppStateController());
 
   List<Widget> prepareWidget(UserInfo user) {
     List<Widget> silverlist = [];
@@ -213,7 +214,7 @@ class _SettingState extends State<Setting> {
         appBar: NavMain(
           currentPage: "Settings",
           backPage: () async {
-             appStateController?.setAppState(Operation.bringToHome, HomeTab.home);
+             appStateController.setAppState(Operation.bringToHome, HomeTab.home);
             },
         ),
         body: GetX<AppStateController>(

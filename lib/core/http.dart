@@ -14,8 +14,8 @@ class TF2Request {
     Response res;
     Map data = {};
     Dio dio = Dio();
-    dio.options.connectTimeout = 10000;
-    dio.options.receiveTimeout = 30000;
+    dio.options.connectTimeout = Duration(milliseconds: 10000);
+    dio.options.receiveTimeout = Duration(milliseconds: 30000);
     if (method == 'GET') {
       res = await dio.get(url);
     } else {
@@ -33,8 +33,8 @@ class TF2Request {
   static Future<Map> authorizeRequest({String method = 'POST', String url, Map postParam, FormData formData}) async {
     Response res;
     Dio dio = Dio();
-    dio.options.connectTimeout = 10000;
-    dio.options.receiveTimeout = 30000;
+    dio.options.connectTimeout = Duration(milliseconds: 10000);
+    dio.options.receiveTimeout = Duration(milliseconds: 30000);
     Map data;
     int reqNo = 0;
     postParam ??= {};
@@ -85,8 +85,8 @@ class TF2Request {
     if (enc != null) {
       Response res;
       Dio dio = Dio();
-      dio.options.connectTimeout = 5000;
-      dio.options.receiveTimeout = 3000;
+      dio.options.connectTimeout = Duration(milliseconds: 5000);
+      dio.options.receiveTimeout = Duration(milliseconds: 3000);
       res = await dio.post(getHostName() + "/traders/api/v1/refreshlogin/", data: {"enc": enc});
       data = res.data;
 

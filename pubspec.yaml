@@ -33,7 +33,7 @@ dependencies:
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   flutter_inappwebview: ^5.6.0+2
-  url_launcher: ^5.2.5
+  url_launcher: ^6.1.8
   flutter_localizations:
     sdk: flutter
   flutter_cupertino_localizations: ^1.0.1
@@ -42,17 +42,17 @@ dependencies:
   path_provider: ^2.0.2
   crypto: ^3.0.1
   image_picker: ^0.8.2
-  dio: ^4.0.0
+  dio: ^5.3.0
   flutter_datetime_picker:
     git:
       url: https://github.com/Realank/flutter_datetime_picker.git
       ref: master
   cached_network_image: ^3.1.0
-  mime_type: ^0.2.4
+  mime_type: ^1.0.0
   intl: ^0.17.0
   hive:
   hive_flutter:
-  flutter_html: ^0.11.0
+  flutter_html: ^2.2.1
   mutex: ^3.0.0
   pull_to_refresh: ^2.0.0
   charts_flutter:
@@ -61,40 +61,40 @@ dependencies:
       path: charts_flutter
   fl_chart: ^0.55.1
   html_unescape: ^2.0.0
-  share: ^0.6.5+2
-  sprintf: ^4.0.2
+  share: ^2.0.4
+  sprintf: ^7.0.0
   device_info: ^2.0.2
   permission_handler: ^10.2.0
-  package_info: ^0.4.0+3
-  shimmer: ^1.1.1
-  flutter_speed_dial: ^1.2.5
+  package_info: ^2.0.2
+  shimmer: ^2.0.0
+  flutter_speed_dial: ^7.0.0
   google_sign_in: ^5.4.2
   sign_in_with_apple: ^4.1.0
 
-  firebase_core: 1.4.0
+  firebase_core: ^1.24.0
   firebase_auth: ^3.0.1
-  firebase_messaging: ^10.0.4
+  firebase_messaging: ^13.1.0
     # git:
     #   url: https://github.com/MaikuB/flutterfire.git
     #   path: packages/firebase_messaging
   # cloud_firestore: ^0.12.10
-  firebase_remote_config: ^0.10.0+3
-  firebase_analytics: ^8.2.0
+  firebase_remote_config: ^2.0.20
+  firebase_analytics: ^9.3.8
   firebase_crashlytics: ^2.1.1
-  firebase_dynamic_links: ^2.0.7 
+  firebase_dynamic_links: ^4.3.11 
 
   flutter_app_badger: ^1.1.2
   carousel_slider: ^4.1.1
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
-  cupertino_icons: ^0.1.2
+  cupertino_icons: ^1.0.5
 
-  material_design_icons_flutter: ^3.2.4096
+  material_design_icons_flutter: ^7.0.7296
 
   image: ^3.0.2
 
-  android_play_install_referrer: ^0.0.4
+  android_play_install_referrer: ^0.3.0
 
   # zendesk: 
   #   git:
@@ -104,6 +104,7 @@ dependencies:
   get_storage: ^2.1.1
   package_info_plus: ^1.4.2
   flutter_local_notifications: ^12.0.4
+  firebase_core_platform_interface: 4.5.1
   # zendesk:
   #   git:
   #     url: https://gitlab+deploy-token-fltuter-zendesk:zyRmg7-U1BaKgb1sxy6G@gitlab.com/tf-developer/tf-bibit/flutter-zendesk
@@ -112,8 +113,7 @@ dependencies:
   # shared_preferences_platform_interface: ^2.1.0
 
 # dependency_overrides:
-#   #
-#   firebase_core_platform_interface: 4.5.1
+#   firebase_core_platform_interface: 4.8.0
 
 dev_dependencies:
   flutter_test:

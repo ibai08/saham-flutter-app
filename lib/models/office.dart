@@ -15,8 +15,8 @@ class Office {
       Response res;
       // List<OfficeState> list;
       Dio dio = Dio(); // with default Options
-      dio.options.connectTimeout = 10000; //5s
-      dio.options.receiveTimeout = 30000;
+      dio.options.connectTimeout = Duration(milliseconds: 10000); //5s
+      dio.options.receiveTimeout = Duration(milliseconds: 3000);
       res = await dio.get(getMainSite() + link);
 
       return res.data;

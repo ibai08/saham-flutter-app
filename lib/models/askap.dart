@@ -252,8 +252,8 @@ class AskapModel {
 
     Response res;
     Dio dio = Dio(); // with default Options
-    dio.options.connectTimeout = 15000; //5s
-    dio.options.receiveTimeout = 3000;
+    dio.options.connectTimeout = Duration(milliseconds: 15000); //5s
+    dio.options.receiveTimeout = Duration(milliseconds: 3000);
 
     var i = 0;
     do {
@@ -288,8 +288,8 @@ class AskapModel {
 
     Response res;
     Dio dio = Dio(); // with default Options
-    dio.options.connectTimeout = 10000; //5s
-    dio.options.receiveTimeout = 3000;
+    dio.options.connectTimeout = Duration(milliseconds: 10000); //5s
+    dio.options.receiveTimeout = Duration(milliseconds: 3000);
 
     var i = 0;
     do {
@@ -324,8 +324,8 @@ class AskapModel {
 
     Response res;
     Dio dio = Dio(); // with default Options
-    dio.options.connectTimeout = 10000; //5s
-    dio.options.receiveTimeout = 3000;
+    dio.options.connectTimeout = Duration(milliseconds: 10000); //5s
+    dio.options.receiveTimeout = Duration(milliseconds: 3000);
 
     var i = 0;
     do {

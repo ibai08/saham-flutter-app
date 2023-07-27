@@ -138,8 +138,8 @@ class UserModel {
     Response res;
     Map data = {};
     Dio dio = Dio();
-    dio.options.connectTimeout = 5000;
-    dio.options.receiveTimeout = 3000;
+    dio.options.connectTimeout = Duration(milliseconds: 5000);
+    dio.options.receiveTimeout = Duration(milliseconds: 3000);
     res = await dio.post(getHostName() + "/traders/api/v1/login-with-mt4/", data: {"broker": broker, "mt4id": mt4id, "password": password});
     data = res.data;
 
@@ -215,7 +215,7 @@ class UserModel {
       FirebaseCrashlytics.instance.setUserIdentifier('${appStateController.users.value.id}');
       FirebaseCrashlytics.instance.setCustomKey("email", '${appStateController.users.value.email}');
       FirebaseCrashlytics.instance.setCustomKey("username", '${appStateController.users.value.username}');
-      firebaseAnalytics.setUserId('${appStateController.users.value.id}');
+      firebaseAnalytics.setUserId(id: '${appStateController.users.value.id}');
       // MainZendesk().setVisitorInfo(
       //   email: '${appStateController.users.value.email}',
       //   name: '${appStateController.users.value.fullname}',
@@ -247,8 +247,8 @@ class UserModel {
     do {
       i++;
       Dio dio = Dio(); // with default Options
-      dio.options.connectTimeout = 5000; //5s
-      dio.options.receiveTimeout = 3000;
+      dio.options.connectTimeout = Duration(milliseconds: 5000); //5s
+      dio.options.receiveTimeout = Duration(milliseconds: 3000);
       String token = await getUserToken();
       dio.options.headers = {"Authorization": "Bearer " + token};
       res = await dio.post(getHostName() + "/traders/api/v1/user/edit/profile/",
@@ -286,8 +286,8 @@ class UserModel {
       Response res;
       Map data = {};
       Dio dio = Dio();
-      dio.options.connectTimeout = 5000;
-      dio.options.receiveTimeout = 3000;
+      dio.options.connectTimeout = Duration(milliseconds: 5000);
+      dio.options.receiveTimeout = Duration(milliseconds: 3000);
       res = await dio.post(getHostName() + "/traders/api/v1/refreshlogin/", data: {"enc": enc});
       data = res.data;
 
@@ -317,8 +317,8 @@ class UserModel {
       }
 
       Dio dio = Dio(); // with default Options
-      dio.options.connectTimeout = 5000; //5s
-      dio.options.receiveTimeout = 3000;
+      dio.options.connectTimeout = Duration(milliseconds: 5000); //5s
+      dio.options.receiveTimeout = Duration(milliseconds: 3000);
       String token = await UserModel.instance.getUserToken();
       dio.options.headers = {"Authorization": "Bearer " + token};
       res = await dio.post(getHostName() + "/traders/api/v1/user/changepass/",
@@ -397,8 +397,8 @@ class UserModel {
     }
 
     Dio dio = Dio(); // with default Options
-    dio.options.connectTimeout = 10000; //5s
-    dio.options.receiveTimeout = 30000;
+    dio.options.connectTimeout = Duration(milliseconds: 10000); //5s
+    dio.options.receiveTimeout = Duration(milliseconds: 30000);
 
     Response res =
         await dio.post(getHostName() + "/traders/api/v1/user/register/", data: {
@@ -428,7 +428,7 @@ class UserModel {
               arguments: arguments);
           if (ul) {
             firebaseAnalytics
-                .setUserId('${jsonDecode(data["user"])["id"]}')
+                .setUserId(id: '${jsonDecode(data["user"])["id"]}')
                 .then((x) {
               firebaseAnalytics.logSignUp(signUpMethod: "Email");
             });
@@ -472,8 +472,8 @@ class UserModel {
     }
 
     Dio dio = Dio(); // with default Options
-    dio.options.connectTimeout = 10000; //5s
-    dio.options.receiveTimeout = 30000;
+    dio.options.connectTimeout = Duration(milliseconds: 10000); //5s
+    dio.options.receiveTimeout = Duration(milliseconds: 30000);
 
     Response res =
         await dio.post(getHostName() + "/traders/api/v2/user/register/", data: {
@@ -505,7 +505,7 @@ class UserModel {
               arguments: arguments);
           if (ul) {
             firebaseAnalytics
-                .setUserId('${jsonDecode(data["user"])["id"]}')
+                .setUserId(id: '${jsonDecode(data["user"])["id"]}')
                 .then((x) {
               firebaseAnalytics.logSignUp(
                   signUpMethod: token == "" ? "Email" : "Google");
@@ -539,8 +539,8 @@ class UserModel {
         filename: "avatar.jpeg");
     FormData formData = FormData.fromMap({"file": file});
 
-    dio.options.connectTimeout = 50000; //10s
-    dio.options.receiveTimeout = 3000;
+    dio.options.connectTimeout = Duration(milliseconds: 50000); //10s
+    dio.options.receiveTimeout = Duration(milliseconds: 3000);
 
     int i = 0;
     do {
@@ -582,8 +582,8 @@ class UserModel {
     }
 
     Dio dio = Dio(); // with default Options
-    dio.options.connectTimeout = 5000; //5s
-    dio.options.receiveTimeout = 3000;
+    dio.options.connectTimeout = Duration(milliseconds: 5000); //5s
+    dio.options.receiveTimeout = Duration(milliseconds: 3000);
     res = await dio.post(getHostName() + "/traders/api/v1/user/forgot/",
         data: {"email": email});
     if (res.data is Map) {
@@ -615,8 +615,8 @@ class UserModel {
     }
 
     Dio dio = Dio(); // with default Options
-    dio.options.connectTimeout = 5000; //5s
-    dio.options.receiveTimeout = 3000;
+    dio.options.connectTimeout = Duration(milliseconds: 5000); //5s
+    dio.options.receiveTimeout = Duration(milliseconds: 3000);
     res = await dio.post(getHostName() + "/traders/api/v1/verify/resend/",
         data: {"email": email});
     if (res.data is Map) {

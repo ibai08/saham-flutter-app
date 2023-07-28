@@ -14,25 +14,27 @@ import 'package:saham_01_app/views/widgets/channelPower.dart';
 import 'package:saham_01_app/views/widgets/headingChannelInfo.dart';
 
 class ChannelThumb extends StatelessWidget {
-  final int id;
-  final String username;
-  final double price;
-  final String name;
-  final double post;
-  final double profit;
-  final double pips;
-  final String avatar;
-  final bool subscribed;
-  final int subscriber;
-  final double width;
-  final double marginBottom;
-  final String from;
-  final String search;
-  final Level level;
-  final int medals;
+  final int? id;
+  final String? username;
+  final double? price;
+  final String? name;
+  final double? post;
+  final double? profit;
+  final double? pips;
+  final String? avatar;
+  final bool? subscribed;
+  final int? subscriber;
+  final double? width;
+  final double? marginBottom;
+  final String? from;
+  final String? search;
+  final Level? level;
+  final int? medals;
+
+  final AppStateController appStateController = Get.put(AppStateController());
 
   ChannelThumb({
-    Key key,
+    Key? key,
     this.id,
     this.username,
     this.name,
@@ -53,14 +55,14 @@ class ChannelThumb extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final Rx<ChannelCardSlim> channelStream = ChannelCardSlim().obs;
+    final Rx<ChannelCardSlim>? channelStream = ChannelCardSlim().obs;
     ChannelCardSlim channel = ChannelCardSlim(
       id: id,
       avatar: avatar,
       name: name,
       pips: pips,
       price: price,
-      profit: profit * 10000,
+      profit: profit! * 10000,
       postPerWeek: post,
       subscribed: subscribed,
       subscriber: subscriber,
@@ -68,28 +70,28 @@ class ChannelThumb extends StatelessWidget {
     );
 
     // Initialize the channelStream
-    channelStream.value = channel;
+    channelStream?.value = channel;
 
     // Watch the channel cache and update the channelStream accordingly
     Future.delayed(Duration(seconds: 0)).then((_) async {
-      channelStream.value = channel;
-      Rx<String> data = await channel.watchChannelCache(appStateController.users.value.id);
+      channelStream?.value = channel;
+      Rx<String>? data = await channel.watchChannelCache(appStateController.users.value.id);
       if (data != null && data.isNotEmpty) {
         try {
           Map boxData = jsonDecode(data as String);
           if (boxData.containsKey("data")) {
-            channelStream.value = ChannelCardSlim.fromMap(boxData["data"]);
+            channelStream?.value = ChannelCardSlim.fromMap(boxData["data"]);
           }
         } catch (e) {}
       }
     });
 
-    if (level.level == null) {
+    if (level?.level == null) {
       return const SizedBox();
     }
 
     return Obx(() {
-      ChannelCardSlim tChannel = channelStream.value ?? channel;
+      ChannelCardSlim? tChannel = channelStream?.value ?? channel;
 
       String btnLabel = 'Subsribe for FREE';
       Color btnColor = AppColors.blueGem;
@@ -97,15 +99,15 @@ class ChannelThumb extends StatelessWidget {
 
       if (tChannel.username == appStateController.users.value.id) {
         btnLabel = "LIHAT CHANNEL";
-        btnColor = Colors.grey[300];
-        txtcolor = Colors.grey[800];
-      } else if (tChannel.subscribed) {
+        btnColor = Colors.grey[300]!;
+        txtcolor = Colors.grey[800]!;
+      } else if (tChannel.subscribed!) {
         btnLabel = "Subscribed";
-        btnColor = Colors.grey[300];
-        txtcolor = Colors.grey[800];
+        btnColor = Colors.grey[300]!;
+        txtcolor = Colors.grey[800]!;
       } else if (tChannel.isPrivate == true) {
         btnLabel = "Subscribe with TOKEN";
-      } else if (tChannel.price > 0) {
+      } else if (tChannel.price! > 0) {
         btnLabel = "Subscribe for Rp " +
             NumberFormat("#,###", "ID").format(tChannel.price);
       }
@@ -128,9 +130,9 @@ class ChannelThumb extends StatelessWidget {
               onTap: () {
                 OisModel.instance
                     .logActions(
-                  channelId: tChannel.id,
+                  channelId: tChannel.id!,
                   actionName: "view",
-                  stateName: from,
+                  stateName: from!,
                 )
                     .then((x) {})
                     .catchError((err) {});
@@ -161,7 +163,7 @@ class ChannelThumb extends StatelessWidget {
                   child: Column(
                     children: [
                       ChannelPower(
-                        title: numberShortener((tChannel.profit).ceil()),
+                        title: numberShortener((tChannel.profit)!.ceil()),
                         subtitle: "Profit (in IDR)",
                       ),
                     ],
@@ -169,7 +171,7 @@ class ChannelThumb extends StatelessWidget {
                 ),
                 Expanded(
                   child: ChannelPower(
-                    title: numberShortener(tChannel.postPerWeek.floor()),
+                    title: numberShortener(tChannel.postPerWeek!.floor()),
                     subtitle: "Post/Week",
                   ),
                 ),
@@ -181,12 +183,12 @@ class ChannelThumb extends StatelessWidget {
                     width: double.infinity,
                     child: TextButton(
                       onPressed: () {
-                        if (tChannel.subscribed) {
+                        if (tChannel.subscribed!) {
                           OisModel.instance
                               .logActions(
-                            channelId: tChannel.id,
+                            channelId: tChannel.id!,
                             actionName: "view",
-                            stateName: from,
+                            stateName: from!,
                           )
                               .then((x) {})
                               .catchError((err) {});

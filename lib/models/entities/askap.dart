@@ -1,19 +1,19 @@
 class AccountTypeAskap {
-  int id;
-  String name;
-  String mindepo;
-  String minlot;
-  String maxlot;
-  String maxopenlot;
-  String spread;
-  String swap;
-  String commission;
-  String leverage;
-  String po;
-  String insurance;
-  String style;
-  String rules;
-  List<String> additional;
+  int? id;
+  String? name;
+  String? mindepo;
+  String? minlot;
+  String? maxlot;
+  String? maxopenlot;
+  String? spread;
+  String?swap;
+  String?commission;
+  String? leverage;
+  String? po;
+  String? insurance;
+  String? style;
+  String? rules;
+  List<String>? additional;
 
   AccountTypeAskap(
       {this.id,
@@ -95,14 +95,14 @@ class AccountTypeAskap {
 }
 
 class UserAskap {
-  int askapid;
-  List<RealAccAskap> realAccounts;
-  List<DemoAccAskap> demoAccounts;
-  List<UserTransactionsAskap> transactions;
-  double lastSync;
-  bool hasError;
-  bool hasDeposit;
-  List<AccountTypeAskap> accountTypes;
+  int? askapid;
+  List<RealAccAskap>? realAccounts;
+  List<DemoAccAskap>? demoAccounts;
+  List<UserTransactionsAskap>? transactions;
+  double? lastSync;
+  bool? hasError;
+  bool? hasDeposit;
+  List<AccountTypeAskap>? accountTypes;
 
   UserAskap(
       {this.askapid,
@@ -176,36 +176,36 @@ class UserAskap {
       "askapid": askapid,
       "realAccounts": realAccounts == null
           ? []
-          : realAccounts.map<Map>((json) => json.toMap()).toList(),
+          : realAccounts?.map<Map>((json) => json.toMap()).toList(),
       "demoAccounts": demoAccounts == null
           ? []
-          : demoAccounts.map<Map>((json) => json.toMap()).toList(),
+          : demoAccounts?.map<Map>((json) => json.toMap()).toList(),
       "transactions": transactions == null
           ? []
-          : transactions.map<Map>((json) => json.toMap()).toList(),
+          : transactions?.map<Map>((json) => json.toMap()).toList(),
       "lastSync": lastSync ?? 0,
       "hasError": hasError ?? true,
       "hasDeposit": hasDeposit ?? true,
       "accountTypes": accountTypes == null
           ? []
-          : accountTypes.map<Map>((json) => json.toMap()).toList(),
+          : accountTypes?.map<Map>((json) => json.toMap()).toList(),
     };
   }
 }
 
 class AskapAcc {
-  final int type;
-  final String login;
-  final DateTime date;
+  final int? type;
+  final String? login;
+  final DateTime? date;
 
   AskapAcc(this.type, this.login, this.date);
 }
 
 class RealAccAskap extends AskapAcc {
-  final String orderNo;
-  final String bank;
-  final String bankno;
-  final String bankname;
+  final String? orderNo;
+  final String? bank;
+  final String? bankno;
+  final String? bankname;
 
   RealAccAskap(
       {type, login, date, this.orderNo, this.bank, this.bankno, this.bankname})
@@ -236,9 +236,9 @@ class RealAccAskap extends AskapAcc {
 }
 
 class DemoAccAskap extends AskapAcc {
-  final String password;
-  final DateTime reqDate;
-  final int status;
+  final String? password;
+  final DateTime? reqDate;
+  final int? status;
 
   DemoAccAskap({type, login, date, this.reqDate, this.password, this.status})
       : super(type, login, date);
@@ -267,13 +267,13 @@ class DemoAccAskap extends AskapAcc {
 }
 
 class UserTransactionsAskap {
-  final String mt4id;
-  final double nominal;
-  final int rate;
-  final DateTime date;
-  final int tipe;
-  final int status;
-  final int idr;
+  final String? mt4id;
+  final double? nominal;
+  final int? rate;
+  final DateTime? date;
+  final int? tipe;
+  final int? status;
+  final int? idr;
 
   UserTransactionsAskap(
       {this.mt4id,
@@ -309,11 +309,11 @@ class UserTransactionsAskap {
 }
 
 class BankBrokerAskap {
-  final int id;
-  final String bank;
-  final String name;
-  final String no;
-  final String symbol;
+  final int? id;
+  final String? bank;
+  final String? name;
+  final String? no;
+  final String? symbol;
 
   BankBrokerAskap({this.id, this.bank, this.name, this.no, this.symbol});
 

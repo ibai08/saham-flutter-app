@@ -108,7 +108,7 @@ class StorageController {
 }
 
 class SharedBoxHelper {
-  String boxName;
+  String? boxName;
 
   SharedBoxHelper({this.boxName});
 
@@ -121,9 +121,9 @@ class SharedBoxHelper {
     Map<String, dynamic> mapData = {};
     List<String> allKeys = GetStorage().getKeys().toList();
     for (String key in allKeys) {
-      if (key.startsWith(boxName + '.')) {
+      if (key.startsWith(boxName! + '.')) {
         dynamic value = GetStorage().read(key);
-        if (value = null) {
+        if (value == null) {
           mapData[key] = value;
         }
       }
@@ -137,10 +137,10 @@ class SharedBoxHelper {
       await init();
       List<String> allKeys = GetStorage().getKeys().toList();
       for (String key in allKeys) {
-        if (key.startsWith(boxName + '.')) {
-          String temp = GetStorage().read<String>(key);
+        if (key.startsWith(boxName! + '.')) {
+          String? temp = GetStorage().read<String>(key);
           if (temp != "") {
-            mapData[key] = jsonDecode(temp);
+            mapData[key] = jsonDecode(temp!);
           }
         }
       }
@@ -153,39 +153,39 @@ class SharedBoxHelper {
 
   Future<String> get(String keyName) async {
     await init();
-    String data = GetStorage().read(boxName + '.' + keyName).toString();
+    String data = GetStorage().read(boxName! + '.' + keyName).toString();
     return data;
   }
 
-  Future<Map> getMap(String keyName) async {
+  Future<Map?> getMap(String keyName) async {
     await init();
-    String val = GetStorage().read(boxName + '.' + keyName).toString();
+    String? val = GetStorage().read(boxName! + '.' + keyName).toString();
     if (val == null || val.isEmpty) {
       return null;
     }
     return jsonDecode(val);
   }
 
-  Rx<String> watch(String keyName) {
-    return GetStorage().read<String>(boxName + '.' + keyName).obs;
+  Rx<String?> watch(String keyName) {
+    return GetStorage().read<String>(boxName! + '.' + keyName).obs;
   }
 
   Future<bool> put(String keyName, String data) async {
     await init();
-    await GetStorage().write(boxName + '.' + keyName, data);
+    await GetStorage().write(boxName! + '.' + keyName, data);
     return true;
   }
 
   Future<bool> putMap(String keyName, Map<dynamic, dynamic> data) async {
     await init();
     String json = jsonEncode(data);
-    await GetStorage().write(boxName + '.' + keyName, json);
+    await GetStorage().write(boxName! + '.' + keyName, json);
     return true;
   }
 
   Future<bool> delete(String keyName) async {
     await init();
-    await GetStorage().remove(boxName + '.' + keyName);
+    await GetStorage().remove(boxName! + '.' + keyName);
     return true;
   }
 
@@ -193,7 +193,7 @@ class SharedBoxHelper {
     await init();
     List<String> allKeys = GetStorage().getKeys().toList();
     for (String key in allKeys) {
-      if (key.startsWith(boxName + '.')) {
+      if (key.startsWith(boxName! + '.')) {
         GetStorage().remove(key);
       }
     }
@@ -207,7 +207,7 @@ class SharedHelper {
   // ignore: prefer_final_fields
   Map<String, SharedBoxHelper> _boxes = Map();
 
-  SharedBoxHelper getBox(String boxName) {
+  SharedBoxHelper? getBox(String boxName) {
     if (_boxes.containsKey(boxName)) {
       _boxes[boxName] = SharedBoxHelper(boxName: boxName);
     }
@@ -216,7 +216,7 @@ class SharedHelper {
 
   Future<void> clearBox(String boxName) async {
     try {
-      SharedBoxHelper box = getBox(boxName);
+      SharedBoxHelper box = getBox(boxName)!;
       await box.clearBox();
     } catch (e) {}
   }

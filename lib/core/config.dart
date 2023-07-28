@@ -3,14 +3,14 @@ import 'package:saham_01_app/core/getStorage.dart';
 
 var settings = {"mode": "production"};
 
-RemoteConfig remoteConfig;
+FirebaseRemoteConfig? remoteConfig;
 const String tableCfg = 'cfg';
 const String columnId = 'id';
 const String columnParams = 'params';
 
 class Cfg {
-  String id;
-  String params;
+  String? id;
+  String? params;
 
   Cfg({this.id, this.params});
 
@@ -30,8 +30,8 @@ class Cfg {
 
 Future<bool> updateCfgAsync(String id, String params) async {
   try {
-    SharedBoxHelper boxs = SharedHelper.instance.getBox(BoxName.config);
-    bool res = await boxs.put(id, params);
+    SharedBoxHelper? boxs = SharedHelper.instance.getBox(BoxName.config);
+    bool res = await boxs!.put(id, params);
     return res;
   } catch (e) {
     print("UpdateCfgAsync Error");
@@ -40,10 +40,10 @@ Future<bool> updateCfgAsync(String id, String params) async {
   return false;
 }
 
-Future<String> getCfgAsync(String id) async {
+Future<String?> getCfgAsync(String id) async {
   try {
-    SharedBoxHelper boxs = SharedHelper.instance.getBox(BoxName.config);
-    String data = await boxs.get(id);
+    SharedBoxHelper? boxs = SharedHelper.instance.getBox(BoxName.config);
+    String data = await boxs!.get(id);
     return data;
   } catch (e) {
     print("GetCfgAsync Error");
@@ -54,8 +54,8 @@ Future<String> getCfgAsync(String id) async {
 
 Future<bool> removeCfgAsync(String id) async {
   try {
-    SharedBoxHelper boxs = SharedHelper.instance.getBox(BoxName.config);
-    bool res = await boxs.delete(id);
+    SharedBoxHelper? boxs = SharedHelper.instance.getBox(BoxName.config);
+    bool res = await boxs!.delete(id);
     return res;
   } catch (e) {
     print("RemoveCfgAsync Error");

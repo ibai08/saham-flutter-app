@@ -8,18 +8,18 @@ import 'package:saham_01_app/models/mrg.dart';
 import 'package:saham_01_app/views/widgets/dialogLoading.dart';
 
 class ListTileAction extends StatelessWidget {
-  const ListTileAction({ Key key, this.data, this.no }) : super(key: key);
+  const ListTileAction({ Key? key, this.data, this.no }) : super(key: key);
 
-  final RealAccMrg data;
-  final int no;
+  final RealAccMrg? data;
+  final int? no;
 
   @override
   Widget build(BuildContext context) {
-    var accountType = (appStateController.userMrg.value.accountTypes).singleWhere((type) => type.id == data?.type, orElse: null);
+    var accountType = (appStateController?.userMrg.value.accountTypes)?.singleWhere((type) => type.id == data?.type, orElse: null);
     return Container(
       padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 15),
       decoration: BoxDecoration(
-        border: Border(bottom: BorderSide(width: 1, color: Colors.grey[300]))
+        border: Border(bottom: BorderSide(width: 1, color: Colors.grey[300]!))
       ),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -40,7 +40,7 @@ class ListTileAction extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
                   Text(
-                    data.login,
+                    data!.login,
                     style: const TextStyle(
                       fontWeight: FontWeight.w600,
                       fontSize: 16.0,
@@ -61,7 +61,7 @@ class ListTileAction extends StatelessWidget {
                     data?.date == null
                         ? "-"
                         : DateFormat('yyyy-MM-dd HH:mm:ss')
-                            .format(data.date.toLocal()),
+                            .format(data!.date.toLocal()),
                     style: const TextStyle(fontSize: 12.0),
                   ),
                 ],
@@ -81,37 +81,37 @@ class ListTileAction extends StatelessWidget {
                   switch (value) {
                     case '1':
                       MarginInfo marginInfo =
-                          await MrgModel.getMarginInfo(data.login);
+                          await MrgModel.getMarginInfo(data!.login);
 
                       if (marginInfo == null) {
                         throw Exception("UNABLE_TO_CONNECT");
                       }
 
                       Navigator.pop(context);
-                      showDialog(
-                          context: context,
-                          builder: (context) {
-                            // return DialogAccountInfo(
-                            //   marginInfo: marginInfo,
-                            // );
-                          });
+                      // showDialog(
+                      //     context: context,
+                      //     builder: (context) {
+                      //       // return DialogAccountInfo(
+                      //       //   marginInfo: marginInfo,
+                      //       // );
+                      //     });
 
                       break;
                     case '4':
                       MarginInOut margin =
-                          await MrgModel.getMarginInOut(data.login);
+                          await MrgModel.getMarginInOut(data!.login);
 
                       if (margin == null) {
                         throw Exception("UNABLE_TO_CONNECT");
                       }
 
                       Navigator.pop(context);
-                      showDialog(
-                          context: context,
-                          builder: (context) {
-                            // return DialogMarginInOut(data: margin);
-                          });
-                      break;
+                      // showDialog(
+                      //     context: context,
+                      //     builder: (context) {
+                      //       // return DialogMarginInOut(data: margin);
+                      //     });
+                      // break;
                   }
                 } catch (ex) {
                   print(ex);

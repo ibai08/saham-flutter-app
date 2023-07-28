@@ -6,13 +6,13 @@ import 'package:flutter/material.dart';
 import 'defaultImage.dart';
 
 class ImageFromNetwork extends StatefulWidget {
-  final String url;
-  final Widget defaultImage;
-  final double width;
-  final double paddingTop;
+  final String? url;
+  final Widget? defaultImage;
+  final double? width;
+  final double? paddingTop;
 
   const ImageFromNetwork(this.url,
-      {Key key, this.defaultImage, this.width, this.paddingTop})
+      {Key? key, this.defaultImage, this.width, this.paddingTop})
       : super(key: key);
 
   @override
@@ -20,8 +20,8 @@ class ImageFromNetwork extends StatefulWidget {
 }
 
 class _ImageFromNetworkState extends State<ImageFromNetwork> {
-  Widget defaultImage;
-  Widget image;
+  Widget? defaultImage;
+  Widget? image;
 
   @override
   void initState() {
@@ -40,7 +40,7 @@ class _ImageFromNetworkState extends State<ImageFromNetwork> {
       image = defaultImage;
     } else {
       image = CachedNetworkImage(
-          imageUrl: widget.url,
+          imageUrl: widget.url!,
           useOldImageOnUrlChange: true,
           imageBuilder: (context, imageProvider) {
             try {
@@ -60,7 +60,7 @@ class _ImageFromNetworkState extends State<ImageFromNetwork> {
             } catch (oops) {
               print(oops);
             }
-            return defaultImage;
+            return defaultImage!;
           },
           placeholder: (context, url) => Container(
               width: widget.width ?? 120,
@@ -70,9 +70,9 @@ class _ImageFromNetworkState extends State<ImageFromNetwork> {
               )),
           errorWidget: (context, url, error) {
             print(error);
-            return defaultImage;
+            return defaultImage!;
           });
     }
-    return image;
+    return image!;
   }
 }

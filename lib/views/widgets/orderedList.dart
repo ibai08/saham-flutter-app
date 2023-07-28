@@ -3,9 +3,9 @@
 import 'package:flutter/material.dart';
 
 class OrderedListWidget extends StatelessWidget {
-  final String order;
-  final String text;
-  const OrderedListWidget({Key key, this.order, this.text}) : super(key: key);
+  final String? order;
+  final String? text;
+  const OrderedListWidget({Key? key, this.order, this.text}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

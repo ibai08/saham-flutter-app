@@ -4,15 +4,15 @@ import 'package:flutter/material.dart';
 
 class BadgeItem extends StatelessWidget {
   const BadgeItem({
-    Key key,
+    Key? key,
     this.images,
     this.title,
     this.tap,
     this.colors,
     this.status,
   }) : super(key: key);
-  final String images;
-  final String title;
+  final String? images;
+  final String? title;
   final tap;
   final colors;
   final status;
@@ -58,12 +58,12 @@ class BadgeItem extends StatelessWidget {
                   backgroundColor: Colors.white,
                 ),
                 icon: Image.asset(
-                  images,
+                  images!,
                   width: 25,
                   height: 25,
                 ),
                 label: Text(
-                  title,
+                  title!,
                   style: TextStyle(fontSize: 12),
                 )
               ),

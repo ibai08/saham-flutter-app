@@ -1,7 +1,7 @@
 class Broker {
-  final String id;
-  final String shortName;
-  final String fullName;
+  final String? id;
+  final String? shortName;
+  final String? fullName;
 
   Broker({this.id, this.shortName, this.fullName});
 }

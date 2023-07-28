@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:get/get.dart' as Get;
 import 'package:http_parser/http_parser.dart';
 import 'package:image/image.dart';
 import 'package:image_picker/image_picker.dart';
@@ -13,6 +14,7 @@ import 'package:sprintf/sprintf.dart';
 class AskapModel {
   static const realAcc = "real";
   static const demoAcc = "demo";
+
 
   static Future<void> fetchUserData({bool clearCache = false}) async {
     try {
@@ -68,7 +70,7 @@ class AskapModel {
         refreshSecond = 0;
       }
       dynamic data = await CacheFactory.getCache(
-          sprintf(CacheKey.userAskapByID, [appStateController.users.value.id]), () async {
+          sprintf(CacheKey.userAskapByID, [appStateController?.users.value.id]), () async {
         Map fetchData = await TF2Request.authorizeRequest(
             method: "GET", url: getHostName() + "/askap/api/v1/account/check/");
         return fetchData["message"];
@@ -135,7 +137,7 @@ class AskapModel {
     return [];
   }
 
-  static Future<List<DemoAccAskap>> getDemoAccAskap(
+  static Future<List<DemoAccAskap>?> getDemoAccAskap(
       {bool clearCache = false}) async {
     try {
       if (!UserModel.instance.hasLogin()) {
@@ -147,7 +149,7 @@ class AskapModel {
         refreshSecond = 0;
       }
       dynamic data = await CacheFactory.getCache(
-          sprintf(CacheKey.demoAccAskapByID, [appStateController.users.value.id]), () async {
+          sprintf(CacheKey.demoAccAskapByID, [appStateController?.users.value.id]), () async {
         Map fetchData = await TF2Request.authorizeRequest(
           url: getHostName() + "/askap/api/v1/account/demo/",
           method: 'GET',
@@ -214,7 +216,7 @@ class AskapModel {
     return [];
   }
 
-  static Future<List<UserTransactionsAskap>> getLatestTransactions(
+  static Future<List<UserTransactionsAskap>?> getLatestTransactions(
       {bool clearCache = false}) async {
     try {
       if (!UserModel.instance.hasLogin()) {
@@ -361,15 +363,15 @@ class AskapModel {
   }
 
   static Future<String> requestRealAccountUploads(
-      {Map<String, Future<XFile>> documents}) async {
+      {Map<String, Future<XFile>>? documents}) async {
     if (documents != null) {
       Map<String, dynamic> files = {};
       for (var key in documents.keys) {
-        XFile doc = await documents[key];
+        XFile? doc = await documents[key];
 
         files[key] = MultipartFile.fromBytes(
             encodeJpg(
-                copyResize(decodeImage(await doc.readAsBytes()), width: 500),
+                copyResize(decodeImage(await doc!.readAsBytes())!, width: 500),
                 quality: 70),
             contentType: MediaType("image", "jpeg"),
             filename: key + ".jpeg");
@@ -385,7 +387,7 @@ class AskapModel {
     }
   }
 
-  static Future<String> requestRealAccount({Map data}) async {
+  static Future<String> requestRealAccount({Map? data}) async {
     Map fetchData = await TF2Request.authorizeRequest(
         url: getHostName() + "/askap/api/v1/account/request/",
         method: 'POST',

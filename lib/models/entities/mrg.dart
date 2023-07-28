@@ -1,17 +1,17 @@
 class AccountTypeMrg {
-  int id;
-  String name;
-  int mindepo;
-  String minlot;
-  String maxlot;
-  String spread;
-  String swap;
-  String commission;
-  String leverage;
-  String po;
-  String products;
-  String symbol;
-  Map additional;
+  int? id;
+  String? name;
+  int? mindepo;
+  String? minlot;
+  String? maxlot;
+  String? spread;
+  String? swap;
+  String? commission;
+  String? leverage;
+  String? po;
+  String? products;
+  String? symbol;
+  Map? additional;
 
   AccountTypeMrg(
       {this.id,
@@ -88,18 +88,18 @@ class AccountTypeMrg {
 }
 
 class UserMRG {
-  int mrgid;
-  UserBankMrg bankInfo;
-  String imgID;
-  List<RealAccMrg> realAccounts;
-  List<DemoAccMrg> demoAccounts;
-  List<ContestAccMrg> contestAccounts;
-  bool canWd;
-  List<UserTransactionsMrg> transactions;
-  double lastSync;
-  bool hasError;
-  bool hasDeposit;
-  List<AccountTypeMrg> accountTypes;
+  int? mrgid;
+  UserBankMrg? bankInfo;
+  String? imgID;
+  List<RealAccMrg>? realAccounts;
+  List<DemoAccMrg>? demoAccounts;
+  List<ContestAccMrg>? contestAccounts;
+  bool? canWd;
+  List<UserTransactionsMrg>? transactions;
+  double? lastSync;
+  bool? hasError;
+  bool? hasDeposit;
+  List<AccountTypeMrg>? accountTypes;
 
   UserMRG(
       {this.mrgid,
@@ -196,42 +196,42 @@ class UserMRG {
   Map toMap() {
     return {
       "mrgid": mrgid,
-      "bankInfo": bankInfo.toMap(),
+      "bankInfo": bankInfo?.toMap(),
       "imgID": imgID,
       "realAccounts": realAccounts == null
           ? []
-          : realAccounts.map<Map>((json) => json.toMap()).toList(),
+          : realAccounts?.map<Map>((json) => json.toMap()).toList(),
       "demoAccounts": demoAccounts == null
           ? []
-          : demoAccounts.map<Map>((json) => json.toMap()).toList(),
+          : demoAccounts?.map<Map>((json) => json.toMap()).toList(),
       "contestAccounts": contestAccounts == null
           ? []
-          : contestAccounts.map<Map>((json) => json.toMap()).toList(),
+          : contestAccounts?.map<Map>((json) => json.toMap()).toList(),
       "canWd": canWd,
       "transactions": transactions == null
           ? []
-          : transactions.map<Map>((json) => json.toMap()).toList(),
+          : transactions?.map<Map>((json) => json.toMap()).toList(),
       "lastSync": lastSync ?? 0,
       "hasError": hasError ?? true,
       "hasDeposit": hasDeposit ?? true,
       "accountTypes": accountTypes == null
           ? []
-          : accountTypes.map<Map>((json) => json.toMap()).toList()
+          : accountTypes?.map<Map>((json) => json.toMap()).toList()
     };
   }
 }
 
 class MrgAccount {
-  final int id;
-  final int type;
-  final String login;
-  final DateTime date;
+  final int? id;
+  final int? type;
+  final String? login;
+  final DateTime? date;
 
   MrgAccount(this.id, this.type, this.login, this.date);
 }
 
 class RealAccMrg extends MrgAccount {
-  final int contest;
+  final int? contest;
 
   RealAccMrg({id, type, login, date, this.contest})
       : super(id, type, login, date);
@@ -258,8 +258,8 @@ class RealAccMrg extends MrgAccount {
 }
 
 class DemoAccMrg extends MrgAccount {
-  final String password;
-  final int status;
+  final String? password;
+  final int? status;
 
   DemoAccMrg({
     id,
@@ -299,10 +299,10 @@ class DemoAccMrg extends MrgAccount {
 }
 
 class ContestAccMrg extends MrgAccount {
-  final String password;
-  final DateTime reqDate;
-  final DateTime depoDate;
-  final int active;
+  final String? password;
+  final DateTime? reqDate;
+  final DateTime? depoDate;
+  final int? active;
 
   ContestAccMrg({
     id,
@@ -342,10 +342,10 @@ class ContestAccMrg extends MrgAccount {
 }
 
 class BankBrokerMrg {
-  final String id;
-  final String bank;
-  final String name;
-  final String no;
+  final String? id;
+  final String? bank;
+  final String? name;
+  final String? no;
 
   BankBrokerMrg({this.id, this.bank, this.name, this.no});
 
@@ -356,9 +356,9 @@ class BankBrokerMrg {
 }
 
 class UserBankMrg {
-  final String bank;
-  final String name;
-  final String no;
+  final String? bank;
+  final String? name;
+  final String? no;
 
   UserBankMrg({this.bank, this.name, this.no});
 
@@ -372,12 +372,12 @@ class UserBankMrg {
 }
 
 class UserTransactionsMrg {
-  final String mt4id;
-  final double nominal;
-  final int rate;
-  final DateTime date;
-  final int tipe;
-  final int status;
+  final String? mt4id;
+  final double? nominal;
+  final int? rate;
+  final DateTime? date;
+  final int? tipe;
+  final int? status;
 
   UserTransactionsMrg(
       {this.mt4id, this.nominal, this.rate, this.date, this.tipe, this.status});
@@ -405,20 +405,20 @@ class UserTransactionsMrg {
 }
 
 class MarginInfo {
-  final String mt4id;
-  final double lot;
-  final DateTime createdAt;
-  final DateTime lastLogin;
-  final double balance;
-  final double credit;
-  final double equity;
-  final double margin;
-  final double freeMargin;
-  final double marginIn;
-  final double marginOut;
-  final double marginLevel;
-  final double closed;
-  final double floating;
+  final String? mt4id;
+  final double? lot;
+  final DateTime? createdAt;
+  final DateTime? lastLogin;
+  final double? balance;
+  final double? credit;
+  final double? equity;
+  final double? margin;
+  final double? freeMargin;
+  final double? marginIn;
+  final double? marginOut;
+  final double? marginLevel;
+  final double? closed;
+  final double? floating;
 
   MarginInfo(
       {this.mt4id,
@@ -475,9 +475,9 @@ class MarginInfo {
 }
 
 class MarginInOut {
-  final String mt4id;
-  final MarginInOutSummary summary;
-  final List<MarginInOutHistory> history;
+  final String? mt4id;
+  final MarginInOutSummary? summary;
+  final List<MarginInOutHistory>? history;
 
   MarginInOut({this.mt4id, this.summary, this.history});
 
@@ -495,11 +495,11 @@ class MarginInOut {
 }
 
 class MarginInOutSummary {
-  final double deposit;
-  final double withdrawal;
-  final double commission;
-  final double adjustment;
-  final double other;
+  final double? deposit;
+  final double? withdrawal;
+  final double? commission;
+  final double? adjustment;
+  final double? other;
 
   MarginInOutSummary(
       {this.deposit,
@@ -519,11 +519,11 @@ class MarginInOutSummary {
 }
 
 class MarginInOutHistory {
-  final int no;
-  final String ticket;
-  final DateTime date;
-  final String note;
-  final double amount;
+  final int? no;
+  final String? ticket;
+  final DateTime? date;
+  final String? note;
+  final double? amount;
 
   MarginInOutHistory({this.no, this.ticket, this.date, this.note, this.amount});
 
@@ -538,13 +538,13 @@ class MarginInOutHistory {
 }
 
 class ContestScheduleMrg {
-  final int id;
-  final String period;
-  final DateTime eventstart;
-  final DateTime eventend;
-  final DateTime regstart;
-  final DateTime regend;
-  final DateTime infowinner;
+  final int? id;
+  final String? period;
+  final DateTime? eventstart;
+  final DateTime? eventend;
+  final DateTime? regstart;
+  final DateTime? regend;
+  final DateTime? infowinner;
 
   ContestScheduleMrg(
       {this.id,

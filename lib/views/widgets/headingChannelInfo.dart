@@ -7,39 +7,39 @@ import 'package:saham_01_app/views/widgets/channelAvatar.dart';
 
 class HeadingChannelInfo extends StatelessWidget {
   const HeadingChannelInfo(
-      {Key key,
-      @required this.avatar,
-      @required this.level,
-      @required this.medals,
-      @required this.title,
-      @required this.subscriber,
+      {Key? key,
+      this.avatar,
+      this.level,
+      this.medals,
+      this.title,
+      this.subscriber,
       this.isLarge = false,
       this.isMedium = false,
       this.trailing,
       this.onTap})
       : super(key: key);
 
-  final String avatar;
-  final Level level;
-  final int medals;
-  final String title;
-  final int subscriber;
-  final Function onTap;
-  final bool isLarge;
-  final bool isMedium;
-  final Widget trailing;
+  final String? avatar;
+  final Level? level;
+  final int? medals;
+  final String? title;
+  final int? subscriber;
+  final Function? onTap;
+  final bool? isLarge;
+  final bool? isMedium;
+  final Widget? trailing;
 
   @override
   Widget build(BuildContext context) {
-    if (level == null || level.level == null) {
-      return SizedBox();
+    if (level == null || level?.level == null) {
+      return const SizedBox();
     }
     return GestureDetector(
       onTap: () {
-        onTap();
+        onTap!();
       },
       child: Container(
-        padding: EdgeInsets.symmetric(vertical: 12, horizontal: 10),
+        padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 10),
         child: Stack(
           children: [
             Row(
@@ -50,25 +50,25 @@ class HeadingChannelInfo extends StatelessWidget {
                   child: Row(
                     children: [
                       ChannelAvatar(
-                        width: isLarge
+                        width: isLarge!
                             ? 60
-                            : isMedium
+                            : isMedium!
                                 ? 50
                                 : 40,
-                        imageUrl: avatar),
+                        imageUrl: avatar!),
                       const SizedBox(
                         width: 2,
                       ),
                       Image.asset(
-                          'assets/icon/medal/${level.level[level.level.indexWhere((x) => (medals >= x.minMedal && medals <= x.maxMedal))].name.toLowerCase()}.png',
-                          width: isLarge
+                          'assets/icon/medal/${level!.level![level!.level!.indexWhere((x) => (medals! >= x.minMedal! && medals! <= x.maxMedal!))].name!.toLowerCase()}.png',
+                          width: isLarge!
                               ? 50
-                              : isMedium
+                              : isMedium!
                                   ? 40
                                   : 35,
-                          height: isLarge
+                          height: isLarge!
                               ? 50
-                              : isMedium
+                              : isMedium!
                                   ? 40
                                   : 35),
                       const SizedBox(
@@ -79,13 +79,13 @@ class HeadingChannelInfo extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              title,
+                              title!,
                               overflow: TextOverflow.ellipsis,
                               style: TextStyle(
                                   fontWeight: FontWeight.w600,
-                                  fontSize: isLarge
+                                  fontSize: isLarge!
                                       ? 18
-                                      : isMedium
+                                      : isMedium!
                                           ? 16
                                           : 14),
                             ),
@@ -98,15 +98,15 @@ class HeadingChannelInfo extends StatelessWidget {
                               text: TextSpan(
                                 style: TextStyle(
                                     color: AppColors.darkGrey,
-                                    fontSize: isLarge
+                                    fontSize: isLarge!
                                         ? 12
-                                        : isMedium
+                                        : isMedium!
                                             ? 11
                                             : 10),
                                 children: [
                                   TextSpan(
                                       text:
-                                          "${level.level[level.level.indexWhere((x) => (medals >= x.minMedal && medals <= x.maxMedal))].name}",
+                                          level!.level![level!.level!.indexWhere((x) => (medals! >= x.minMedal! && medals! <= x.maxMedal!))].name,
                                       style: TextStyle(
                                           color: AppColors.primaryGreen,
                                           fontWeight: FontWeight.w600,

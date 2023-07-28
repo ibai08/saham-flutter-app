@@ -7,12 +7,12 @@ import 'package:saham_01_app/constants/app_colors.dart';
 enum LoadingState { progress, info, warning, success, error }
 
 class _LoadingStateData {
-  LoadingState state;
-  LoadingState status;
-  Color backgroundColor;
-  Color fontColor;
-  String caption;
-  Widget iconSt;
+  LoadingState? state;
+  LoadingState? status;
+  Color? backgroundColor;
+  Color? fontColor;
+  String? caption;
+  Widget? iconSt;
   _LoadingStateData({
     this.state,
     this.backgroundColor,
@@ -29,7 +29,7 @@ class DialogLoading extends GetxController {
 
   // Fungsi untuk mengubah data loading state menjadi progress
   void setProgress(LoadingState status, String caps) {
-    Image iconSt;
+    Image? iconSt;
     switch (status) {
       case LoadingState.success:
         iconSt = Image.asset(
@@ -58,49 +58,49 @@ class DialogLoading extends GetxController {
       default:
     }
     // Memperbarui nilai _caption menggunakan update()
-    _caption.update((_LoadingStateData value) {
-      value.status = status;
-      value.state = LoadingState.progress;
-      value.iconSt = iconSt;
-      value.backgroundColor = Colors.white;
-      value.fontColor = Colors.black;
-      value.caption = caps;
+    _caption.update((_LoadingStateData? value) {
+      value?.status = status;
+      value?.state = LoadingState.progress;
+      value?.iconSt = iconSt;
+      value?.backgroundColor = Colors.white;
+      value?.fontColor = Colors.black;
+      value?.caption = caps;
     });
   }
 
   // Fungsi untuk mengubah data loading state menjadi success
   void setSuccess(String caps) {
     // Memperbarui nilai _caption menggunakan update()
-    _caption.update((_LoadingStateData value) {
-      value.state = LoadingState.progress;
-      value.iconSt = Image.asset(
+    _caption.update((_LoadingStateData? value) {
+      value?.state = LoadingState.progress;
+      value?.iconSt = Image.asset(
         "assets/icon-success.png",
         width: 50,
       );
-      value.backgroundColor = Colors.white;
-      value.status = LoadingState.success;
-      value.fontColor = Colors.black;
-      value.caption = caps;
+      value?.backgroundColor = Colors.white;
+      value?.status = LoadingState.success;
+      value?.fontColor = Colors.black;
+      value?.caption = caps;
     });
   }
 
   // Fungsi untuk mengubah data loading state menjadi error
   void setError(Object error) {
     // Memperbarui nilai _caption menggunakan update()
-    _caption.update((_LoadingStateData value) {
-      value.iconSt = Image.asset(
+    _caption.update((_LoadingStateData? value) {
+      value?.iconSt = Image.asset(
         "assets/icon-error.png",
         width: 50,
       );
-      value.state = LoadingState.progress;
-      value.backgroundColor = Colors.white;
-      value.status = LoadingState.error;
-      value.fontColor = Colors.black;
-      value.caption = error as String;
+      value?.state = LoadingState.progress;
+      value?.backgroundColor = Colors.white;
+      value?.status = LoadingState.error;
+      value?.fontColor = Colors.black;
+      value?.caption = error as String;
     });
   }
 
-  final int autoclose;
+  final int? autoclose;
 
   DialogLoading({this.autoclose});
 
@@ -135,7 +135,7 @@ class _DialogLoading extends GetWidget<DialogLoading> {
               height: 10,
             ),
             Text(
-              loading.caption,
+              loading.caption!,
               textAlign: TextAlign.center,
               style: TextStyle(
                   fontSize: 19.0,
@@ -150,7 +150,7 @@ class _DialogLoading extends GetWidget<DialogLoading> {
       );
     }
     if (loading.status != null) {
-      icon = loading.iconSt;
+      icon = loading.iconSt!;
     }
     return Container(
       width: double.infinity,
@@ -165,7 +165,7 @@ class _DialogLoading extends GetWidget<DialogLoading> {
             height: 15,
           ),
           Text(
-            loading.caption,
+            loading.caption!,
             textAlign: TextAlign.center,
             style: TextStyle(
                 fontSize: 16,
@@ -183,7 +183,7 @@ class _DialogLoading extends GetWidget<DialogLoading> {
   @override
   Widget build(BuildContext context) {
     if (controller.autoclose != null) {
-      Future.delayed(Duration(seconds: controller.autoclose)).then((x) {
+      Future.delayed(Duration(seconds: controller.autoclose!)).then((x) {
         Get.back();
       });
     }

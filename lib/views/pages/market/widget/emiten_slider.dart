@@ -6,7 +6,7 @@ import '../../../../constants/app_colors.dart';
 import '../../../../models/emiten.dart';
 
 class EmitenCategory extends StatefulWidget {
-  const EmitenCategory({Key key}) : super(key: key);
+  const EmitenCategory({Key? key}) : super(key: key);
 
   @override
   _EmitenCategoryState createState() => _EmitenCategoryState();
@@ -24,7 +24,7 @@ class _EmitenCategoryState extends State<EmitenCategory> {
   }
 
   void setActiveButton(String buttonName) async {
-    EmitenModels emitenModels = await getDataFromJson();
+    EmitenModels? emitenModels = await getDataFromJson();
     setState(() {
       activeButton = buttonName;
       if (buttonName == 'Most Active') {
@@ -128,7 +128,7 @@ class CustomButtons extends StatelessWidget {
   final String activeButton;
   final Function setActiveButton;
 
-  const CustomButtons(this.buttonText, this.activeButton, this.setActiveButton, {Key key}) : super(key: key);
+  const CustomButtons(this.buttonText, this.activeButton, this.setActiveButton, {Key? key}) : super(key: key);
 
   bool get isActive => buttonText == activeButton;
 
@@ -171,7 +171,7 @@ class EmitenItems extends StatelessWidget {
     this.name,
     this.companyName,
     this.rank,
-    this.percentage, {Key key}
+    this.percentage, {Key? key}
   ) : super(key: key);
 
   @override

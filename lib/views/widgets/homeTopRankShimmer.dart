@@ -5,8 +5,8 @@ import 'package:saham_01_app/constants/app_colors.dart';
 import 'package:shimmer/shimmer.dart';
 
 class HomeTopRankShimmer extends StatefulWidget {
-  const HomeTopRankShimmer({Key key, this.pT}) : super(key: key);
-  final double pT;
+  const HomeTopRankShimmer({Key? key, this.pT}) : super(key: key);
+  final double? pT;
 
   @override
   State<HomeTopRankShimmer> createState() => _HomeTopRankShimmerState();
@@ -17,10 +17,10 @@ class _HomeTopRankShimmerState extends State<HomeTopRankShimmer> {
 
   @override
   Widget build(BuildContext context) {
-    double pT = widget.pT;
+    double? pT = widget.pT;
     return Container(
       width: MediaQuery.of(context).size.width,
-      padding: EdgeInsets.only(top: pT),
+      padding: EdgeInsets.only(top: pT!),
       child: Column(
         children: <Widget>[
           // Column(
@@ -58,7 +58,7 @@ class _HomeTopRankShimmerState extends State<HomeTopRankShimmer> {
                   child: ListView(
                     scrollDirection: Axis.horizontal,
                     children: counts.map((count) {
-                      return box(count, Colors.grey[350]);
+                      return box(count, Colors.grey[350]!);
                     }).toList(),
                   ),
                 ),
@@ -84,8 +84,8 @@ Widget box(String num, Color backgroundcolor) {
     child: Column(
       children: [
         Shimmer.fromColors(
-          baseColor: Colors.grey[400],
-          highlightColor: Colors.grey[300],
+          baseColor: Colors.grey[400]!,
+          highlightColor: Colors.grey[300]!,
           child: Row(
             children: [
               Expanded(

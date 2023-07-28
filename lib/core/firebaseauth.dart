@@ -28,14 +28,14 @@ class FAuth {
   Future<void> signInWithCustomToken() async {
     String token = await getFirebaseCustomToken();
     UserCredential fb = await fauth.signInWithCustomToken(token);
-    int userid = int.tryParse(fb.user.uid) ?? 0;
+    int userid = int.tryParse(fb.user!.uid) ?? 0;
 
     if (userid < 1) {
       throw Exception("INVALID_CUSTOM_TOKEN");
     }
 
-    String fcmToken = await FCM.instance.getToken();
-    appStateController.setAppState(Operation.setFCMToken, fcmToken);
+    String? fcmToken = await FCM.instance.getToken();
+    appStateController?.setAppState(Operation.setFCMToken, fcmToken);
   }
 
 

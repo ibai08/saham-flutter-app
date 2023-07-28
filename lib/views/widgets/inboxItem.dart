@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_typing_uninitialized_variables
+
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
@@ -13,9 +15,9 @@ class InboxItem extends StatefulWidget {
   final status;
   final date;
   final data;
-  final InboxType type;
+  final InboxType? type;
   InboxItem(
-      {Key key,
+      {Key? key,
       this.title,
       this.description,
       this.status,
@@ -28,11 +30,11 @@ class InboxItem extends StatefulWidget {
 }
 
 class _InboxItemState extends State<InboxItem> {
-  Function _onTap;
-  bool _bgColor = false;
+  Function? _onTap;
+  bool? _bgColor = false;
   void signalOnTap(BuildContext context) {
-    Map tmpData;
-    Map params;
+    Map? tmpData;
+    Map? params;
 
     try {
       params = jsonDecode(widget.data["params"]);
@@ -41,8 +43,8 @@ class _InboxItemState extends State<InboxItem> {
           params["type"] == "signal") {
         tmpData = jsonDecode(widget.data["message"]);
         int signalid = 0;
-        if (tmpData["signalid"] is String || tmpData["signalid"] is int) {
-          signalid = int.tryParse(tmpData["signalid"].toString()) ?? 0;
+        if (tmpData?["signalid"] is String || tmpData?["signalid"] is int) {
+          signalid = int.tryParse(tmpData!["signalid"].toString()) ?? 0;
         }
         _onTap = () {
           Navigator.pushNamed(context, '/dsc/signal/', arguments: {
@@ -75,7 +77,7 @@ class _InboxItemState extends State<InboxItem> {
 
     Widget image = Image.asset("assets/icons-news.png");
 
-    Map params = jsonDecode(widget.data["params"]);
+    Map? params = jsonDecode(widget.data["params"]);
     if (params is Map && params.containsKey("broker")) {
       switch (params["broker"]) {
         case "mrg":
@@ -110,8 +112,8 @@ class _InboxItemState extends State<InboxItem> {
         };
         break;
       case InboxType.signal:
-        Map tmpData;
-        Map params;
+        Map? tmpData;
+        Map? params;
 
         int channelId = 0;
         try {
@@ -120,20 +122,20 @@ class _InboxItemState extends State<InboxItem> {
               params.containsKey("type") &&
               params["type"] == "signal") {
             tmpData = jsonDecode(widget.data["message"]);
-            if (tmpData["channel_id"] is String ||
-                tmpData["channel_id"] is int) {
-              channelId = int.tryParse(tmpData["channel_id"].toString()) ?? 0;
+            if (tmpData?["channel_id"] is String ||
+                tmpData?["channel_id"] is int) {
+              channelId = int.tryParse(tmpData!["channel_id"].toString()) ?? 0;
             }
           }
         } catch (ex) {}
         image = channelId > 0
             ? FutureBuilder<ChannelCardSlim>(
-                future: ChannelModel.instance.getDetail(channelId),
+                future: ChannelModel?.instance.getDetail(channelId),
                 builder: (context, snapshot) {
                   if (snapshot.hasData) {
                     return ChannelAvatar(
                       width: 47,
-                      imageUrl: snapshot.data?.avatar,
+                      imageUrl: snapshot.data!.avatar!,
                     );
                   }
                   return ChannelAvatar(
@@ -169,17 +171,17 @@ class _InboxItemState extends State<InboxItem> {
       },
       onLongPress: () {
         setState(() {
-          _bgColor = _bgColor ? false : true;
+          _bgColor = _bgColor! ? false : true;
         });
       },
-      color: _bgColor ? Colors.lightGreen[200] : Colors.white,
+      color: _bgColor! ? Colors.lightGreen[200] : Colors.white,
       child: Container(
         margin: const EdgeInsets.symmetric(horizontal: 15),
         padding: const EdgeInsets.symmetric(vertical: 12),
         decoration: BoxDecoration(
             color: Colors.transparent,
             border:
-                Border(bottom: BorderSide(color: Colors.grey[400], width: 1))),
+                Border(bottom: BorderSide(color: Colors.grey[400]!, width: 1))),
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[

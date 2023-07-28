@@ -76,7 +76,7 @@ void main() async {
   }
   
 
-  runApp(const MyApp());
+  runApp(MyApp());
 }
 
 // class AppStateController extends GetxController {
@@ -89,7 +89,7 @@ void main() async {
 // }
 
 class MyApp extends StatelessWidget {
-  const MyApp({Key key}) : super(key: key);
+  const MyApp({Key? key}) : super(key: key);
   
 
   @override
@@ -110,7 +110,7 @@ class MyApp extends StatelessWidget {
       ),
       initialRoute: '/',
       getPages: [
-        GetPage(name: '/home', page: () => const  MyHomePage()),
+        GetPage(name: '/home', page: () => MyHomePage()),
         GetPage(name: '/homepage', page: () => Home()),
         GetPage(name: '/maintenance', page: () => MaintenanceView()),
         // GetPage(name: '/update-app', page: () => UpdateVersionView()),
@@ -125,7 +125,7 @@ class MyApp extends StatelessWidget {
 }
 
 class MyHomePage extends StatefulWidget {
-  const MyHomePage({Key key}) : super(key: key);
+  const MyHomePage({Key? key}) : super(key: key);
 
   @override
   _MyHomePageState createState() => _MyHomePageState();
@@ -142,7 +142,7 @@ class _MyHomePageState extends State<MyHomePage> with WidgetsBindingObserver, Ti
     // Setting()
   ];
 
-  TabController _tabController;
+  late TabController _tabController;
   final appStateController = Get.find<AppStateController>();
 
   void _onTapItem(int index) {
@@ -207,7 +207,7 @@ class _MyHomePageState extends State<MyHomePage> with WidgetsBindingObserver, Ti
             bool result = await showDialog(
               context: context,
               builder: (ctx) {
-                return const DialogConfirmation(
+                return DialogConfirmation(
                   title: 'Peringatan',
                   desc: 'Anda yakin ingin keluar dari aplikasi',
                   caps: 'KELUAR',

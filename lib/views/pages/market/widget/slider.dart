@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class EmitenCategory extends StatefulWidget {
-  const EmitenCategory({Key key}) : super(key: key);
+  const EmitenCategory({Key? key}) : super(key: key);
 
   @override
   _EmitenCategoryState createState() => _EmitenCategoryState();
@@ -65,7 +65,7 @@ class CustomButtons extends StatelessWidget {
   final String activeButton;
   final Function setActiveButton;
 
-  const CustomButtons(this.buttonText, this.activeButton, this.setActiveButton, {Key key}) : super(key: key);
+  const CustomButtons(this.buttonText, this.activeButton, this.setActiveButton, {Key? key}) : super(key: key);
 
   bool get isActive => buttonText == activeButton;
 

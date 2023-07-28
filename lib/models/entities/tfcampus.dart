@@ -1,10 +1,10 @@
 class TFCampusClass {
-  final int id;
-  final String name;
-  final DateTime from;
-  final DateTime end;
-  final double price;
-  final double discount;
+  final int? id;
+  final String? name;
+  final DateTime? from;
+  final DateTime? end;
+  final double? price;
+  final double? discount;
 
   TFCampusClass({this.id, this.name, this.from, this.end, this.price, this.discount});
 
@@ -21,9 +21,9 @@ class TFCampusClass {
 }
 
 class TFCampusConfig {
-  final List<String> experience;
-  final List<String> source;
-  final List<String> reason;
+  final List<String>? experience;
+  final List<String>? source;
+  final List<String>? reason;
 
   TFCampusConfig({this.experience, this.source, this.reason});
 

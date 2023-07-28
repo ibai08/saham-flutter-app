@@ -1,9 +1,9 @@
 class PostState {
-  final int id;
-  final int image;
-  final String title;
-  final String desc;
-  final String url;
+  final int? id;
+  final int? image;
+  final String? title;
+  final String? desc;
+  final String? url;
 
   PostState({
     this.id,
@@ -25,20 +25,20 @@ class PostState {
 }
 
 class PostDetails {
-  final int id;
-  final String title;
-  final String desc;
-  final String date;
-  final String author;
+  final int? id;
+  final String? title;
+  final String? desc;
+  final String? date;
+  final String? author;
 
   PostDetails({this.id, this.title, this.desc, this.date, this.author});
 }
 
 class SlidePromo {
-  final String title;
-  final String desc;
-  final String image;
-  final String url;
+  final String? title;
+  final String? desc;
+  final String? image;
+  final String? url;
 
   SlidePromo({this.desc, this.image, this.title, this.url});
 
@@ -53,10 +53,10 @@ class SlidePromo {
 }
 
 class SlidePromoJSON {
-  final String title;
-  final String desc;
-  final String image;
-  final String url;
+  final String? title;
+  final String?desc;
+  final String? image;
+  final String? url;
 
   SlidePromoJSON({this.desc, this.image, this.title, this.url});
 

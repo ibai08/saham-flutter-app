@@ -1,28 +1,28 @@
 class UserInfo {
-  int id = 0;
-  String email;
-  String fullname;
-  String phone;
-  String country;
-  String username;
-  String address1;
-  String address2;
-  String city;
-  String province;
-  String avatar;
-  String cabang;
-  String zipcode;
-  String villageid;
-  String village;
-  bool protection;
-  bool tfcStudent;
-  bool subscribe;
-  bool verify;
-  String bankName;
-  String bankNumber;
-  String bankUsername;
-  int mrgid;
-  int askapid;
+  int? id = 0;
+  String? email;
+  String? fullname;
+  String? phone;
+  String? country;
+  String? username;
+  String? address1;
+  String? address2;
+  String? city;
+  String? province;
+  String? avatar;
+  String? cabang;
+  String? zipcode;
+  String? villageid;
+  String? village;
+  bool? protection;
+  bool? tfcStudent;
+  bool? subscribe;
+  bool? verify;
+  String? bankName;
+  String? bankNumber;
+  String? bankUsername;
+  int? mrgid;
+  int? askapid;
 
   UserInfo({
     this.id,
@@ -165,10 +165,10 @@ class UserInfo {
 }
 
 class UserCanSeeSignal {
-  final bool hasDepo;
-  final int daysLeft;
-  final DateTime endDate;
-  final bool canSee;
+  final bool? hasDepo;
+  final int? daysLeft;
+  final DateTime? endDate;
+  final bool? canSee;
 
   UserCanSeeSignal({this.hasDepo, this.daysLeft, this.endDate, this.canSee});
 

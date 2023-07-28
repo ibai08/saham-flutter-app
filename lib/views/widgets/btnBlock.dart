@@ -3,18 +3,18 @@ import 'package:saham_01_app/constants/app_colors.dart';
 
 class BtnBlock extends StatelessWidget {
   const BtnBlock({
-    Key key, this.title, this.onTap, this.rounded, this.isWhite, this.padding, this.margin, this.width, this.icon, this.textSize
+    Key? key, this.title, this.onTap, this.rounded, this.isWhite, this.padding, this.margin, this.width, this.icon, this.textSize
   }) : super(key: key);
 
-  final String title;
-  final Function onTap;
-  final bool rounded;
-  final bool isWhite;
-  final double padding;
-  final double margin;
-  final double width;
-  final Widget icon;
-  final double textSize;
+  final String? title;
+  final Function? onTap;
+  final bool? rounded;
+  final bool? isWhite;
+  final double? padding;
+  final double? margin;
+  final double? width;
+  final Widget? icon;
+  final double? textSize;
 
   @override
   Widget build(BuildContext context) {
@@ -45,7 +45,7 @@ class BtnBlock extends StatelessWidget {
               child: Container(
                 margin: EdgeInsets.only(right: icon != null ? 50 : 0),
                 child: Text(
-                  title,
+                  title!,
                   textAlign: TextAlign.center,
                   style: TextStyle(
                     fontSize: textSize ?? 16,

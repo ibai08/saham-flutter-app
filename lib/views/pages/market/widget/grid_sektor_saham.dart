@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 
 class GridSektor extends StatefulWidget {
-  final String sektorText;
-  final String sektorImage;
-  final String sektorPrice;
+  final String? sektorText;
+  final String? sektorImage;
+  final String? sektorPrice;
 
-  const GridSektor(this.sektorText, this.sektorImage, this.sektorPrice, {Key key}) : super(key: key);
+  const GridSektor(this.sektorText, this.sektorImage, this.sektorPrice, {Key? key}) : super(key: key);
 
   @override
   _GridSektorState createState() => _GridSektorState();
@@ -57,7 +57,7 @@ class _GridSektorState extends State<GridSektor> {
                       color: Colors.white,
                     ),
                     child: Image.asset(
-                      widget.sektorImage,
+                      widget.sektorImage!,
                       width: 30,
                       height: 30,
                     ),
@@ -65,7 +65,7 @@ class _GridSektorState extends State<GridSektor> {
                 ),
                 const SizedBox(width: 10),
                 Text(
-                  widget.sektorText,
+                  widget.sektorText!,
                   style: const TextStyle(
                     fontSize: 14,
                     fontFamily: 'Manrope',
@@ -75,7 +75,7 @@ class _GridSektorState extends State<GridSektor> {
                 ),
                 const SizedBox(height: 6),
                 Text(
-                  widget.sektorPrice,
+                  widget.sektorPrice!,
                   style: const TextStyle(
                     fontSize: 14,
                     fontFamily: 'Manrope',

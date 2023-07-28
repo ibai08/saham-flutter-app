@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:saham_01_app/constants/app_colors.dart';
 
 class UploadBtn extends StatelessWidget {
-  const UploadBtn({Key key}) :super(key: key);
+  const UploadBtn({Key? key}) :super(key: key);
 
   @override
   Widget build(BuildContext context) {

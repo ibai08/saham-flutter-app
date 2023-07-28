@@ -2,7 +2,7 @@ export 'package:saham_01_app/views/pages/market/widget/slider.dart';
 import 'package:flutter/material.dart';
 
 class IndexSaham extends StatelessWidget {
-  const IndexSaham({Key key}) : super(key: key);
+  const IndexSaham({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -36,7 +36,7 @@ class IndexSahamBox extends StatelessWidget {
   final String buttonText;
   final String descText;
 
-  const IndexSahamBox(this.buttonText, this.descText, {Key key}) : super(key: key);
+  const IndexSahamBox(this.buttonText, this.descText, {Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

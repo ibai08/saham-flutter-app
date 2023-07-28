@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:shimmer/shimmer.dart';
 
 class InboxShimmer extends StatelessWidget {
-  InboxShimmer({ Key key }) : super(key: key);
+  InboxShimmer({ Key? key }) : super(key: key);
 
   List<String> counts = ["", "", "", "", "", "", "", "", "", ""];
 
@@ -16,7 +16,7 @@ class InboxShimmer extends StatelessWidget {
         children: [
           ...counts.map(
             (count) {
-              return box(count, Colors.grey[350], context);
+              return box(count, Colors.grey[350]!, context);
             },
           ),
         ],
@@ -30,13 +30,13 @@ Widget box(String num, Color backgroundcolor, context) {
     margin: const EdgeInsets.symmetric(horizontal: 15),
     decoration: BoxDecoration(
         color: Colors.transparent,
-        border: Border(bottom: BorderSide(color: Colors.grey[400], width: 1))),
+        border: Border(bottom: BorderSide(color: Colors.grey[400]!, width: 1))),
     width: MediaQuery.of(context).size.width,
     child: Column(
       children: [
         Shimmer.fromColors(
-          baseColor: Colors.grey[400],
-          highlightColor: Colors.grey[300],
+          baseColor: Colors.grey[400]!,
+          highlightColor: Colors.grey[300]!,
           child: Column(
             children: [
               Row(

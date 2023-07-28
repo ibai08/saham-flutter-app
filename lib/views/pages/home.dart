@@ -20,7 +20,7 @@ import '../../interface/scrollUpWidget.dart';
 import '../appbar/navmain.dart';
 
 class Home extends StatefulWidget implements ScrollUpWidget {
-  Home({Key key}) : super(key: key);
+  Home({Key? key}) : super(key: key);
 
   @override
   _HomeState createState() => _HomeState();
@@ -83,7 +83,7 @@ class _HomeState extends State<Home> with AutomaticKeepAliveClientMixin {
         physics: const BouncingScrollPhysics(),
         scrollDirection: Axis.vertical,
         children: <Widget>[
-          const TotalBalance(),
+          TotalBalance(),
           const SizedBox(height: 20),
           ChannelTranding(),
           const SizedBox(height: 20),
@@ -151,7 +151,7 @@ class _HomeState extends State<Home> with AutomaticKeepAliveClientMixin {
 }
 
 class TotalBalance extends StatelessWidget {
-  const TotalBalance({Key key}) : super(key: key);
+  const TotalBalance({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

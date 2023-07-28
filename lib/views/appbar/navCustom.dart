@@ -2,10 +2,10 @@
 import 'package:flutter/material.dart';
 
 class NavCustom extends AppBar {
-  NavCustom({Key key, String title, tap}) : super (
+  NavCustom({Key? key, String? title, tap}) : super (
     key: key,
     title: Text(
-      title,
+      title!,
       style: const TextStyle(fontWeight: FontWeight.w600),
     ),
     backgroundColor: Colors.blueGrey[900],

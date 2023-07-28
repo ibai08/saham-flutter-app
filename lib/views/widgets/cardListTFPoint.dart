@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 class BuildCardListTFPoint extends StatelessWidget {
   const BuildCardListTFPoint({
-    Key key,
+    Key? key,
     this.name,
     this.image,
     this.currentMonthPipsMin,
@@ -15,19 +15,19 @@ class BuildCardListTFPoint extends StatelessWidget {
     this.child,
   }) : super(key: key);
 
-  final String name;
-  final String image;
+  final String? name;
+  final String? image;
 
-  final int minMedal;
-  final int maxMedal;
+  final int? minMedal;
+  final int? maxMedal;
 
-  final int currentMonthPips;
-  final int currentMonthPipsMin;
-  final int lastMonthPips;
-  final int average;
-  final int count;
+  final int? currentMonthPips;
+  final int? currentMonthPipsMin;
+  final int? lastMonthPips;
+  final int? average;
+  final int? count;
 
-  final Widget child;
+  final Widget? child;
 
   @override
   Widget build(BuildContext context) {
@@ -60,7 +60,7 @@ class BuildCardListTFPoint extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              name,
+                              name!,
                               style: const TextStyle(
                                   fontSize: 16, fontWeight: FontWeight.w600),
                             ),
@@ -68,7 +68,7 @@ class BuildCardListTFPoint extends StatelessWidget {
                               height: 3,
                             ),
                             Text(
-                              '${name == "Newbie" ? minMedal.toStringAsFixed(0) : minMedal.toStringAsFixed(0) + "-" + maxMedal.toStringAsFixed(0)} XYZ Medal',
+                              '${name == "Newbie" ? minMedal!.toStringAsFixed(0) : minMedal!.toStringAsFixed(0) + "-" + maxMedal!.toStringAsFixed(0)} XYZ Medal',
                               style: const TextStyle(fontSize: 12),
                             ),
                           ],
@@ -76,7 +76,7 @@ class BuildCardListTFPoint extends StatelessWidget {
                       ),
                     ]),
               ),
-              child
+              child!
             ],
           ),
         ),

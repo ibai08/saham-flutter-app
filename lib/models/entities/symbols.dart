@@ -1,6 +1,6 @@
 class TradeSymbol{
-  final String name;
-  final int digit;
+  final String? name;
+  final int? digit;
 
   TradeSymbol({
     this.name, 

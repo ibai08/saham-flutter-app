@@ -26,13 +26,13 @@ List<String> extNumberFormat = [
 ];
 
 class SymbolInputFormatter extends TextInputFormatter {
-  int digit;
+  late int digit;
   Function fnSymbol;
   SymbolInputFormatter(this.fnSymbol);
   TextEditingValue formatEditUpdate(
       TextEditingValue oldValue, TextEditingValue newValue) {
     TradeSymbol symbol = fnSymbol();
-    digit = symbol.digit;
+    digit = symbol.digit!;
 
     // default offset
     int offset = newValue.selection.baseOffset;
@@ -54,7 +54,7 @@ class SymbolInputFormatter extends TextInputFormatter {
           selection: TextSelection.collapsed(offset: decimalPos));
     }
 
-    double value = double.tryParse(newValue.text);
+    double? value = double.tryParse(newValue.text);
     if (value == null) {
       return oldValue;
     }

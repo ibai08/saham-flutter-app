@@ -5,7 +5,7 @@ import 'package:saham_01_app/constants/app_colors.dart';
 
 class PromptText extends StatelessWidget {
   const PromptText({
-    Key key,
+    Key? key,
     this.title,
     this.desc,
     this.textBtn,

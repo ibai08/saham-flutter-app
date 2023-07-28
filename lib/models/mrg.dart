@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:dio/dio.dart';
+import 'package:get/get.dart' as Get;
 import 'package:image/image.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:saham_01_app/controller/appStatesController.dart';
@@ -14,16 +15,16 @@ import 'package:saham_01_app/models/user.dart';
 import 'package:sprintf/sprintf.dart';
 
 class MrgModel {
-  static const realAcc = "real";
-  static const demoAcc = "demo";
-  static const contestAcc = "contest";
+  final realAcc = "real";
+  final demoAcc = "demo";
+  final contestAcc = "contest";
 
-  static Future<Map> getUserData() async {
+  Future<Map> getUserData() async {
     String mData = await getCfgAsync("mrgdat");
     return jsonDecode(mData);
   }
 
-  static Future<bool> setUserData(UserMRG user) async {
+  Future<bool> setUserData(UserMRG user) async {
     String params = jsonEncode(user.toMap());
     return updateCfgAsync("mrgdat", params);
   }
@@ -203,7 +204,7 @@ class MrgModel {
         refreshSecond = 0;
       }
       dynamic data = await CacheFactory.getCache(
-          sprintf(CacheKey.contestAccMRGByID, [appStateController.users.value.id]), () async {
+          sprintf(CacheKey.contestAccMRGByID, [appStateController?.users.value.id]), () async {
         Map fetchData = await TF2Request.authorizeRequest(
           url: getHostName() + "/mrg/api/v1/account/contest/",
           method: 'GET',
@@ -315,7 +316,7 @@ class MrgModel {
       var file;
       if (data["proof"] != null) {
         Image resized = copyResize(
-            decodeImage(await data["proof"].readAsBytes()),
+            decodeImage(await data["proof"].readAsBytes())!,
             width: 500);
         File resizedFile = File(data["proof"].path + "temp.jpeg")
           ..writeAsBytesSync(encodeJpg(resized));
@@ -436,7 +437,7 @@ class MrgModel {
     Dio dio = Dio(); // with default Options
 
     Image resized =
-        copyResize(decodeImage(await image.readAsBytes()), width: 500);
+        copyResize(decodeImage(await image.readAsBytes())!, width: 500);
     File resizedFile = File(image.path + "temp.jpeg")
       ..writeAsBytesSync(encodeJpg(resized));
 
@@ -659,7 +660,7 @@ class MrgModel {
     return false;
   }
 
-  static Future<MarginInfo> getMarginInfo(String account) async {
+  static Future<MarginInfo?> getMarginInfo(String account) async {
     if (!UserModel.instance.hasLogin()) {
       throw Exception("PLEASE_LOGIN_FIRST");
     }
@@ -694,7 +695,7 @@ class MrgModel {
     return null;
   }
 
-  static Future<MarginInOut> getMarginInOut(String account) async {
+  static Future<MarginInOut?> getMarginInOut(String account) async {
     if (!UserModel.instance.hasLogin()) {
       throw Exception("PLEASE_LOGIN_FIRST");
     }

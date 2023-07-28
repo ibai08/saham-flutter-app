@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_const_constructors
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:saham_01_app/constants/app_colors.dart';
@@ -70,7 +72,7 @@ class _MarketPageState extends State<MarketPage> {
             margin: const EdgeInsets.symmetric(vertical: 6.0, horizontal: 16.0),
             child: Column(
               children: [
-                const StockInfoRow(
+                 StockInfoRow(
                   title1: 'Open',
                   value1: '6,704.23',
                   title2: 'Lot',

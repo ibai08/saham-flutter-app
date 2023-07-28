@@ -4,9 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:shimmer/shimmer.dart';
 
 class SignalShimmer extends StatefulWidget {
-  const SignalShimmer({Key key, this.title, this.onLoad}) : super(key: key);
-  final String title;
-  final String onLoad;
+  const SignalShimmer({Key? key, this.title, this.onLoad}) : super(key: key);
+  final String? title;
+  final String? onLoad;
 
   @override
   State<SignalShimmer> createState() => _SignalShimmerState();
@@ -19,8 +19,8 @@ class _SignalShimmerState extends State<SignalShimmer> {
 
   @override
   Widget build(BuildContext context) {
-    String title = widget.title;
-    String onLoad = widget.onLoad;
+    String? title = widget.title;
+    String? onLoad = widget.onLoad;
 
     // return Column(
     //   crossAxisAlignment: CrossAxisAlignment.start,
@@ -74,7 +74,7 @@ class _SignalShimmerState extends State<SignalShimmer> {
                   child: Column(
                     children: [
                       Text(
-                        title,
+                        title!,
                         textAlign: TextAlign.center,
                         style: const TextStyle(
                           fontSize: 17,
@@ -84,9 +84,9 @@ class _SignalShimmerState extends State<SignalShimmer> {
                     ],
                   ),
                 )
-              : SizedBox(),
+              : const SizedBox(),
           ...counts.map((count) {
-            return box(count, Colors.grey[350], context);
+            return box(count, Colors.grey[350]!, context);
           }).toList()
         ],
       ),
@@ -101,13 +101,13 @@ Widget box(String num, Color backgroundcolor, context) {
     decoration: BoxDecoration(
       color: Colors.white,
       borderRadius: const BorderRadius.all(Radius.circular(0)),
-      boxShadow: [BoxShadow(color: Colors.grey[400], blurRadius: 0)],
+      boxShadow: [BoxShadow(color: Colors.grey[400]!, blurRadius: 0)],
     ),
     child: Column(
       children: [
         Shimmer.fromColors(
-          baseColor: Colors.grey[400],
-          highlightColor: Colors.grey[300],
+          baseColor: Colors.grey[400]!,
+          highlightColor: Colors.grey[300]!,
           child: Column(
             children: [
               Row(
@@ -220,9 +220,9 @@ Widget box(String num, Color backgroundcolor, context) {
   );
 }
 class SignalShimmerNew extends StatefulWidget {
-  const SignalShimmerNew({Key key, this.title, this.onLoad}) : super(key: key);
-  final String title;
-  final String onLoad;
+  const SignalShimmerNew({Key? key, this.title, this.onLoad}) : super(key: key);
+  final String? title;
+  final String? onLoad;
 
   @override
   State<SignalShimmer> createState() => _SignalShimmerNewState();
@@ -235,8 +235,8 @@ class _SignalShimmerNewState extends State<SignalShimmer> {
 
   @override
   Widget build(BuildContext context) {
-    String title = widget.title;
-    String onLoad = widget.onLoad;
+    String? title = widget.title;
+    String? onLoad = widget.onLoad;
 
     // return Column(
     //   crossAxisAlignment: CrossAxisAlignment.start,
@@ -290,7 +290,7 @@ class _SignalShimmerNewState extends State<SignalShimmer> {
                   child: Column(
                     children: [
                       Text(
-                        title,
+                        title!,
                         textAlign: TextAlign.center,
                         style: const TextStyle(
                           fontSize: 17,
@@ -302,7 +302,7 @@ class _SignalShimmerNewState extends State<SignalShimmer> {
                 )
               : const SizedBox(),
           ...counts.map((count) {
-            return box(count, Colors.grey[350], context);
+            return box(count, Colors.grey[350]!, context);
           }).toList()
         ],
       ),
@@ -317,13 +317,13 @@ Widget boxes(String num, Color backgroundcolor, context) {
     decoration: BoxDecoration(
       color: Colors.white,
       borderRadius: const BorderRadius.all(Radius.circular(0)),
-      boxShadow: [BoxShadow(color: Colors.grey[400], blurRadius: 0)],
+      boxShadow: [BoxShadow(color: Colors.grey[400]!, blurRadius: 0)],
     ),
     child: Column(
       children: [
         Shimmer.fromColors(
-          baseColor: Colors.grey[400],
-          highlightColor: Colors.grey[300],
+          baseColor: Colors.grey[400]!,
+          highlightColor: Colors.grey[300]!,
           child: Column(
             children: [
               Row(

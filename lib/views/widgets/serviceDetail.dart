@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 class ServiceDetail extends StatelessWidget {
   const ServiceDetail({
-    Key key,
+    Key? key,
     this.image,
     this.title,
     this.desc,
@@ -10,11 +10,11 @@ class ServiceDetail extends StatelessWidget {
     this.seeMore,
   }) : super(key: key);
 
-  final Image image;
-  final String title;
-  final String desc;
-  final Widget action;
-  final Function seeMore;
+  final Image? image;
+  final String? title;
+  final String? desc;
+  final Widget? action;
+  final Function? seeMore;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -27,23 +27,23 @@ class ServiceDetail extends StatelessWidget {
         mainAxisSize: MainAxisSize.max,
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
-          image,
+          image!,
           Text(
-            title,
+            title!,
             style: const TextStyle(fontWeight: FontWeight.w600, fontSize: 18),
           ),
           const SizedBox(
             height: 10,
           ),
           Text(
-            desc,
+            desc!,
             style: const TextStyle(height: 1.5),
             textAlign: TextAlign.center,
           ),
           const SizedBox(
             height: 10,
           ),
-          action,
+          action!,
           const SizedBox(
             height: 5,
           ),

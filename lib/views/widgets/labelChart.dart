@@ -2,13 +2,13 @@ import 'package:flutter/material.dart';
 
 class LabelCharts extends StatelessWidget {
   const LabelCharts({
-    Key key,
+    Key? key,
     this.text1,
     this.text2,
   }) : super(key: key);
 
-  final String text1;
-  final String text2;
+  final String? text1;
+  final String? text2;
 
   @override
   Widget build(BuildContext context) {
@@ -37,7 +37,7 @@ class LabelCharts extends StatelessWidget {
                         ],
                       ),
                     ),
-                    Expanded(child: Text(text1),),
+                    Expanded(child: Text(text1!),),
                   ],
                 )
               ),
@@ -58,7 +58,7 @@ class LabelCharts extends StatelessWidget {
                         ],
                       ),
                     ),
-                    Expanded(child: Text(text2),),
+                    Expanded(child: Text(text2!),),
                   ],
                 )
               ),

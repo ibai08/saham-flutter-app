@@ -4,16 +4,16 @@ import 'package:flutter/material.dart';
 import 'package:saham_01_app/constants/app_colors.dart';
 
 class OnBoardInfoDevice extends StatelessWidget {
-  final double opacity;
-  final String imagePop;
-  final double align;
-  final String dText;
+  final double? opacity;
+  final String? imagePop;
+  final double? align;
+  final String? dText;
   const OnBoardInfoDevice({
-    Key key,
-    @required this.opacity,
-    @required this.imagePop,
-    @required this.align,
-    @required this.dText,
+    Key? key,
+    this.opacity,
+    this.imagePop,
+    this.align,
+    this.dText,
   }) : super(key: key);
 
   @override
@@ -33,13 +33,13 @@ class OnBoardInfoDevice extends StatelessWidget {
                     bottom: 0,
                     right: MediaQuery.of(context).size.height * 0.16,
                     child: AnimatedOpacity(
-                        opacity: opacity,
+                        opacity: opacity!,
                         duration: const Duration(seconds: 1),
                         child: Container(
                           height: MediaQuery.of(context).size.width * 0.35,
                           width: MediaQuery.of(context).size.width * 0.6,
                           child: Image.asset(
-                            imagePop,
+                            imagePop!,
                           ),
                         )),
                   )
@@ -51,12 +51,12 @@ class OnBoardInfoDevice extends StatelessWidget {
             top: 45,
             child: AnimatedOpacity(
               duration: const Duration(seconds: 1),
-              opacity: opacity,
+              opacity: opacity!,
               child: Container(
                 width: MediaQuery.of(context).size.width,
                 padding: const EdgeInsets.symmetric(horizontal: 15),
                 child: Text(
-                  dText,
+                  dText!,
                   maxLines: 2,
                   textAlign: TextAlign.center,
                   style: TextStyle(

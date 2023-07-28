@@ -3,6 +3,7 @@ import 'dart:io';
 
 import 'package:dio/dio.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
+import 'package:get/get.dart' as Get;
 import 'package:http_parser/http_parser.dart';
 import 'package:image/image.dart';
 import 'package:intl/intl.dart';
@@ -22,16 +23,16 @@ class UserModel {
   UserModel._privateConstructor();
   static UserModel instance = UserModel._privateConstructor();
 
-  Future<void> refreshController() async {
-    Map user = await getUserData();
-    appStateController.setAppState(Operation.setUser, {"user": user});
+  static Future<void> refreshController() async {
+    Map? user = await getUserData();
+    appStateController?.setAppState(Operation.setUser, {"user": user});
   }
 
   bool hasLogin() {
-    return appStateController.users.value.id > 0;
+    return appStateController!.users.value.id! > 0;
   }
 
-  Future<Map> getUserData() async {
+  static Future<Map?> getUserData() async {
     String mData = await getCfgAsync("usrdat");
     if (mData != null && mData != "") {
       return jsonDecode(mData);
@@ -47,7 +48,7 @@ class UserModel {
     return getCfgAsync("token");
   }
 
-  Future<Map> loginWithGoogle(String token, {dynamic arguments}) async {
+  static Future<Map> loginWithGoogle(String token, {dynamic arguments}) async {
     Map ret = {"result": false};
     Map data = await TF2Request.request(
       method: 'POST',
@@ -84,7 +85,7 @@ class UserModel {
     throw Exception("LOGIN_RESULT_NOT_COMPLETE");
   }
 
-  Future<Map> login(String email, String password, {dynamic arguments}) async {
+  static Future<Map> login(String email, String password, {dynamic arguments}) async {
     Map ret = {"result": false};
     Map data = await TF2Request.request(
       method: 'POST',
@@ -132,7 +133,7 @@ class UserModel {
     }
   }
 
-  Future<Map> loginWithMT4(String broker, String mt4id, String password, {dynamic arguments}) async {
+  static Future<Map> loginWithMT4(String broker, String mt4id, String password, {dynamic arguments}) async {
     Map ret = {"result": false};
 
     Response res;
@@ -163,14 +164,14 @@ class UserModel {
     throw Exception("LOGIN_RESULT_NOT_COMPLETE");
   }
 
-  Future<void> afterLogin() async {
+  static Future<void> afterLogin() async {
     await TF2Request.authorizeRequest(
       url: getHostName() + "/traders/api/v1/login/after/",
       postParam: {"platform": Platform.isIOS ? "ios" : "android"} 
     );
   }
 
-  Future<bool> setUserLogin(String token, String credential, String userJson, {dynamic arguments}) async {
+  static Future<bool> setUserLogin(String token, String credential, String userJson, {dynamic arguments}) async {
     try {
       bool result = await updateCfgAsync("token", token);
       bool crd = await updateCfgAsync("crd", credential);
@@ -185,37 +186,37 @@ class UserModel {
 
       await refreshController();
       afterLogin().then((value) => null);
-      appStateController.setAppState(Operation.bringToHome, HomeTab.home);
+      appStateController?.setAppState(Operation.bringToHome, HomeTab.home);
 
       if (arguments != null) {
         if (arguments is Map && arguments.containsKey("route") && arguments.containsKey("arguments")) {
-          appStateController.setAppState(Operation.pushNamed, arguments);
+          appStateController?.setAppState(Operation.pushNamed, arguments);
         } else if (arguments is String) {
-          appStateController.setAppState(Operation.pushNamed, {"route": "/forms/login", "arguments": arguments});
+          appStateController?.setAppState(Operation.pushNamed, {"route": "/forms/login", "arguments": arguments});
         }
-      } else if (!appStateController.users.value.verify) {
-        appStateController.setAppState(Operation.pushNamed, {"route": "/forms/login"});
+      } else if (appStateController!.users.value.verify!) {
+        appStateController?.setAppState(Operation.pushNamed, {"route": "/forms/login"});
       }
 
       await SharedHelper.instance.clearBox(BoxName.cache);
 
-      MrgModel.fetchUserData(clearCache: true).then((mrg) {
-        print("Fetch ABC Success");
-      }).catchError((err) {
-        print(err);
-      });
+      // MrgModel.fetchUserData(clearCache: true).then((mrg) {
+      //   print("Fetch ABC Success");
+      // }).catchError((err) {
+      //   print(err);
+      // });
 
-      AskapModel.fetchUserData(clearCache: true).then((askap) {
-        print("Fetch DEFGHIJK Success");
-      }).catchError((err) {
-        print(err);
-      });
+      // AskapModel.fetchUserData(clearCache: true).then((askap) {
+      //   print("Fetch DEFGHIJK Success");
+      // }).catchError((err) {
+      //   print(err);
+      // });
 
 
-      FirebaseCrashlytics.instance.setUserIdentifier('${appStateController.users.value.id}');
-      FirebaseCrashlytics.instance.setCustomKey("email", '${appStateController.users.value.email}');
-      FirebaseCrashlytics.instance.setCustomKey("username", '${appStateController.users.value.username}');
-      firebaseAnalytics.setUserId(id: '${appStateController.users.value.id}');
+      FirebaseCrashlytics.instance.setUserIdentifier('${appStateController?.users.value.id}');
+      FirebaseCrashlytics.instance.setCustomKey("email", '${appStateController?.users.value.email}');
+      FirebaseCrashlytics.instance.setCustomKey("username", '${appStateController?.users.value.username}');
+      firebaseAnalytics.setUserId(id: '${appStateController?.users.value.id}');
       // MainZendesk().setVisitorInfo(
       //   email: '${appStateController.users.value.email}',
       //   name: '${appStateController.users.value.fullname}',
@@ -269,7 +270,7 @@ class UserModel {
 
     if (data["message"] is Map) {
       UserInfo tmpuser = UserInfo.fromMap(data["message"]);
-      if (tmpuser.id > 0) {
+      if (tmpuser.id! > 0) {
         await updateCfgAsync("usrdat", jsonEncode(data["message"]));
         await refreshController();
         //refresh
@@ -319,7 +320,7 @@ class UserModel {
       Dio dio = Dio(); // with default Options
       dio.options.connectTimeout = Duration(milliseconds: 5000); //5s
       dio.options.receiveTimeout = Duration(milliseconds: 3000);
-      String token = await UserModel.instance.getUserToken();
+      String? token = await UserModel.instance.getUserToken();
       dio.options.headers = {"Authorization": "Bearer " + token};
       res = await dio.post(getHostName() + "/traders/api/v1/user/changepass/",
           data: {"oldpassword": oldpassword, "newpassword": newpassword});
@@ -353,9 +354,9 @@ class UserModel {
       }
       firebaseAnalytics.logEvent(
           name: "logout",
-          parameters: {"userid": appStateController.users.value.id}).then((x) {});
+          parameters: {"userid": appStateController?.users.value.id}).then((x) {});
       await SharedHelper.instance.clearAll();
-      appStateController.setAppState(Operation.clearState, null);
+      appStateController?.setAppState(Operation.clearState, null);
       await FCM.instance.deleteInstanceID();
       CacheFactory.releaseAllMutex();
     } catch (xerr) {
@@ -366,31 +367,31 @@ class UserModel {
   Future<void> refreshFCMToken() async {
     bool isLogin = hasLogin();
     if (isLogin) {
-      String fcmToken = await FCM.instance.getToken();
+      String? fcmToken = await FCM.instance.getToken();
       await FCM.instance.userSetFCMToken(fcmToken);
     }
   }
 
   Future<bool> register(
-      {String email,
-      String name,
-      String password,
-      String passconfirm,
-      String phone,
-      String branch,
+      {String? email,
+      String? name,
+      String? password,
+      String? passconfirm,
+      String? phone,
+      String? branch,
       int subscribe = 1,
       dynamic arguments}) async {
     bool emailValid =
-        RegExp(r"^[a-zA-Z0-9._]+@[a-zA-Z0-9]+\.[a-zA-Z]+").hasMatch(email);
+        RegExp(r"^[a-zA-Z0-9._]+@[a-zA-Z0-9]+\.[a-zA-Z]+").hasMatch(email!);
     if (!emailValid) {
       throw Exception("EMAIL_IS_NOT_VALID");
-    } else if (name.length < 4 || name.length > 50) {
+    } else if (name!.length < 4 || name.length > 50) {
       throw Exception("NAME_MUST_BETWEEN_4_AND_50_CHARACTERS");
-    } else if (password.length < 6 || password.length > 12) {
+    } else if (password!.length < 6 || password.length > 12) {
       throw Exception("PASSWORD_MUST_BETWEEN_6_AND_12_CHARACTERS");
-    } else if (password.compareTo(passconfirm) != 0) {
+    } else if (password.compareTo(passconfirm!) != 0) {
       throw Exception("PASSWORD_AND_CONFIRM_DOESNT_MATCH");
-    } else if (!validateMobileNumber(phone)) {
+    } else if (!validateMobileNumber(phone!)) {
       throw Exception("INVALID_PHONE_NUMBER");
     } else if (subscribe < 0 || subscribe > 1) {
       throw Exception("INVALID_SUBSCRIPTION");
@@ -444,28 +445,28 @@ class UserModel {
   }
 
   Future<bool> registerWithCity(
-      {String email,
-      String name,
-      String password,
-      String passconfirm,
-      String phone,
-      String city,
+      {String? email,
+      String? name,
+      String? password,
+      String? passconfirm,
+      String? phone,
+      String? city,
       String token = "",
       int subscribe = 1,
       dynamic arguments}) async {
     bool emailValid = RegExp(r"^[a-zA-Z0-9._]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
-        .hasMatch(email.replaceAll(' ', ''));
+        .hasMatch(email!.replaceAll(' ', ''));
     if (!emailValid) {
       throw Exception("EMAIL_IS_NOT_VALID");
-    } else if (name.length < 4 || name.length > 50) {
+    } else if (name!.length < 4 || name.length > 50) {
       throw Exception("NAME_MUST_BETWEEN_4_AND_50_CHARACTERS");
-    } else if (token == "" && (password.length < 6 || password.length > 12)) {
+    } else if (token == "" && (password!.length < 6 || password.length > 12)) {
       throw Exception("PASSWORD_MUST_BETWEEN_4_AND_12_CHARACTERS");
-    } else if (token == "" && password.compareTo(passconfirm) != 0) {
+    } else if (token == "" && password?.compareTo(passconfirm!) != 0) {
       throw Exception("PASSWORD_AND_CONFIRM_DOESNT_MATCH");
-    } else if (!validateMobileNumber(phone)) {
+    } else if (!validateMobileNumber(phone!)) {
       throw Exception("INVALID_PHONE_NUMBER");
-    } else if (city.isEmpty) {
+    } else if (city!.isEmpty) {
       throw Exception("PLEASE_SELECT_CITY");
     } else if (subscribe < 0 || subscribe > 1) {
       throw Exception("INVALID_SUBSCRIPTION");
@@ -533,7 +534,7 @@ class UserModel {
 
     var file = MultipartFile.fromBytes(
         encodeJpg(
-            copyResize(decodeImage(await image.readAsBytes()), width: 500),
+            copyResize(decodeImage(await image.readAsBytes())!, width: 500),
             quality: 70),
         contentType: MediaType("image", "jpeg"),
         filename: "avatar.jpeg");
@@ -563,9 +564,9 @@ class UserModel {
           return false;
         }
 
-        UserInfo user = appStateController.users.value;
-        user.avatar = res.data["message"]["avatar"];
-        await updateCfgAsync("usrdat", jsonEncode(user.toMap()));
+        UserInfo? user = appStateController?.users.value;
+        user?.avatar = res.data["message"]["avatar"];
+        await updateCfgAsync("usrdat", jsonEncode(user?.toMap()));
         break;
       }
     } while (i < 2);
@@ -672,18 +673,18 @@ class UserModel {
   Future<void> clearCache() async {
     await SharedHelper.instance.clearBox(BoxName.cache);
     // fetch MRG userdata...
-    MrgModel.fetchUserData(clearCache: true).then((mrg) {
-      print("Fetch ABC Success");
-    }).catchError((err) {
-      print(err);
-    });
+    // MrgModel.fetchUserData(clearCache: true).then((mrg) {
+    //   print("Fetch ABC Success");
+    // }).catchError((err) {
+    //   print(err);
+    // });
 
-    // fetch Askap userdata...
-    AskapModel.fetchUserData(clearCache: true).then((askap) {
-      print("Fetch DEFGHIJK Success");
-    }).catchError((err) {
-      print(err);
-    });
+    // // fetch Askap userdata...
+    // AskapModel.fetchUserData(clearCache: true).then((askap) {
+    //   print("Fetch DEFGHIJK Success");
+    // }).catchError((err) {
+    //   print(err);
+    // });
 
     await refreshFCMToken();
     await refreshController();

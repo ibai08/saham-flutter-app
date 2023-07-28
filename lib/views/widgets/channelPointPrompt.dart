@@ -5,14 +5,14 @@ import 'package:intl/intl.dart';
 import 'package:saham_01_app/constants/app_colors.dart';
 
 class ChannelPointPrompt extends StatelessWidget {
-  final String level;
-  final String channelName;
-  final double point;
-  final int medal;
-  final int needMedal;
+  final String? level;
+  final String? channelName;
+  final double? point;
+  final int? medal;
+  final int? needMedal;
 
   const ChannelPointPrompt(
-      {Key key,
+      {Key? key,
       @required this.level,
       @required this.channelName,
       @required this.point,
@@ -40,7 +40,7 @@ class ChannelPointPrompt extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: <Widget>[
                       Image.asset(
-                        'assets/${level.toLowerCase()}.png',
+                        'assets/${level?.toLowerCase()}.png',
                         width: 55,
                         height: 55,
                       ),
@@ -56,7 +56,7 @@ class ChannelPointPrompt extends StatelessWidget {
                                   fontSize: 14.0, color: Colors.white),
                             ),
                             Text(
-                              level,
+                              level!,
                               textAlign: TextAlign.justify,
                               style: const TextStyle(
                                   fontSize: 18.0,
@@ -99,7 +99,7 @@ class ChannelPointPrompt extends StatelessWidget {
                                 textAlign: TextAlign.center,
                               ),
                               Text(
-                                NumberFormat.currency(decimalDigits: 0, symbol: "").format(point.round()),
+                                NumberFormat.currency(decimalDigits: 0, symbol: "").format(point?.round()),
                                 textAlign: TextAlign.center,
                                 style: const TextStyle(
                                     fontWeight: FontWeight.w600,
@@ -150,7 +150,7 @@ class ChannelPointPrompt extends StatelessWidget {
                   ),
                 ),
               ),
-              needMedal <= 0
+              needMedal! <= 0
                   ? const SizedBox()
                   : Container(
                       padding: const EdgeInsets.symmetric(horizontal: 15),

@@ -1,12 +1,14 @@
 import 'dart:convert';
 
 import 'package:dio/dio.dart';
+import 'package:get/get.dart' as Get;
 import 'package:saham_01_app/controller/appStatesController.dart';
 import 'package:saham_01_app/core/http.dart';
 import 'package:saham_01_app/models/user.dart';
 
 class Regional {
-  static Future<Map> getRegion(String kd) async {
+  final AppStateController appStateController = Get.Get.put(AppStateController());
+  Future<Map> getRegion(String kd) async {
     Response res;
     if (appStateController.users.value.id < 1) {
       throw Exception("PLEASE_LOGIN_FIRST");

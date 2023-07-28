@@ -7,7 +7,7 @@ import 'package:saham_01_app/views/widgets/btnBlock.dart';
 import 'package:saham_01_app/views/widgets/toast.dart';
 
 class RemoteConfigView extends StatefulWidget {
-  const RemoteConfigView({ Key key }) : super(key: key);
+  const RemoteConfigView({ Key? key }) : super(key: key);
 
   @override
   State<RemoteConfigView> createState() => _RemoteConfigViewState();
@@ -20,7 +20,7 @@ class _RemoteConfigViewState extends State<RemoteConfigView> {
     try {
       await _refreshController.requestRefresh();
       await Future.delayed(const Duration(milliseconds: 500));
-      await remoteConfig?.fetchAndActivate();
+      await remoteConfig.fetchAndActivate();
       _refreshController.refreshCompleted();
     } catch (e) {
       showToast(

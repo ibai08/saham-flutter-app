@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:get/get.dart' as Get;
 import 'package:get_storage/get_storage.dart';
 import 'package:saham_01_app/controller/appStatesController.dart';
 import 'package:saham_01_app/core/cachefactory.dart';
@@ -10,13 +11,14 @@ import 'package:saham_01_app/models/user.dart';
 
 class OisModel {
   OisModel._privateConstructor();
+  final AppStateController appStateController = Get.Get.put(AppStateController());
   static final OisModel instance = OisModel._privateConstructor();
 
   Future<OisDashboardPageData> synchronizeDashboard(
       {bool clearCache = true}) async {
     SharedBoxHelper cache = SharedHelper.instance.getBox(BoxName.cache);
     double now = DateTime.now().millisecondsSinceEpoch / 1000;
-    OisDashboardPageData page = OisDashboardPageData(
+    OisDashboardPageData? page = OisDashboardPageData(
         totalChannel: 0,
         totalSignal: 0,
         totalPayment: 0,
@@ -25,11 +27,11 @@ class OisModel {
     if (clearCache) {
       cache.delete(CacheKey.oisDashboard);
     } else {
-      Map cachedData = await cache.getMap(CacheKey.oisDashboard);
+      Map? cachedData = await cache.getMap(CacheKey.oisDashboard);
       // check if there is valid cached data..
       if (cachedData != null && cachedData.containsKey("lastSync")) {
         page = OisDashboardPageData.fromMap(cachedData);
-        if ((now - page.lastSync) < 43200) {
+        if ((now - page.lastSync!) < 43200) {
           //return cached data
           return page;
         }
@@ -110,8 +112,8 @@ class OisModel {
     return data.map((x) => ChannelCardSlim.fromMap(x)).toList();
   }
 
-  Future<bool> subscribe(ChannelCardSlim channel, {String token}) async {
-    Map postParam = {"CHANNELID": channel.id};
+  Future<bool> subscribe(ChannelCardSlim? channel, {String? token}) async {
+    Map postParam = {"CHANNELID": channel?.id};
     if (token != null) {
       postParam["TOKEN"] = token;
     }
@@ -123,9 +125,9 @@ class OisModel {
 
     if (!data.containsKey("error") && data.containsKey("message")) {
       // update cache data...
-      if (appStateController.users.value.id > 0) {
+      if (appStateController.users.value.id! > 0) {
         if (data != null) {
-          await ChannelModel.instance.getDetail(channel.id, clearCache: true);
+          await ChannelModel.instance.getDetail(channel!.id!, clearCache: true);
           await ChannelModel.instance.getMySubscriptions(clearCache: true);
           OisModel.instance.logActions(
               channelId: channel.id,
@@ -148,9 +150,9 @@ class OisModel {
 
     if (!data.containsKey("error") && data.containsKey("message")) {
       // update cache data...
-      if (appStateController.users.value.id > 0) {
+      if (appStateController.users.value.id! > 0) {
         if (data != null) {
-          await ChannelModel.instance.getDetail(channel.id, clearCache: true);
+          await ChannelModel.instance.getDetail(channel.id!, clearCache: true);
           await ChannelModel.instance.getMySubscriptions(clearCache: true);
           OisModel.instance.logActions(
               channelId: channel.id,
@@ -386,14 +388,14 @@ class OisModel {
     throw Exception("INVALID_RESPONSE_FROM_SERVER");
   }
 
-  Future<int> submitRequestWithdrawal({Map data}) async {
+  Future<int> submitRequestWithdrawal({Map? data}) async {
     Map fetchData = await TF2Request.authorizeRequest(
         url: getHostName() + "/ois/api/v1/channel/withdraw/", postParam: data);
     return fetchData["message"];
   }
 
   Future<void> logActions(
-      {int channelId, String actionName, String stateName}) async {
+      {int? channelId, String? actionName, String? stateName}) async {
     if (UserModel.instance.hasLogin()) {
       assert(stateName != null);
       assert(actionName != null);

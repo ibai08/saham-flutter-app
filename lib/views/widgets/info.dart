@@ -13,15 +13,15 @@ class Info extends StatefulWidget {
     this.colorCaption,
     @required this.onTap,
   });
-  final double marginTop;
-  final String title;
-  final String desc;
-  final Widget image;
-  final Color bgColorBtn;
-  final Widget iconButton;
-  final String caption;
-  final Color colorCaption;
-  final Function onTap;
+  final double? marginTop;
+  final String? title;
+  final String? desc;
+  final Widget? image;
+  final Color? bgColorBtn;
+  final Widget? iconButton;
+  final String? caption;
+  final Color? colorCaption;
+  final Function? onTap;
 
   @override
   _InfoState createState() => _InfoState();
@@ -30,15 +30,15 @@ class Info extends StatefulWidget {
 class _InfoState extends State<Info> {
   @override
   Widget build(BuildContext context) {
-    double marginTop = widget.marginTop;
-    String title = widget.title;
-    String desc = widget.desc;
-    Widget image = widget.image;
-    Color bgColorBtn = widget.bgColorBtn;
-    Widget iconButton = widget.iconButton;
-    String caption = widget.caption;
-    Color colorCaption = widget.colorCaption;
-    Function onTap = widget.onTap;
+    double? marginTop = widget.marginTop;
+    String? title = widget.title;
+    String? desc = widget.desc;
+    Widget? image = widget.image;
+    Color? bgColorBtn = widget.bgColorBtn;
+    Widget? iconButton = widget.iconButton;
+    String? caption = widget.caption;
+    Color? colorCaption = widget.colorCaption;
+    Function? onTap = widget.onTap;
 
     if (widget.title == null) {
       title = "Tidak Ada Koneksi...";
@@ -77,12 +77,12 @@ class _InfoState extends State<Info> {
             const SizedBox(
               height: 10,
             ),
-            image,
+            image!,
             const SizedBox(
               height: 15,
             ),
             Text(
-              title,
+              title!,
               textAlign: TextAlign.center,
               style:const TextStyle(
                 fontSize: 18.0,
@@ -93,7 +93,7 @@ class _InfoState extends State<Info> {
               height: 5,
             ),
             Text(
-              desc,
+              desc!,
               style: TextStyle(
                 fontSize: 14,
                 color: AppColors.darkGrey2,
@@ -106,15 +106,15 @@ class _InfoState extends State<Info> {
             widget.caption != " "
                 ? ElevatedButton.icon(
                   onPressed: () {
-                    onTap();
+                    onTap!();
                   },
                   style: ElevatedButton.styleFrom(
                       padding:const EdgeInsets.symmetric(
                           vertical: 10, horizontal: 25),
                       primary: bgColorBtn),
-                  icon: iconButton,
+                  icon: iconButton!,
                   label: Text(
-                    caption,
+                    caption!,
                     style: TextStyle(
                       fontSize: 14,
                       color: colorCaption,

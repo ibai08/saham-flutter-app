@@ -3,18 +3,18 @@ import 'package:get/get.dart';
 
 class HeaderItem extends StatelessWidget {
   const HeaderItem({
-    Key key,
+    Key? key,
     this.images,
     this.title,
     this.link,
     this.icon,
     this.onTap,
   }) : super(key: key);
-  final String images;
-  final String title;
-  final String link;
-  final Widget icon;
-  final Function onTap;
+  final String? images;
+  final String? title;
+  final String? link;
+  final Widget? icon;
+  final Function? onTap;
 
   @override
   Widget build(BuildContext context) {
@@ -37,7 +37,7 @@ class HeaderItem extends StatelessWidget {
       //       }
       //     : onTap,
       onTap: () {
-        onTap == null ? Get.toNamed(link) : onTap();
+        onTap == null ? Get.toNamed(link!) : onTap!();
       },
       child: Container(
         color: Colors.transparent,
@@ -48,7 +48,7 @@ class HeaderItem extends StatelessWidget {
               height: sizedSize == 5 && icon != null ? 2 : 6,
             ),
             icon ?? Image.asset(
-                    images,
+                    images!,
                     width: 31,
                     height: 31,
                     fit: BoxFit.contain,
@@ -57,7 +57,7 @@ class HeaderItem extends StatelessWidget {
               height: icon == null ? 8 : sizedSize,
             ),
             Text(
-              title,
+              title!,
               softWrap: false,
               style: TextStyle(
                   color: Colors.black,

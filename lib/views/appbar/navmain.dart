@@ -32,11 +32,11 @@ import 'package:saham_01_app/constants/app_colors.dart';
 
 class NavMain extends AppBar {
   NavMain({
-    Key key, 
-    Widget title, 
-    String username, 
-    String currentPage, 
-    Function backPage
+    Key? key, 
+    Widget? title, 
+    String? username, 
+    String? currentPage, 
+    Function? backPage
   }) : super(
         key: key,
         toolbarHeight: currentPage == "HomePage" ? 80 : 50,
@@ -103,7 +103,7 @@ class NavMain extends AppBar {
                 // decoration: BoxDecoration(border: Border.all(width: 1, color: Colors.black)),
                 child: InkWell(
                   onTap: () {
-                    backPage();
+                    backPage!();
                   },
                   child: Image.asset(
                     "assets/icon/light/arrow-left.png",
@@ -117,7 +117,7 @@ class NavMain extends AppBar {
                 height: 50,
                 // decoration: BoxDecoration(border: Border.all(width: 1, color: Colors.black)),
                 child: Text(
-                  currentPage,
+                  currentPage!,
                   style: const TextStyle(
                     color: Colors.black,
                     fontSize: 20,

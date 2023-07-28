@@ -101,10 +101,10 @@ class AppStateController extends GetxController {
         if (payload is Map &&
             payload.containsKey("village") &&
             payload.containsKey("villageid") &&
-            users.value.id > 0) {
+            users.value.id! > 0) {
           usersEdit.update((user) {
-            user.village = payload["village"];
-            user.villageid = payload["villageid"];
+            user?.village = payload["village"];
+            user?.villageid = payload["villageid"];
           });
         }
         break;
@@ -132,7 +132,7 @@ class AppStateController extends GetxController {
         break;
 
       case Operation.updateAvatar:
-        if (payload is Map && payload.containsKey("avatar") && users.value.id > 0) {
+        if (payload is Map && payload.containsKey("avatar") && users.value.id! > 0) {
           usersEdit.update((user) {
             user?.avatar = payload["avatar"];
           });
@@ -197,4 +197,4 @@ class AppStateController extends GetxController {
   }
 }
 
-AppStateController appStateController;
+AppStateController? appStateController;

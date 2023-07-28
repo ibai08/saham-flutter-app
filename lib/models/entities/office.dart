@@ -1,18 +1,18 @@
 class OfficeState{
-  final String branch;
-  final String building;
-  final String address;
-  final String city;
-  final String postalCode;
-  final String phone;
-  final String phoneCode;
-  final String sms;
-  final String smsMessage;
-  final String whatsapp;
-  final String whatsappMessage;
-  final String mapLocation;
-  final String openDay;
-  final String openHour;
+  final String? branch;
+  final String? building;
+  final String? address;
+  final String? city;
+  final String? postalCode;
+  final String? phone;
+  final String? phoneCode;
+  final String? sms;
+  final String? smsMessage;
+  final String? whatsapp;
+  final String? whatsappMessage;
+  final String? mapLocation;
+  final String? openDay;
+  final String? openHour;
 
   OfficeState({this.branch, this.building, this.address, this.city, this.postalCode, this.phoneCode, this.phone, this.sms, this.smsMessage, this.whatsapp, this.whatsappMessage, this.mapLocation, this.openDay, this.openHour});
 

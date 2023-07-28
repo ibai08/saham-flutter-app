@@ -2,15 +2,15 @@ import 'package:flutter/material.dart';
 
 class SortButtonNew extends StatelessWidget {
   const SortButtonNew({
-    Key key,
+    Key? key,
     @required this.text,
     @required this.onTap,
     this.isActive = false,
   }) : super(key: key);
 
-  final String text;
-  final Function onTap;
-  final bool isActive;
+  final String? text;
+  final Function? onTap;
+  final bool? isActive;
 
   @override
   Widget build(BuildContext context) {
@@ -18,10 +18,10 @@ class SortButtonNew extends StatelessWidget {
       margin: const EdgeInsets.only(right: 10),
       child: TextButton(
         onPressed: () {
-          onTap();
+          onTap!();
         },
         child: Text(
-          text,
+          text! ,
            style: TextStyle(
             color: isActive != null ? Colors.black : Colors.grey,
             fontWeight: FontWeight.bold,

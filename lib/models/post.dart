@@ -8,10 +8,10 @@ import 'package:saham_01_app/models/entities/post.dart';
 enum PostOption { news, monthlyOutlook }
 
 class Post {
-  static Future<Map> getPost(PostOption option, {String page}) async {
+  static Future<Map> getPost(PostOption? option, {String? page}) async {
     String request = "/wp-json/wp/v2/posts?categories[]=";
     String countPost = "10";
-    String category;
+    String? category;
     switch (option) {
       case PostOption.news:
         category = "38";
@@ -23,7 +23,7 @@ class Post {
     }
     page ??= "1";
     String link =
-        request + category + "&per_page=" + countPost + "&page=" + page;
+        request + category! + "&per_page=" + countPost + "&page=" + page;
     Response res;
     Dio dio = Dio(); // with default Options
     dio.options.connectTimeout = Duration(milliseconds: 10000); //5s
@@ -32,11 +32,11 @@ class Post {
     return jsonDecode(res.toString());
   }
 
-  static Future<List<PostState>> getPostList(PostOption option,
-      {String page}) async {
+  static Future<List<PostState>> getPostList(PostOption? option,
+      {String? page}) async {
     String request = "/wp-json/wp/v2/posts?categories[]=";
     String countPost = "6";
-    String category;
+    String? category;
     switch (option) {
       case PostOption.news:
         category = "38";
@@ -48,7 +48,7 @@ class Post {
     }
     page ??= "1";
     String link =
-        request + category + "&per_page=" + countPost + "&page=" + page;
+        request + category! + "&per_page=" + countPost + "&page=" + page;
     Response res;
     List<PostState> list;
     Dio dio = Dio(); // with default Options
@@ -72,7 +72,7 @@ class Post {
     return imageUrl;
   }
 
-  static Future<String> getAuthorName(int id) async {
+  static Future<String> getAuthorName(int? id) async {
     Response res;
     String authorName;
     Dio dio = Dio(); // with default Options
@@ -84,13 +84,13 @@ class Post {
     return authorName;
   }
 
-  static Future<PostDetails> getPostDetails(String id) async {
+  static Future<PostDetails> getPostDetails(String? id) async {
     Response res;
     PostDetails post;
     Dio dio = Dio(); // with default Options
     dio.options.connectTimeout = Duration(milliseconds: 10000); //5s
     dio.options.receiveTimeout = Duration(milliseconds: 30000);
-    res = await dio.get(getMainSite() + "/wp-json/wp/v2/posts/" + id);
+    res = await dio.get(getMainSite() + "/wp-json/wp/v2/posts/" + id!);
     post = PostDetails(
         title: res.data['title']['rendered'],
         desc: res.data['content']['rendered'],

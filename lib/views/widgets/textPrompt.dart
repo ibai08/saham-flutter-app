@@ -3,23 +3,23 @@ import 'package:saham_01_app/constants/app_colors.dart';
 
 class TextPrompt extends StatelessWidget {
   const TextPrompt({
-    Key key,
-    @required this.title,
-    @required this.desc,
-    @required this.cta,
-    @required this.fn,
+    Key? key,
+    this.title,
+    this.desc,
+    this.cta,
+    this.fn,
     this.padding,
   }) : super(key: key);
 
-  final String title;
-  final String desc;
-  final String cta;
-  final Function fn;
-  final double padding;
+  final String? title;
+  final String? desc;
+  final String? cta;
+  final Function? fn;
+  final double? padding;
 
   @override
   Widget build(BuildContext context) {
-    double pad = padding;
+    double? pad = padding;
     // ignore: prefer_conditional_assignment
     if (pad == null) {
       pad = 20;
@@ -31,7 +31,7 @@ class TextPrompt extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
           Text(
-            title,
+            title!,
             style: const TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
             textAlign: TextAlign.center,
           ),
@@ -39,7 +39,7 @@ class TextPrompt extends StatelessWidget {
             height: 10,
           ),
           Text(
-            desc,
+            desc!,
             textAlign: TextAlign.center,
           ),
           const SizedBox(
@@ -52,7 +52,7 @@ class TextPrompt extends StatelessWidget {
             style:
                 TextButton.styleFrom(backgroundColor: AppColors.primaryGreen),
             child: Text(
-              cta,
+              cta!,
               style:
                   const TextStyle(color: Colors.white, fontWeight: FontWeight.w600),
             ),

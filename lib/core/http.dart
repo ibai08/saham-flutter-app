@@ -2,11 +2,13 @@ import 'package:dio/dio.dart';
 import 'package:saham_01_app/core/config.dart';
 
 String getHostName() {
-  return settings["mode"] == "production" ? remoteConfig!.getString('tf2_production_host') : remoteConfig!.getString('tf2_development_host');
+  return settings["mode"] == "production"
+      ? remoteConfig.getString('tf2_production_host')
+      : remoteConfig.getString('tf2_development_host');
 }
 
 String getMainSite() {
-  return remoteConfig!.getString('main_site');
+  return remoteConfig.getString('main_site');
 }
 
 class TF2Request {

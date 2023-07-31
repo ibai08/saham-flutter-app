@@ -25,7 +25,7 @@ class _LoadingStateData {
 
 class DialogLoading extends GetxController {
   // Variabel Rx untuk menyimpan data loading state
-  final Rx<_LoadingStateData> _caption = _LoadingStateData().obs;
+  final Rx<_LoadingStateData>? _caption = _LoadingStateData().obs;
 
   // Fungsi untuk mengubah data loading state menjadi progress
   void setProgress(LoadingState status, String caps) {
@@ -58,7 +58,7 @@ class DialogLoading extends GetxController {
       default:
     }
     // Memperbarui nilai _caption menggunakan update()
-    _caption.update((_LoadingStateData? value) {
+    _caption?.update((_LoadingStateData? value) {
       value?.status = status;
       value?.state = LoadingState.progress;
       value?.iconSt = iconSt;
@@ -71,7 +71,7 @@ class DialogLoading extends GetxController {
   // Fungsi untuk mengubah data loading state menjadi success
   void setSuccess(String caps) {
     // Memperbarui nilai _caption menggunakan update()
-    _caption.update((_LoadingStateData? value) {
+    _caption?.update((_LoadingStateData? value) {
       value?.state = LoadingState.progress;
       value?.iconSt = Image.asset(
         "assets/icon-success.png",
@@ -87,7 +87,7 @@ class DialogLoading extends GetxController {
   // Fungsi untuk mengubah data loading state menjadi error
   void setError(Object error) {
     // Memperbarui nilai _caption menggunakan update()
-    _caption.update((_LoadingStateData? value) {
+    _caption?.update((_LoadingStateData? value) {
       value?.iconSt = Image.asset(
         "assets/icon-error.png",
         width: 50,
@@ -108,7 +108,7 @@ class DialogLoading extends GetxController {
   void onInit() {
     super.onInit();
     // Memastikan bahwa widget akan diperbarui saat nilai _caption berubah
-    ever(_caption, (_) {
+    ever(_caption!, (_) {
       update();
     });
   }
@@ -116,7 +116,7 @@ class DialogLoading extends GetxController {
   @override
   void onClose() {
     // Menutup StreamController saat widget dihapus
-    _caption.close();
+    _caption?.close();
     super.onClose();
   }
 }
@@ -195,7 +195,7 @@ class _DialogLoading extends GetWidget<DialogLoading> {
       backgroundColor: Colors.transparent,
       child: Obx(
         () {
-          final loading = controller._caption.value ?? _LoadingStateData(
+          final loading = controller._caption?.value ?? _LoadingStateData(
             state: LoadingState.progress,
             backgroundColor: Colors.white,
             fontColor: Colors.black,

@@ -17,8 +17,8 @@ class Regional {
     Dio dio = Dio(); // with default Options
     dio.options.connectTimeout = Duration(milliseconds: 10000); //5s
     dio.options.receiveTimeout = Duration(milliseconds: 30000);
-    String token = await UserModel.instance.getUserToken();
-    dio.options.headers = {"Authorization": "Bearer " + token};
+    String? token = await UserModel.instance.getUserToken();
+    dio.options.headers = {"Authorization": "Bearer " + token!};
     res = await dio.get(getHostName() + "/traders/api/v1/wilayah/",
         queryParameters: {"kd": kd});
     return jsonDecode(res.toString());

@@ -84,7 +84,12 @@ class StorageController {
     }
     try {
       await GetStorage.init();
+      GetStorage(BoxName.cache);
+      GetStorage(BoxName.config);
+      GetStorage(BoxName.inbox);
+      GetStorage(BoxName.signal);
       _init = true;
+      print("berhasil");
     } catch (xerr) {
       print("StorageController.init: $xerr");
     }

@@ -19,7 +19,7 @@ class SocialMedia extends StatelessWidget {
               width: 45,
               child: TextButton(
                 onPressed: () {
-                  launchURL(remoteConfig?.getString("link_instagram"));
+                  launchURL(remoteConfig.getString("link_instagram"));
                 },
                 child: Image.asset('assets/icon/brands/ig.png'),
               ),
@@ -28,7 +28,7 @@ class SocialMedia extends StatelessWidget {
               width: 45,
               child: TextButton(
                 onPressed: () {
-                  launchURL(remoteConfig?.getString("link_facebook"));
+                  launchURL(remoteConfig.getString("link_facebook"));
                 },
                 child: Image.asset('assets/icon/brands/fb.png'),
               ),
@@ -37,7 +37,7 @@ class SocialMedia extends StatelessWidget {
               width: 45,
               child: TextButton(
                 onPressed: () {
-                  launchURL(remoteConfig?.getString("link_youtube"));
+                  launchURL(remoteConfig.getString("link_youtube"));
                 },
                 child: Image.asset('assets/icon/brands/yt.png'),
               ),
@@ -46,7 +46,7 @@ class SocialMedia extends StatelessWidget {
               width: 45,
               child: TextButton(
                 onPressed: () {
-                  launchURL(remoteConfig?.getString("link_tiktok"));
+                  launchURL(remoteConfig.getString("link_tiktok"));
                 },
                 child: Image.asset('assets/icon/brands/tt.png'),
               ),
@@ -55,7 +55,7 @@ class SocialMedia extends StatelessWidget {
               width: 45,
               child: TextButton(
                 onPressed: () {
-                  launchURL(remoteConfig?.getString("link_linkedin"));
+                  launchURL(remoteConfig.getString("link_linkedin"));
                 },
                 child: Image.asset('assets/icon/brands/li.png'),
               ),

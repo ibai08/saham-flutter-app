@@ -1,14 +1,14 @@
 // ignore_for_file: file_names
 
-import 'package:get/get.dart';
-import 'package:saham_01_app/utils/store/route.dart';
+// import 'package:get/get.dart';
+// import 'package:saham_01_app/utils/store/route.dart';
 
-class HomeTabController extends GetxController {
-  var homeTab = HomeTab.home.obs;
+// class HomeTabController extends GetxController {
+//   var homeTab = HomeTab.home.obs;
 
-  void setHomeTab(HomeTab tab) {
-    homeTab.value = tab;
-  }
+//   void setHomeTab(HomeTab tab) {
+//     homeTab.value = tab;
+//   }
 
-  HomeTab get currentTab => homeTab.value;
-}
+//   HomeTab get currentTab => homeTab.value;
+// }

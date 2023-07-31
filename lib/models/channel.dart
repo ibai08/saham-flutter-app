@@ -97,7 +97,7 @@ class ChannelModel {
 
   Future<ChannelCardSlim> getDetail(int? channelid,
       {bool clearCache = false}) async {
-    int refreshSecond = remoteConfig!
+    int refreshSecond = remoteConfig
         .getInt("channel_detail_expire"); //3600 * 24 * 7; // seminggu
     if (clearCache) {
       refreshSecond = 0;
@@ -127,7 +127,7 @@ class ChannelModel {
 
   Future<ChannelSummaryDetail> getSummary2(int channelid,
       {bool isAlltime = false}) async {
-    String start = remoteConfig!.getString("tf_point_start_date");
+    String start = remoteConfig.getString("tf_point_start_date");
     if (isAlltime) {
       start = "1970-01-01 17:00:00 UTC";
     }
@@ -235,6 +235,7 @@ class ChannelModel {
           url: getHostName() + "/ois/api/v1/channel/profit/",
           method: 'POST',
         );
+        print("fecth data: $fetchData");
         return fetchData["message"];
       }, refreshSecond);
       if (data is List) {
@@ -516,7 +517,7 @@ class ChannelModel {
 
   Future<List<HistoryPoint>> getHistoryPoint(
       {int? channelId, bool clearCache = false}) async {
-    if (appStateController!.users.value.id! < 1) {
+    if (appStateController!.users.value.id < 1) {
       throw Exception("PLEASE_LOGIN_FIRST");
     }
 
@@ -541,7 +542,7 @@ class ChannelModel {
 
   Future<List<RedeemHistory>> getRedeemHistory(
       {int? channelId, bool clearCache = false}) async {
-    if (appStateController!.users.value.id! < 1) {
+    if (appStateController!.users.value.id < 1) {
       throw Exception("PLEASE_LOGIN_FIRST");
     }
 
@@ -585,7 +586,7 @@ class ChannelModel {
 
   Future<RulesPoint> getDetailRulesPoint(int channelid,
       {bool clearCache = false}) async {
-    if (appStateController!.users.value.id! < 1) {
+    if (appStateController!.users.value.id < 1) {
       throw Exception("PLEASE_LOGIN_FIRST");
     }
 

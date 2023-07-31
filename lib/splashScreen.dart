@@ -7,7 +7,7 @@ import 'package:saham_01_app/views/pages/home.dart';
 import 'constants/app_colors.dart';
 
 class SplashScreen extends StatefulWidget {
-  const SplashScreen({Key key}) : super(key: key);
+  const SplashScreen({Key? key}) : super(key: key);
 
   @override
   _SplashScreenState createState() => _SplashScreenState();

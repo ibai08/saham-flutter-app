@@ -669,12 +669,12 @@ class SignalInfo {
       //     throw new Exception("INVALID_SIGNAL_MAP_INFO");
       //   }
       // });
-      ChannelInfo channel = ChannelInfo.fromMap(data["channel"]);
+      ChannelInfo? channel = ChannelInfo.fromMap(data["channel"]);
       if (channel == null) {
         throw Exception("INVALID_CHANNEL_MAP_INFO");
       }
 
-      return SignalInfo._privateConstructor(
+      return SignalInfo?._privateConstructor(
           id: data["id"],
           channel: channel,
           symbol: data["symbol"],

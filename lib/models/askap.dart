@@ -260,8 +260,8 @@ class AskapModel {
     var i = 0;
     do {
       i++;
-      String token = await UserModel.instance.getUserToken();
-      dio.options.headers = {"Authorization": "Bearer " + token};
+      String? token = await UserModel.instance.getUserToken();
+      dio.options.headers = {"Authorization": "Bearer " + token!};
       res =
           await dio.post(getHostName() + "/askap/api/v1/register/", data: data);
 
@@ -296,8 +296,8 @@ class AskapModel {
     var i = 0;
     do {
       i++;
-      String token = await UserModel.instance.getUserToken();
-      dio.options.headers = {"Authorization": "Bearer " + token};
+      String? token = await UserModel.instance.getUserToken();
+      dio.options.headers = {"Authorization": "Bearer " + token!};
       res =
           await dio.post(getHostName() + "/askap/api/v1/deposit/", data: data);
 
@@ -332,8 +332,8 @@ class AskapModel {
     var i = 0;
     do {
       i++;
-      String token = await UserModel.instance.getUserToken();
-      dio.options.headers = {"Authorization": "Bearer " + token};
+      String? token = await UserModel.instance.getUserToken();
+      dio.options.headers = {"Authorization": "Bearer " + token!};
       res =
           await dio.post(getHostName() + "/askap/api/v1/withdraw/", data: data);
 

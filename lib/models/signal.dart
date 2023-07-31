@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_conditional_assignment
 
 import 'dart:convert';
+import 'dart:developer';
 
 import 'package:get/get.dart';
 import 'package:saham_01_app/controller/appStatesController.dart';
@@ -108,7 +109,7 @@ class SignalModel {
     return listSignalBadegSlim;
   }
 
-  Future<void> clearClosedSignalsFedd({int page = 1}) async {
+  Future<void> clearClosedSignalsFeed({int page = 1}) async {
     for (int i = 1; i <= page; i++) {
       await CacheFactory.delete(sprintf(CacheKey.closedSignalFeed, [i]));
     }
@@ -120,12 +121,16 @@ class SignalModel {
       if (clearCache) {
         refreshSecond = 0;
       }
+      // print(clearCache);
       dynamic data = await CacheFactory.getCache(
         sprintf(CacheKey.closedSignalFeed, [page]), () async {
-          Map fetchData = {"message": List};
-          String url = getHostName() + "/ois/api/v2/channel/signals/feed/";
-          Map postParam = {"page": page};
-          if (UserModel.instance.hasLogin()) {
+          Map? fetchData = {"message": List};
+          print("fetchdata: $fetchData");
+          String url = getHostName() + "/ois/api/v2/channel/signal/feed/";
+          print("url: $url");
+          Map? postParam = {"page": page};
+          // print("postparam: ${UserModel.instance.hasLogin()}");
+          if (UserModel.instance.hasLogin() == true) {
             fetchData = await TF2Request.authorizeRequest(
               url: url, method: 'POST', postParam: postParam
             );
@@ -134,39 +139,43 @@ class SignalModel {
               url: url, method: 'POST', postParam: postParam
             );
           }
+          return fetchData["message"];
         }, refreshSecond
       );
+      log(data.toString(), name: "myLog");
       
       if (data is List) {
-        return data.map((signalMap) => SignalInfo.createObject(
-          active: int.tryParse(signalMap["active"].toString()) ?? 0,
-          caption: signalMap["caption"],
-          channelId: int.tryParse(signalMap["channel_id"].toString()) ?? 0,
-          channelPrice: double.tryParse(signalMap["channelPrice"].toString()) ?? 0.00,
-          channelStatus: int.tryParse(signalMap["status"].toString()) ?? 0,
-          channelCreatedTimeStamp: int.tryParse(signalMap["created_time"].toString()) ?? 0,
-          closePrice: double.tryParse(signalMap["close_price"].toString()) ?? 0.00,
-          closeTime: signalMap["close_time"],
-          createdAt: signalMap["created_at"],
-          expired: int.tryParse(signalMap["expired"].toString()) ?? 0,
-          id: int.tryParse(signalMap["id"].toString()) ?? 0,
-          notified: int.tryParse(signalMap["notified"].toString()) ?? 0,
-          op: int.tryParse(signalMap["op"].toString()) ?? 0,
-          price: double.tryParse(signalMap["price"].toString()) ?? 0.00,
-          profit: double.tryParse(signalMap["pips"].toString()) ?? 0.00,
-          sl: double.tryParse(signalMap["sl"].toString()) ?? 0.00,
-          tp: double.tryParse(signalMap["tp"].toString()) ?? 0.00,
-          subs: int.tryParse(signalMap["subs"].toString()) ?? 0,
-          symbol: signalMap["symbol"],
-          title: signalMap["title"],
-          userid: int.tryParse(signalMap["userid"].toString()) ?? 0,
-          username: signalMap["username"],
-          channelAvatar: signalMap["avatar"],
-          medals: int.tryParse(signalMap["medals"].toString()) ?? 0,
-          point: double.tryParse(signalMap["point"].toString()) ?? 0.00,
+        return data.map((signalMap) => SignalInfo?.createObject(
+          active: int?.tryParse(signalMap["active"].toString()) ?? 0,
+          caption: signalMap?["caption"],
+          channelId: int?.tryParse(signalMap["channel_id"].toString()) ?? 0,
+          channelPrice: double?.tryParse(signalMap["channelPrice"].toString()) ?? 0.00,
+          channelStatus: int?.tryParse(signalMap["status"].toString()) ?? 0,
+          channelCreatedTimeStamp: int?.tryParse(signalMap["created_time"].toString()) ?? 0,
+          closePrice: double?.tryParse(signalMap["close_price"].toString()) ?? 0.00,
+          closeTime: signalMap?["close_time"],
+          createdAt: signalMap?["created_at"],
+          expired: int?.tryParse(signalMap["expired"].toString()) ?? 0,
+          id: int?.tryParse(signalMap["id"].toString()) ?? 0,
+          notified: int?.tryParse(signalMap["notified"].toString()) ?? 0,
+          op: int?.tryParse(signalMap["op"].toString()) ?? 0,
+          price: double?.tryParse(signalMap["price"].toString()) ?? 0.00,
+          profit: double?.tryParse(signalMap["pips"].toString()) ?? 0.00,
+          sl: double?.tryParse(signalMap["sl"].toString()) ?? 0.00,
+          tp: double?.tryParse(signalMap["tp"].toString()) ?? 0.00,
+          subs: int?.tryParse(signalMap["subs"].toString()) ?? 0,
+          symbol: signalMap?["symbol"],
+          title: signalMap?["title"],
+          userid: int?.tryParse(signalMap["userid"].toString()) ?? 0,
+          username: signalMap?["username"],
+          channelAvatar: signalMap?["avatar"],
+          medals: int?.tryParse(signalMap["medals"].toString()) ?? 0,
+          point: double?.tryParse(signalMap["point"].toString()) ?? 0.00,
         )).toList();
       }
-    } catch (xerr) {};
+    } catch (xerr) {
+      print("error xerr: $xerr");
+    };
     return [];
   }
 
@@ -323,9 +332,9 @@ class SignalModel {
       postParam: postParam
     );
 
-    SharedBoxHelper cache = SharedHelper.instance.getBox(BoxName.cache);
-    await cache.delete(CacheKey.oisDashboard);
-    await cache.delete(CacheKey.oisMyChannel);
+    SharedBoxHelper? cache = SharedHelper.instance.getBox(BoxName.cache);
+    await cache?.delete(CacheKey.oisDashboard);
+    await cache?.delete(CacheKey.oisMyChannel);
     return fetchData["message"];
   }
 
@@ -387,8 +396,8 @@ class SignalModel {
   }
 
   Future<void> deleteSignalCache(int signalId) async {
-    SharedBoxHelper cache = SharedHelper.instance.getBox(BoxName.signal);
-    cache.delete(signalId.toString());
+    SharedBoxHelper? cache = SharedHelper.instance.getBox(BoxName.signal);
+    cache?.delete(signalId.toString());
   }
 
   Future<bool> updateSignal(

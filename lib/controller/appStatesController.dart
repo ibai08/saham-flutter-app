@@ -3,6 +3,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:saham_01_app/core/firebasecm.dart';
 import 'package:saham_01_app/models/entities/askap.dart';
 import 'package:saham_01_app/models/entities/firebase.dart';
 import 'package:saham_01_app/models/entities/inbox.dart';
@@ -46,6 +47,10 @@ class AppStateController extends GetxController {
   Rx<InboxCount> inboxCountTag = InboxCount.init().obs;
 
   HomeTab get currentTab => homeTab.value;
+
+  void initState() {
+    FCM.instance.initializeFcmNotification();
+  }
 
   void setHomeTab(HomeTab tab) {
     homeTab.value = tab;
@@ -101,7 +106,7 @@ class AppStateController extends GetxController {
         if (payload is Map &&
             payload.containsKey("village") &&
             payload.containsKey("villageid") &&
-            users.value.id! > 0) {
+            users.value.id > 0) {
           usersEdit.update((user) {
             user?.village = payload["village"];
             user?.villageid = payload["villageid"];
@@ -132,7 +137,7 @@ class AppStateController extends GetxController {
         break;
 
       case Operation.updateAvatar:
-        if (payload is Map && payload.containsKey("avatar") && users.value.id! > 0) {
+        if (payload is Map && payload.containsKey("avatar") && users.value.id > 0) {
           usersEdit.update((user) {
             user?.avatar = payload["avatar"];
           });

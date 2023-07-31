@@ -3,11 +3,14 @@ import 'dart:io';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:firebase_remote_config/firebase_remote_config.dart';
+import 'package:flutter/services.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:saham_01_app/config/tab_list.dart';
 import 'package:saham_01_app/constants/app_colors.dart';
 import 'package:saham_01_app/controller/appStatesController.dart';
+import 'package:saham_01_app/core/analytics.dart';
 import 'package:saham_01_app/core/config.dart';
+import 'package:saham_01_app/core/firebasecm.dart';
 import 'package:saham_01_app/core/getStorage.dart';
 // import 'package:saham_01_app/controller/homeTabController.dart';
 import 'package:saham_01_app/firebase_options.dart';
@@ -51,19 +54,21 @@ void main() async {
     RemoteConfigSettings(
         fetchTimeout: Duration(seconds: 60),
         minimumFetchInterval: Duration(hours: 1));
-    remoteConfig = RemoteConfig.instance;
+    remoteConfig = FirebaseRemoteConfig.instance;
+    print("brshahsh");
     await remoteConfig.fetchAndActivate();
+    SharedHelper.instance;
 
-    String mixpanelToken = remoteConfig.getString("mixpanel_token");
+    // String mixpanelToken = remoteConfig!.getString("mixpanel_token");
     // if (mixpanelToken != '') {
     //   mixpanel =
     //       await Mixpanel.init(mixpanelToken, optOutTrackingDefault: false);
     //   mixpanel.track(MixpanelEvent.appOpen);
     // }
 
-    // await StorageHelper.instance.init();
+    await StorageController.instance.init();
     await UserModel.instance.refreshController();
-    await InboxModel.instance.updateInboxCountAsync();
+    // await InboxModel.instance.updateInboxCountAsync();
     // // fetch and dispatch redux on background for mrg and askap
     MrgModel.fetchUserData().catchError((onError) {
       print("MrgModel.fetchUserData: $onError");
@@ -72,8 +77,21 @@ void main() async {
       print("AskapModel.fetchUserData: $onError");
     });
   } catch (x) {
-    print("Main: $x");
+    print("Main error di: $x");
   }
+
+  SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+    systemNavigationBarColor: Colors.black, // navigation bar color
+    statusBarColor: Colors.white, // status bar color
+  ));
+
+  SystemChrome.setPreferredOrientations([
+    DeviceOrientation.portraitUp,
+    DeviceOrientation.portraitDown,
+  ]);
+
+  firebaseAnalytics.setAnalyticsCollectionEnabled(true);
+  firebaseAnalytics.logAppOpen();
   
 
   runApp(MyApp());
@@ -88,38 +106,54 @@ void main() async {
 //   ).obs;
 // }
 
-class MyApp extends StatelessWidget {
+
+class MyApp extends StatefulWidget {
   const MyApp({Key? key}) : super(key: key);
-  
+
+  @override
+  _MyAppState createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  @override
+  void initState() {
+    super.initState();
+    FCM.instance.initializeFcmNotification();
+    print("berhasil");
+  }
 
   @override
   Widget build(BuildContext context) {
-    return GetMaterialApp(
-      title: 'Saham XYZ App',
-      theme: ThemeData(
-        inputDecorationTheme: InputDecorationTheme(
-          labelStyle: TextStyle(color: AppColors.black),
-          contentPadding: const EdgeInsets.only(bottom: 5, top: 20),
-          enabledBorder: UnderlineInputBorder(
-            borderSide: BorderSide(
-              width: 0.2,
-              color: AppColors.darkGrey4,
+    return Builder(
+      builder: (context) {
+        return GetMaterialApp(
+          title: 'Saham XYZ App',
+          theme: ThemeData(
+            inputDecorationTheme: InputDecorationTheme(
+              labelStyle: TextStyle(color: AppColors.black),
+              contentPadding: const EdgeInsets.only(bottom: 5, top: 20),
+              enabledBorder: UnderlineInputBorder(
+                borderSide: BorderSide(
+                  width: 0.2,
+                  color: AppColors.darkGrey4,
+                ),
+              ),
             ),
-          )
-        ),
-      ),
-      initialRoute: '/',
-      getPages: [
-        GetPage(name: '/home', page: () => MyHomePage()),
-        GetPage(name: '/homepage', page: () => Home()),
-        GetPage(name: '/maintenance', page: () => MaintenanceView()),
-        // GetPage(name: '/update-app', page: () => UpdateVersionView()),
-      ],
-      home: const SplashScreen(),
-      debugShowCheckedModeBanner: false,
-      initialBinding: BindingsBuilder(() {
-        Get.put<AppStateController>(AppStateController());
-      }),
+          ),
+          initialRoute: '/',
+          getPages: [
+            GetPage(name: '/home', page: () => MyHomePage()),
+            GetPage(name: '/homepage', page: () => Home()),
+            GetPage(name: '/maintenance', page: () => MaintenanceView()),
+            // GetPage(name: '/update-app', page: () => UpdateVersionView()),
+          ],
+          home: const SplashScreen(),
+          debugShowCheckedModeBanner: false,
+          initialBinding: BindingsBuilder(() {
+            Get.put<AppStateController>(AppStateController());
+          }),
+        );
+      },
     );
   }
 }

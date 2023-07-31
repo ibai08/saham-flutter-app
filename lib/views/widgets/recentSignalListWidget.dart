@@ -1,0 +1,41 @@
+import 'package:flutter/material.dart';
+import 'package:saham_01_app/models/entities/ois.dart';
+import 'package:saham_01_app/views/widgets/signalDetailWithHeader.dart';
+
+class RecentSignalListWidget extends StatefulWidget {
+  final List<SignalInfo>? listSignal;
+  final Level? medal;
+  RecentSignalListWidget(this.listSignal, this.medal);
+  @override
+  State<StatefulWidget> createState() => _RecentSignalListWidget();
+}
+
+class _RecentSignalListWidget extends State<RecentSignalListWidget> {
+  Widget listSignalView(List<SignalInfo>? signal, Level? medal) {
+    return Container(
+      child: ListView.builder(
+        shrinkWrap: true,
+        physics: NeverScrollableScrollPhysics(),
+        itemCount: signal?.length,
+        itemBuilder: (context, i) {
+          return SignalDetailWithHeaderNew(
+            subscriber: signal?[i].channel?.subscriber,
+            level: medal,
+            medals: signal?[i].channel?.medals,
+            title: signal?[i].channel?.title,
+            username: signal?[i].channel?.username ?? "-",
+            channelId: signal?[i].channel?.id,
+            id: signal?[i].id,
+            symbol: signal?[i].symbol,
+            createdAt: signal?[i].createdAt,
+            profit: signal?[i].profit,
+          );
+        } 
+      ),
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) =>
+      listSignalView(widget.listSignal, widget.medal);
+}

@@ -129,12 +129,12 @@ class MessageProcessor {
             appStateController?.setAppState(Operation.bringToHome, HomeTab.home);
 
             String inboxType = data["inboxType"];
-            InboxType type = enumFromString(inboxType, InboxType.values);
+            InboxType? type = enumFromString(inboxType, InboxType.values);
             int inboxId = int.tryParse(data["inboxId"]) ?? 0;
 
             if (inboxId > 0 && type != null) {
               await InboxModel.instance.refreshInboxByIdAsync(id: inboxId);
-              Map? valueMap = await InboxModel.instance.getBox().getMap(inboxId.toString());
+              Map? valueMap = await InboxModel.instance.getBox()?.getMap(inboxId.toString());
 
               switch (type) {
                 case InboxType.wptfpost:

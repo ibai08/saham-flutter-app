@@ -129,7 +129,7 @@ class FCM {
   }
 
   Future<void> userSetFCMToken(String? token) async {
-    String userJWT = await getCfgAsync("token");
+    String? userJWT = await getCfgAsync("token");
     if (userJWT != null && userJWT != '') {
       try {
         await updateCfgAsync("fcm_token", token!);

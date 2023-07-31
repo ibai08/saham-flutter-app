@@ -20,8 +20,8 @@ class MrgModel {
   final contestAcc = "contest";
 
   Future<Map> getUserData() async {
-    String mData = await getCfgAsync("mrgdat");
-    return jsonDecode(mData);
+    String? mData = await getCfgAsync("mrgdat");
+    return jsonDecode(mData!);
   }
 
   Future<bool> setUserData(UserMRG user) async {
@@ -381,8 +381,8 @@ class MrgModel {
     var i = 0;
     do {
       i++;
-      String token = await UserModel.instance.getUserToken();
-      dio.options.headers = {"Authorization": "Bearer " + token};
+      String? token = await UserModel.instance.getUserToken();
+      dio.options.headers = {"Authorization": "Bearer " + token!};
       res = await dio.post(getHostName() + "/mrg/api/v1/withdraw/", data: data);
 
       if (res.data is Map) {
@@ -451,8 +451,8 @@ class MrgModel {
     int i = 0;
     do {
       i++;
-      String token = await UserModel.instance.getUserToken();
-      dio.options.headers = {"Authorization": "Bearer " + token};
+      String? token = await UserModel.instance.getUserToken();
+      dio.options.headers = {"Authorization": "Bearer " + token!};
       res = await dio.post(getHostName() + "/mrg/api/v1/id/upload/",
           data: formData);
 
@@ -489,8 +489,8 @@ class MrgModel {
     var i = 0;
     do {
       i++;
-      String token = await UserModel.instance.getUserToken();
-      dio.options.headers = {"Authorization": "Bearer " + token};
+      String? token = await UserModel.instance.getUserToken();
+      dio.options.headers = {"Authorization": "Bearer " + token!};
       res = await dio.post(getHostName() + "/mrg/api/v1/register/", data: data);
 
       if (res.data is Map) {
@@ -554,8 +554,8 @@ class MrgModel {
     var i = 0;
     do {
       i++;
-      String token = await UserModel.instance.getUserToken();
-      dio.options.headers = {"Authorization": "Bearer " + token};
+      String? token = await UserModel.instance.getUserToken();
+      dio.options.headers = {"Authorization": "Bearer " + token!};
       res = await dio.post(getHostName() + "/mrg/api/v1/account/demo/request/",
           data: {"account": account});
 
@@ -589,8 +589,8 @@ class MrgModel {
     var i = 0;
     do {
       i++;
-      String token = await UserModel.instance.getUserToken();
-      dio.options.headers = {"Authorization": "Bearer " + token};
+      String? token = await UserModel.instance.getUserToken();
+      dio.options.headers = {"Authorization": "Bearer " + token!};
       res = await dio.post(getHostName() + "/mrg/api/v1/account/request/",
           data: {"account": account});
 
@@ -637,8 +637,8 @@ class MrgModel {
     var i = 0;
     do {
       i++;
-      String token = await UserModel.instance.getUserToken();
-      dio.options.headers = {"Authorization": "Bearer " + token};
+      String? token = await UserModel.instance.getUserToken();
+      dio.options.headers = {"Authorization": "Bearer " + token!};
       res = await dio.post(
           getHostName() + "/mrg/api/v1/account/contest/request/",
           data: {});
@@ -673,8 +673,8 @@ class MrgModel {
     var i = 0;
     do {
       i++;
-      String token = await UserModel.instance.getUserToken();
-      dio.options.headers = {"Authorization": "Bearer " + token};
+      String? token = await UserModel.instance.getUserToken();
+      dio.options.headers = {"Authorization": "Bearer " + token!};
       res = await dio.post(getHostName() + "/mrg/api/v1/account/info/",
           data: {"account": account});
 
@@ -708,8 +708,8 @@ class MrgModel {
     var i = 0;
     do {
       i++;
-      String token = await UserModel.instance.getUserToken();
-      dio.options.headers = {"Authorization": "Bearer " + token};
+      String? token = await UserModel.instance.getUserToken();
+      dio.options.headers = {"Authorization": "Bearer " + token!};
       res = await dio.post(
           getHostName() + "/mrg/api/v1/account/info/margininout/",
           data: {"account": account});

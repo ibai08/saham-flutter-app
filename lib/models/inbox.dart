@@ -18,7 +18,7 @@ class InboxModel {
   final RxMap<int, dynamic> _obsBox = RxMap<int, dynamic>();
   final AppStateController appStateController = Get.Get.put(AppStateController());
 
-  SharedBoxHelper getBox() {
+  SharedBoxHelper? getBox() {
     return SharedHelper.instance.getBox(BoxName.inbox);
   }
 
@@ -33,7 +33,7 @@ class InboxModel {
   Future<void> refreshInboxByIdAsync({int? id}) async {
     try {
       Map res;
-      if (appStateController.users.value.id! > 0) {
+      if (appStateController.users.value.id > 0) {
         res = await TF2Request.authorizeRequest(
             method: 'GET',
             url: getHostName() + "/traders/api/v2/my-inbox/$id/");
@@ -66,9 +66,9 @@ class InboxModel {
 
   Future<void> refreshAllBoxAsync({clearCache = true,animateDelay = true, load = false,InboxType? type}) async {
     try {
-      SharedBoxHelper _inboxBox = SharedHelper.instance.getBox(BoxName.inbox);
+      SharedBoxHelper? _inboxBox = SharedHelper.instance.getBox(BoxName.inbox);
 
-      var inbox = await _inboxBox.getAllMap();
+      var inbox = await _inboxBox?.getAllMap();
 
       if (animateDelay) {
         // add null ke streamcontroller biar nanti UI bisa kasih action progress circular
@@ -84,19 +84,19 @@ class InboxModel {
       if (clearCache) {
         if (type == null) {
           // clear inbox
-          await _inboxBox.clearBox();
+          await _inboxBox?.clearBox();
         } else {
-          inbox.forEach((key, v) async {
+          inbox?.forEach((key, v) async {
             Map params = jsonDecode(v["params"]);
             if (enumFromString(params["type"], InboxType.values) == type) {
-              _inboxBox.delete(key);
+              _inboxBox?.delete(key);
             }
           });
           await InboxModel.instance.synchronizeInbox(type: type);
         }
       }
 
-      if (inbox.values.isEmpty ||
+      if (inbox!.values.isEmpty ||
           inbox.values.where((v) {
             Map params = jsonDecode(v["params"]);
             if (enumFromString(params["type"], InboxType.values) == type) {
@@ -144,7 +144,7 @@ class InboxModel {
 
   Future<void> removeInboxAsync({int inboxid = 0, animateDelay = true}) async {
     try {
-      SharedBoxHelper _inboxBox = SharedHelper.instance.getBox(BoxName.inbox);
+      SharedBoxHelper? _inboxBox = SharedHelper.instance.getBox(BoxName.inbox);
 
       // var inbox = await _inboxBox.getAllMap();
 
@@ -157,8 +157,8 @@ class InboxModel {
         await Future.delayed(const Duration(milliseconds: 500));
       }
 
-      Map itemInbox = await _inboxBox.getMap(inboxid.toString());
-      Map params = jsonDecode(itemInbox["params"]);
+      Map? itemInbox = await _inboxBox?.getMap(inboxid.toString());
+      Map params = jsonDecode(itemInbox?["params"]);
       List<InboxTag> tags = [];
       if (params.containsKey("tags") && params["tags"] is List) {
         tags = (params["tags"] as List)
@@ -168,7 +168,7 @@ class InboxModel {
 
       // do some work...
       await deleteInboxMessageOnServer(inboxid);
-      _inboxBox.delete(inboxid.toString());
+      _inboxBox?.delete(inboxid.toString());
 
       for (InboxTag tag in tags) {
         await refreshAllBoxNewAsync(
@@ -201,8 +201,8 @@ class InboxModel {
     int reqNo = 0;
     do {
       reqNo++;
-      String token = await UserModel.instance.getUserToken();
-      dio.options.headers = {"Authorization": "Bearer " + token};
+      String? token = await UserModel.instance.getUserToken();
+      dio.options.headers = {"Authorization": "Bearer " + token!};
       Map postParam = {"deleted": 1, "id": inboxid};
       res = await dio.post(getHostName() + "/traders/api/v1/my-inbox/delete/",
           data: postParam);
@@ -228,7 +228,7 @@ class InboxModel {
   }
 
   Future<bool> setReadInboxMessageOnServer(int inboxid) async {
-    if (appStateController.users.value.id! > 0) {
+    if (appStateController.users.value.id > 0) {
       Map data = await TF2Request.authorizeRequest(
           url: getHostName() + "/traders/api/v1/my-inbox/read/",
           method: 'POST',
@@ -240,17 +240,17 @@ class InboxModel {
     }
 
     // buat inbox count guest
-    SharedBoxHelper cache = SharedHelper.instance.getBox(BoxName.cache);
-    Map? inboxRead = await cache.getMap(CacheKey.inboxRead);
+    SharedBoxHelper? cache = SharedHelper.instance.getBox(BoxName.cache);
+    Map? inboxRead = await cache?.getMap(CacheKey.inboxRead);
     inboxRead ??= {};
     inboxRead[inboxid.toString()] = 1;
-    await cache.putMap(CacheKey.inboxRead, inboxRead);
+    await cache?.putMap(CacheKey.inboxRead, inboxRead);
 
-    SharedBoxHelper box = SharedHelper.instance.getBox(BoxName.inbox);
-    Map itemInbox = await box.getMap(inboxid.toString());
-    itemInbox["baca"] = 1;
-    await box.put(inboxid.toString(), jsonEncode(itemInbox));
-    Map params = jsonDecode(itemInbox["params"]);
+    SharedBoxHelper? box = SharedHelper.instance.getBox(BoxName.inbox);
+    Map? itemInbox = await box?.getMap(inboxid.toString());
+    itemInbox?["baca"] = 1;
+    await box?.put(inboxid.toString(), jsonEncode(itemInbox));
+    Map params = jsonDecode(itemInbox?["params"]);
     List<InboxTag> tags = [];
     if (params.containsKey("tags") && params["tags"] is List) {
       tags = (params["tags"] as List)
@@ -347,9 +347,9 @@ class InboxModel {
         return;
       }
 
-      SharedBoxHelper _inboxBox = SharedHelper.instance.getBox(BoxName.inbox);
+      SharedBoxHelper? _inboxBox = SharedHelper.instance.getBox(BoxName.inbox);
 
-      var inbox = await _inboxBox.getAllMap();
+      var inbox = await _inboxBox?.getAllMap();
 
       if (animateDelay) {
         // add null ke streamcontroller biar nanti UI bisa kasih action progress circular
@@ -365,9 +365,9 @@ class InboxModel {
       if (clearCache) {
         if (type == null) {
           // clear inbox
-          await _inboxBox.clearBox();
+          await _inboxBox?.clearBox();
         } else {
-          inbox.forEach((key, v) async {
+          inbox?.forEach((key, v) async {
             Map params = jsonDecode(v["params"]);
             List<InboxTag> tags = [];
             if (params.containsKey("tags") && params["tags"] is List) {
@@ -376,14 +376,14 @@ class InboxModel {
                   .toList();
             }
             if (tags.contains(type)) {
-              _inboxBox.delete(key);
+              _inboxBox?.delete(key);
             }
           });
           await InboxModel.instance.synchronizeInboxNew(type: type);
         }
       }
 
-      if (inbox.values.isEmpty ||
+      if (inbox!.values.isEmpty ||
           inbox.values.where((v) {
             Map params = jsonDecode(v["params"]);
             List<InboxTag> tags = [];
@@ -410,10 +410,10 @@ class InboxModel {
             type: type, loaded: inbox.values.map((v) => v["id"]).toList());
       }
 
-      inbox = await _inboxBox.getAllMap();
+      inbox = await _inboxBox?.getAllMap();
 
       // sort data sebelum ditampilkan
-      Map? sortedData = sortInbox(Map.fromIterable(inbox.values.where((v) {
+      Map? sortedData = sortInbox(Map.fromIterable(inbox!.values.where((v) {
         Map params = jsonDecode(v["params"]);
         List<InboxTag> tags = [];
 
@@ -458,7 +458,7 @@ class InboxModel {
 
     Map data;
 
-    if (appStateController.users.value.id! > 0) {
+    if (appStateController.users.value.id > 0) {
       data = await TF2Request.authorizeRequest(
           method: 'POST',
           url: getHostName() + "/traders/api/v2/my-inbox/",
@@ -517,8 +517,8 @@ class InboxModel {
       String? params,
       int? baca,
       int? created}) async {
-    SharedBoxHelper box = SharedHelper.instance.getBox(BoxName.inbox);
-    await box.put(
+    SharedBoxHelper? box = SharedHelper.instance.getBox(BoxName.inbox);
+    await box?.put(
         id.toString(),
         jsonEncode({
           "id": id,
@@ -548,15 +548,15 @@ class InboxModel {
         appStateController.setAppState(Operation.setInboxCountTag, InboxCount.fromMap(data["message"]));
       }
     } else {
-      SharedBoxHelper box = SharedHelper.instance.getBox(BoxName.inbox);
+      SharedBoxHelper? box = SharedHelper.instance.getBox(BoxName.inbox);
 
       Map inboxRead = await getInboxRead();
 
-      var inboxes = await box.getAllMap();
+      var inboxes = await box?.getAllMap();
 
       var inboxCount = InboxCount.init();
 
-      inboxes.forEach((key, value) {
+      inboxes?.forEach((key, value) {
         if (inboxRead.containsKey(value["id"].toString()) && inboxRead[value["id"].toString()] == 1) {
 
         } else {
@@ -590,9 +590,9 @@ class InboxModel {
   }
 
   Future<Map> getInboxRead() async {
-    SharedBoxHelper cache = SharedHelper.instance.getBox(BoxName.cache);
+    SharedBoxHelper? cache = SharedHelper.instance.getBox(BoxName.cache);
 
-    Map inboxRead = await cache.getMap(CacheKey.inboxRead);
+    Map? inboxRead = await cache?.getMap(CacheKey.inboxRead);
 
     inboxRead = inboxRead ?? {};
     return inboxRead;

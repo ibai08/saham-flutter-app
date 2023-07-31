@@ -48,10 +48,10 @@ class _SettingState extends State<Setting> {
         ),
         ListItemSettings(
           context: context,
-          onTap: () {
-            // Navigator.pushNamed(context, '/more/mrg');
-            showAlert(context, LoadingState.warning, "Coming Soon");
-          },
+          // onTap: () {
+          //   // Navigator.pushNamed(context, '/more/mrg');
+          //   showAlert(context, LoadingState.warning, "Coming Soon");
+          // },
           icon: Image.asset(
             // "assets/icon/brands/mrg.png",
             'assets/logo-black.png',
@@ -63,10 +63,10 @@ class _SettingState extends State<Setting> {
         ),
         ListItemSettings(
           context: context,
-          onTap: () {
-            // Navigator.pushNamed(context, '/more/askap');
-            showAlert(context, LoadingState.warning, "Coming Soon");
-          },
+          // onTap: () {
+          //   // Navigator.pushNamed(context, '/more/askap');
+          //   showAlert(context, LoadingState.warning, "Coming Soon");
+          // },
           icon: Image.asset(
             // "assets/icon/brands/mmb.png",
             'assets/logo-black.png',

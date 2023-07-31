@@ -40,7 +40,7 @@ class ListTileAction extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
                   Text(
-                    data!.login,
+                    data!.login!,
                     style: const TextStyle(
                       fontWeight: FontWeight.w600,
                       fontSize: 16.0,
@@ -53,7 +53,7 @@ class ListTileAction extends StatelessWidget {
                     accountType != null
                         ? (data?.contest == 1
                             ? "Contest"
-                            : capitalizeFirst(accountType.name))
+                            : capitalizeFirst(accountType.name!))
                         : "-",
                     style: const TextStyle(fontSize: 14.0),
                   ),
@@ -61,7 +61,7 @@ class ListTileAction extends StatelessWidget {
                     data?.date == null
                         ? "-"
                         : DateFormat('yyyy-MM-dd HH:mm:ss')
-                            .format(data!.date.toLocal()),
+                            .format(data!.date!.toLocal()),
                     style: const TextStyle(fontSize: 12.0),
                   ),
                 ],
@@ -80,8 +80,8 @@ class ListTileAction extends StatelessWidget {
                 try {
                   switch (value) {
                     case '1':
-                      MarginInfo marginInfo =
-                          await MrgModel.getMarginInfo(data!.login);
+                      MarginInfo? marginInfo =
+                          await MrgModel.getMarginInfo(data!.login!);
 
                       if (marginInfo == null) {
                         throw Exception("UNABLE_TO_CONNECT");
@@ -98,8 +98,8 @@ class ListTileAction extends StatelessWidget {
 
                       break;
                     case '4':
-                      MarginInOut margin =
-                          await MrgModel.getMarginInOut(data!.login);
+                      MarginInOut? margin =
+                          await MrgModel.getMarginInOut(data!.login!);
 
                       if (margin == null) {
                         throw Exception("UNABLE_TO_CONNECT");

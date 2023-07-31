@@ -31,10 +31,10 @@ class _ChartSahamState extends State<ChartSaham> {
     // List<dynamic> items = jsonData['data'];
     List<FlSpot> spots = data.map((item) {
       final dateFormatter = DateFormat('yyyy-MM-dd HH:mm');
-      final date = dateFormatter.parse(item.x);
+      final date = dateFormatter.parse(item.x!);
       final seconds = date.millisecondsSinceEpoch / 1000.0;
       double x = seconds.toDouble();
-      double y = double.tryParse(item.y) ?? 0.0;
+      double y = double.tryParse(item.y!) ?? 0.0;
       return FlSpot(x, y);
     }).toList();
     setState(() {

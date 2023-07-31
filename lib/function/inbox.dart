@@ -5,7 +5,7 @@ import 'package:intl/intl.dart';
 import 'package:saham_01_app/models/entities/inbox.dart';
 import 'package:saham_01_app/views/widgets/inboxItem.dart';
 
-List<Widget> prepareInboxItem(Map data, {InboxType type}) {
+List<Widget> prepareInboxItem(Map data, {InboxType? type}) {
   List<Widget> items = [];
   try {
     data.forEach((k, v) {

@@ -3,7 +3,7 @@ import 'package:saham_01_app/core/getStorage.dart';
 
 var settings = {"mode": "production"};
 
-FirebaseRemoteConfig? remoteConfig;
+var remoteConfig = FirebaseRemoteConfig.instance;
 const String tableCfg = 'cfg';
 const String columnId = 'id';
 const String columnParams = 'params';
@@ -43,10 +43,12 @@ Future<bool> updateCfgAsync(String id, String params) async {
 Future<String?> getCfgAsync(String id) async {
   try {
     SharedBoxHelper? boxs = SharedHelper.instance.getBox(BoxName.config);
+    // print(boxs?.init());
     String data = await boxs!.get(id);
     return data;
   } catch (e) {
     print("GetCfgAsync Error");
+    print("error disini");
     print(e);
   }
   return null;

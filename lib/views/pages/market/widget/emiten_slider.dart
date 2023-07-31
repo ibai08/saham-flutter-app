@@ -14,7 +14,7 @@ class EmitenCategory extends StatefulWidget {
 
 class _EmitenCategoryState extends State<EmitenCategory> {
   String activeButton = 'Most Active';
-  List<Map<String, String>> activeDataButton = [];
+  List<Map<String, String?>> activeDataButton = [];
 
   Future<EmitenModels> getDataFromJson() async {
     String jsonString =
@@ -254,7 +254,7 @@ class EmitenItems extends StatelessWidget {
 }
 
 class EmitenItemsLooping extends StatelessWidget {
-  final List<Map<String, String>> emitenData;
+  final List<Map<String, String?>> emitenData;
 
   // ignore: use_key_in_widget_constructors
   const EmitenItemsLooping(this.emitenData);

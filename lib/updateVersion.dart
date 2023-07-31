@@ -112,7 +112,7 @@ class _UpdateVersionViewState extends State<UpdateVersionView> {
                     ),
                     TextSpan(
                         text:
-                            "${remoteConfig?.getString('force_update_version_string')}",
+                            "${remoteConfig.getString('force_update_version_string')}",
                         style: const  TextStyle(
                           fontWeight: FontWeight.w600,
                         )),

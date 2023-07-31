@@ -5,7 +5,7 @@ class ProtraderModel {
     Map fetchData = await TF2Request.request(
         url: getHostName() + "/traders/api/v1/protrader/register/",
         method: 'POST',
-        postParam: data!);
+        postParam: data);
     return fetchData["message"];
   }
 }

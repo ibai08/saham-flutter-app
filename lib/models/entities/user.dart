@@ -1,5 +1,5 @@
 class UserInfo {
-  int? id = 0;
+  int id = 0;
   String? email;
   String? fullname;
   String? phone;
@@ -25,7 +25,7 @@ class UserInfo {
   int? askapid;
 
   UserInfo({
-    this.id,
+    required this.id,
     this.email,
     this.fullname,
     this.phone,

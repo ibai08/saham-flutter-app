@@ -40,7 +40,7 @@ void main() {
       final boxName = 'testBox';
       final sharedBoxHelper = sharedHelper.getBox(boxName);
 
-      expect(sharedBoxHelper.boxName, boxName);
+      expect(sharedBoxHelper?.boxName, boxName);
     });
 
     // Add more tests for other functions in SharedHelper if needed.

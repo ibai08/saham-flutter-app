@@ -75,8 +75,8 @@ class ChannelThumb extends StatelessWidget {
     // Watch the channel cache and update the channelStream accordingly
     Future.delayed(Duration(seconds: 0)).then((_) async {
       channelStream?.value = channel;
-      Rx<String>? data = await channel.watchChannelCache(appStateController.users.value.id);
-      if (data != null && data.isNotEmpty) {
+      Rx<String?>? data = await channel.watchChannelCache(appStateController.users.value.id);
+      if (data != null && data.isNotEmpty!) {
         try {
           Map boxData = jsonDecode(data as String);
           if (boxData.containsKey("data")) {

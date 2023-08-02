@@ -18,7 +18,7 @@ class RecentProfitSignalWidgetNew extends StatelessWidget {
   final List<SignalInfo>? data;
   final Level? medal;
 
-  RecentProfitSignalWidgetNew({Key? key, this.data, this.medal})
+  const RecentProfitSignalWidgetNew({Key? key, this.data, this.medal})
       : super(key: key);
 
   @override
@@ -30,14 +30,14 @@ class RecentProfitSignalWidgetNew extends StatelessWidget {
       child: GetX<SignalController>(
         builder: (controller) {
           if (controller.signalList.isEmpty) {
-            return HomeSignalJustMadeProfitShimmer();
+            return const HomeSignalJustMadeProfitShimmer();
           }
           return controller.signalList.isNotEmpty
               ? RecommendedSignal(
                   listSignalData: controller.signalList,
                   medal: medal!,
                 )
-              : SizedBox();
+              : const SizedBox();
         },
       ),
     );
@@ -61,7 +61,7 @@ class RecommendedSignal extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.start,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        TitlePartHome(
+        const TitlePartHome(
           title: "Signal yang baru saja profit",
         ),
         RecentSignalListWidget(listSignalData, medal),

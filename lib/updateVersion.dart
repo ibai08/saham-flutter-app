@@ -47,7 +47,7 @@ class _UpdateVersionViewState extends State<UpdateVersionView> {
         controller: _refreshController,
         onRefresh: _onRefresh,
         child: Container(
-          padding: EdgeInsets.symmetric(
+          padding: const EdgeInsets.symmetric(
             horizontal: 25,
           ),
           child: Column(
@@ -60,22 +60,22 @@ class _UpdateVersionViewState extends State<UpdateVersionView> {
                 "assets/logo-gray.png",
                 width: 60,
               )),
-              SizedBox(
+              const SizedBox(
                 height: 15,
               ),
-              Text(
+              const Text(
                 "Update Tersedia",
                 style: TextStyle(fontWeight: FontWeight.w600, fontSize: 21),
                 textAlign: TextAlign.center,
               ),
-              SizedBox(
+              const SizedBox(
                 height: 5,
               ),
-              Text(
+              const Text(
                 "Sejak terakhir kamu perbarui, aplikasi XYZ makin sempurna. Kamu perlu memperbarui aplikasi ini.",
                 textAlign: TextAlign.center,
               ),
-              SizedBox(
+              const SizedBox(
                 height: 15,
               ),
               StreamBuilder<PackageInfo>(
@@ -112,7 +112,7 @@ class _UpdateVersionViewState extends State<UpdateVersionView> {
                     ),
                     TextSpan(
                         text:
-                            "${remoteConfig.getString('force_update_version_string')}",
+                            remoteConfig.getString('force_update_version_string'),
                         style: const  TextStyle(
                           fontWeight: FontWeight.w600,
                         )),

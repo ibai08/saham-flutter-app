@@ -1,4 +1,3 @@
-import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:saham_01_app/controller/appStatesController.dart';
 import 'package:saham_01_app/core/device.dart';

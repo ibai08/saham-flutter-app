@@ -115,7 +115,7 @@ class ListTileAction extends StatelessWidget {
                   }
                 } catch (ex) {
                   print(ex);
-                  dlg.setProgress(
+                  dlg.controller.setProgress(
                       LoadingState.error, translateFromPattern(ex.toString()));
                   await Future.delayed(const Duration(seconds: 2));
                   Navigator.pop(context);

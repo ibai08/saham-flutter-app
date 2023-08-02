@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_unnecessary_containers
+
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -63,9 +65,9 @@ class SignalDetailWithHeaderNew extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     if (level == null || level?.level ==  null) {
-      return SizedBox();
+      return const SizedBox();
     }
-    var m = DateTime.parse(createdAt!).add(Duration(hours: 7));
+    var m = DateTime.parse(createdAt!).add(const Duration(hours: 7));
     // var dateExp = m.add(Duration(seconds: expired));
 
     // Color cusColors = Colors.black;
@@ -161,8 +163,8 @@ class SignalDetailWithHeaderNew extends StatelessWidget {
         mainAxisSize: MainAxisSize.max,
         children: <Widget>[
           Container(
-            margin: EdgeInsets.symmetric(horizontal: 20, vertical: 8),
-            padding: EdgeInsets.only(left: 5, right: 15, bottom: 10),
+            margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
+            padding: const EdgeInsets.only(left: 5, right: 15, bottom: 10),
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(4),
               color: AppColors.white
@@ -227,8 +229,8 @@ class SignalDetailWithHeaderNew extends StatelessWidget {
                         title: title,
                         subscriber: subscriber,
                       ),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 15),
+                      const Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 15),
                         child: Divider(
                           height: 1,
                           thickness: 1,
@@ -237,11 +239,11 @@ class SignalDetailWithHeaderNew extends StatelessWidget {
                           color: Color(0xFFC9CCCF),
                         ),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 5,
                       ),
                       Container(
-                        margin: EdgeInsets.all(15.5),
+                        margin: const EdgeInsets.all(15.5),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: <Widget>[
@@ -252,7 +254,7 @@ class SignalDetailWithHeaderNew extends StatelessWidget {
                                 children: [
                                   Text(
                                     symbol!,
-                                    style: TextStyle(
+                                    style: const TextStyle(
                                       fontFamily: 'Manrope',
                                       fontSize: 16,
                                       fontWeight: FontWeight.w600
@@ -260,7 +262,7 @@ class SignalDetailWithHeaderNew extends StatelessWidget {
                                   ),
                                   Text(
                                     titleSymbol,
-                                    style: TextStyle(
+                                    style: const TextStyle(
                                       fontFamily: 'Manrope',
                                       fontSize: 12, 
                                     ),
@@ -283,8 +285,8 @@ class SignalDetailWithHeaderNew extends StatelessWidget {
                                     ),
                                   ),
                                   Text(
-                                    "$postedDate",
-                                    style: TextStyle(
+                                    postedDate,
+                                    style: const TextStyle(
                                       fontFamily: 'Manrope',
                                       fontSize: 10,
                                     ),

@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_typing_uninitialized_variables
+// ignore_for_file: prefer_typing_uninitialized_variables, avoid_print
 
 import 'dart:convert';
 
@@ -16,7 +16,7 @@ class InboxItem extends StatefulWidget {
   final date;
   final data;
   final InboxType? type;
-  InboxItem(
+  const InboxItem(
       {Key? key,
       this.title,
       this.description,

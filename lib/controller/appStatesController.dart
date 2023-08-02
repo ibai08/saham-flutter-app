@@ -1,5 +1,5 @@
 // ignore: file_names
-// ignore_for_file: prefer_const_declarations
+// ignore_for_file: prefer_const_declarations, empty_catches
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';

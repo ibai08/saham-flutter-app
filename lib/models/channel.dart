@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_print, empty_catches
+
 import 'dart:io';
 
 import 'package:dio/dio.dart';

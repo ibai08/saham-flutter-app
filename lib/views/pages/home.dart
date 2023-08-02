@@ -9,6 +9,8 @@
 //   }
 // }
 
+// ignore_for_file: sized_box_for_whitespace, avoid_unnecessary_containers, prefer_is_empty, avoid_print, empty_catches, unused_field
+
 import 'dart:convert';
 import 'dart:io';
 
@@ -21,8 +23,8 @@ import 'package:saham_01_app/constants/app_colors.dart';
 import 'package:saham_01_app/controller/appStatesController.dart';
 import 'package:saham_01_app/core/analytics.dart';
 import 'package:saham_01_app/core/config.dart';
-import 'package:saham_01_app/core/getStorage.dart';
 import 'package:saham_01_app/core/string.dart';
+import 'package:saham_01_app/function/showAlert.dart';
 import 'package:saham_01_app/models/channel.dart';
 import 'package:saham_01_app/models/entities/ois.dart';
 import 'package:saham_01_app/models/entities/post.dart';
@@ -31,6 +33,7 @@ import 'package:saham_01_app/models/ois.dart';
 import 'package:saham_01_app/models/post.dart';
 import 'package:saham_01_app/models/signal.dart';
 import 'package:saham_01_app/views/widgets/channelAvatar.dart';
+import 'package:saham_01_app/views/widgets/dialogLoading.dart';
 import 'package:saham_01_app/views/widgets/homeTopRankShimmer.dart';
 import 'package:saham_01_app/views/widgets/recentProfitSignalNew.dart';
 
@@ -195,13 +198,13 @@ class _HomeState extends State<Home> with AutomaticKeepAliveClientMixin {
         physics: const BouncingScrollPhysics(),
         scrollDirection: Axis.vertical,
         children: <Widget>[
-          TotalBalance(),
+          const TotalBalance(),
           const SizedBox(height: 20),
           // ChannelTranding(),
           MostConsistentChannel(medal: medal, futureList: getMostConsistentChannels(),),
           const SizedBox(height: 20),
           Container(
-            margin: EdgeInsets.only(top: 25),
+            margin: const EdgeInsets.only(top: 25),
             child: RecentProfitSignalWidgetNew(
               data: closedSignal,
               medal: medal,
@@ -328,7 +331,7 @@ class TotalBalance extends StatelessWidget {
             // ==> BOX BUYING POWER
             Container(
               decoration: BoxDecoration(
-                  color: AppColors.purplePrimary, borderRadius: const BorderRadius.only(bottomLeft: const Radius.circular(8), bottomRight: const Radius.circular(8))),
+                  color: AppColors.purplePrimary, borderRadius: const BorderRadius.only(bottomLeft: Radius.circular(8), bottomRight: Radius.circular(8))),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -390,6 +393,8 @@ class TotalBalance extends StatelessWidget {
 }
 
 class ChannelTranding extends StatelessWidget {
+  const ChannelTranding({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -400,7 +405,7 @@ class ChannelTranding extends StatelessWidget {
           padding: const EdgeInsets.symmetric(horizontal: 18),
           child: const Text(
             "Channel Tranding",
-            style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w600, height: 1.8, fontFamily: 'Manrope'),
+            style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600, height: 1.8, fontFamily: 'Manrope'),
           ),
         ),
         const SizedBox(height: 10),
@@ -415,7 +420,7 @@ class ChannelTranding extends StatelessWidget {
                 height: 165,
                 decoration: const BoxDecoration(
                   color: Colors.white,
-                  borderRadius: const BorderRadius.all(const Radius.circular(8)),
+                  borderRadius: BorderRadius.all(Radius.circular(8)),
                 ),
                 child: Column(
                   children: [
@@ -437,12 +442,12 @@ class ChannelTranding extends StatelessWidget {
                             child: Column(
                               mainAxisAlignment: MainAxisAlignment.center,
                               crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                const Text(
+                              children: const [
+                                Text(
                                   "Tanjiro Kamado",
                                   style: TextStyle(fontSize: 14, fontWeight: FontWeight.w400, fontFamily: 'Manrope'),
                                 ),
-                                const Text(
+                                Text(
                                   "Legend | 136 Subscribers",
                                   style: TextStyle(fontSize: 10, fontWeight: FontWeight.w400, fontFamily: 'Manrope'),
                                 ),
@@ -480,7 +485,7 @@ class ChannelTranding extends StatelessWidget {
                           style: ElevatedButton.styleFrom(
                             primary: const Color(0xFF350699),
                           ),
-                          child: const Text("Subscribe for Rp300.000", style: const TextStyle(fontSize: 12, fontWeight: FontWeight.w400, fontFamily: 'Manrope')),
+                          child: const Text("Subscribe for Rp300.000", style: TextStyle(fontSize: 12, fontWeight: FontWeight.w400, fontFamily: 'Manrope')),
                         ),
                       ),
                     ),
@@ -515,14 +520,14 @@ class ChannelTranding extends StatelessWidget {
                             child: Column(
                               mainAxisAlignment: MainAxisAlignment.center,
                               crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                const Text(
+                              children: const [
+                                Text(
                                   "Nezuko Kamado",
-                                  style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w400, fontFamily: 'Manrope'),
+                                  style: TextStyle(fontSize: 14, fontWeight: FontWeight.w400, fontFamily: 'Manrope'),
                                 ),
-                                const Text(
+                                Text(
                                   "Legend | 100 Subscribers",
-                                  style: const TextStyle(fontSize: 10, fontWeight: FontWeight.w400, fontFamily: 'Manrope'),
+                                  style: TextStyle(fontSize: 10, fontWeight: FontWeight.w400, fontFamily: 'Manrope'),
                                 ),
                               ],
                             ),
@@ -558,7 +563,7 @@ class ChannelTranding extends StatelessWidget {
                           style: ElevatedButton.styleFrom(
                             primary: const Color(0xFF350699),
                           ),
-                          child: const Text("Subscribe for Rp300.000", style: const TextStyle(fontSize: 12, fontWeight: FontWeight.w400, fontFamily: 'Manrope')),
+                          child: const Text("Subscribe for Rp300.000", style: TextStyle(fontSize: 12, fontWeight: FontWeight.w400, fontFamily: 'Manrope')),
                         ),
                       ),
                     ),
@@ -571,7 +576,7 @@ class ChannelTranding extends StatelessWidget {
                 height: 165,
                 decoration: const BoxDecoration(
                   color: Colors.white,
-                  borderRadius: BorderRadius.all(const Radius.circular(8)),
+                  borderRadius: BorderRadius.all(Radius.circular(8)),
                 ),
                 child: Column(
                   children: [
@@ -593,14 +598,14 @@ class ChannelTranding extends StatelessWidget {
                             child: Column(
                               mainAxisAlignment: MainAxisAlignment.center,
                               crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                const Text(
+                              children: const [
+                                Text(
                                   "Serizawa Tamao",
-                                  style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w400, fontFamily: 'Manrope'),
+                                  style: TextStyle(fontSize: 14, fontWeight: FontWeight.w400, fontFamily: 'Manrope'),
                                 ),
-                                const Text(
+                                Text(
                                   "Legend | 200 Subscribers",
-                                  style: const TextStyle(fontSize: 10, fontWeight: FontWeight.w400, fontFamily: 'Manrope'),
+                                  style: TextStyle(fontSize: 10, fontWeight: FontWeight.w400, fontFamily: 'Manrope'),
                                 ),
                               ],
                             ),
@@ -617,7 +622,7 @@ class ChannelTranding extends StatelessWidget {
                           const SizedBox(width: 8),
                           const Text(
                             "+102.8%",
-                            style: const TextStyle(
+                            style: TextStyle(
                               fontSize: 20,
                               fontWeight: FontWeight.w600,
                               color: Color(0xFF00B451),
@@ -672,6 +677,8 @@ class ChannelTranding extends StatelessWidget {
 
 // ==> BOX SIGNAL BARU SAJA PROFIT
 class NewProfitSignal extends StatelessWidget {
+  const NewProfitSignal({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -697,7 +704,7 @@ class NewProfitSignal extends StatelessWidget {
                 height: 150,
                 decoration: const BoxDecoration(
                   color: Colors.white,
-                  borderRadius: const BorderRadius.all(Radius.circular(8)),
+                  borderRadius: BorderRadius.all(Radius.circular(8)),
                 ),
                 child: Column(
                   children: [
@@ -722,14 +729,14 @@ class NewProfitSignal extends StatelessWidget {
                                 child: Column(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    const Text(
+                                  children: const [
+                                    Text(
                                       "Tanjiro Kamado",
-                                      style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w400, fontFamily: 'Manrope'),
+                                      style: TextStyle(fontSize: 14, fontWeight: FontWeight.w400, fontFamily: 'Manrope'),
                                     ),
-                                    const Text(
+                                    Text(
                                       "Legend | 136 Subscribers",
-                                      style: const TextStyle(fontSize: 10, fontWeight: FontWeight.w400, fontFamily: 'Manrope'),
+                                      style: TextStyle(fontSize: 10, fontWeight: FontWeight.w400, fontFamily: 'Manrope'),
                                     ),
                                   ],
                                 ),
@@ -769,9 +776,9 @@ class NewProfitSignal extends StatelessWidget {
                             height: 40,
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                const Text("BRIS", style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w600, fontFamily: 'Manrope')),
-                                const Text("Bank Syariah Indonesia Tbk.",
+                              children: const [
+                                Text("BRIS", style: TextStyle(fontSize: 14, fontWeight: FontWeight.w600, fontFamily: 'Manrope')),
+                                Text("Bank Syariah Indonesia Tbk.",
                                     style: TextStyle(fontSize: 10, fontWeight: FontWeight.w400, fontFamily: 'Manrope')),
                               ],
                             ),
@@ -829,12 +836,12 @@ class NewProfitSignal extends StatelessWidget {
                                 child: Column(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    const Text(
+                                  children: const [
+                                    Text(
                                       "Tanjiro Kamado",
                                       style: TextStyle(fontSize: 14, fontWeight: FontWeight.w400, fontFamily: 'Manrope'),
                                     ),
-                                    const Text(
+                                    Text(
                                       "Legend | 136 Subscribers",
                                       style: TextStyle(fontSize: 10, fontWeight: FontWeight.w400, fontFamily: 'Manrope'),
                                     ),
@@ -858,12 +865,12 @@ class NewProfitSignal extends StatelessWidget {
                     // ==> DIVIDER GARIS
                     const Padding(
                       padding: EdgeInsets.symmetric(horizontal: 15),
-                      child: const Divider(
+                      child: Divider(
                         height: 1,
                         thickness: 1,
                         indent: 1,
                         endIndent: 0,
-                        color: const Color(0xFFC9CCCF),
+                        color: Color(0xFFC9CCCF),
                       ),
                     ),
                     Padding(
@@ -876,10 +883,10 @@ class NewProfitSignal extends StatelessWidget {
                             height: 40,
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                const Text("BRIS", style: TextStyle(fontSize: 14, fontWeight: FontWeight.w600, fontFamily: 'Manrope')),
-                                const Text("Bank Syariah Indonesia Tbk.",
-                                    style: const TextStyle(fontSize: 10, fontWeight: FontWeight.w400, fontFamily: 'Manrope')),
+                              children: const [
+                                Text("BRIS", style: TextStyle(fontSize: 14, fontWeight: FontWeight.w600, fontFamily: 'Manrope')),
+                                Text("Bank Syariah Indonesia Tbk.",
+                                    style: TextStyle(fontSize: 10, fontWeight: FontWeight.w400, fontFamily: 'Manrope')),
                               ],
                             ),
                           ),
@@ -932,7 +939,7 @@ class NewProfitSignal extends StatelessWidget {
 
 
 class MostConsistentChannel extends StatefulWidget {
-  MostConsistentChannel({Key? key, this.futureList, this.medal}) : super(key: key);
+  const MostConsistentChannel({Key? key, this.futureList, this.medal}) : super(key: key);
   @override
   _MostConsistentChannel createState() => _MostConsistentChannel();
 
@@ -947,11 +954,11 @@ class _MostConsistentChannel extends State<MostConsistentChannel> {
         future: widget.futureList,
         builder: (context, snapshot) {
           if (snapshot.hasError || snapshot.data == null) {
-            return HomeTopRankShimmer(pT: 90);
+            return const HomeTopRankShimmer(pT: 90);
           }
           return Container(
             width: MediaQuery.of(context).size.width,
-            margin: EdgeInsets.only(top: 25),
+            margin: const EdgeInsets.only(top: 25),
             child: Column(
               children: <Widget>[
                 Column(
@@ -977,7 +984,7 @@ class _MostConsistentChannel extends State<MostConsistentChannel> {
                   ],
                 ),
                 SingleChildScrollView(
-                  padding: EdgeInsets.only(left: 12, right: 12),
+                  padding: const EdgeInsets.only(left: 12, right: 12),
                   scrollDirection: Axis.horizontal,
                   child: Row(
                       children: snapshot.data!.map((ChannelCardSlim map) {
@@ -1021,10 +1028,13 @@ class MostConsistentChannelThumbNew extends StatelessWidget {
       channelInfo?.addError(e);
     }
   }
+  @override
   Widget build(BuildContext context) {
     if (medal?.level == null) {
-      return HomeTopRankShimmer(pT: 0);
+      return const HomeTopRankShimmer(pT: 0);
     }
+    fetchData();
+    // print("ini user: ${appStateController.users.value.username}");
     // Future.delayed(Duration(seconds: 0)).then((_) async {
     //   channelStream.add(channel);
     //   channelSubs = await channel.watchChannelCache(store.state.user.id);
@@ -1042,10 +1052,11 @@ class MostConsistentChannelThumbNew extends StatelessWidget {
     // });
 
     return Obx(() {
+      UserInfo? user;
       ChannelCardSlim? tChannel = channelInfo?.value;
       tChannel ??= channel;
         // ChannelCardSlim tChannel = snapshot.data;
-        String btnLabel = 'Subsribe for FREE';
+        String btnLabel = 'Subscribe for FREE';
         Color btnColor = AppColors.blueGem;
         Color txtcolor = Colors.white;
         if (tChannel?.username == appStateController.users.value.username) {
@@ -1062,28 +1073,32 @@ class MostConsistentChannelThumbNew extends StatelessWidget {
           btnLabel = "Subscribe for Rp " +
               NumberFormat("#,###", "ID").format(tChannel.price);
         }
+        // print("ini tUser");
+        // print(tChannel?.username);
+        // print("ini appUser");
+        // print(appStateController.users.value.username);
         return GestureDetector(
           onTap: () {
-            UserInfo user = appStateController.users.value;
-            if (user.id > 0) {
+           
+            if (user!.id > 0) {
               firebaseAnalytics
                   .logViewItem(items: [AnalyticsEventItem(itemId: "${channel?.id}", itemName: "${channel?.name}", itemCategory: "Channel", locationId: "Consistent Channel", )])
                   .then((_) {}, onError: (err) {});
               OisModel.instance.logActions(channelId: channel?.id, actionName: "view", stateName: from).then((x) {}).catchError((err) {});
               Navigator.pushNamed(context, '/dsc/channels/', arguments: channel?.id);
             } else {
-              // showAlert(context, LoadingState.warning, "Anda harus login terlebih dahulu untuk melihat channel", then: (x) {
-              //   Navigator.pushNamed(context, '/forms/login');
-              // });
+              showAlert(context, LoadingState.warning, "Anda harus login terlebih dahulu untuk melihat channel", thens: (x) {
+                Navigator.pushNamed(context, '/forms/login');
+              });
             }
           },
           child: Container(
-            margin: EdgeInsets.symmetric(horizontal: 9, vertical: 5),
-            padding: EdgeInsets.only(top: 15, bottom: 15, left: 10, right: 10),
+            margin: const EdgeInsets.symmetric(horizontal: 9, vertical: 5),
+            padding: const EdgeInsets.only(top: 15, bottom: 15, left: 10, right: 10),
             width: 240,
             decoration: BoxDecoration(
               color: AppColors.white,
-              borderRadius: BorderRadius.all(Radius.circular(8)),
+              borderRadius: const BorderRadius.all(Radius.circular(8)),
             ),
             child: Column(
               children: [
@@ -1093,7 +1108,7 @@ class MostConsistentChannelThumbNew extends StatelessWidget {
                       width: 40,
                       imageUrl: channel?.avatar,
                     ),
-                    SizedBox(
+                    const SizedBox(
                       width: 2,
                     ),
                     Image.asset(
@@ -1108,12 +1123,12 @@ class MostConsistentChannelThumbNew extends StatelessWidget {
                           Text(
                             "${channel?.name}",
                             overflow: TextOverflow.ellipsis,
-                            style: TextStyle(
+                            style: const TextStyle(
                               fontWeight: FontWeight.w600,
                               fontSize: 14
                             ),
                           ),
-                          SizedBox(
+                          const SizedBox(
                             height: 3,
                           ),
                           RichText(
@@ -1135,7 +1150,7 @@ class MostConsistentChannelThumbNew extends StatelessWidget {
                                 ),
                                 TextSpan(
                                   text: "  |  ${channel?.subscriber} Subscriber",
-                                  style: TextStyle(fontSize: 9.5),
+                                  style: const TextStyle(fontSize: 9.5),
                                 ),
                               ]
                             ),
@@ -1150,7 +1165,7 @@ class MostConsistentChannelThumbNew extends StatelessWidget {
                   child: Row(
                     children: [
                       Image.asset("assets/icon/light/trending-up.png"),
-                      SizedBox(width: 8),
+                      const SizedBox(width: 8),
                       Text(
                         "+${numberShortener(channel!.profit!.ceil() * 10000)}",
                         style: TextStyle(
@@ -1163,7 +1178,7 @@ class MostConsistentChannelThumbNew extends StatelessWidget {
                   ),
                 ),
                 Container(
-                  margin: EdgeInsets.only(top: 10, right: 8, bottom: 3, left: 8),
+                  margin: const EdgeInsets.only(top: 10, right: 8, bottom: 3, left: 8),
                   width: double.infinity,
                   child: TextButton(
                     onPressed: () {
@@ -1184,7 +1199,7 @@ class MostConsistentChannelThumbNew extends StatelessWidget {
                     style: TextButton.styleFrom(
                       backgroundColor: btnColor,
                       tapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                      padding: EdgeInsets.all(10),
+                      padding: const EdgeInsets.all(10),
                       shape: const RoundedRectangleBorder(
                         borderRadius: BorderRadius.only(
                           topLeft: Radius.circular(4),
@@ -1221,7 +1236,7 @@ class TitlePartHome extends StatelessWidget {
       padding: const EdgeInsets.only(left: 23, bottom: 10),
       child: Text(
         title!,
-        style: TextStyle(fontWeight: FontWeight.w600, fontSize: 16),
+        style: const TextStyle(fontWeight: FontWeight.w600, fontSize: 16),
         textAlign: TextAlign.left,
       ),
     );

@@ -1,9 +1,11 @@
-// ignore_for_file: avoid_unnecessary_containers
+// ignore_for_file: avoid_unnecessary_containers, sized_box_for_whitespace
 
 import 'package:flutter/material.dart';
 import '../../../../constants/app_colors.dart';
 
 class EmitenItem extends StatelessWidget {
+  const EmitenItem({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -24,7 +26,7 @@ class EmitenItem extends StatelessWidget {
                 height: 70,
                 decoration: const BoxDecoration(
                   color: Colors.white,
-                  borderRadius: const BorderRadius.all(const Radius.circular(8)),
+                  borderRadius: BorderRadius.all(Radius.circular(8)),
                 ),
                 // ITEM 1
                 child: Column(
@@ -49,8 +51,8 @@ class EmitenItem extends StatelessWidget {
                                 child: Column(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    const Text(
+                                  children: const [
+                                    Text(
                                       'ASLC',
                                       style: TextStyle(
                                         fontSize: 14,
@@ -58,9 +60,9 @@ class EmitenItem extends StatelessWidget {
                                         fontFamily: 'Manrope'
                                       ),
                                     ),
-                                    const Text(
+                                    Text(
                                       'Autopedia Sukses Lestari Tbk.',
-                                      style: const TextStyle(
+                                      style: TextStyle(
                                         fontSize: 10,
                                         fontWeight: FontWeight.w400,
                                         fontFamily: 'Manrope'
@@ -110,7 +112,7 @@ class EmitenItem extends StatelessWidget {
                 height: 70,
                 decoration: const BoxDecoration(
                   color: Colors.white,
-                  borderRadius: const BorderRadius.all(Radius.circular(8)),
+                  borderRadius: BorderRadius.all(Radius.circular(8)),
                 ),
                 child: Column(
                   children: [
@@ -155,7 +157,6 @@ class EmitenItem extends StatelessWidget {
                                 ),
                               ),
                               const SizedBox(width: 135,),
-                              // ignore: avoid_unnecessary_containers
                               Container(
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.end,
@@ -196,7 +197,7 @@ class EmitenItem extends StatelessWidget {
                 height: 70,
                 decoration: const BoxDecoration(
                   color: Colors.white,
-                  borderRadius: const BorderRadius.all(Radius.circular(8)),
+                  borderRadius: BorderRadius.all(Radius.circular(8)),
                 ),
                 child: Column(
                   children: [
@@ -375,7 +376,6 @@ class EmitenItem extends StatelessWidget {
                         children: [
                           Row(
                             children: [
-                              // ignore: sized_box_for_whitespace
                               Container(
                                 width: 45,
                                 child: CircleAvatar(

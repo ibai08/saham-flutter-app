@@ -3,8 +3,8 @@
 import 'package:flutter/material.dart';
 
 class BtnWithIcon extends StatelessWidget {
-  BtnWithIcon(
-      {Key? key, this.title, this.icon, this.color, this.txtColor, this.url});
+  const BtnWithIcon(
+      {Key? key, this.title, this.icon, this.color, this.txtColor, this.url}): super(key: key);
   final title;
   final icon;
   final color;

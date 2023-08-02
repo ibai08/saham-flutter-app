@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_print
+
 import 'dart:io';
 
 import 'package:firebase_auth/firebase_auth.dart';
@@ -15,7 +17,7 @@ Future<dynamic> myBackgroundMessageHandler(RemoteMessage message) async {
 }
 
 class FCM {
-  FirebaseMessaging _fcm = FirebaseMessaging.instance;
+  final FirebaseMessaging _fcm = FirebaseMessaging.instance;
   bool init = false;
   FirebaseAuth fauth = FirebaseAuth.instance;
   late FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin;

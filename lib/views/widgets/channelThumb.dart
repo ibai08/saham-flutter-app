@@ -1,3 +1,5 @@
+// ignore_for_file: unrelated_type_equality_checks, empty_catches
+
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
@@ -6,7 +8,6 @@ import 'package:intl/intl.dart';
 import 'package:saham_01_app/constants/app_colors.dart';
 import 'package:saham_01_app/controller/appStatesController.dart';
 import 'package:saham_01_app/core/string.dart';
-import 'package:saham_01_app/function/subscribeChannel.dart';
 import 'package:saham_01_app/models/entities/ois.dart';
 import 'package:saham_01_app/models/ois.dart';
 import 'package:saham_01_app/models/user.dart';
@@ -73,7 +74,7 @@ class ChannelThumb extends StatelessWidget {
     channelStream?.value = channel;
 
     // Watch the channel cache and update the channelStream accordingly
-    Future.delayed(Duration(seconds: 0)).then((_) async {
+    Future.delayed(const Duration(seconds: 0)).then((_) async {
       channelStream?.value = channel;
       Rx<String?>? data = await channel.watchChannelCache(appStateController.users.value.id);
       if (data != null && data.isNotEmpty!) {
@@ -179,7 +180,7 @@ class ChannelThumb extends StatelessWidget {
             ),
             UserModel.instance.hasLogin()
                 ? Container(
-                    margin: EdgeInsets.only(top: 10, right: 20, bottom: 20, left: 20),
+                    margin: const EdgeInsets.only(top: 10, right: 20, bottom: 20, left: 20),
                     width: double.infinity,
                     child: TextButton(
                       onPressed: () {
@@ -221,7 +222,7 @@ class ChannelThumb extends StatelessWidget {
                       ),
                     ),
                   )
-                : SizedBox(),
+                : const SizedBox(),
           ],
         ),
       );

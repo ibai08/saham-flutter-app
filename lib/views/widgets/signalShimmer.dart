@@ -281,7 +281,7 @@ class _SignalShimmerNewState extends State<SignalShimmer> {
       width: MediaQuery.of(context).size.width,
       child: ListView(
         scrollDirection: Axis.vertical,
-        padding: EdgeInsets.only(top: 15),
+        padding: const EdgeInsets.only(top: 15),
         shrinkWrap: true,
         children: [
           onLoad == "1"

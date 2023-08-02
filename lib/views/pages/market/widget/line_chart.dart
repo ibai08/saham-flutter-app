@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_print
+
 import 'dart:math';
 
 import 'package:flutter/material.dart';
@@ -83,6 +85,7 @@ class _ChartSahamState extends State<ChartSaham> {
     print("ini spots: $_spots");
   }
 
+  @override
   Widget build(BuildContext context) {
     return Column(
       children: <Widget>[
@@ -355,7 +358,7 @@ class CustomButtons extends StatelessWidget {
   final String activeButton;
   final Function setActiveButton;
 
-  CustomButtons(this.buttonText, this.activeButton, this.setActiveButton);
+  const CustomButtons(this.buttonText, this.activeButton, this.setActiveButton, {Key? key}) : super(key: key);
 
   bool get isActive => buttonText == activeButton;
 

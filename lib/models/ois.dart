@@ -170,8 +170,8 @@ class OisModel {
   Future<PaymentActions> getPaymentActions() async {
     Response res;
     Dio dio = Dio(); // with default Options
-    dio.options.connectTimeout = Duration(milliseconds: 10000); //5s
-    dio.options.receiveTimeout = Duration(milliseconds: 30000);
+    dio.options.connectTimeout = const Duration(milliseconds: 10000); //5s
+    dio.options.receiveTimeout = const Duration(milliseconds: 30000);
     Map data;
     int reqNo = 0;
     do {
@@ -209,8 +209,8 @@ class OisModel {
       ChannelCardSlim channel, int duration, int paymentMethod) async {
     Response res;
     Dio dio = Dio(); // with default Options
-    dio.options.connectTimeout = Duration(milliseconds: 10000); //5s
-    dio.options.receiveTimeout = Duration(milliseconds: 30000);
+    dio.options.connectTimeout = const Duration(milliseconds: 10000); //5s
+    dio.options.receiveTimeout = const Duration(milliseconds: 30000);
     Map data;
     int reqNo = 0;
     do {
@@ -251,8 +251,8 @@ class OisModel {
   Future<PaymentDetails> getPaymetDetail(int billNo) async {
     Response res;
     Dio dio = Dio(); // with default Options
-    dio.options.connectTimeout = Duration(milliseconds: 10000); //5s
-    dio.options.receiveTimeout = Duration(milliseconds: 30000);
+    dio.options.connectTimeout = const Duration(milliseconds: 10000); //5s
+    dio.options.receiveTimeout = const Duration(milliseconds: 30000);
     Map data;
     int reqNo = 0;
     do {
@@ -287,8 +287,8 @@ class OisModel {
   Future<List<PaymentDetails>> getPaymetHistory() async {
     Response res;
     Dio dio = Dio(); // with default Options
-    dio.options.connectTimeout = Duration(milliseconds: 10000); //5s
-    dio.options.receiveTimeout = Duration(milliseconds: 30000);
+    dio.options.connectTimeout = const Duration(milliseconds: 10000); //5s
+    dio.options.receiveTimeout = const Duration(milliseconds: 30000);
     Map data;
     int reqNo = 0;
     do {
@@ -323,8 +323,8 @@ class OisModel {
   Future<bool> cancelPayment(int billNo) async {
     Response res;
     Dio dio = Dio(); // with default Options
-    dio.options.connectTimeout = Duration(milliseconds: 10000); //5s
-    dio.options.receiveTimeout = Duration(milliseconds: 30000);
+    dio.options.connectTimeout = const Duration(milliseconds: 10000); //5s
+    dio.options.receiveTimeout = const Duration(milliseconds: 30000);
     Map data;
     int reqNo = 0;
     do {
@@ -359,8 +359,8 @@ class OisModel {
   Future<int> isPending() async {
     Response res;
     Dio dio = Dio(); // with default Options
-    dio.options.connectTimeout = Duration(milliseconds: 10000); //5s
-    dio.options.receiveTimeout = Duration(milliseconds: 30000);
+    dio.options.connectTimeout = const Duration(milliseconds: 10000); //5s
+    dio.options.receiveTimeout = const Duration(milliseconds: 30000);
     Map data;
     int reqNo = 0;
     do {

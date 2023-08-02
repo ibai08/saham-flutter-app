@@ -1,3 +1,5 @@
+// ignore_for_file: sized_box_for_whitespace
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:saham_01_app/controller/appStatesController.dart';
@@ -19,6 +21,9 @@ class _SettingState extends State<Setting> {
   List<Widget> prepareWidget(UserInfo user) {
     List<Widget> silverlist = [];
     double iconSize = 22;
+
+    print(user.username);
+    print("ini user: ${appStateController.users.value.username}");
 
     if (user.id > 0) {
       silverlist = [
@@ -167,6 +172,7 @@ class _SettingState extends State<Setting> {
             // );
             // await Future.delayed(Duration(milliseconds: 600));
             // await UserModel.instance.clearUserToken();
+            await UserModel.instance.logout();
           },
           text: "Keluar",
         ),

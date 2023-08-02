@@ -1,10 +1,9 @@
-import 'dart:io';
+// ignore_for_file: avoid_print
 
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:firebase_remote_config/firebase_remote_config.dart';
 import 'package:flutter/services.dart';
-import 'package:get_storage/get_storage.dart';
 import 'package:saham_01_app/config/tab_list.dart';
 import 'package:saham_01_app/constants/app_colors.dart';
 import 'package:saham_01_app/controller/appStatesController.dart';
@@ -17,15 +16,16 @@ import 'package:saham_01_app/firebase_options.dart';
 import 'package:flutter/material.dart';
 import 'package:saham_01_app/maintenance.dart';
 import 'package:saham_01_app/models/askap.dart';
-import 'package:saham_01_app/models/entities/user.dart';
-import 'package:saham_01_app/models/inbox.dart';
 import 'package:saham_01_app/models/mrg.dart';
 import 'package:saham_01_app/models/user.dart';
 import 'package:saham_01_app/splashScreen.dart';
 import 'package:get/get.dart';
+import 'package:saham_01_app/views/pages/form/login.dart';
+import 'package:saham_01_app/views/pages/form/verifyEmail.dart';
 import 'package:saham_01_app/views/pages/market.dart';
 import 'package:saham_01_app/views/pages/setting.dart';
 import 'package:saham_01_app/views/widgets/dialogConfirmation.dart';
+import 'package:saham_01_app/views/widgets/dialogLoading.dart';
 // import 'package:mixpanel_flutter/mixpanel_flutter.dart';
 // import 'package:redux/redux.dart';
 // import 'package:saham_01_app/updateVersion.dart';
@@ -52,8 +52,8 @@ void main() async {
 
   try {
     RemoteConfigSettings(
-        fetchTimeout: Duration(seconds: 60),
-        minimumFetchInterval: Duration(hours: 1));
+        fetchTimeout: const Duration(seconds: 60),
+        minimumFetchInterval: const Duration(hours: 1));
     remoteConfig = FirebaseRemoteConfig.instance;
     print("brshahsh");
     await remoteConfig.fetchAndActivate();
@@ -80,7 +80,7 @@ void main() async {
     print("Main error di: $x");
   }
 
-  SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+  SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
     systemNavigationBarColor: Colors.black, // navigation bar color
     statusBarColor: Colors.white, // status bar color
   ));
@@ -92,9 +92,11 @@ void main() async {
 
   firebaseAnalytics.setAnalyticsCollectionEnabled(true);
   firebaseAnalytics.logAppOpen();
+
+  Get.put(DialogLoadingController());
   
 
-  runApp(MyApp());
+  runApp(const MyApp());
 }
 
 // class AppStateController extends GetxController {
@@ -142,10 +144,12 @@ class _MyAppState extends State<MyApp> {
           ),
           initialRoute: '/',
           getPages: [
-            GetPage(name: '/home', page: () => MyHomePage()),
+            GetPage(name: '/home', page: () => const MyHomePage()),
             GetPage(name: '/homepage', page: () => Home()),
             GetPage(name: '/maintenance', page: () => MaintenanceView()),
             // GetPage(name: '/update-app', page: () => UpdateVersionView()),
+
+            GetPage(name: '/forms/login', page: () => const Login()),
           ],
           home: const SplashScreen(),
           debugShowCheckedModeBanner: false,
@@ -241,7 +245,7 @@ class _MyHomePageState extends State<MyHomePage> with WidgetsBindingObserver, Ti
             bool result = await showDialog(
               context: context,
               builder: (ctx) {
-                return DialogConfirmation(
+                return const DialogConfirmation(
                   title: 'Peringatan',
                   desc: 'Anda yakin ingin keluar dari aplikasi',
                   caps: 'KELUAR',

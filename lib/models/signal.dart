@@ -1,7 +1,6 @@
-// ignore_for_file: prefer_conditional_assignment
+// ignore_for_file: prefer_conditional_assignment, avoid_print
 
 import 'dart:convert';
-import 'dart:developer';
 
 import 'package:get/get.dart';
 import 'package:saham_01_app/controller/appStatesController.dart';
@@ -142,7 +141,7 @@ class SignalModel {
           return fetchData["message"];
         }, refreshSecond
       );
-      log(data.toString(), name: "myLog");
+      // log(data.toString(), name: "myLog");
       
       if (data is List) {
         return data.map((signalMap) => SignalInfo?.createObject(

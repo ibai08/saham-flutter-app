@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_print, empty_catches
+
 import 'dart:convert';
 import 'dart:io';
 
@@ -75,7 +77,7 @@ class MrgModel {
         return data;
       }
     } catch (xerr) {
-      throw xerr;
+      rethrow;
     }
 
     throw Exception("UNKNOWN_ERROR");
@@ -162,7 +164,7 @@ class MrgModel {
     return [];
   }
 
-  static Future<List<DemoAccMrg>> getDemoAccMrg({clearCache: false}) async {
+  static Future<List<DemoAccMrg>> getDemoAccMrg({clearCache = false}) async {
     try {
       if (!UserModel.instance.hasLogin()) {
         throw Exception("PLEASE_LOGIN_FIRST");
@@ -375,8 +377,8 @@ class MrgModel {
 
     Response res;
     Dio dio = Dio(); // with default Options
-    dio.options.connectTimeout = Duration(milliseconds: 10000); //5s
-    dio.options.receiveTimeout = Duration(milliseconds: 3000);
+    dio.options.connectTimeout = const Duration(milliseconds: 10000); //5s
+    dio.options.receiveTimeout = const Duration(milliseconds: 3000);
 
     var i = 0;
     do {
@@ -445,8 +447,8 @@ class MrgModel {
 
     FormData formData = FormData.fromMap({"file": file});
 
-    dio.options.connectTimeout = Duration(milliseconds: 50000); //10s
-    dio.options.receiveTimeout = Duration(milliseconds: 3000);
+    dio.options.connectTimeout = const Duration(milliseconds: 50000); //10s
+    dio.options.receiveTimeout = const Duration(milliseconds: 3000);
 
     int i = 0;
     do {
@@ -483,8 +485,8 @@ class MrgModel {
 
     Response res;
     Dio dio = Dio(); // with default Options
-    dio.options.connectTimeout = Duration(milliseconds: 15000); //5s
-    dio.options.receiveTimeout = Duration(milliseconds: 3000);
+    dio.options.connectTimeout = const Duration(milliseconds: 15000); //5s
+    dio.options.receiveTimeout = const Duration(milliseconds: 3000);
 
     var i = 0;
     do {
@@ -548,8 +550,8 @@ class MrgModel {
 
     Response res;
     Dio dio = Dio(); // with default Options
-    dio.options.connectTimeout = Duration(milliseconds: 10000); //5s
-    dio.options.receiveTimeout = Duration(milliseconds: 3000);
+    dio.options.connectTimeout = const Duration(milliseconds: 10000); //5s
+    dio.options.receiveTimeout = const Duration(milliseconds: 3000);
 
     var i = 0;
     do {
@@ -583,8 +585,8 @@ class MrgModel {
 
     Response res;
     Dio dio = Dio(); // with default Options
-    dio.options.connectTimeout = Duration(milliseconds: 10000); //5s
-    dio.options.receiveTimeout = Duration(milliseconds: 3000);
+    dio.options.connectTimeout = const Duration(milliseconds: 10000); //5s
+    dio.options.receiveTimeout = const Duration(milliseconds: 3000);
 
     var i = 0;
     do {
@@ -631,8 +633,8 @@ class MrgModel {
 
     Response res;
     Dio dio = Dio(); // with default Options
-    dio.options.connectTimeout = Duration(milliseconds: 10000); //5s
-    dio.options.receiveTimeout = Duration(milliseconds: 3000);
+    dio.options.connectTimeout = const Duration(milliseconds: 10000); //5s
+    dio.options.receiveTimeout = const Duration(milliseconds: 3000);
 
     var i = 0;
     do {
@@ -667,8 +669,8 @@ class MrgModel {
 
     Response res;
     Dio dio = Dio(); // with default Options
-    dio.options.connectTimeout = Duration(milliseconds: 10000); //5s
-    dio.options.receiveTimeout = Duration(milliseconds: 3000);
+    dio.options.connectTimeout = const Duration(milliseconds: 10000); //5s
+    dio.options.receiveTimeout = const Duration(milliseconds: 3000);
 
     var i = 0;
     do {
@@ -702,8 +704,8 @@ class MrgModel {
 
     Response res;
     Dio dio = Dio(); // with default Options
-    dio.options.connectTimeout = Duration(milliseconds: 10000); //5s
-    dio.options.receiveTimeout = Duration(milliseconds: 3000);
+    dio.options.connectTimeout = const Duration(milliseconds: 10000); //5s
+    dio.options.receiveTimeout = const Duration(milliseconds: 3000);
 
     var i = 0;
     do {

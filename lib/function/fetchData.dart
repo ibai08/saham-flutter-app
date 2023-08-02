@@ -17,8 +17,8 @@ fetchDataDio(context, url) async {
   Response res;
   List list;
   Dio dio = Dio(); // with default Options
-  dio.options.connectTimeout = Duration(milliseconds: 10000); //5s
-  dio.options.receiveTimeout = Duration(milliseconds: 30000);
+  dio.options.connectTimeout = const Duration(milliseconds: 10000); //5s
+  dio.options.receiveTimeout = const Duration(milliseconds: 30000);
   res = await dio.get(getMainSite() + url);
   list = res.data as List;  
   return list;

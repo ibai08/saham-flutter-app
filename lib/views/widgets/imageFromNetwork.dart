@@ -1,4 +1,4 @@
-// ignore_for_file: sized_box_for_whitespace
+// ignore_for_file: sized_box_for_whitespace, avoid_print
 
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
@@ -31,7 +31,7 @@ class _ImageFromNetworkState extends State<ImageFromNetwork> {
   @override
   Widget build(BuildContext context) {
     if (widget.defaultImage == null) {
-      defaultImage = DefaultImage();
+      defaultImage = const DefaultImage();
     } else {
       defaultImage = widget.defaultImage;
     }

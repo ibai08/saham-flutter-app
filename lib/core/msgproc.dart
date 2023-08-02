@@ -1,7 +1,6 @@
 import 'dart:convert';
 
 import 'package:firebase_messaging/firebase_messaging.dart';
-import 'package:get/get.dart';
 import 'package:saham_01_app/controller/appStatesController.dart';
 import 'package:saham_01_app/core/msgdef.dart';
 import 'package:saham_01_app/function/helper.dart';
@@ -54,7 +53,7 @@ class MessageProcessor {
               return;
             }
             if (event == MessageEvent.onLaunch) {
-              await Future.delayed(Duration(seconds: 2));
+              await Future.delayed(const Duration(seconds: 2));
             }
             appStateController?.setAppState(Operation.pushNamed, {"route": "/dsc/signal/", "arguments": signalid});
           } else if (event == MessageEvent.onMessage) {
@@ -73,7 +72,7 @@ class MessageProcessor {
               return;
             }
             if (event == MessageEvent.onLaunch) {
-              await Future.delayed(Duration(seconds: 2));
+              await Future.delayed(const Duration(seconds: 2));
             }
 
             appStateController?.setAppState(Operation.pushNamed, {"route": "/dsc/signal/", "arguments": channelid});
@@ -92,7 +91,7 @@ class MessageProcessor {
 
           if (event == MessageEvent.onResume || event == MessageEvent.onLaunch || event == MessageEvent.onLocalNotif) {
             if (event == MessageEvent.onLaunch) {
-              await Future.delayed(Duration(seconds: 2));
+              await Future.delayed(const Duration(seconds: 2));
             }
             appStateController?.setAppState(Operation.pushNamed, {"route": "/more/mrg"});
           } else if (event == MessageEvent.onMessage) {
@@ -111,7 +110,7 @@ class MessageProcessor {
 
           if (event == MessageEvent.onResume || event == MessageEvent.onLaunch || event == MessageEvent.onLocalNotif) {
             if (event == MessageEvent.onLaunch) {
-              await Future.delayed(Duration(seconds: 2));
+              await Future.delayed(const Duration(seconds: 2));
             }
             appStateController?.setAppState(Operation.pushNamed, {"route": "/more/askap"});
           } else if (event == MessageEvent.onMessage) {
@@ -123,7 +122,7 @@ class MessageProcessor {
         {
           if (event == MessageEvent.onResume || event == MessageEvent.onLaunch || event == MessageEvent.onLocalNotif) {
             if (event == MessageEvent.onLaunch) {
-              await Future.delayed(Duration(seconds: 2));
+              await Future.delayed(const Duration(seconds: 2));
             }
 
             appStateController?.setAppState(Operation.bringToHome, HomeTab.home);

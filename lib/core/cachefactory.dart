@@ -43,7 +43,7 @@ class CacheFactory {
         result = tmp["data"];
       }
     } catch (x) {
-      throw x;
+      rethrow;
     } finally {
       m.release();
     }

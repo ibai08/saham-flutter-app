@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_unnecessary_containers
+
 import 'package:flutter/material.dart';
 import 'package:saham_01_app/models/entities/ois.dart';
 import 'package:saham_01_app/views/widgets/signalDetailWithHeader.dart';
@@ -5,7 +7,7 @@ import 'package:saham_01_app/views/widgets/signalDetailWithHeader.dart';
 class RecentSignalListWidget extends StatefulWidget {
   final List<SignalInfo>? listSignal;
   final Level? medal;
-  RecentSignalListWidget(this.listSignal, this.medal);
+  const RecentSignalListWidget(this.listSignal, this.medal, {Key? key}) : super(key: key);
   @override
   State<StatefulWidget> createState() => _RecentSignalListWidget();
 }
@@ -15,7 +17,7 @@ class _RecentSignalListWidget extends State<RecentSignalListWidget> {
     return Container(
       child: ListView.builder(
         shrinkWrap: true,
-        physics: NeverScrollableScrollPhysics(),
+        physics: const NeverScrollableScrollPhysics(),
         itemCount: signal?.length,
         itemBuilder: (context, i) {
           return SignalDetailWithHeaderNew(

@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_print, empty_catches
+
 import 'dart:async';
 import 'dart:convert';
 import 'package:get/get.dart';
@@ -137,7 +139,7 @@ class SharedBoxHelper {
   }
 
   Future<Map<String, dynamic>> getAllMap() async {
-    Map<String, dynamic> mapData = Map();
+    Map<String, dynamic> mapData = {};
     try {
       await init();
       List<String> allKeys = GetStorage().getKeys().toList();
@@ -210,10 +212,10 @@ class SharedHelper {
 
   SharedHelper._internal();
   // ignore: prefer_final_fields
-  Map<String, SharedBoxHelper> _boxes = Map();
+  Map<String, SharedBoxHelper> _boxes = {};
 
   SharedBoxHelper? getBox(String boxName) {
-    if (_boxes.containsKey(boxName)) {
+    if (!_boxes.containsKey(boxName)) {
       _boxes[boxName] = SharedBoxHelper(boxName: boxName);
     }
     return _boxes[boxName];

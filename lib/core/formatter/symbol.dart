@@ -29,6 +29,7 @@ class SymbolInputFormatter extends TextInputFormatter {
   late int digit;
   Function fnSymbol;
   SymbolInputFormatter(this.fnSymbol);
+  @override
   TextEditingValue formatEditUpdate(
       TextEditingValue oldValue, TextEditingValue newValue) {
     TradeSymbol symbol = fnSymbol();

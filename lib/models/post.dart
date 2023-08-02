@@ -26,8 +26,8 @@ class Post {
         request + category! + "&per_page=" + countPost + "&page=" + page;
     Response res;
     Dio dio = Dio(); // with default Options
-    dio.options.connectTimeout = Duration(milliseconds: 10000); //5s
-    dio.options.receiveTimeout = Duration(milliseconds: 30000);
+    dio.options.connectTimeout = const Duration(milliseconds: 10000); //5s
+    dio.options.receiveTimeout = const Duration(milliseconds: 30000);
     res = await dio.get(getMainSite() + link);
     return jsonDecode(res.toString());
   }
@@ -52,8 +52,8 @@ class Post {
     Response res;
     List<PostState> list;
     Dio dio = Dio(); // with default Options
-    dio.options.connectTimeout = Duration(milliseconds: 10000); //5s
-    dio.options.receiveTimeout = Duration(milliseconds: 30000);
+    dio.options.connectTimeout = const Duration(milliseconds: 10000); //5s
+    dio.options.receiveTimeout = const Duration(milliseconds: 30000);
     res = await dio.get(getMainSite() + link);
     list = res.data.map<PostState>((json) {
       return PostState.fromJson(json);
@@ -65,8 +65,8 @@ class Post {
     Response res;
     String imageUrl;
     Dio dio = Dio(); // with default Options
-    dio.options.connectTimeout = Duration(milliseconds: 10000); //5s
-    dio.options.receiveTimeout = Duration(milliseconds: 30000);
+    dio.options.connectTimeout = const Duration(milliseconds: 10000); //5s
+    dio.options.receiveTimeout = const Duration(milliseconds: 30000);
     res = await dio.get(getMainSite() + "/wp-json/wp/v2/media/" + id);
     imageUrl = res.data["guid"]["rendered"];
     return imageUrl;
@@ -76,8 +76,8 @@ class Post {
     Response res;
     String authorName;
     Dio dio = Dio(); // with default Options
-    dio.options.connectTimeout = Duration(milliseconds: 10000); //5s
-    dio.options.receiveTimeout = Duration(milliseconds: 30000);
+    dio.options.connectTimeout = const Duration(milliseconds: 10000); //5s
+    dio.options.receiveTimeout = const Duration(milliseconds: 30000);
     res =
         await dio.get(getMainSite() + "/wp-json/wp/v2/users/" + id.toString());
     authorName = res.data["name"];
@@ -88,8 +88,8 @@ class Post {
     Response res;
     PostDetails post;
     Dio dio = Dio(); // with default Options
-    dio.options.connectTimeout = Duration(milliseconds: 10000); //5s
-    dio.options.receiveTimeout = Duration(milliseconds: 30000);
+    dio.options.connectTimeout = const Duration(milliseconds: 10000); //5s
+    dio.options.receiveTimeout = const Duration(milliseconds: 30000);
     res = await dio.get(getMainSite() + "/wp-json/wp/v2/posts/" + id!);
     post = PostDetails(
         title: res.data['title']['rendered'],

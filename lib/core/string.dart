@@ -19,7 +19,7 @@ String acak(String strPass) {
 
 ///Generate MD5 hash
 String generateMd5(String data) {
-  var content = new Utf8Encoder().convert(data);
+  var content = const Utf8Encoder().convert(data);
   var md5 = crypto.md5;
   var digest = md5.convert(content);
   return hex.encode(digest.bytes);
@@ -27,7 +27,7 @@ String generateMd5(String data) {
 
 bool validateMobileNumber(String value) {
   String patttern = r'(^(?:[+0]9)?[0-9]{10,14}$)';
-  RegExp regExp = new RegExp(patttern);
+  RegExp regExp = RegExp(patttern);
   if (regExp.hasMatch(value)) {
     return true;
   }

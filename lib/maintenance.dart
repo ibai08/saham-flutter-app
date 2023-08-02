@@ -1,9 +1,13 @@
+// ignore_for_file: avoid_print
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 class MaintenanceView extends StatefulWidget {
+  const MaintenanceView({Key? key}) : super(key: key);
+
   @override
   _MaintenanceViewState createState() => _MaintenanceViewState();
 }
@@ -32,7 +36,7 @@ class _MaintenanceViewState extends State<MaintenanceView> {
         controller: _refreshController,
         onRefresh: _onRefresh,
         child: Container(
-          padding: EdgeInsets.symmetric(
+          padding: const EdgeInsets.symmetric(
             horizontal: 25,
           ),
           child: Column(
@@ -45,29 +49,29 @@ class _MaintenanceViewState extends State<MaintenanceView> {
                 "assets/logo-gray.png",
                 width: 60,
               )),
-              SizedBox(
+              const SizedBox(
                 height: 15,
               ),
-              Text(
+              const Text(
                 "Maintenance",
                 style: TextStyle(fontWeight: FontWeight.w600, fontSize: 21),
                 textAlign: TextAlign.center,
               ),
-              SizedBox(
+              const SizedBox(
                 height: 5,
               ),
-              Text(
+              const Text(
                 "Untuk peningkatan kualitas, kami melakukan maintenance aplikasi XYZ. Selama maintenance berlangsung, Anda tidak dapat mengaksesnya sementara waktu.",
                 textAlign: TextAlign.center,
               ),
-              SizedBox(
+              const SizedBox(
                 height: 15,
               ),
               RichText(
                 textAlign: TextAlign.center,
                 text: TextSpan(
                   style: TextStyle(color: Colors.grey[900]),
-                  children: [
+                  children: const [
                     TextSpan(
                       text: "Perkiraan selesai pada ",
                     ),

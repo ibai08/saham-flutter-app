@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_print
+
 import 'dart:convert';
 import 'dart:io';
 
@@ -15,9 +17,7 @@ import 'package:saham_01_app/core/firebasecm.dart';
 import 'package:saham_01_app/core/getStorage.dart';
 import 'package:saham_01_app/core/http.dart';
 import 'package:saham_01_app/core/string.dart';
-import 'package:saham_01_app/models/askap.dart';
 import 'package:saham_01_app/models/entities/user.dart';
-import 'package:saham_01_app/models/mrg.dart';
 
 class UserModel {
   UserModel._privateConstructor();
@@ -141,8 +141,8 @@ class UserModel {
     Response res;
     Map data = {};
     Dio dio = Dio();
-    dio.options.connectTimeout = Duration(milliseconds: 5000);
-    dio.options.receiveTimeout = Duration(milliseconds: 3000);
+    dio.options.connectTimeout = const Duration(milliseconds: 5000);
+    dio.options.receiveTimeout = const Duration(milliseconds: 3000);
     res = await dio.post(getHostName() + "/traders/api/v1/login-with-mt4/", data: {"broker": broker, "mt4id": mt4id, "password": password});
     data = res.data;
 
@@ -250,8 +250,8 @@ class UserModel {
     do {
       i++;
       Dio dio = Dio(); // with default Options
-      dio.options.connectTimeout = Duration(milliseconds: 5000); //5s
-      dio.options.receiveTimeout = Duration(milliseconds: 3000);
+      dio.options.connectTimeout = const Duration(milliseconds: 5000); //5s
+      dio.options.receiveTimeout = const Duration(milliseconds: 3000);
       String? token = await getUserToken();
       dio.options.headers = {"Authorization": "Bearer " + token!};
       res = await dio.post(getHostName() + "/traders/api/v1/user/edit/profile/",
@@ -289,8 +289,8 @@ class UserModel {
       Response res;
       Map data = {};
       Dio dio = Dio();
-      dio.options.connectTimeout = Duration(milliseconds: 5000);
-      dio.options.receiveTimeout = Duration(milliseconds: 3000);
+      dio.options.connectTimeout = const Duration(milliseconds: 5000);
+      dio.options.receiveTimeout = const Duration(milliseconds: 3000);
       res = await dio.post(getHostName() + "/traders/api/v1/refreshlogin/", data: {"enc": enc});
       data = res.data;
 
@@ -320,8 +320,8 @@ class UserModel {
       }
 
       Dio dio = Dio(); // with default Options
-      dio.options.connectTimeout = Duration(milliseconds: 5000); //5s
-      dio.options.receiveTimeout = Duration(milliseconds: 3000);
+      dio.options.connectTimeout = const Duration(milliseconds: 5000); //5s
+      dio.options.receiveTimeout = const Duration(milliseconds: 3000);
       String? token = await UserModel.instance.getUserToken();
       dio.options.headers = {"Authorization": "Bearer " + token!};
       res = await dio.post(getHostName() + "/traders/api/v1/user/changepass/",
@@ -400,8 +400,8 @@ class UserModel {
     }
 
     Dio dio = Dio(); // with default Options
-    dio.options.connectTimeout = Duration(milliseconds: 10000); //5s
-    dio.options.receiveTimeout = Duration(milliseconds: 30000);
+    dio.options.connectTimeout = const Duration(milliseconds: 10000); //5s
+    dio.options.receiveTimeout = const Duration(milliseconds: 30000);
 
     Response res =
         await dio.post(getHostName() + "/traders/api/v1/user/register/", data: {
@@ -475,8 +475,8 @@ class UserModel {
     }
 
     Dio dio = Dio(); // with default Options
-    dio.options.connectTimeout = Duration(milliseconds: 10000); //5s
-    dio.options.receiveTimeout = Duration(milliseconds: 30000);
+    dio.options.connectTimeout = const Duration(milliseconds: 10000); //5s
+    dio.options.receiveTimeout = const Duration(milliseconds: 30000);
 
     Response res =
         await dio.post(getHostName() + "/traders/api/v2/user/register/", data: {
@@ -542,8 +542,8 @@ class UserModel {
         filename: "avatar.jpeg");
     FormData formData = FormData.fromMap({"file": file});
 
-    dio.options.connectTimeout = Duration(milliseconds: 50000); //10s
-    dio.options.receiveTimeout = Duration(milliseconds: 3000);
+    dio.options.connectTimeout = const Duration(milliseconds: 50000); //10s
+    dio.options.receiveTimeout = const Duration(milliseconds: 3000);
 
     int i = 0;
     do {
@@ -585,8 +585,8 @@ class UserModel {
     }
 
     Dio dio = Dio(); // with default Options
-    dio.options.connectTimeout = Duration(milliseconds: 5000); //5s
-    dio.options.receiveTimeout = Duration(milliseconds: 3000);
+    dio.options.connectTimeout = const Duration(milliseconds: 5000); //5s
+    dio.options.receiveTimeout = const Duration(milliseconds: 3000);
     res = await dio.post(getHostName() + "/traders/api/v1/user/forgot/",
         data: {"email": email});
     if (res.data is Map) {
@@ -618,8 +618,8 @@ class UserModel {
     }
 
     Dio dio = Dio(); // with default Options
-    dio.options.connectTimeout = Duration(milliseconds: 5000); //5s
-    dio.options.receiveTimeout = Duration(milliseconds: 3000);
+    dio.options.connectTimeout = const Duration(milliseconds: 5000); //5s
+    dio.options.receiveTimeout = const Duration(milliseconds: 3000);
     res = await dio.post(getHostName() + "/traders/api/v1/verify/resend/",
         data: {"email": email});
     if (res.data is Map) {

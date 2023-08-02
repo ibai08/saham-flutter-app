@@ -1,4 +1,4 @@
-// ignore_for_file: constant_identifier_names, null_check_always_fails, unnecessary_null_comparison
+// ignore_for_file: constant_identifier_names, null_check_always_fails, unnecessary_null_comparison, empty_catches, avoid_print
 
 import 'dart:async';
 
@@ -1318,7 +1318,7 @@ class OisMyChannelPageData {
 
   factory OisMyChannelPageData.init() {
     return OisMyChannelPageData(
-        lastSync: 0.0, listChannelBalance: Map(), listMyChannel: []);
+        lastSync: 0.0, listChannelBalance: {}, listMyChannel: []);
   }
 
   factory OisMyChannelPageData.fromMap(Map data) {
@@ -1582,7 +1582,7 @@ class RedeemHistory {
         id: json["id"],
         channelId: json["channel_id"],
         utcInsertAt:
-            DateTime.parse(json["utc_insert_at"]).add(Duration(hours: 7)),
+            DateTime.parse(json["utc_insert_at"]).add(const Duration(hours: 7)),
         point: double.tryParse(json["point"].toString()) ?? 0.0,
         medal: json["medal"],
         status: RedeemStatus.values[json["status"]],

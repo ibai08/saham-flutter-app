@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_print
+
 class AccountTypeMrg {
   int? id;
   String? name;
@@ -42,7 +44,7 @@ class AccountTypeMrg {
         po: "",
         products: "",
         symbol: "",
-        additional: Map());
+        additional: {});
   }
 
   static AccountTypeMrg fromMap(Map typeMap) {
@@ -61,7 +63,7 @@ class AccountTypeMrg {
           products: typeMap["products"],
           symbol: typeMap["symbol"],
           additional:
-              typeMap["additional"].length > 0 ? typeMap["additional"] : Map());
+              typeMap["additional"].length > 0 ? typeMap["additional"] : {});
     } catch (e) {
       print(e);
     }
@@ -82,7 +84,7 @@ class AccountTypeMrg {
       "po": po,
       "products": products,
       "symbol": symbol,
-      "additional": additional ?? Map()
+      "additional": additional ?? {}
     };
   }
 }

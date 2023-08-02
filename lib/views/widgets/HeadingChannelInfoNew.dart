@@ -1,3 +1,5 @@
+// ignore_for_file: sized_box_for_whitespace
+
 import 'package:flutter/material.dart';
 import 'package:saham_01_app/constants/app_colors.dart';
 import 'package:saham_01_app/models/entities/ois.dart';
@@ -30,14 +32,14 @@ class HeadingChannelInfoNew extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     if (level == null || level?.level == null) {
-      return SizedBox();
+      return const SizedBox();
     }
     return GestureDetector(
       onTap: () {
         onTap ?? null;
       },
       child: Container(
-        padding: EdgeInsets.symmetric(vertical: 12, horizontal: 10),
+        padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 10),
         child: Stack(
           children: [
             Row(
@@ -55,7 +57,7 @@ class HeadingChannelInfoNew extends StatelessWidget {
                                   ? 50
                                   : 40,
                           imageUrl: avatar),
-                        SizedBox(
+                        const SizedBox(
                           width: 2,
                         ),
                         Image.asset(
@@ -70,7 +72,7 @@ class HeadingChannelInfoNew extends StatelessWidget {
                                 : isMedium!
                                     ? 40
                                     : 35),
-                        SizedBox(
+                        const SizedBox(
                           width: 2,
                         ),
                         Flexible(
@@ -88,7 +90,7 @@ class HeadingChannelInfoNew extends StatelessWidget {
                                             ? 16
                                             : 14),
                               ),
-                              SizedBox(
+                              const SizedBox(
                                 height: 3,
                               ),
                               RichText(
@@ -112,7 +114,7 @@ class HeadingChannelInfoNew extends StatelessWidget {
                                             fontSize: 12)),
                                     TextSpan(
                                       text: "  |  $subscriber Subscriber",
-                                      style: TextStyle(fontSize: 12),
+                                      style: const TextStyle(fontSize: 12),
                                     ),
                                   ],
                                 ),
@@ -142,7 +144,7 @@ class HeadingChannelInfoNew extends StatelessWidget {
             Positioned(
                 right: 0,
                 child: trailing == null
-                    ? SizedBox()
+                    ? const SizedBox()
                     : Container(
                         child: trailing,
                       )),

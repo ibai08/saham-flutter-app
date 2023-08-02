@@ -181,7 +181,7 @@ class EmitenItems extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
       decoration: const BoxDecoration(
         color: Colors.white,
-        borderRadius: const BorderRadius.all(Radius.circular(8)),
+        borderRadius: BorderRadius.all(Radius.circular(8)),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,

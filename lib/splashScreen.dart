@@ -1,9 +1,10 @@
+// ignore_for_file: sized_box_for_whitespace, avoid_print
+
 import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
-import 'package:saham_01_app/views/pages/home.dart';
 import 'constants/app_colors.dart';
 
 class SplashScreen extends StatefulWidget {

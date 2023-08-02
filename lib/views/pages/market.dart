@@ -1,11 +1,10 @@
-// ignore_for_file: prefer_const_constructors
+// ignore_for_file: prefer_const_constructors, avoid_print, must_call_super
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:saham_01_app/constants/app_colors.dart';
 import 'package:saham_01_app/controller/appStatesController.dart';
 import 'package:saham_01_app/core/getStorage.dart';
-import 'package:saham_01_app/models/user.dart';
 // import 'package:tradersfamily_app/appbar/navmain.dart';
 import 'package:saham_01_app/views/pages/market/widget/index_saham.dart';
 // import 'package:tradersfamily_app/pages/market/widget/slider.dart';
@@ -20,6 +19,8 @@ import '../appbar/navmain.dart';
 
 
 class MarketPage extends StatefulWidget {
+  const MarketPage({Key? key}) : super(key: key);
+
   @override
   State<MarketPage> createState() => _MarketPageState();
 }
@@ -39,11 +40,12 @@ class _MarketPageState extends State<MarketPage> {
   //   _tabController.dispose();
   //   super.dispose();
   // }
-  SharedBoxHelper? boxs = SharedHelper.instance.getBox(BoxName.config);
+  SharedBoxHelper? boxs = SharedHelper.instance.getBox(BoxName.cache);
   void saya() async {
     print("ini boxs: ${boxs?.boxName}");
   }
 
+  @override
   void initState() {
     saya();
   }     
@@ -195,7 +197,7 @@ class _MarketPageState extends State<MarketPage> {
                         crossAxisCount: 3,
                         shrinkWrap: true,
                         physics: const NeverScrollableScrollPhysics(),
-                        children: [
+                        children: const [
                           GridSektor('Bahan Baku', 'assets/package.png', '-0.97%'),
                           GridSektor('Primer', 'assets/coffee.png', '-0.35%'),
                           GridSektor('Non Primer', 'assets/tv.png', '-0.97%'),

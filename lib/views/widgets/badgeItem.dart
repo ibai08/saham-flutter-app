@@ -64,7 +64,7 @@ class BadgeItem extends StatelessWidget {
                 ),
                 label: Text(
                   title!,
-                  style: TextStyle(fontSize: 12),
+                  style: const TextStyle(fontSize: 12),
                 )
               ),
             ),

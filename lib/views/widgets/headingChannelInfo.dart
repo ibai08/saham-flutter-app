@@ -36,7 +36,7 @@ class HeadingChannelInfo extends StatelessWidget {
     }
     return GestureDetector(
       onTap: () {
-        onTap!();
+        onTap ?? () {};
       },
       child: Container(
         padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 10),
@@ -50,12 +50,12 @@ class HeadingChannelInfo extends StatelessWidget {
                   child: Row(
                     children: [
                       ChannelAvatar(
-                        width: isLarge!
+                        width: isLarge != null
                             ? 60
-                            : isMedium!
+                            : isMedium != null
                                 ? 50
                                 : 40,
-                        imageUrl: avatar!),
+                        imageUrl: avatar),
                       const SizedBox(
                         width: 2,
                       ),

@@ -24,6 +24,7 @@ import 'package:saham_01_app/views/pages/form/login.dart';
 import 'package:saham_01_app/views/pages/form/verifyEmail.dart';
 import 'package:saham_01_app/views/pages/market.dart';
 import 'package:saham_01_app/views/pages/setting.dart';
+import 'package:saham_01_app/views/pages/signalPage.dart';
 import 'package:saham_01_app/views/widgets/dialogConfirmation.dart';
 import 'package:saham_01_app/views/widgets/dialogLoading.dart';
 // import 'package:mixpanel_flutter/mixpanel_flutter.dart';
@@ -172,6 +173,7 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> with WidgetsBindingObserver, TickerProviderStateMixin {
   final _layoutPage = [
     Home(),
+    SignalDashboard(),
     MarketPage(),
     Setting()
     // SignalDashboard(),
@@ -186,7 +188,7 @@ class _MyHomePageState extends State<MyHomePage> with WidgetsBindingObserver, Ti
   void _onTapItem(int index) {
     final appStateController = Get.find<AppStateController>();
     if (appStateController.currentTab == HomeTab.values[index]) {
-      StatefulWidget temp = _layoutPage[index];
+      Widget temp = _layoutPage[index];
       if (temp is ScrollUpWidget) {
         (temp as ScrollUpWidget).onResetTab();
       }

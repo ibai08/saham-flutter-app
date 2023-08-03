@@ -178,9 +178,9 @@ class SignalModel {
     return [];
   }
 
-  Future<List<SignalInfo>> getChannelSignals({
+  Future<List<SignalInfo>> getChannelSignals(
     int? channelid, int? active, int? offset
-  }) async {
+  ) async {
     List<SignalInfo> listSignalInfo = [];
     Map fetchData = await TF2Request.authorizeRequest(
       url: getHostName() + "/ois/api/v2/channel/signal/",
@@ -229,9 +229,8 @@ class SignalModel {
     List<SignalCardSlim> listSignalBadgeSlim = [];
     try {
       Map fetchData = await TF2Request.authorizeRequest(
-        url: getHostName() + "/ois/api/v3/signal/recent/",
-        postParam: {"limit": limit, "offset": offset, "filter": filter}
-      );
+          url: getHostName() + "/ois/api/v3/signal/recent/",
+          postParam: {"limit": limit, "offset": offset, "filter": filter});
       List signalList = fetchData["message"];
 
       signalList.forEach((v1) {
@@ -258,7 +257,7 @@ class SignalModel {
       });
       return listSignalBadgeSlim;
     } catch (xerr) {
-      print(xerr);
+      print("errrroro zerr: ${xerr.toString()}");
     }
 
     return null;

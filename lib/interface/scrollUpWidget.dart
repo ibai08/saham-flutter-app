@@ -4,5 +4,5 @@ abstract class ScrollUpWidget {
   final RefreshController refreshController;
 
   ScrollUpWidget._(this.refreshController);
-  void onResetTab();
+  onResetTab();
 }

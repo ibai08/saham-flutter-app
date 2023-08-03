@@ -43,7 +43,7 @@ class TF2Request {
     do {
       reqNo++;
       String? token = await getCfgAsync("token");
-      dio.options.headers = {"Authorizations": "Bearer " + token!};
+      dio.options.headers = {"Authorization": "Bearer " + token!};
       if (method == 'GET') {
         res = await dio.get(url!);
       } else {

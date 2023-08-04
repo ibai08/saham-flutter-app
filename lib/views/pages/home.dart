@@ -166,13 +166,6 @@ class _HomeState extends State<Home> with AutomaticKeepAliveClientMixin {
     }
   }
 
-  // SharedBoxHelper boxs = SharedHelper.instance.getBox(BoxName.signal);
-
-  // void init() async {
-  //   Map<String, dynamic> value = await boxs.getAll();
-  //   print(value);
-  // }
-
   @override
   void initState() {
     Future.delayed(const Duration(microseconds: 0)).then((_) async {
@@ -216,45 +209,6 @@ class _HomeState extends State<Home> with AutomaticKeepAliveClientMixin {
 
         ],
       ),
-      // child: ListView(
-      //   padding: EdgeInsets.only(top: 20),
-      //   physics: BouncingScrollPhysics(),
-      //   scrollDirection: Axis.vertical,
-      //   children: <Widget>[
-      //     ShrtApp(),
-      //     MostConsistentChannel(
-      //         medal: medal, futureList: getMostConsistentChannels()),
-      //     NewUpdateWidget(),
-      //     StoreProvider<AppState>(
-      //         store: store,
-      //         child: StoreConnector<AppState, UserInfo>(
-      //             converter: (store) => store.state.user,
-      //             builder: (context, user) {
-      //               return Column(
-      //                 mainAxisSize: MainAxisSize.max,
-      //                 crossAxisAlignment: CrossAxisAlignment.start,
-      //                 children: store.state.user.id > 0
-      //                     ? [
-      //                         CheckTFPoint(),
-      //                         PointReminder(),
-      //                       ]
-      //                     : [SizedBox()],
-      //               );
-      //             })),
-      //     TooltipPanduanPrompt(),
-      //     SizedBox(
-      //       height: 35,
-      //     ),
-      //     SliderEventWidget(data: _listPromo),
-      //     Container(
-      //       margin: EdgeInsets.only(top: 25),
-      //       child: RecentProfitSignalWidget(
-      //         data: closedSignal,
-      //         medal: medal,
-      //       ),
-      //     ),
-      //   ],
-      // ),
     );
   }
 

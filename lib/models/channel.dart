@@ -22,6 +22,8 @@ class ChannelModel {
   ChannelModel._privateConstructor();
   static final ChannelModel instance = ChannelModel._privateConstructor();
 
+  final AppStateController appStateController = Get.Get.put(AppStateController());
+
   Future<void> createChannel(
       {String? name,
       double? harga,
@@ -106,7 +108,7 @@ class ChannelModel {
     }
     dynamic v = await CacheFactory.getCache(
         sprintf(
-            CacheKey.channelByIDforUserID, [channelid, appStateController?.users.value.id]),
+            CacheKey.channelByIDforUserID, [channelid, appStateController.users.value.id]),
         () async {
       Map fetchData = await TF2Request.authorizeRequest(
           url: getHostName() + "/ois/api/v1/channel/detail/",
@@ -114,6 +116,7 @@ class ChannelModel {
       return fetchData["message"];
     }, refreshSecond);
     ChannelCardSlim ccs = ChannelCardSlim.fromMap(v);
+    print("ccs: $ccs");
 
     return ccs;
   }
@@ -432,7 +435,7 @@ class ChannelModel {
       }
       dynamic data = await CacheFactory.getCache(
           sprintf(
-              CacheKey.channelsMySubscriptionsByUserId, [appStateController?.users.value.id]),
+              CacheKey.channelsMySubscriptionsByUserId, [appStateController.users.value.id]),
           () async {
         Map fetchData = await TF2Request.authorizeRequest(
           url: getHostName() + "/ois/api/v1/my/subscriptions/",
@@ -474,7 +477,7 @@ class ChannelModel {
       }
       dynamic data = await CacheFactory.getCache(
           sprintf(
-              CacheKey.channelsMySubscribersByUserId, [appStateController?.users.value.id]),
+              CacheKey.channelsMySubscribersByUserId, [appStateController.users.value.id]),
           () async {
         Map fetchData = await TF2Request.authorizeRequest(
           url: getHostName() + "/ois/api/v1/my/subscribers/",
@@ -519,7 +522,7 @@ class ChannelModel {
 
   Future<List<HistoryPoint>> getHistoryPoint(
       {int? channelId, bool clearCache = false}) async {
-    if (appStateController!.users.value.id < 1) {
+    if (appStateController.users.value.id < 1) {
       throw Exception("PLEASE_LOGIN_FIRST");
     }
 
@@ -529,7 +532,7 @@ class ChannelModel {
     }
 
     dynamic data = await CacheFactory.getCache(
-        sprintf(CacheKey.channelHistoryList, [appStateController?.users.value.id]), () async {
+        sprintf(CacheKey.channelHistoryList, [appStateController.users.value.id]), () async {
       Map fetchData = await TF2Request.authorizeRequest(
           url: getHostName() + "/ois/api/v1/channel/history/point/",
           method: 'POST',
@@ -544,7 +547,7 @@ class ChannelModel {
 
   Future<List<RedeemHistory>> getRedeemHistory(
       {int? channelId, bool clearCache = false}) async {
-    if (appStateController!.users.value.id < 1) {
+    if (appStateController.users.value.id < 1) {
       throw Exception("PLEASE_LOGIN_FIRST");
     }
 
@@ -554,7 +557,7 @@ class ChannelModel {
     }
 
     dynamic data = await CacheFactory.getCache(
-        sprintf(CacheKey.channelRedeemHistory, [appStateController?.users.value.id]),
+        sprintf(CacheKey.channelRedeemHistory, [appStateController.users.value.id]),
         () async {
       Map fetchData = await TF2Request.authorizeRequest(
           url: getHostName() + "/ois/api/v1/channel/history/point/redeem/",
@@ -588,7 +591,7 @@ class ChannelModel {
 
   Future<RulesPoint> getDetailRulesPoint(int channelid,
       {bool clearCache = false}) async {
-    if (appStateController!.users.value.id < 1) {
+    if (appStateController.users.value.id < 1) {
       throw Exception("PLEASE_LOGIN_FIRST");
     }
 
@@ -598,7 +601,7 @@ class ChannelModel {
     }
     dynamic qualification = await CacheFactory.getCache(
         sprintf(CacheKey.channelMyHistoryPointById,
-            [channelid, appStateController?.users.value.id]), () async {
+            [channelid, appStateController.users.value.id]), () async {
       Map fetchData = await TF2Request.authorizeRequest(
           url: getHostName() + "/ois/api/v1/channel/medal/qualification/",
           method: "POST",

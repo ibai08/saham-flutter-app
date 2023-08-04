@@ -11,8 +11,8 @@ enum NavChannelNewState {
 }
 
 class SearchFormController extends GetxController {
-  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-  final _searchCon = TextEditingController();
+  final Rx<GlobalKey<FormState>> formKey = GlobalKey<FormState>().obs;
+  final TextEditingController searchCon = TextEditingController();
   Widget icon = Image.asset(
     "assets/icon-search.png",
     width: 20,
@@ -23,17 +23,17 @@ class SearchFormController extends GetxController {
   bool readyonly = false;
   int tryInput = 0;
   bool autoFocus = false;
-  FocusNode _searchFocus = FocusNode();
+  FocusNode searchFocus = FocusNode();
 
-  final SearchForm args = Get.arguments;
+  
 
   @override
   void onInit() {
     super.onInit();
-    print("args: $args");
-    if (args.popTo != null) {
+    // print("args: ${args}");
+    if (Get.arguments != null && Get.arguments['popTo'] != null) {
       popToFn = () {
-        Get.toNamed(args.popTo!, arguments: {"text": _searchCon.text});
+        Get.toNamed(Get.arguments['popTo'], arguments: {"text": searchCon.text});
         readyonly = true;
       };
     } else {
@@ -42,72 +42,75 @@ class SearchFormController extends GetxController {
   }
 }
 
-class SearchForm extends GetWidget<SearchFormController> {
+class SearchForm extends GetView<SearchFormController> {
   final String? text;
   final String? popTo;
   final bool? tryInput;
 
-  final SearchFormController searchFormController = Get.put(SearchFormController());
-
   SearchForm({Key? key, this.text, this.popTo, this.tryInput}) : super(key: key);
+
+  final SearchFormController controller = Get.put(SearchFormController());
 
   @override
   Widget build(BuildContext context) {
+    print("Function: ${popTo}");
     if (text != null && text != "null" && text != "") {
-      searchFormController._searchCon.text = text!;
-      searchFormController._searchCon.selection = TextSelection.fromPosition(TextPosition(offset: searchFormController._searchCon.text.length));
+      controller.searchCon.text = text!;
+      controller.searchCon.selection = TextSelection.fromPosition(TextPosition(offset: controller.searchCon.text.length));
     }
-    return Obx(() {
-      return Form(
-        key: searchFormController._formKey,
-        child: TextFormField(
-          autofocus: searchFormController.autoFocus,
-          autocorrect: false,
-          controller: searchFormController._searchCon,
-          focusNode: searchFormController._searchFocus,
-          decoration: InputDecoration(
-            filled: true,
-            fillColor: AppColors.white,
-            prefixIcon: IconButton(
-              icon: searchFormController.icon,
-              onPressed: () {
-                Future.delayed(const Duration(milliseconds: 0)).then((_) {
-                  searchFormController._searchCon.clear();
-                });
-              },
-            ),
-            hintText: "Cari Channels",
-            hintStyle: TextStyle(color: AppColors.darkGrey3),
-            border: InputBorder.none,
-            contentPadding: const EdgeInsets.only(top: 10, bottom: 10, left: 15, right: 15),
-            focusedBorder: OutlineInputBorder(
-              borderSide: BorderSide(color: AppColors.lightGrey),
-              borderRadius: BorderRadius.circular(10),
-            ),
-            enabledBorder: OutlineInputBorder(
-              borderSide: BorderSide(color: AppColors.white),
-              borderRadius: BorderRadius.circular(10),
-            ),
+    return Form(
+      key: controller.formKey.value,
+      child: TextFormField(
+        autofocus: controller.autoFocus,
+        autocorrect: false,
+        controller: controller.searchCon,
+        focusNode: controller.searchFocus,
+        decoration: InputDecoration(
+          filled: true,
+          fillColor: AppColors.white,
+          prefixIcon: IconButton(
+            icon: controller.icon,
+            onPressed: () {
+              Future.delayed(const Duration(milliseconds: 0)).then((_) {
+                controller.searchCon.clear();
+              });
+            },
           ),
-          readOnly: searchFormController.readyonly,
-          onTap: () {
-            searchFormController.popToFn;
-          },
-          keyboardType: TextInputType.text,
-          textInputAction: TextInputAction.done,
-          onFieldSubmitted: (val) {
-            String searchText = searchFormController._searchCon.text.trim().split(RegExp(r"\s\s+")).join(" ");
-            if  (searchText != "") {
-              if (popTo == null) {
-                Get.back();
-              }
-              OisModel.instance.updateLocalSearchHistory(searchText);
-              Get.toNamed('/dsc/search', arguments: searchText);
-            }
-          },
+          hintText: "Cari Channels",
+          hintStyle: TextStyle(color: AppColors.darkGrey3),
+          border: InputBorder.none,
+          contentPadding: const EdgeInsets.only(top: 10, bottom: 10, left: 15, right: 15),
+          focusedBorder: OutlineInputBorder(
+            borderSide: BorderSide(color: AppColors.lightGrey),
+            borderRadius: BorderRadius.circular(10),
+          ),
+          enabledBorder: OutlineInputBorder(
+            borderSide: BorderSide(color: AppColors.white),
+            borderRadius: BorderRadius.circular(10),
+          ),
         ),
-      );
-    });
+        readOnly: controller.readyonly,
+        onTap: () {
+          print("ketap");
+          // Get.toNamed(popTo.toString(), arguments:{"text": controller.searchCon.text});
+          // controller.readyonly = true;
+          Get.offNamed(popTo.toString());
+          print("keklik");
+        },
+        keyboardType: TextInputType.text,
+        textInputAction: TextInputAction.done,
+        onFieldSubmitted: (val) {
+          String searchText = controller.searchCon.text.trim().split(RegExp(r"\s\s+")).join(" ");
+          if  (searchText != "") {
+            if (popTo == null) {
+              Get.back();
+            }
+            OisModel.instance.updateLocalSearchHistory(searchText);
+            Get.toNamed('/dsc/search', arguments: searchText);
+          }
+        },
+      ),
+    );
   }
 }
 

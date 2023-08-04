@@ -31,6 +31,7 @@ import 'package:saham_01_app/views/widgets/dialogLoading.dart';
 // import 'package:redux/redux.dart';
 // import 'package:saham_01_app/updateVersion.dart';
 import 'interface/scrollUpWidget.dart';
+import 'views/appbar/navChannelNew.dart';
 import 'views/pages/home.dart';
 
 void main() async {
@@ -95,6 +96,7 @@ void main() async {
   firebaseAnalytics.logAppOpen();
 
   Get.put(DialogLoadingController());
+  // Get.put(SearchFormController());
   
 
   runApp(const MyApp());

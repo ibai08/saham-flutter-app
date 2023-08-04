@@ -84,12 +84,12 @@ Future<dynamic> showSortChannelModal(BuildContext context, int initialSort) {
 }
 
 class SortButtonsWidget extends StatelessWidget {
-  final int? activeSortIndex;
-  final Function(int)? onSortChanged;
+  final int activeSortIndex;
+  final Function(int) onSortChanged;
 
   const SortButtonsWidget({Key? key, 
-    @required this.activeSortIndex,
-    @required this.onSortChanged,
+    required this.activeSortIndex,
+    required this.onSortChanged,
   }) : super(key: key);
 
   @override
@@ -102,7 +102,7 @@ class SortButtonsWidget extends StatelessWidget {
             .entries
             .map((e) => SortButtonNew(
                   onTap: () {
-                    onSortChanged!(e.key);
+                    onSortChanged(e.key);
                   },
                   text: e.value['title'],
                   isActive: activeSortIndex == e.key ||

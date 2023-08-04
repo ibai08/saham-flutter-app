@@ -57,6 +57,7 @@ class SignalDashboard extends GetWidget<SignalDashboardController> implements Sc
           appStateController.setAppState(Operation.bringToHome, HomeTab.home);
         },
       ),
+      backgroundColor: AppColors.light,
       body: GestureDetector(
         onTap: () {
           FocusScope.of(context).requestFocus(FocusNode());

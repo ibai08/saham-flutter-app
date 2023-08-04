@@ -121,9 +121,9 @@ class ChannelThumb extends StatelessWidget {
           left: 10,
           right: 10,
         ),
-        decoration: const BoxDecoration(
+        decoration: BoxDecoration(
           borderRadius: BorderRadius.all(Radius.circular(4)),
-          color: Colors.white,
+          color: AppColors.white,
         ),
         child: Column(
           children: <Widget>[

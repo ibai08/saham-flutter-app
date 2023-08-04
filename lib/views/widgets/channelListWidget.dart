@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:saham_01_app/models/entities/ois.dart';
 import 'package:saham_01_app/views/widgets/channelThumb.dart';
+import 'package:saham_01_app/views/widgets/signalShimmer.dart';
 
 class ChannelListWidget extends StatelessWidget {
   final List<Future<ChannelCardSlim>>? listChannel;
@@ -22,7 +23,7 @@ class ChannelListWidget extends StatelessWidget {
             builder: (context, snapshot) {
               ChannelCardSlim? channel = snapshot.data;
               print("ada int? : ${channel?.id}");
-              return snapshot.hasData
+              return snapshot.hasData 
                 ? ChannelThumb(
                   level: medal,
                   id: channel?.id,
@@ -37,7 +38,10 @@ class ChannelListWidget extends StatelessWidget {
                   subscriber: channel?.subscriber,
                   medals: channel?.medals,
                   from: "recommend",
-                ) : (snapshot.hasError ? Text("${snapshot.error}") : Text("gak tau"));
+                ) : (snapshot.hasError ? Text("${snapshot.error}") : SignalShimmer(
+                            title: "",
+                            onLoad: "0",
+                          ));
             },
           );
         },

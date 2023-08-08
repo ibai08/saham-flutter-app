@@ -80,8 +80,8 @@ class SignalModel {
     return listTradeSymbol;
   }
 
-  Future<List> searchSignal(String findtext, int offset) async {
-    List<SignalCardSlim> listSignalBadegSlim = [];
+  Future<List<SignalCardSlim>> searchSignal(String findtext, int offset) async {
+    List<SignalCardSlim> listSignalBadgeSlim = [];
     try {
       Map fetchData = await TF2Request.authorizeRequest(
         url: getHostName() + "/ois/api/v1/signal/search/",
@@ -90,7 +90,7 @@ class SignalModel {
       List signalList = fetchData["message"];
 
       signalList.forEach((v1) {
-        listSignalBadegSlim.add(SignalCardSlim.fromMap({
+        listSignalBadgeSlim.add(SignalCardSlim.fromMap({
           "channelId": v1["channel_id"],
           "channelName": v1["title"],
           "channelSubscriber": v1["subscount"],
@@ -105,7 +105,7 @@ class SignalModel {
       print(xerr);
     }
 
-    return listSignalBadegSlim;
+    return listSignalBadgeSlim;
   }
 
   Future<void> clearClosedSignalsFeed({int page = 1}) async {

@@ -1,16 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:saham_01_app/constants/app_colors.dart';
+import 'package:saham_01_app/core/config.dart';
+import 'package:saham_01_app/function/showAlert.dart';
 import 'package:saham_01_app/models/ois.dart';
+import 'package:saham_01_app/views/widgets/dialogLoading.dart';
 
-enum NavChannelNewState {
+enum NavChannelState {
   basic,
   filter,
   custom,
   none,
 }
 
-class SearchFormNewController extends GetxController {
+class SearchFormController extends GetxController {
   final Rx<GlobalKey<FormState>> formKey = GlobalKey<FormState>().obs;
   final TextEditingController searchCon = TextEditingController();
   Widget icon = Image.asset(
@@ -39,18 +42,17 @@ class SearchFormNewController extends GetxController {
     } else {
       autoFocus = true;
     }
-    // print("teststsst: ${Get.arguments['popTo']}");
   }
 }
 
-class SearchForm extends GetView<SearchFormNewController> {
+class SearchForm extends GetView<SearchFormController> {
   final String? text;
   final String? popTo;
   final bool? tryInput;
 
   SearchForm({Key? key, this.text, this.popTo, this.tryInput}) : super(key: key);
 
-  final SearchFormNewController controller = Get.put(SearchFormNewController());
+  final SearchFormController controller = Get.put(SearchFormController());
 
   @override
   Widget build(BuildContext context) {
@@ -69,7 +71,7 @@ class SearchForm extends GetView<SearchFormNewController> {
         decoration: InputDecoration(
           filled: true,
           fillColor: AppColors.white,
-          prefixIcon: IconButton(
+          suffixIcon: IconButton(
             icon: controller.icon,
             onPressed: () {
               Future.delayed(const Duration(milliseconds: 0)).then((_) {
@@ -95,7 +97,7 @@ class SearchForm extends GetView<SearchFormNewController> {
           print("ketap");
           // Get.toNamed(popTo.toString(), arguments:{"text": controller.searchCon.text});
           // controller.readyonly = true;
-          Get.toNamed(popTo.toString());
+          Get.offNamed(popTo.toString());
           print("keklik");
         },
         keyboardType: TextInputType.text,
@@ -106,6 +108,7 @@ class SearchForm extends GetView<SearchFormNewController> {
             if (popTo == null) {
               Get.back();
             }
+            print("searchText: $searchText");
             OisModel.instance.updateLocalSearchHistory(searchText);
             Get.toNamed('/dsc/search', arguments: searchText);
           }
@@ -116,7 +119,7 @@ class SearchForm extends GetView<SearchFormNewController> {
 }
 
 class SearchAction extends StatelessWidget {
-  final NavChannelNewState? state;
+  final NavChannelState? state;
 
   late Widget action;
 
@@ -125,7 +128,7 @@ class SearchAction extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     switch (state) {
-      case NavChannelNewState.filter:
+      case NavChannelState.filter:
         action = IconButton(
           onPressed: () {
             Get.toNamed('/search/channels');
@@ -133,11 +136,47 @@ class SearchAction extends StatelessWidget {
           icon: const Icon(Icons.filter_list),
         );
         break;
-      case NavChannelNewState.none:
+      case NavChannelState.none:
         action = const Text("");
         break;
-      case NavChannelNewState.custom:
+      case NavChannelState.custom:
         action = const Text("");
+        break;
+      case NavChannelState.basic:
+        action = PopupMenuButton<String>(
+          onSelected: (value) {
+            switch ("$value") {
+              case '1':
+                Get.toNamed('/dsc/signal/new');
+                break;
+              case '2':
+                Get.toNamed('/dsc/channels/info');
+                break;
+              case '3':
+                remoteConfig.getInt("can_paid_channel") == 1 ? Get.toNamed('/dsc/withdraw') : showAlert(context, LoadingState.warning, "Coming Soon");
+                break;
+            }
+          },
+          icon: Image.asset(
+            'assets/icon-more-vert.png',
+            width: 20,
+            height: 20,
+          ),
+          itemBuilder: (BuildContext context) => <PopupMenuEntry<String>>[
+            const PopupMenuItem<String>(
+              value: "1",
+              child: Text('Buat Signal'),
+            ),
+            const PopupMenuItem<String>(
+              value: "2",
+              child: Text('My Info'),
+            ),
+            remoteConfig.getInt('can_paid_channel') == 1 ? const PopupMenuItem<String>(
+              value: "3",
+              child: Text('Cash Out'),
+            ) : const PopupMenuItem(child: null)
+          ],
+        );
         break;
       default:
         action = const Text("");
@@ -149,13 +188,13 @@ class SearchAction extends StatelessWidget {
   }
 }
 
-class NavChannelNew extends AppBar {
-  NavChannelNew({
+class NavChannel extends AppBar {
+  NavChannel({
     Key? key,
     String? title,
     bool? tryInput,
     BuildContext? context,
-    NavChannelNewState? state,
+    NavChannelState? state,
     String? popTo,
     Widget? customAction,
     String? text
@@ -170,7 +209,7 @@ class NavChannelNew extends AppBar {
       )
     ),
     actions: <Widget>[
-      state != NavChannelNewState.custom ? SearchAction(
+      state != NavChannelState.custom ? SearchAction(
         state: state,
       ) : customAction!,
     ],

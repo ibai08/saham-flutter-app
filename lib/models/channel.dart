@@ -116,7 +116,6 @@ class ChannelModel {
       return fetchData["message"];
     }, refreshSecond);
     ChannelCardSlim ccs = ChannelCardSlim.fromMap(v);
-    print("ccs: $ccs");
 
     return ccs;
   }

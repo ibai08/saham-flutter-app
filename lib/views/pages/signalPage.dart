@@ -44,7 +44,8 @@ class SignalDashboard extends GetWidget<SignalDashboardController> implements Sc
             title: "Oops...",
             desc: "Mohon lengkapi profil anda terlebih dahulu",
             onTap: () {
-              Navigator.pushNamed(context, "/forms/editprofile");
+              // Navigator.pushNamed(context, "/forms/editprofile");
+              Get.toNamed('/forms/editprofile');
             },
           ),
         ),
@@ -226,7 +227,7 @@ class ListChannelWidget extends GetWidget<ListChannelWidgetController> {
     return Stack(
       children: [
         Container(
-          padding: EdgeInsets.only(left: 20),
+          padding: const EdgeInsets.only(left: 20),
           child: SortButtonsWidget(
             activeSortIndex: controller.sort.value,
             onSortChanged: (index) {
@@ -245,7 +246,7 @@ class ListChannelWidget extends GetWidget<ListChannelWidgetController> {
           }
           return Column(
             children: [
-              SizedBox(
+              const SizedBox(
                 height: 45,
               ),
               Expanded(
@@ -260,18 +261,18 @@ class ListChannelWidget extends GetWidget<ListChannelWidgetController> {
                       builder: ((context, mode) {
                         Widget body;
                         if (mode == LoadStatus.idle) {
-                          body = Text("");
+                          body = const Text("");
                         } else if (mode == LoadStatus.loading) {
-                          body = SignalShimmer(
+                          body = const SignalShimmer(
                             title: "",
                             onLoad: "0",
                           );
                         } else if (mode == LoadStatus.failed) {
-                          body = Text("Load Failed! Click retry!");
+                          body = const Text("Load Failed! Click retry!");
                         } else if (mode == LoadStatus.canLoading) {
-                          body = Text("release to load more");
+                          body = const Text("release to load more");
                         } else {
-                          body = Text("No more Data");
+                          body = const Text("No more Data");
                         }
                         return Container(
                           child: Center(child: body),
@@ -279,7 +280,7 @@ class ListChannelWidget extends GetWidget<ListChannelWidgetController> {
                       }),
                     ),
                     child: ListView(
-                      padding: EdgeInsets.only(top: 10, left: 13, right: 13),
+                      padding: const EdgeInsets.only(top: 10, left: 13, right: 13),
                       children: <Widget>[
                         ChannelListWidget(
                           controller.dataChannel.map((i) => ChannelModel.instance.getDetail(i, clearCache: true)).toList(),

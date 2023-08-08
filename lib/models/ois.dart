@@ -411,6 +411,7 @@ class OisModel {
   }
 
   Future<List<String>> getSearchHistory() async {
+  try {
     if (!UserModel.instance.hasLogin()) {
       throw Exception("PLEASE_LOGIN_FIRST");
     }
@@ -430,19 +431,31 @@ class OisModel {
       }
     }
 
-    return sp.read(CacheKey.oisSearchHistory);
+    return Future.value(List<String>.from(sp.read(CacheKey.oisSearchHistory)));
+  } catch (error) {
+    print("Error while fetching search history: $error");
+    return []; // Return an empty list or handle the error accordingly.
   }
+}
 
   Future<void> updateLocalSearchHistory(String term) async {
+  try {
     GetStorage sp = GetStorage();
     if (sp.hasData(CacheKey.oisSearchHistory)) {
+      List<dynamic> cacheHistory = sp.read(CacheKey.oisSearchHistory);
+      List<String> historyList = cacheHistory.cast<String>();
+
       List<String> temp = [term];
-      temp.addAll(sp.read(CacheKey.oisSearchHistory));
+      temp.addAll(historyList);
       sp.write(CacheKey.oisSearchHistory, temp.toSet().toList());
     } else {
       sp.write(CacheKey.oisSearchHistory, [term]);
     }
+  } catch (error) {
+    print("Error updating local search history: $error");
+    // Handle the error here as needed
   }
+}
 
   Future<List<dynamic>> getBanks() async {
     dynamic v = await CacheFactory.getCache(CacheKey.oisBanks, () async {

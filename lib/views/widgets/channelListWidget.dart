@@ -22,7 +22,6 @@ class ChannelListWidget extends StatelessWidget {
             future: channels[i],
             builder: (context, snapshot) {
               ChannelCardSlim? channel = snapshot.data;
-              print("ada int? : ${channel?.id}");
               return snapshot.hasData 
                 ? ChannelThumb(
                   level: medal,

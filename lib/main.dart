@@ -20,9 +20,12 @@ import 'package:saham_01_app/models/mrg.dart';
 import 'package:saham_01_app/models/user.dart';
 import 'package:saham_01_app/splashScreen.dart';
 import 'package:get/get.dart';
+import 'package:saham_01_app/views/pages/channels/searchChannels.dart';
+import 'package:saham_01_app/views/pages/form/editProfile.dart';
 import 'package:saham_01_app/views/pages/form/login.dart';
 import 'package:saham_01_app/views/pages/form/verifyEmail.dart';
 import 'package:saham_01_app/views/pages/market.dart';
+import 'package:saham_01_app/views/pages/search/searchChannelspop.dart';
 import 'package:saham_01_app/views/pages/setting.dart';
 import 'package:saham_01_app/views/pages/signalPage.dart';
 import 'package:saham_01_app/views/widgets/dialogConfirmation.dart';
@@ -153,6 +156,11 @@ class _MyAppState extends State<MyApp> {
             // GetPage(name: '/update-app', page: () => UpdateVersionView()),
 
             GetPage(name: '/forms/login', page: () => const Login()),
+            GetPage(name: '/forms/editprofile', page: () => const EditProfile()),
+
+            GetPage(name: '/search/channels/pop', page: () => SearchChannelsPop()),
+
+            GetPage(name: '/dsc/search', page: () => SearchChannelsTab())
           ],
           home: const SplashScreen(),
           debugShowCheckedModeBanner: false,

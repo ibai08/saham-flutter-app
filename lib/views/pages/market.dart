@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:saham_01_app/constants/app_colors.dart';
 import 'package:saham_01_app/controller/appStatesController.dart';
 import 'package:saham_01_app/core/getStorage.dart';
@@ -40,9 +41,10 @@ class _MarketPageState extends State<MarketPage> {
   //   _tabController.dispose();
   //   super.dispose();
   // }
-  SharedBoxHelper? boxs = SharedHelper.instance.getBox(BoxName.cache);
+  SharedBoxHelper? boxs = SharedHelper.instance.getBox(CacheKey.oisSearchHistory);
+  GetStorage store = GetStorage();
   void saya() async {
-    print("ini boxs: ${boxs?.boxName}");
+    print("ini boxs: ${store.read(CacheKey.oisSearchHistory)}");
   }
 
   @override

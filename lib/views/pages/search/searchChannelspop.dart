@@ -40,7 +40,7 @@ class SearchChannelsPop extends StatelessWidget {
             children: controller.searchList.map((String tile) {
               return GestureDetector(
                 onTap: () {
-                  Navigator.pop(context);
+                  Get.back(canPop: true);
                   Get.toNamed('/dsc/search', arguments: tile);
                 },
                 child: ListTile(

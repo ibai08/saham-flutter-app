@@ -110,6 +110,7 @@ class SearchForm extends GetView<SearchFormController> {
             }
             print("searchText: $searchText");
             OisModel.instance.updateLocalSearchHistory(searchText);
+            Navigator.pop(context);
             Get.toNamed('/dsc/search', arguments: searchText);
           }
         },

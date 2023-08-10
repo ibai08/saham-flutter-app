@@ -3,7 +3,7 @@ import 'package:saham_01_app/models/channel.dart';
 import 'package:saham_01_app/models/entities/ois.dart';
 
 class SummaryChannelsController extends GetxController {
-  late ChannelSummaryDetail summaryDetail;
+  late ChannelSummaryDetail? summaryDetail;
   late ChannelSummaryDetail summaryDetailAll;
 
   late List<ChannelSummaryGrowth> chartDetail;

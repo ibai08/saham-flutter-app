@@ -299,7 +299,7 @@ class DialogLoadingController extends GetxController {
   }
 }
 
-class DialogLoading extends GetWidget<DialogLoadingController> {
+class DialogLoading extends StatelessWidget {
   final int? autoclose;
 
   DialogLoading({Key? key, this.autoclose}) : super(key: key);

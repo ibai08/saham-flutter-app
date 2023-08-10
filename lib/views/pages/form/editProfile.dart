@@ -30,7 +30,7 @@ class EditProfile extends StatelessWidget {
   }
 }
 
-class EditProfileForm extends GetWidget<EditProfileFormController> {
+class EditProfileForm extends StatelessWidget {
   final EditProfileFormController editFormController = Get.put(EditProfileFormController());
 
   @override

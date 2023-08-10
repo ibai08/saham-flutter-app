@@ -18,7 +18,7 @@ import 'package:saham_01_app/views/widgets/signalListWidgetNew.dart';
 import 'package:saham_01_app/views/widgets/signalShimmer.dart';
 
 
-class SignalDashboard extends GetWidget<SignalDashboardController> implements ScrollUpWidget {
+class SignalDashboard extends StatelessWidget implements ScrollUpWidget {
   final SignalDashboardController signalDashboardController = Get.put(SignalDashboardController());
 
   final AppStateController appStateController = Get.put(AppStateController());
@@ -112,7 +112,7 @@ class SignalDashboard extends GetWidget<SignalDashboardController> implements Sc
 
  
 
-class ListSignalWidget extends GetWidget<ListSignalWidgetController> implements ScrollUpWidget {
+class ListSignalWidget extends StatelessWidget implements ScrollUpWidget {
   ListSignalWidget({Key? key}) : super(key: key);
 
   @override
@@ -214,7 +214,7 @@ class ListSignalWidget extends GetWidget<ListSignalWidgetController> implements 
   final RefreshController refreshController = RefreshController(initialRefresh: false);
 }
 
-class ListChannelWidget extends GetWidget<ListChannelWidgetController> {
+class ListChannelWidget extends StatelessWidget {
   @override
   final ListChannelWidgetController controller = Get.put(ListChannelWidgetController());
 

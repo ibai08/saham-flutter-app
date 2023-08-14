@@ -1,49 +1,46 @@
+// ignore_for_file: prefer_is_empty
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
-import 'package:saham_01_app/controller/listActiveController.dart';
+import 'package:saham_01_app/controller/listHistoryController.dart';
 import 'package:saham_01_app/views/widgets/info.dart';
 
-class ListActiveSignal extends StatelessWidget {
-  final ListActiveController controller = Get.put(ListActiveController());
-
+class ListHistorySignal extends StatelessWidget {
   final int channel;
   final bool subscribed;
+  ListHistorySignal(this.channel, this.subscribed);
 
-  ListActiveSignal(this.channel, this.subscribed);
+  final ListHistoryController controller = ListHistoryController();
 
   @override
   Widget build(BuildContext context) {
-    controller.setChannels(channel);
     return Container(
       padding: const EdgeInsets.only(top: 15),
       color: Colors.grey[200],
       child: Obx(() {
         if (controller.signalInfo == null &&
-            controller.hasError.value == true) {
+            !controller.hasError.value == true) {
           return const Center(
-            child: Text(
-              "Tunggu ya..!!",
-              style: TextStyle(fontWeight: FontWeight.w600, fontSize: 18),
-            ),
-          );
+              child: Text(
+            "Tunggu ya..!!",
+            style: TextStyle(fontWeight: FontWeight.w600, fontSize: 18),
+          ));
         }
-        if (!subscribed) {
+        if (controller.signalInfo?.length == 0 &&
+            !controller.hasError.value == true) {
           return Info(
-            image: const SizedBox(),
-            title: "Belum Subscribe",
+            image: SizedBox(),
+            title: "Tidak ada riwayat signal",
             onTap: controller.onRefresh,
             desc:
-                "Data tidak ditemukan, channel ini tidak memiliki active signal",
+                "Data tidak ditemukan, channel ini tidak memiliki riwayat signal atau Anda belum subscribe channel ini",
           );
         }
         if (controller.hasError.value == true) {
           return ListView(
             children: <Widget>[
-              Info(
-                onTap: controller.onLoading,
-                image: const SizedBox(),
-              )
+              Info(image: SizedBox(), onTap: controller.onLoading),
             ],
           );
         }

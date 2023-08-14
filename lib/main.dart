@@ -7,6 +7,7 @@ import 'package:flutter/services.dart';
 import 'package:saham_01_app/config/tab_list.dart';
 import 'package:saham_01_app/constants/app_colors.dart';
 import 'package:saham_01_app/controller/appStatesController.dart';
+import 'package:saham_01_app/controller/signalTabController.dart';
 import 'package:saham_01_app/core/analytics.dart';
 import 'package:saham_01_app/core/config.dart';
 import 'package:saham_01_app/core/firebasecm.dart';
@@ -100,6 +101,7 @@ void main() async {
 
   Get.put(DialogLoadingController());
   // Get.put(SearchFormController());
+  Get.put(ListChannelWidgetController());
   
 
   runApp(const MyApp());

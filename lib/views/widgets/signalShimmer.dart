@@ -3,74 +3,28 @@
 import 'package:flutter/material.dart';
 import 'package:shimmer/shimmer.dart';
 
-class SignalShimmer extends StatefulWidget {
-  const SignalShimmer({Key? key, this.title, this.onLoad}) : super(key: key);
+
+class SignalShimmer extends StatelessWidget {
   final String? title;
   final String? onLoad;
-
-  @override
-  State<SignalShimmer> createState() => _SignalShimmerState();
-}
-
-class _SignalShimmerState extends State<SignalShimmer> {
+  SignalShimmer({Key? key, this.title, this.onLoad}) : super(key: key);
   List<String> counts = ["", "", "", "", "", ""];
   // List<int> _dataChannel = [];
   int sort = 0;
 
   @override
   Widget build(BuildContext context) {
-    String? title = widget.title;
-    String? onLoad = widget.onLoad;
-
-    // return Column(
-    //   crossAxisAlignment: CrossAxisAlignment.start,
-    //   children: [
-    //     onLoad == "1"
-    //         ? Container(
-    //             padding: EdgeInsets.only(left: 15, top: 15),
-    //             child: Column(
-    //               children: [
-    //                 Text(
-    //                   title,
-    //                   style: TextStyle(
-    //                     fontSize: 17,
-    //                     fontWeight: FontWeight.bold,
-    //                   ),
-    //                 ),
-    //               ],
-    //             ),
-    //           )
-    //         : Text(""),
-    //     Container(
-    //       child: Column(
-    //         children: [
-    //           Padding(
-    //             padding: EdgeInsets.all(10),
-    //             child: Container(
-    //               width: MediaQuery.of(context).size.width,
-    //               child: ListView(
-    //                 scrollDirection: Axis.vertical,
-    //                 children: counts.map((count) {
-    //                   return box(count, Colors.grey[350], context);
-    //                 }).toList(),
-    //               ),
-    //             ),
-    //           )
-    //         ],
-    //       ),
-    //     )
-    //   ],
-    // );
+    
     return Container(
       width: MediaQuery.of(context).size.width,
       child: ListView(
         scrollDirection: Axis.vertical,
-        padding: const EdgeInsets.only(top: 15),
+        padding: const EdgeInsets.symmetric(vertical: 0, horizontal: 0),
         shrinkWrap: true,
         children: [
           onLoad == "1"
               ? Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 15),
+                  padding: const EdgeInsets.symmetric(vertical: 17),
                   child: Column(
                     children: [
                       Text(
@@ -188,7 +142,7 @@ Widget box(String num, Color backgroundcolor, context) {
                     alignment: Alignment.center,
                     margin: const EdgeInsets.only(
                         left: 10, top: 5, bottom: 10, right: 10),
-                    width: MediaQuery.of(context).size.width * 0.88,
+                    width: MediaQuery.of(context).size.width * 0.50,
                     height: 65,
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(10),
@@ -203,7 +157,7 @@ Widget box(String num, Color backgroundcolor, context) {
                 children: <Widget>[
                   Container(
                     alignment: Alignment.center,
-                    width: MediaQuery.of(context).size.width * 0.93,
+                    width: MediaQuery.of(context).size.width * 0.50,
                     height: 40,
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(5),
@@ -219,24 +173,24 @@ Widget box(String num, Color backgroundcolor, context) {
     ),
   );
 }
-class SignalShimmerNew extends StatefulWidget {
-  const SignalShimmerNew({Key? key, this.title, this.onLoad}) : super(key: key);
+// class SignalShimmerNew extends StatefulWidget {
+//   const 
+  
+
+//   @override
+//   State<SignalShimmer> createState() => _SignalShimmerNewState();
+// }
+
+class SignalShimmerNew extends StatelessWidget {
+  SignalShimmerNew({Key? key, this.title, this.onLoad}) : super(key: key);
   final String? title;
   final String? onLoad;
-
-  @override
-  State<SignalShimmer> createState() => _SignalShimmerNewState();
-}
-
-class _SignalShimmerNewState extends State<SignalShimmer> {
   List<String> counts = ["", "", "", "", "", ""];
   // List<int> _dataChannel = [];
   int sort = 0;
 
   @override
   Widget build(BuildContext context) {
-    String? title = widget.title;
-    String? onLoad = widget.onLoad;
 
     // return Column(
     //   crossAxisAlignment: CrossAxisAlignment.start,

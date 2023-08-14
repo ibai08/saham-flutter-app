@@ -28,15 +28,14 @@ class SearchFormController extends GetxController {
   bool autoFocus = false;
   FocusNode searchFocus = FocusNode();
 
-  
-
   @override
   void onInit() {
     super.onInit();
     // print("args: ${args}");
     if (Get.arguments != null && Get.arguments['popTo'] != null) {
       popToFn = () {
-        Get.toNamed(Get.arguments['popTo'], arguments: {"text": searchCon.text});
+        Get.toNamed(Get.arguments['popTo'],
+            arguments: {"text": searchCon.text});
         readyonly = true;
       };
     } else {
@@ -50,7 +49,8 @@ class SearchForm extends GetView<SearchFormController> {
   final String? popTo;
   final bool? tryInput;
 
-  SearchForm({Key? key, this.text, this.popTo, this.tryInput}) : super(key: key);
+  SearchForm({Key? key, this.text, this.popTo, this.tryInput})
+      : super(key: key);
 
   final SearchFormController controller = Get.put(SearchFormController());
 
@@ -59,7 +59,8 @@ class SearchForm extends GetView<SearchFormController> {
     // print("Function: ${popTo}");
     if (text != null && text != "null" && text != "") {
       controller.searchCon.text = text!;
-      controller.searchCon.selection = TextSelection.fromPosition(TextPosition(offset: controller.searchCon.text.length));
+      controller.searchCon.selection = TextSelection.fromPosition(
+          TextPosition(offset: controller.searchCon.text.length));
     }
     return Form(
       key: controller.formKey.value,
@@ -82,7 +83,8 @@ class SearchForm extends GetView<SearchFormController> {
           hintText: "Cari Channels",
           hintStyle: TextStyle(color: AppColors.darkGrey3),
           border: InputBorder.none,
-          contentPadding: const EdgeInsets.only(top: 10, bottom: 10, left: 15, right: 15),
+          contentPadding:
+              const EdgeInsets.only(top: 10, bottom: 10, left: 15, right: 15),
           focusedBorder: OutlineInputBorder(
             borderSide: BorderSide(color: AppColors.lightGrey),
             borderRadius: BorderRadius.circular(10),
@@ -103,8 +105,11 @@ class SearchForm extends GetView<SearchFormController> {
         keyboardType: TextInputType.text,
         textInputAction: TextInputAction.done,
         onFieldSubmitted: (val) {
-          String searchText = controller.searchCon.text.trim().split(RegExp(r"\s\s+")).join(" ");
-          if  (searchText != "") {
+          String searchText = controller.searchCon.text
+              .trim()
+              .split(RegExp(r"\s\s+"))
+              .join(" ");
+          if (searchText != "") {
             if (popTo == null) {
               Get.back();
             }
@@ -154,7 +159,9 @@ class SearchAction extends StatelessWidget {
                 Get.toNamed('/dsc/channels/info');
                 break;
               case '3':
-                remoteConfig.getInt("can_paid_channel") == 1 ? Get.toNamed('/dsc/withdraw') : showAlert(context, LoadingState.warning, "Coming Soon");
+                remoteConfig.getInt("can_paid_channel") == 1
+                    ? Get.toNamed('/dsc/withdraw')
+                    : showAlert(context, LoadingState.warning, "Coming Soon");
                 break;
             }
           },
@@ -172,10 +179,12 @@ class SearchAction extends StatelessWidget {
               value: "2",
               child: Text('My Info'),
             ),
-            remoteConfig.getInt('can_paid_channel') == 1 ? const PopupMenuItem<String>(
-              value: "3",
-              child: Text('Cash Out'),
-            ) : const PopupMenuItem(child: null)
+            remoteConfig.getInt('can_paid_channel') == 1
+                ? const PopupMenuItem<String>(
+                    value: "3",
+                    child: Text('Cash Out'),
+                  )
+                : const PopupMenuItem(child: null)
           ],
         );
         break;
@@ -190,33 +199,33 @@ class SearchAction extends StatelessWidget {
 }
 
 class NavChannel extends AppBar {
-  NavChannel({
-    Key? key,
-    String? title,
-    bool? tryInput,
-    BuildContext? context,
-    NavChannelState? state,
-    String? popTo,
-    Widget? customAction,
-    String? text
-  }) : super (
-    key: key,
-    title: Container(
-      height: 42,
-      child: SearchForm(
-        text: text ?? "",
-        popTo: popTo ?? "",
-        tryInput: tryInput ?? false,
-      )
-    ),
-    actions: <Widget>[
-      state != NavChannelState.custom ? SearchAction(
-        state: state,
-      ) : customAction!,
-    ],
-    iconTheme: const IconThemeData(color: Colors.black),
-    backgroundColor: const Color.fromRGBO(242, 246, 247, 1),
-    shadowColor: const Color.fromRGBO(242, 246, 247, 1),
-    elevation: 2
-  );
+  NavChannel(
+      {Key? key,
+      String? title,
+      bool? tryInput,
+      BuildContext? context,
+      NavChannelState? state,
+      String? popTo,
+      Widget? customAction,
+      String? text})
+      : super(
+            key: key,
+            title: Container(
+                height: 42,
+                child: SearchForm(
+                  text: text ?? "",
+                  popTo: popTo ?? "",
+                  tryInput: tryInput ?? false,
+                )),
+            actions: <Widget>[
+              state != NavChannelState.custom
+                  ? SearchAction(
+                      state: state,
+                    )
+                  : customAction!,
+            ],
+            iconTheme: const IconThemeData(color: Colors.black),
+            backgroundColor: const Color.fromRGBO(242, 246, 247, 1),
+            shadowColor: const Color.fromRGBO(242, 246, 247, 1),
+            elevation: 2);
 }

@@ -9,8 +9,9 @@ import 'package:saham_01_app/function/sortChannelModal.dart';
 import 'package:saham_01_app/views/appbar/navChannel.dart';
 
 class SearchChannelsTab extends StatelessWidget {
-  final SearchChannelsTabController searchChannelsTabController = Get.put(SearchChannelsTabController());
-  
+  final SearchChannelsTabController searchChannelsTabController =
+      Get.put(SearchChannelsTabController());
+
   @override
   Widget build(BuildContext context) {
     String? findText = ModalRoute.of(context)?.settings.arguments.toString();
@@ -50,7 +51,8 @@ class SearchChannelsTab extends StatelessWidget {
                         isScrollable: true,
                         labelColor: Colors.black,
                         unselectedLabelStyle: const TextStyle(fontSize: 16),
-                        labelStyle: const TextStyle(fontWeight: FontWeight.w600, fontSize: 16),
+                        labelStyle: const TextStyle(
+                            fontWeight: FontWeight.w600, fontSize: 16),
                         indicatorWeight: 3,
                         indicatorSize: TabBarIndicatorSize.label,
                         indicatorColor: AppColors.primaryGreen,
@@ -73,9 +75,7 @@ class SearchChannelsTab extends StatelessWidget {
           body: TabBarView(
             children: <Widget>[
               SearchSignalResult(findText: findText),
-              SearchChannelsResult(
-                findText: findText
-              )
+              SearchChannelsResult(findText: findText)
             ],
             controller: searchChannelsTabController.tabController,
           ),
@@ -86,7 +86,8 @@ class SearchChannelsTab extends StatelessWidget {
 }
 
 class SearchChannelsResult extends StatelessWidget {
-  final SearchChannelsResultController searchChannelsResultController = Get.put(SearchChannelsResultController());
+  final SearchChannelsResultController searchChannelsResultController =
+      Get.put(SearchChannelsResultController());
 
   final String? findText;
 
@@ -100,65 +101,67 @@ class SearchChannelsResult extends StatelessWidget {
     return Obx(() {
       if (searchChannelsResultController.channelSearchResult == null) {
         return const Center(
-          child: Text(
-            "Tunggu ya..!!",
-            style: TextStyle(fontWeight: FontWeight.w600, fontSize: 18),
-          )
-        );
+            child: Text(
+          "Tunggu ya..!!",
+          style: TextStyle(fontWeight: FontWeight.w600, fontSize: 18),
+        ));
       }
       if (searchChannelsResultController.channelSearchResult.length == 0) {
         return const Center(
-          child: Text(
-            "Maaf.. data tidak ditemukan",
-            style: TextStyle(fontWeight: FontWeight.w600, fontSize: 18),
-          )
-        );
+            child: Text(
+          "Maaf.. data tidak ditemukan",
+          style: TextStyle(fontWeight: FontWeight.w600, fontSize: 18),
+        ));
       }
-      return Stack(
-        children: [
-          SmartRefresher(
-            enablePullDown: false,
-            enablePullUp: searchChannelsResultController.channelSearchResult.length > 4 ? true : false,
-            controller: searchChannelsResultController.refreshController,
-            onLoading: searchChannelsResultController.onLoading,
-            child: ListView(
-              children: searchChannelsResultController.getChannels(searchChannelsResultController.channelSearchResult),
+      return Stack(children: [
+        SmartRefresher(
+          enablePullDown: false,
+          enablePullUp:
+              searchChannelsResultController.channelSearchResult.length > 4
+                  ? true
+                  : false,
+          controller: searchChannelsResultController.refreshController,
+          onLoading: searchChannelsResultController.onLoading,
+          child: ListView(
+            children: searchChannelsResultController.getChannels(
+                searchChannelsResultController.channelSearchResult),
+          ),
+        ),
+        Positioned(
+          bottom: 20,
+          right: 20,
+          child: FloatingActionButton(
+            backgroundColor: AppColors.primaryGreen,
+            elevation: 8,
+            onPressed: () async {
+              int? res = await showSortChannelModal(
+                  context, searchChannelsResultController.sort);
+              if (res != null && res != searchChannelsResultController.sort) {
+                searchChannelsResultController.sort = res;
+                searchChannelsResultController.listChannel.clear();
+                searchChannelsResultController.channelSearchResult.addAll([]);
+                await searchChannelsResultController.onLoading();
+              }
+            },
+            child: const Icon(
+              Icons.sort,
+              color: Colors.white,
             ),
           ),
-          Positioned(
-            bottom: 20,
-            right: 20,
-            child: FloatingActionButton(
-              backgroundColor: AppColors.primaryGreen,
-              elevation: 8,
-              onPressed: () async {
-                int? res = await showSortChannelModal(context, searchChannelsResultController.sort);
-                if (res != null && res != searchChannelsResultController.sort) {
-                  searchChannelsResultController.sort = res;
-                  searchChannelsResultController.listChannel.clear();
-                  searchChannelsResultController.channelSearchResult.addAll([]);
-                  await searchChannelsResultController.onLoading();
-                }
-              },
-              child: const Icon(
-                Icons.sort,
-                color: Colors.white,
-              ),
-            ),
-          )
-        ]
-      );
+        )
+      ]);
     });
   }
 }
 
 class SearchSignalResult extends StatelessWidget {
-  final SearchSignalResultController searchSignalResultController = Get.put(SearchSignalResultController());
+  final SearchSignalResultController searchSignalResultController =
+      Get.put(SearchSignalResultController());
 
   final String? findText;
 
   SearchSignalResult({Key? key, this.findText}) : super(key: key);
-  
+
   Widget build(BuildContext context) {
     searchSignalResultController.setFindTxt(findText!);
     return Obx(() {
@@ -174,22 +177,23 @@ class SearchSignalResult extends StatelessWidget {
         return const Center(
           child: Text(
             "Maaf.. data tidak ditemukan",
-            style: TextStyle(fontWeight: FontWeight.w600,
-            fontSize: 18),
+            style: TextStyle(fontWeight: FontWeight.w600, fontSize: 18),
           ),
         );
       }
       return SmartRefresher(
         enablePullDown: false,
-        enablePullUp:  searchSignalResultController.signalSearchResult!.length > 4 ? true : false,
+        enablePullUp:
+            searchSignalResultController.signalSearchResult!.length > 4
+                ? true
+                : false,
         controller: searchSignalResultController.refreshController,
         onLoading: searchSignalResultController.onLoading,
         child: ListView(
-          children: searchSignalResultController.getSignals(searchSignalResultController.signalSearchResult!),
+          children: searchSignalResultController
+              .getSignals(searchSignalResultController.signalSearchResult!),
         ),
       );
     });
   }
-
 }
-

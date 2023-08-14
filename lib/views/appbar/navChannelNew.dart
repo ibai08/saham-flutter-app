@@ -25,15 +25,14 @@ class SearchFormNewController extends GetxController {
   bool autoFocus = false;
   FocusNode searchFocus = FocusNode();
 
-  
-
   @override
   void onInit() {
     super.onInit();
     // print("args: ${args}");
     if (Get.arguments != null && Get.arguments['popTo'] != null) {
       popToFn = () {
-        Get.toNamed(Get.arguments['popTo'], arguments: {"text": searchCon.text});
+        Get.toNamed(Get.arguments['popTo'],
+            arguments: {"text": searchCon.text});
         readyonly = true;
       };
     } else {
@@ -48,7 +47,8 @@ class SearchForm extends GetView<SearchFormNewController> {
   final String? popTo;
   final bool? tryInput;
 
-  SearchForm({Key? key, this.text, this.popTo, this.tryInput}) : super(key: key);
+  SearchForm({Key? key, this.text, this.popTo, this.tryInput})
+      : super(key: key);
 
   final SearchFormNewController controller = Get.put(SearchFormNewController());
 
@@ -57,7 +57,8 @@ class SearchForm extends GetView<SearchFormNewController> {
     // print("Function: ${popTo}");
     if (text != null && text != "null" && text != "") {
       controller.searchCon.text = text!;
-      controller.searchCon.selection = TextSelection.fromPosition(TextPosition(offset: controller.searchCon.text.length));
+      controller.searchCon.selection = TextSelection.fromPosition(
+          TextPosition(offset: controller.searchCon.text.length));
     }
     return Form(
       key: controller.formKey.value,
@@ -80,7 +81,8 @@ class SearchForm extends GetView<SearchFormNewController> {
           hintText: "Cari Channels",
           hintStyle: TextStyle(color: AppColors.darkGrey3),
           border: InputBorder.none,
-          contentPadding: const EdgeInsets.only(top: 10, bottom: 10, left: 15, right: 15),
+          contentPadding:
+              const EdgeInsets.only(top: 10, bottom: 10, left: 15, right: 15),
           focusedBorder: OutlineInputBorder(
             borderSide: BorderSide(color: AppColors.lightGrey),
             borderRadius: BorderRadius.circular(10),
@@ -101,8 +103,11 @@ class SearchForm extends GetView<SearchFormNewController> {
         keyboardType: TextInputType.text,
         textInputAction: TextInputAction.done,
         onFieldSubmitted: (val) {
-          String searchText = controller.searchCon.text.trim().split(RegExp(r"\s\s+")).join(" ");
-          if  (searchText != "") {
+          String searchText = controller.searchCon.text
+              .trim()
+              .split(RegExp(r"\s\s+"))
+              .join(" ");
+          if (searchText != "") {
             if (popTo == null) {
               Get.back();
             }
@@ -150,33 +155,33 @@ class SearchAction extends StatelessWidget {
 }
 
 class NavChannelNew extends AppBar {
-  NavChannelNew({
-    Key? key,
-    String? title,
-    bool? tryInput,
-    BuildContext? context,
-    NavChannelNewState? state,
-    String? popTo,
-    Widget? customAction,
-    String? text
-  }) : super (
-    key: key,
-    title: Container(
-      height: 42,
-      child: SearchForm(
-        text: text ?? "",
-        popTo: popTo ?? "",
-        tryInput: tryInput ?? false,
-      )
-    ),
-    actions: <Widget>[
-      state != NavChannelNewState.custom ? SearchAction(
-        state: state,
-      ) : customAction!,
-    ],
-    iconTheme: const IconThemeData(color: Colors.black),
-    backgroundColor: const Color.fromRGBO(242, 246, 247, 1),
-    shadowColor: const Color.fromRGBO(242, 246, 247, 1),
-    elevation: 2
-  );
+  NavChannelNew(
+      {Key? key,
+      String? title,
+      bool? tryInput,
+      BuildContext? context,
+      NavChannelNewState? state,
+      String? popTo,
+      Widget? customAction,
+      String? text})
+      : super(
+            key: key,
+            title: Container(
+                height: 42,
+                child: SearchForm(
+                  text: text ?? "",
+                  popTo: popTo ?? "",
+                  tryInput: tryInput ?? false,
+                )),
+            actions: <Widget>[
+              state != NavChannelNewState.custom
+                  ? SearchAction(
+                      state: state,
+                    )
+                  : customAction!,
+            ],
+            iconTheme: const IconThemeData(color: Colors.black),
+            backgroundColor: const Color.fromRGBO(242, 246, 247, 1),
+            shadowColor: const Color.fromRGBO(242, 246, 247, 1),
+            elevation: 2);
 }

@@ -133,8 +133,9 @@ class ListSignalWidget extends StatelessWidget implements ScrollUpWidget {
           //   );
           // }
           // if (controller._dataSignal.)
+          print("controller:controller.dataSignal");
           if (controller.dataSignal.isEmpty) {
-            return const SignalShimmer(
+            return SignalShimmer(
               title: "",
               onLoad: "1",
             );
@@ -169,7 +170,7 @@ class ListSignalWidget extends StatelessWidget implements ScrollUpWidget {
                         if (mode == LoadStatus.idle) {
                           body = const Text("");
                         } else if (mode == LoadStatus.loading) {
-                          body = const SignalShimmer(
+                          body = SignalShimmer(
                             onLoad: "0",
                           );
                         } else if (mode ==  LoadStatus.failed) {
@@ -224,22 +225,25 @@ class ListChannelWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // print("channel: ${controller.dataChannel}");
+    print("index: ${controller.sort.value}");
     return Stack(
       children: [
         Container(
           padding: const EdgeInsets.only(left: 20),
           child: SortButtonsWidget(
-            activeSortIndex: controller.sort.value,
             onSortChanged: (index) {
               controller.sort.value = index;
+              print("berubah: ${controller.sort}");
+              
               controller.initializePageChannelAsync();
               controller.refreshController.requestRefresh(needMove: false);
             },
+            activeSortIndex: controller.sort,
           ),
         ),
         Obx(() {
           if (controller.dataChannel.isEmpty) {
-            return const SignalShimmer(
+            return SignalShimmer(
               title: "",
               onLoad: "1",
             );
@@ -263,7 +267,7 @@ class ListChannelWidget extends StatelessWidget {
                         if (mode == LoadStatus.idle) {
                           body = const Text("");
                         } else if (mode == LoadStatus.loading) {
-                          body = const SignalShimmer(
+                          body = SignalShimmer(
                             title: "",
                             onLoad: "0",
                           );

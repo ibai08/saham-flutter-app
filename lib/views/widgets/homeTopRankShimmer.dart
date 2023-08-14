@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:saham_01_app/constants/app_colors.dart';
+import 'package:saham_01_app/views/widgets/channelAvatar.dart';
 import 'package:shimmer/shimmer.dart';
 
 class HomeTopRankShimmer extends StatefulWidget {
@@ -20,7 +21,7 @@ class _HomeTopRankShimmerState extends State<HomeTopRankShimmer> {
     double? pT = widget.pT;
     return Container(
       width: MediaQuery.of(context).size.width,
-      padding: EdgeInsets.only(top: pT!),
+      padding: EdgeInsets.only(top: pT!, ),
       child: Column(
         children: <Widget>[
           // Column(
@@ -52,9 +53,9 @@ class _HomeTopRankShimmerState extends State<HomeTopRankShimmer> {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Padding(
-                padding: const EdgeInsets.only(left: 10, right: 10),
+                padding: const EdgeInsets.only(left: 9, right: 10),
                 child: Container(
-                  height: 140,
+                  height: 180,
                   child: ListView(
                     scrollDirection: Axis.horizontal,
                     children: counts.map((count) {
@@ -71,113 +72,82 @@ class _HomeTopRankShimmerState extends State<HomeTopRankShimmer> {
   }
 }
 
-Widget box(String num, Color backgroundcolor) {
+Widget box(String num, Color backgroundColor) {
   return Container(
-    width: 285,
-    margin: const EdgeInsets.only(top: 4, left: 12, bottom: 4, right: 12),
+    width: 240,
+    margin: const EdgeInsets.symmetric(horizontal: 9, vertical: 5),
+    padding: const EdgeInsets.only(top: 15, bottom: 15, left: 10, right: 10),
     decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: const BorderRadius.all(Radius.circular(10)),
-        boxShadow: [
-          BoxShadow(color: AppColors.grey, blurRadius: 4, offset: const Offset(0, 2))
-        ]),
+      color: AppColors.white,
+      borderRadius: const BorderRadius.all(Radius.circular(8)),
+    ),
     child: Column(
       children: [
-        Shimmer.fromColors(
-          baseColor: Colors.grey[400]!,
-          highlightColor: Colors.grey[300]!,
+        Row(
+          children: [
+            Shimmer.fromColors(
+              baseColor: Colors.grey[400]!,
+              highlightColor: Colors.grey[300]!,
+              child: ChannelAvatar(
+                width: 40,
+                imageUrl: '',
+              ),
+            ),
+            const SizedBox(width: 2),
+           
+            const SizedBox(width: 10),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Container(
+                    width: double.infinity,
+                    height: 10,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10),
+                      color: backgroundColor,
+                    ),
+                  ),
+                  const SizedBox(height: 3),
+                  Container(
+                    width: double.infinity,
+                    height: 10,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10),
+                      color: backgroundColor,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 0, vertical: 10),
           child: Row(
             children: [
-              Expanded(
-                child: Center(
-                  child: Column(
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.only(top: 15, bottom: 15),
-                        child: Container(
-                          width: 55,
-                          height: 55,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(100),
-                            color: backgroundcolor,
-                          ),
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(top: 0, bottom: 5),
-                        child: Container(
-                          height: 10,
-                          width: 60,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(10),
-                            color: backgroundcolor,
-                          ),
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.all(0),
-                        child: Container(
-                          height: 7,
-                          width: 90,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(10),
-                            color: backgroundcolor,
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
+              const SizedBox(width: 3),
               Container(
-                height: 100,
-                padding: const EdgeInsets.only(top: 30),
-                child: const VerticalDivider(
-                  color: Colors.black,
-                ),
-              ),
-              Expanded(
-                child: Center(
-                  child: Column(
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.only(top: 15, bottom: 15),
-                        child: Container(
-                          width: 55,
-                          height: 55,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(100),
-                            color: backgroundcolor,
-                          ),
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(top: 0, bottom: 5),
-                        child: Container(
-                          height: 10,
-                          width: 60,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(10),
-                            color: backgroundcolor,
-                          ),
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.all(0),
-                        child: Container(
-                          height: 7,
-                          width: 90,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(10),
-                            color: backgroundcolor,
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
+                width: 60,
+                height: 20,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10),
+                  color: backgroundColor,
                 ),
               ),
             ],
+          ),
+        ),
+        Container(
+          margin: const EdgeInsets.only(top: 10, right: 8, bottom: 3, left: 8),
+          width: double.infinity,
+          child: Container(
+            width: double.infinity,
+            height: 40,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(4),
+              color: backgroundColor,
+            ),
           ),
         ),
       ],

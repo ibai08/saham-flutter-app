@@ -969,9 +969,10 @@ class MostConsistentChannelThumbNew extends StatelessWidget {
 
   void fetchData() async {
     try {
+      print("berhasil 1");
       channelInfo?.value = channel!;
       String? data = (await channel?.watchChannelCache(appStateController.users.value.id)) as String?;
-
+      print("berhasil 2");
       if (data != "") {
         Map boxData = jsonDecode(data!);
         if (boxData.containsKey("data")) {
@@ -984,6 +985,8 @@ class MostConsistentChannelThumbNew extends StatelessWidget {
   }
   @override
   Widget build(BuildContext context) {
+    print("medal.level");
+    print(medal?.level);
     if (medal?.level == null) {
       return const HomeTopRankShimmer(pT: 0);
     }

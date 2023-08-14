@@ -92,8 +92,11 @@ class ListSignalWidgetController extends GetxController {
   Future<void> initializePageSignalAsync({bool clearCache = false}) async {
     try {
       dataSignal.clear();
+      print("test 1");
       List<SignalCardSlim>? recentSignal = await SignalModel.instance.getRecentSignalAsync(filter: filter.value);
+      print("test 2");
       dataSignal.addAll(recentSignal!);
+      print("test 3");
       var result = await getMedal();
       medal.value = result;
     } catch (err) {

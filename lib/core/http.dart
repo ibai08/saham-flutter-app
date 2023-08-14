@@ -83,6 +83,7 @@ class TF2Request {
 
   static Future<bool> refreshLogin() async {
     String? enc = await getCfgAsync("crd");
+    print("enc: $enc");
     Map data = {};
     if (enc != null) {
       Response res;

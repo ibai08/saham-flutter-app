@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:saham_01_app/controller/appStatesController.dart';
 import 'package:saham_01_app/core/string.dart';
@@ -8,10 +9,12 @@ import 'package:saham_01_app/models/mrg.dart';
 import 'package:saham_01_app/views/widgets/dialogLoading.dart';
 
 class ListTileAction extends StatelessWidget {
-  const ListTileAction({ Key? key, this.data, this.no }) : super(key: key);
+  ListTileAction({ Key? key, this.data, this.no }) : super(key: key);
 
   final RealAccMrg? data;
   final int? no;
+
+  final DialogLoadingController controller = Get.put(DialogLoadingController());
 
   @override
   Widget build(BuildContext context) {
@@ -115,7 +118,7 @@ class ListTileAction extends StatelessWidget {
                   }
                 } catch (ex) {
                   print(ex);
-                  dlg.controller.setProgress(
+                  controller.setProgress(
                       LoadingState.error, translateFromPattern(ex.toString()));
                   await Future.delayed(const Duration(seconds: 2));
                   Navigator.pop(context);

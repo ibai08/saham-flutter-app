@@ -8,10 +8,10 @@ import 'package:saham_01_app/views/widgets/btnShort.dart';
 import 'package:saham_01_app/views/widgets/btnSortNew.dart';
 
 class SortChannelController extends GetxController {
-  var sort = 0.obs;
+  RxInt? sort = 0.obs;
 
   void setSort(int value) {
-    sort.value = value;
+    sort?.value = value;
   }
 }
 
@@ -45,8 +45,8 @@ Future<dynamic> showSortChannelModal(BuildContext context, int initialSort) {
                               sortController.setSort(e.key);
                             },
                             text: e.value['title'],
-                            isActive: sortController.sort.value == e.key ||
-                                (e.key == 0 && sortController.sort.value == null),
+                            isActive: sortController.sort?.value == e.key ||
+                                (e.key == 0 && sortController.sort?.value == null),
                           ))
                       .toList(),
                 ),
@@ -71,7 +71,7 @@ Future<dynamic> showSortChannelModal(BuildContext context, int initialSort) {
               child: BtnBlock(
                 width: MediaQuery.of(context).size.width - 50,
                 onTap: () {
-                  Navigator.pop(context, sortController.sort.value);
+                  Navigator.pop(context, sortController.sort?.value);
                 },
                 title: "Urutkan",
               ),
@@ -84,10 +84,10 @@ Future<dynamic> showSortChannelModal(BuildContext context, int initialSort) {
 }
 
 class SortButtonsWidget extends StatelessWidget {
-  final int activeSortIndex;
+  RxInt? activeSortIndex = null;
   final Function(int) onSortChanged;
 
-  const SortButtonsWidget({Key? key, 
+  SortButtonsWidget({Key? key, 
     required this.activeSortIndex,
     required this.onSortChanged,
   }) : super(key: key);
@@ -102,11 +102,13 @@ class SortButtonsWidget extends StatelessWidget {
             .entries
             .map((e) => SortButtonNew(
                   onTap: () {
+                    print("testing bytton: ${e.key}");
                     onSortChanged(e.key);
+                    activeSortIndex?.value = e.key;
+                    print("active sort: ${activeSortIndex?.value}");
                   },
                   text: e.value['title'],
-                  isActive: activeSortIndex == e.key ||
-                      (e.key == 0 && activeSortIndex == null),
+                  isActive: activeSortIndex?.value == e.key || (e.key == 0 && activeSortIndex == null)
                 ))
             .toList(),
       ),

@@ -98,20 +98,20 @@ class ChannelThumb extends StatelessWidget {
       Color? btnColor = AppColors.blueGem;
       Color? txtcolor = Colors.white;
 
-      if (tChannel.username == appStateController.users.value.id) {
-        btnLabel = "LIHAT CHANNEL";
-        btnColor = Colors.grey[300];
-        txtcolor = Colors.grey[800];
-      } else if (tChannel.subscribed!) {
-        btnLabel = "Subscribed";
-        btnColor = Colors.grey[300];
-        txtcolor = Colors.grey[800];
-      } else if (tChannel.isPrivate == true) {
-        btnLabel = "Subscribe with TOKEN";
-      } else if (tChannel.price != null) {
-        btnLabel = "Subscribe for Rp " +
-            NumberFormat("#,###", "ID").format(tChannel.price);
-      }
+      if (tChannel.username == appStateController.users.value.username) {
+          btnLabel = "LIHAT CHANNEL";
+          btnColor = Colors.grey[300]!;
+          txtcolor = Colors.grey[800]!;
+        } else if (tChannel.subscribed!) {
+          btnLabel = "Subscribed";
+          btnColor = Colors.grey[300]!;
+          txtcolor = Colors.grey[800]!;
+        } else if (tChannel.isPrivate == true) {
+          btnLabel = "Subscribe with TOKEN";
+        } else if (tChannel.price! > 0) {
+          btnLabel = "Subscribe for Rp " +
+              NumberFormat("#,###", "ID").format(tChannel.price);
+        }
 
       return Container(
         width: width ?? double.infinity,

@@ -59,13 +59,15 @@ class SearchChannelsTabController extends GetxController with GetSingleTickerPro
 class SearchChannelsResultController extends GetxController {
   final RefreshController refreshController = RefreshController(initialRefresh: false);
 
-  late final RxList<ChannelCardSlim> channelSearchResult = <ChannelCardSlim>[].obs;
+  late final RxList<ChannelCardSlim> channelSearchResult = RxList<ChannelCardSlim>();
 
   var findTxt = ''.obs;
 
   void setFindTxt(String data) {
     findTxt.value = data;
   }
+
+  RxBool hasError = false.obs;
 
   Rx<Level?> level = Rx<Level?>(null);
   RxList<ChannelCardSlim> listChannel = <ChannelCardSlim>[].obs;
@@ -115,7 +117,9 @@ class SearchChannelsResultController extends GetxController {
         refreshController.loadNoData();
       }
     } catch (e) {
+      print("error: $e");
       refreshController.loadFailed();
+      hasError.value = true;
     }
   }
 

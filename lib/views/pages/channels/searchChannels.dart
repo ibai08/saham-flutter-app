@@ -86,7 +86,7 @@ class SearchChannelsTab extends StatelessWidget {
 }
 
 class SearchChannelsResult extends StatelessWidget {
-  final SearchChannelsResultController searchChannelsResultController =
+  final SearchChannelsResultController? searchChannelsResultController =
       Get.put(SearchChannelsResultController());
 
   final String? findText;
@@ -97,16 +97,19 @@ class SearchChannelsResult extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    searchChannelsResultController.setFindTxt(findText!);
+    searchChannelsResultController?.setFindTxt(findText!);
     return Obx(() {
-      if (searchChannelsResultController.channelSearchResult == null) {
+      print("testststst datat: ${searchChannelsResultController?.channelSearchResult}");
+      print("bool: ${searchChannelsResultController?.channelSearchResult.isEmpty}");
+      print("bool2: ${searchChannelsResultController?.channelSearchResult.length == 0}");
+      if (searchChannelsResultController!.channelSearchResult.isEmpty && searchChannelsResultController!.hasError.value == false) {
         return const Center(
             child: Text(
           "Tunggu ya..!!",
           style: TextStyle(fontWeight: FontWeight.w600, fontSize: 18),
         ));
       }
-      if (searchChannelsResultController.channelSearchResult.length == 0) {
+      if (searchChannelsResultController?.channelSearchResult.length == 0 && searchChannelsResultController!.channelSearchResult.isEmpty) {
         return const Center(
             child: Text(
           "Maaf.. data tidak ditemukan",
@@ -117,14 +120,14 @@ class SearchChannelsResult extends StatelessWidget {
         SmartRefresher(
           enablePullDown: false,
           enablePullUp:
-              searchChannelsResultController.channelSearchResult.length > 4
+              searchChannelsResultController!.channelSearchResult.length > 4
                   ? true
                   : false,
-          controller: searchChannelsResultController.refreshController,
-          onLoading: searchChannelsResultController.onLoading,
+          controller: searchChannelsResultController!.refreshController,
+          onLoading: searchChannelsResultController!.onLoading,
           child: ListView(
-            children: searchChannelsResultController.getChannels(
-                searchChannelsResultController.channelSearchResult),
+            children: searchChannelsResultController!.getChannels(
+                searchChannelsResultController!.channelSearchResult),
           ),
         ),
         Positioned(
@@ -135,12 +138,12 @@ class SearchChannelsResult extends StatelessWidget {
             elevation: 8,
             onPressed: () async {
               int? res = await showSortChannelModal(
-                  context, searchChannelsResultController.sort);
-              if (res != null && res != searchChannelsResultController.sort) {
-                searchChannelsResultController.sort = res;
-                searchChannelsResultController.listChannel.clear();
-                searchChannelsResultController.channelSearchResult.addAll([]);
-                await searchChannelsResultController.onLoading();
+                  context, searchChannelsResultController!.sort);
+              if (res != null && res != searchChannelsResultController!.sort) {
+                searchChannelsResultController!.sort = res;
+                searchChannelsResultController!.listChannel.clear();
+                searchChannelsResultController!.channelSearchResult.addAll([]);
+                await searchChannelsResultController!.onLoading();
               }
             },
             child: const Icon(

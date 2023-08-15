@@ -79,11 +79,14 @@ class ChannelThumb extends StatelessWidget {
       Rx<String?>? data = await channel.watchChannelCache(appStateController.users.value.id);
       if (data != null && data.isNotEmpty!) {
         try {
-          Map boxData = jsonDecode(data as String);
+          Map boxData = jsonDecode(data.value!);
           if (boxData.containsKey("data")) {
             channelStream?.value = ChannelCardSlim.fromMap(boxData["data"]);
+            // print(channelStream?.value.price);
           }
-        } catch (e) {}
+        } catch (e) {
+          print("error channel Detail: $e");
+        }
       }
     });
 
@@ -92,26 +95,39 @@ class ChannelThumb extends StatelessWidget {
     }
 
     return Obx(() {
-      ChannelCardSlim? tChannel = channelStream?.value ?? channel;
+      ChannelCardSlim? tChannel = channelStream?.value;
 
-      String btnLabel = 'Subsribe for FREE';
+      RxString btnLabel = 'Subcsribe for FREE'.obs;
       Color? btnColor = AppColors.blueGem;
       Color? txtcolor = Colors.white;
 
-      if (tChannel.username == appStateController.users.value.username) {
-          btnLabel = "LIHAT CHANNEL";
-          btnColor = Colors.grey[300]!;
-          txtcolor = Colors.grey[800]!;
-        } else if (tChannel.subscribed!) {
-          btnLabel = "Subscribed";
-          btnColor = Colors.grey[300]!;
-          txtcolor = Colors.grey[800]!;
-        } else if (tChannel.isPrivate == true) {
-          btnLabel = "Subscribe with TOKEN";
-        } else if (tChannel.price! > 0) {
-          btnLabel = "Subscribe for Rp " +
-              NumberFormat("#,###", "ID").format(tChannel.price);
-        }
+        if (tChannel?.username == appStateController.users.value.username) {
+          btnLabel.value = "LIHAT CHANNEL";
+          btnColor = Colors.grey[300];
+          txtcolor = Colors.grey[800];
+          // print("1");
+        } else if (tChannel?.subscribed != null && tChannel?.subscribed == true) {
+          btnLabel.value = "Subscribed";
+          btnColor = Colors.grey[300];
+          txtcolor = Colors.grey[800];
+          // print("2");
+        } else if (tChannel?.isPrivate == true) {
+          btnLabel.value = "Subscribe with TOKEN";
+          // print("3");
+        } else if (tChannel?.price != null) {
+          if (tChannel?.price == 0) {
+            // print("kena yang ini");
+            btnLabel.value = 'Subcsribe for FREE';
+          } else if (tChannel!.price! > 0) {
+            btnLabel.value = "Subscribe for Rp " + NumberFormat("#,###", "ID").format(tChannel.price);
+          }
+          // print("ini kena");
+        }// } else {
+        //   print("gak kena apa apa");
+        //   print("tchannel.price: ${tChannel?.price}");
+        // }
+
+        // print("btnlabel: $btnLabel");
 
       return Container(
         width: width ?? double.infinity,
@@ -131,14 +147,14 @@ class ChannelThumb extends StatelessWidget {
               onTap: () {
                 OisModel.instance
                     .logActions(
-                  channelId: tChannel.id!,
+                  channelId: tChannel?.id,
                   actionName: "view",
                   stateName: from!,
                 )
                     .then((x) {})
                     .catchError((err) {});
                 Navigator.pushNamed(context, '/dsc/channels/',
-                    arguments: tChannel.id);
+                    arguments: tChannel?.id);
               },
               isMedium: false,
               avatar: avatar,
@@ -164,7 +180,7 @@ class ChannelThumb extends StatelessWidget {
                   child: Column(
                     children: [
                       ChannelPower(
-                        title: numberShortener((tChannel.profit)!.ceil()),
+                        title: numberShortener((tChannel?.profit)!.ceil()),
                         subtitle: "Profit (in IDR)",
                       ),
                     ],
@@ -172,7 +188,7 @@ class ChannelThumb extends StatelessWidget {
                 ),
                 Expanded(
                   child: ChannelPower(
-                    title: numberShortener(tChannel.postPerWeek!.floor()),
+                    title: numberShortener(tChannel!.postPerWeek!.floor()),
                     subtitle: "Post/Week",
                   ),
                 ),
@@ -213,7 +229,7 @@ class ChannelThumb extends StatelessWidget {
                         ),
                       ),
                       child: Text(
-                        btnLabel,
+                        btnLabel.value,
                         style: TextStyle(
                           color: txtcolor,
                           fontWeight: FontWeight.w400,

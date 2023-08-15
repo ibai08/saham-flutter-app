@@ -5,7 +5,7 @@ import 'package:saham_01_app/controller/appStatesController.dart';
 import 'package:saham_01_app/models/channel.dart';
 import 'package:saham_01_app/models/entities/ois.dart';
 import 'package:saham_01_app/views/pages/channels/details/summary.dart';
-import 'package:saham_01_app/views/pages/channels/listActive.dart';
+
 
 class ChannelDetailController extends GetxController with GetTickerProviderStateMixin {
   int channel = 0;
@@ -33,37 +33,6 @@ class ChannelDetailController extends GetxController with GetTickerProviderState
   @override
   void onInit() {
     super.onInit();
-    tabController = TabController(vsync: this, length: 4);
-    List<Widget> tabs = [
-      const Tab(
-        text: "SUMMARY",
-      ),
-      const Tab(
-        text: "ACTIVE SIGNAL"
-      ),
-      const Tab(
-        text: "HISTORY SIGNAL",
-      ),
-      const Tab(
-        text: "STATISTICS",
-      )
-    ];
-
-    if (channelDetail.username != appStateController.users.value.username && channelDetail.isPrivate! && !channelDetail.subscribed!) {
-      tabController = TabController(length: 1, vsync: this);
-      tabs = [
-        Tab(
-          text: "CONTACT",
-        )
-      ];
-    }
-    List<Widget> tabsView = [
-      SummaryChannels(channel, channelDetail.createdTime!),
-      ListActiveSignal(
-        channel, channelObs?.value?.subscribed != null || channelObs?.value?.username == appStateController.users.value.username
-        
-      )
-    ];
     scrollController = ScrollController();
     refreshController = RefreshController(initialRefresh: false);
     Future.delayed(const Duration(milliseconds: 0)).then((_) {
@@ -94,10 +63,10 @@ class ChannelDetailController extends GetxController with GetTickerProviderState
       setTitle(channelDetail.name!);
       setChannel(channelDetail);
     } catch (xerr) {
-      hasError.value = true;
       print(xerr);
       titleObs.addError(xerr);
       channelObs?.addError(xerr);
+      hasError.value = true;
     }
   }
 

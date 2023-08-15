@@ -21,6 +21,7 @@ import 'package:saham_01_app/models/mrg.dart';
 import 'package:saham_01_app/models/user.dart';
 import 'package:saham_01_app/splashScreen.dart';
 import 'package:get/get.dart';
+import 'package:saham_01_app/views/pages/channels/channelDetail.dart';
 import 'package:saham_01_app/views/pages/channels/searchChannels.dart';
 import 'package:saham_01_app/views/pages/form/editProfile.dart';
 import 'package:saham_01_app/views/pages/form/login.dart';
@@ -162,7 +163,8 @@ class _MyAppState extends State<MyApp> {
 
             GetPage(name: '/search/channels/pop', page: () => SearchChannelsPop()),
 
-            GetPage(name: '/dsc/search', page: () => SearchChannelsTab())
+            GetPage(name: '/dsc/search', page: () => SearchChannelsTab()),
+            GetPage(name: '/dsc/channels/', page: () => ChannelDetail())
           ],
           home: const SplashScreen(),
           debugShowCheckedModeBanner: false,

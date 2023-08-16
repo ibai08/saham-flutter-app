@@ -37,41 +37,39 @@ class SignalDetailWithHeaderNew extends StatelessWidget {
 
   final AppStateController appStateController = Get.put(AppStateController());
 
-
   SignalDetailWithHeaderNew(
-    {Key? key,
-    @required this.symbol,
-    // @required this.type,
-    this.expired,
-    // @required this.pips,
-    // @required this.tp,
-    // @required this.sl,
-    // @required this.price,
-    // @required this.status
-    @required this.title,
-    @required this.username,
-    @required this.channelId,
-    @required this.createdAt,
-    this.closeAt,
-    @required this.medals,
-    @required this.profit,
-    this.level,
-    this.subscriber,
-    @required this.id,
-    this.avatar
-    }
-  ) : super(key: key);
+      {Key? key,
+      @required this.symbol,
+      // @required this.type,
+      this.expired,
+      // @required this.pips,
+      // @required this.tp,
+      // @required this.sl,
+      // @required this.price,
+      // @required this.status
+      @required this.title,
+      @required this.username,
+      @required this.channelId,
+      @required this.createdAt,
+      this.closeAt,
+      @required this.medals,
+      @required this.profit,
+      this.level,
+      this.subscriber,
+      @required this.id,
+      this.avatar})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    if (level == null || level?.level ==  null) {
+    if (level == null || level?.level == null) {
       return const SizedBox();
     }
     var m = DateTime.parse(createdAt!).add(const Duration(hours: 7));
     // var dateExp = m.add(Duration(seconds: expired));
 
     // Color cusColors = Colors.black;
-    
+
     // switch(symbol) {
     //   case 'BBCA':
     //     titleSymbol = "Bank Central Asia Tbk.";
@@ -126,8 +124,10 @@ class SignalDetailWithHeaderNew extends StatelessWidget {
     //     break;
     // }
 
-    String titleSymbol = symbolConfig
-    .firstWhere((config) => config['symbol'] == symbol, orElse: () => {})['title'] ?? '';
+    String titleSymbol = symbolConfig.firstWhere(
+            (config) => config['symbol'] == symbol,
+            orElse: () => {})['title'] ??
+        '';
 
     // String goodTill = "";
     // if (expired == 3600) {
@@ -166,9 +166,7 @@ class SignalDetailWithHeaderNew extends StatelessWidget {
             margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
             padding: const EdgeInsets.only(left: 5, right: 15, bottom: 10),
             decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(4),
-              color: AppColors.white
-            ),
+                borderRadius: BorderRadius.circular(4), color: AppColors.white),
             child: Column(
               children: <Widget>[
                 GestureDetector(
@@ -180,12 +178,18 @@ class SignalDetailWithHeaderNew extends StatelessWidget {
                       //   itemName: "$title",
                       //   itemCategory: "Channel",
                       //   itemLocationId: "Recently_profit"
-                      // ).then((x) {}).catchError((err) {}); 
+                      // ).then((x) {}).catchError((err) {});
 
-                      firebaseAnalytics
-                  .logViewItem(items: [AnalyticsEventItem(itemId: "$id", itemName: "$title", itemCategory: "Channel", locationId: "Recently_profit", )])
-                  .then((_) {}, onError: (err) {});
-                      Navigator.pushNamed(context, '/dsc/channels/', arguments: channelId);
+                      firebaseAnalytics.logViewItem(items: [
+                        AnalyticsEventItem(
+                          itemId: "$id",
+                          itemName: "$title",
+                          itemCategory: "Channel",
+                          locationId: "Recently_profit",
+                        )
+                      ]).then((_) {}, onError: (err) {});
+                      Navigator.pushNamed(context, '/dsc/channels/',
+                          arguments: channelId);
                     } else {
                       // showAlert(context, LoadingState.warning, "Anda harus login terlebih dahulu untuk melihat channel", then: (x) {Navigator.pushNamed(context, '/forms/login');});
                     }
@@ -196,26 +200,23 @@ class SignalDetailWithHeaderNew extends StatelessWidget {
                         onTap: () {
                           UserInfo user = appStateController.users.value;
                           if (user.id > 0) {
-                            // firebaseAnalytics.logViewItem(
-                            //   itemId: "$id",
-                            //   itemName: "$title",
-                            //   itemCategory: "Channel",
-                            //   itemLocationId: "Recently Profit"
-                            // );
-                            firebaseAnalytics.logViewItem(
-                              items: [AnalyticsEventItem(
-                                itemId: "$id", 
-                                itemName: "$title", 
-                                itemCategory: "Channel", 
-                                locationId: "Recently Profit", )
-                              ]
-                            ).then((_) {}, onError: (err) {});
-                            OisModel.instance.logActions(
-                              channelId: channelId,
-                              actionName: "view",
-                              stateName: "recently_profit"
-                            ).then((x) {}).catchError((err) {});
-                            Navigator.pushNamed(context, '/dsc/channels/', arguments: channelId);
+                            firebaseAnalytics.logViewItem(items: [
+                              AnalyticsEventItem(
+                                itemId: "$id",
+                                itemName: "$title",
+                                itemCategory: "Channel",
+                                locationId: "Recently Profit",
+                              )
+                            ]).then((_) {}, onError: (err) {});
+                            OisModel.instance
+                                .logActions(
+                                    channelId: channelId,
+                                    actionName: "view",
+                                    stateName: "recently_profit")
+                                .then((x) {})
+                                .catchError((err) {});
+                            Navigator.pushNamed(context, '/dsc/channels/',
+                                arguments: channelId);
                           } else {
                             // showAlert(context, LoadingState.warning, "Anda harus login terlebih dahulu untuk melihat channel", then: (x) {
                             //   Navigator.pushNamed(context, '/forms/login');
@@ -255,16 +256,15 @@ class SignalDetailWithHeaderNew extends StatelessWidget {
                                   Text(
                                     symbol!,
                                     style: const TextStyle(
-                                      fontFamily: 'Manrope',
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.w600
-                                    ),
+                                        fontFamily: 'Manrope',
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.w600),
                                   ),
                                   Text(
                                     titleSymbol,
                                     style: const TextStyle(
                                       fontFamily: 'Manrope',
-                                      fontSize: 12, 
+                                      fontSize: 12,
                                     ),
                                   )
                                 ],
@@ -278,11 +278,10 @@ class SignalDetailWithHeaderNew extends StatelessWidget {
                                   Text(
                                     "+$profit%",
                                     style: TextStyle(
-                                      fontFamily: 'Manrope',
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.w600,
-                                      color: AppColors.primaryGreen
-                                    ),
+                                        fontFamily: 'Manrope',
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.w600,
+                                        color: AppColors.primaryGreen),
                                   ),
                                   Text(
                                     postedDate,

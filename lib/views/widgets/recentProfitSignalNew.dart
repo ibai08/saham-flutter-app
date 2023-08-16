@@ -1,18 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:saham_01_app/controller/homeTabController.dart';
 import 'package:saham_01_app/models/entities/ois.dart';
 import 'package:saham_01_app/views/pages/home.dart';
 import 'package:saham_01_app/views/widgets/homeSignalJustMadeProfitShimmer.dart';
 import 'package:saham_01_app/views/widgets/recentSignalListWidget.dart';
 
-class SignalController extends GetxController {
-  final RxList<SignalInfo> signalList = RxList<SignalInfo>();
+// class SignalController extends GetxController {
+//   final RxList<SignalInfo> signalList = RxList<SignalInfo>();
 
-  void setSignals(List<SignalInfo> signals) {
-    signalList.clear();
-    signalList.addAll(signals);
-  }
-}
+//   void setSignals(List<SignalInfo> signals) {
+//     signalList.clear();
+//     signalList.addAll(signals);
+//   }
+// }
 
 class RecentProfitSignalWidgetNew extends StatelessWidget {
   final List<SignalInfo>? data;
@@ -23,23 +24,26 @@ class RecentProfitSignalWidgetNew extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final signalController = Get.put(SignalController());
-    signalController.setSignals(data!);
+    print("data: ${data}");
+    final HomeTabController homeTabController = Get.put(HomeTabController());
+    final ss = homeTabController.setSignals(data!);
 
-    return Container(
-      child: GetX<SignalController>(
-        builder: (controller) {
-          if (controller.signalList.isEmpty) {
-            return const HomeSignalJustMadeProfitShimmer();
-          }
-          return controller.signalList.isNotEmpty
+    return FutureBuilder<List<SignalInfo>>(
+      future: homeTabController.setSignals(data!),
+      builder: (context, AsyncSnapshot<List<SignalInfo>> snapshot) {
+        if (snapshot.data!.isEmpty) {
+          return const HomeSignalJustMadeProfitShimmer();
+        }
+        return Container(
+          child: snapshot.data!.isNotEmpty
               ? RecommendedSignal(
-                  listSignalData: controller.signalList,
+                  listSignalData: snapshot.data,
                   medal: medal!,
                 )
-              : const SizedBox();
-        },
-      ),
+              : const SizedBox(),
+        );
+      },
+      // ),
     );
   }
 }
@@ -51,7 +55,7 @@ class RecommendedSignal extends StatelessWidget {
     @required this.medal,
   }) : super(key: key);
 
-  final RxList<SignalInfo>? listSignalData;
+  final List<SignalInfo>? listSignalData;
   final Level? medal;
 
   @override

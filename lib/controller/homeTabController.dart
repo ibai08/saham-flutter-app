@@ -1,14 +1,125 @@
-// ignore_for_file: file_names
+import 'package:get/get.dart';
+import 'package:pull_to_refresh/pull_to_refresh.dart';
 
-// import 'package:get/get.dart';
-// import 'package:saham_01_app/utils/store/route.dart';
+import '../core/config.dart';
+import '../models/channel.dart';
+import '../models/entities/ois.dart';
+import '../models/entities/post.dart';
+import '../models/post.dart';
+import '../models/signal.dart';
 
-// class HomeTabController extends GetxController {
-//   var homeTab = HomeTab.home.obs;
+class HomeTabController extends GetxController {
+  RxString stringcoba = "".obs;
+  RxInt loadedPage = 0.obs;
+  RxBool noData = false.obs;
+  Rx<Level?> medal = Rx<Level?>(null);
+  List<SignalInfo> closedSignal = <SignalInfo>[].obs;
+  List<SlidePromo> listPromo = <SlidePromo>[].obs;
+  List<SignalInfo> signalList = <SignalInfo>[].obs;
 
-//   void setHomeTab(HomeTab tab) {
-//     homeTab.value = tab;
-//   }
+  final RefreshController refreshController =
+      RefreshController(initialRefresh: false);
 
-//   HomeTab get currentTab => homeTab.value;
-// }
+  Future<List<ChannelCardSlim>> getMostProfitAllTime(
+      {bool clearCache = false}) async {
+    return ChannelModel.instance.getProfitChannelAsync(clearCache: clearCache);
+  }
+
+  Future<List<ChannelMostProfitEntity>> getMostProfitChannels(
+      {bool clearCache = false}) async {
+    return ChannelModel.instance
+        .getLastMonthProfitChannelAsync(clearCache: clearCache);
+  }
+
+  Future<List<ChannelCardSlim>> getMostConsistentChannels(
+      {bool clearCache = false}) async {
+    return ChannelModel.instance
+        .getMostConsistentChannels(clearCache: clearCache, limit: 10);
+  }
+
+  Future<Level> getMedal({bool clearCache = false}) async {
+    return ChannelModel.instance.getMedalList(clearCache: clearCache);
+  }
+
+  Future<List<SignalInfo>>? setSignals(List<SignalInfo> signals) {
+    signalList.clear();
+    signalList.addAll(signals);
+  }
+
+  Future<void> getEventPage() async {
+    try {
+      listPromo = await Post.getSlidePromo();
+    } catch (e) {
+      listPromo = [];
+    }
+  }
+
+  Future<void> initializePageAsync({bool clearCache = false}) async {
+    try {
+      List<Future> temp = [
+        getMostConsistentChannels(clearCache: clearCache),
+      ];
+
+      if (clearCache) {
+        await remoteConfig.fetchAndActivate();
+
+        temp.add(SignalModel.instance
+            .clearClosedSignalsFeed(page: loadedPage.value));
+      }
+
+      await Future.wait(temp);
+
+      loadedPage.value = 0;
+      closedSignal.clear();
+
+      // Initialize Infinite Load
+      List<SignalInfo>? newSignal = await SignalModel.instance
+          .getClosedSignalsFeed(page: loadedPage.value + 1);
+      if (newSignal.isNotEmpty) {
+        closedSignal.addAll(newSignal);
+        loadedPage.value++;
+      }
+
+      var result = await getMedal(clearCache: clearCache);
+      medal.value = result;
+
+      refreshController.loadComplete();
+    } catch (xerr) {}
+  }
+
+  void onRefresh() async {
+    await getEventPage();
+    await initializePageAsync(clearCache: true);
+    refreshController.refreshCompleted(resetFooterState: true);
+  }
+
+  void onLoad() async {
+    try {
+      List<SignalInfo> newSignal = await SignalModel.instance
+          .getClosedSignalsFeed(page: loadedPage.value + 1);
+      if (newSignal.isNotEmpty) {
+        var ids = closedSignal.map((sig) => sig.id).toList();
+        closedSignal
+            .addAll(newSignal.where((newSig) => !ids.contains(newSig.id)));
+
+        loadedPage.value++;
+
+        // setState(() {});
+        refreshController.loadComplete();
+      } else {
+        refreshController.loadNoData();
+      }
+    } catch (xerr) {
+      refreshController.loadFailed();
+    }
+  }
+
+  @override
+  void onInit() {
+    super.onInit();
+    Future.delayed(const Duration(microseconds: 0)).then((_) async {
+      await initializePageAsync();
+      await getEventPage();
+    });
+  }
+}

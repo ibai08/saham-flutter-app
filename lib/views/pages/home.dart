@@ -42,8 +42,9 @@ class Home extends StatelessWidget {
   }
 
   Widget prepareHome() {
-    print("homeTabController.medal.value");
-    print(homeTabController.medal.value);
+    print("-0-0-0-0-0-0-0");
+    print("close signal: ${homeTabController.closedSignal}");
+    print("-1-1-1-1-1-1-1");
     return SmartRefresher(
       enablePullDown: true,
       enablePullUp: true,

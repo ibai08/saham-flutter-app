@@ -6,15 +6,6 @@ import 'package:saham_01_app/views/pages/home.dart';
 import 'package:saham_01_app/views/widgets/homeSignalJustMadeProfitShimmer.dart';
 import 'package:saham_01_app/views/widgets/recentSignalListWidget.dart';
 
-// class SignalController extends GetxController {
-//   final RxList<SignalInfo> signalList = RxList<SignalInfo>();
-
-//   void setSignals(List<SignalInfo> signals) {
-//     signalList.clear();
-//     signalList.addAll(signals);
-//   }
-// }
-
 class RecentProfitSignalWidgetNew extends StatelessWidget {
   final List<SignalInfo>? data;
   final Level? medal;
@@ -26,18 +17,17 @@ class RecentProfitSignalWidgetNew extends StatelessWidget {
   Widget build(BuildContext context) {
     print("data: ${data}");
     final HomeTabController homeTabController = Get.put(HomeTabController());
-    final ss = homeTabController.setSignals(data!);
+    homeTabController.setSignals(data!);
 
-    return FutureBuilder<List<SignalInfo>>(
-      future: homeTabController.setSignals(data!),
-      builder: (context, AsyncSnapshot<List<SignalInfo>> snapshot) {
-        if (snapshot.data!.isEmpty) {
+    return GetX<HomeTabController>(
+      builder: (controller) {
+        if (controller.signalList.isEmpty) {
           return const HomeSignalJustMadeProfitShimmer();
         }
         return Container(
-          child: snapshot.data!.isNotEmpty
+          child: controller.signalList.isNotEmpty
               ? RecommendedSignal(
-                  listSignalData: snapshot.data,
+                  listSignalData: controller.signalList,
                   medal: medal!,
                 )
               : const SizedBox(),

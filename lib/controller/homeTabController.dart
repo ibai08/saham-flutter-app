@@ -82,13 +82,16 @@ class HomeTabController extends GetxController {
 
       var result = await getMedal(clearCache: clearCache);
       medal.value = result;
+      print("initializePageAsync: ${closedSignal}");
+      print("initializePageAsync: ${loadedPage}");
+      print("initializePageAsync: ${medal}");
 
       refreshController.loadComplete();
     } catch (xerr) {}
   }
 
   void onRefresh() async {
-    await getEventPage();
+    // await getEventPage();
     await initializePageAsync(clearCache: true);
     refreshController.refreshCompleted(resetFooterState: true);
   }
@@ -101,10 +104,10 @@ class HomeTabController extends GetxController {
         var ids = closedSignal.map((sig) => sig.id).toList();
         closedSignal
             .addAll(newSignal.where((newSig) => !ids.contains(newSig.id)));
-
+        print("closedSignal : ${closedSignal}");
+        print("-=-=-=-=-=-=-=");
         loadedPage.value++;
 
-        // setState(() {});
         refreshController.loadComplete();
       } else {
         refreshController.loadNoData();
@@ -120,6 +123,16 @@ class HomeTabController extends GetxController {
     Future.delayed(const Duration(microseconds: 0)).then((_) async {
       await initializePageAsync();
       await getEventPage();
+      // onLoad();
     });
   }
 }
+
+// class SignalController extends GetxController {
+//   final RxList<SignalInfo> signalList = RxList<SignalInfo>();
+
+//   void setSignals(List<SignalInfo> signals) {
+//     signalList.clear();
+//     signalList.addAll(signals);
+//   }
+// }

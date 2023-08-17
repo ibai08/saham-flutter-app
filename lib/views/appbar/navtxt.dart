@@ -23,7 +23,7 @@ class NavTxt extends AppBar {
   NavTxt.getx({Key? key, RxString? title, tap})
       : super(
             key: key,
-            title: Text(title!.value),
+            title: Text(title?.value ?? ""),
             centerTitle: true,
             backgroundColor: Colors.white,
             shadowColor: AppColors.white,

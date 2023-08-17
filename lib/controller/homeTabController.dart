@@ -44,6 +44,7 @@ class HomeTabController extends GetxController {
   Future<List<SignalInfo>>? setSignals(List<SignalInfo> signals) {
     signalList.clear();
     signalList.addAll(signals);
+    update();
   }
 
   Future<void> getEventPage() async {
@@ -94,13 +95,16 @@ class HomeTabController extends GetxController {
     // await getEventPage();
     await initializePageAsync(clearCache: true);
     refreshController.refreshCompleted(resetFooterState: true);
+    refreshController.resetNoData();
+    print("ke refresh");
   }
 
   void onLoad() async {
     try {
       List<SignalInfo> newSignal = await SignalModel.instance
           .getClosedSignalsFeed(page: loadedPage.value + 1);
-      if (newSignal.isNotEmpty) {
+          print("newSIgnal: ${newSignal[3].symbol}");
+      if (newSignal.length > 0) {
         var ids = closedSignal.map((sig) => sig.id).toList();
         closedSignal
             .addAll(newSignal.where((newSig) => !ids.contains(newSig.id)));
@@ -108,12 +112,17 @@ class HomeTabController extends GetxController {
         print("-=-=-=-=-=-=-=");
         loadedPage.value++;
 
+        print("loaded page: $loadedPage");
+
         refreshController.loadComplete();
+        print("berhasil");
       } else {
         refreshController.loadNoData();
       }
+      update();
     } catch (xerr) {
       refreshController.loadFailed();
+      print("error: $xerr");
     }
   }
 
@@ -123,7 +132,8 @@ class HomeTabController extends GetxController {
     Future.delayed(const Duration(microseconds: 0)).then((_) async {
       await initializePageAsync();
       await getEventPage();
-      // onLoad();
+      onLoad();
+      update();
     });
   }
 }

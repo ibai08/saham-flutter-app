@@ -403,6 +403,7 @@ class ChannelModel {
 
       return List<int>.from(data);
     } catch (xerr, stack) {
+      print("harusnya error");
       print(xerr);
       print(stack);
     }

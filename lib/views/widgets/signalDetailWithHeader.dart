@@ -65,97 +65,13 @@ class SignalDetailWithHeaderNew extends StatelessWidget {
     if (level == null || level?.level == null) {
       return const SizedBox();
     }
-    var m = DateTime.parse(createdAt!).add(const Duration(hours: 7));
-    // var dateExp = m.add(Duration(seconds: expired));
-
-    // Color cusColors = Colors.black;
-
-    // switch(symbol) {
-    //   case 'BBCA':
-    //     titleSymbol = "Bank Central Asia Tbk.";
-    //     break;
-    //   case 'PACK':
-    //     titleSymbol = "Solusi Kemasan Digital Tbk.";
-    //     break;
-    //   case 'CHIP':
-    //     titleSymbol = "Pelita Teknologi Global Tbk.";
-    //     break;
-    //   case 'VAST':
-    //     titleSymbol = "Vastland Indonesia Tbk.";
-    //     break;
-    //   case 'HILL':
-    //     titleSymbol = "Hillcon Tbk.";
-    //     break;
-    //   case 'HALO':
-    //     titleSymbol = "Haloni Jane Tbk.";
-    //     break;
-    //   case 'PTMP':
-    //     titleSymbol = "Mitra Pack Tbk.";
-    //     break;
-    //   case 'TCKA':
-    //     titleSymbol = "Tigaraksa Satria Tbk.";
-    //     break;
-    //   case 'BDKR':
-    //     titleSymbol = "Berdikari pondasi Perkasa Tbk.";
-    //     break;
-    //   case 'FUTR':
-    //     titleSymbol = "Lini Imaji Kreasi Ekosistem Tbk.";
-    //     break;
-    //   case 'TFCO':
-    //     titleSymbol = "Tifico Fiber Indonesia Tbk.";
-    //     break;
-    //   case 'TELE':
-    //     titleSymbol = "Omni Inovasi Indonesia Tbk.";
-    //     break;
-    //   case 'PGEO':
-    //     titleSymbol = "Pertamina Geothermal Energy Tbk.";
-    //     break;
-    //   case 'TCID':
-    //     titleSymbol = "Mandom Indonesia Tbk.";
-    //     break;
-    //   case 'TIFA':
-    //     titleSymbol = "Tifa Finance Tbk.";
-    //     break;
-    //   case 'TINS':
-    //     titleSymbol = "Timah Tbk.";
-    //     break;
-    //   default:
-    //     titleSymbol = "";
-    //     break;
-    // }
+    var m = DateTime.parse(createdAt ?? "").add(const Duration(hours: 7));
 
     String titleSymbol = symbolConfig.firstWhere(
             (config) => config['symbol'] == symbol,
             orElse: () => {})['title'] ??
-        '';
+        'Data not found';
 
-    // String goodTill = "";
-    // if (expired == 3600) {
-    //   goodTill = "GTC";
-    // } else if (expired == 172800) {
-    //   goodTill = "GFD";
-    // }
-    // if (goodTill == "GTC") {
-    //   cusColors = ConstColor.blueGem;
-    // } else if (goodTill == "GFD") {
-    //   cusColors = ConstColor.yellowyGreen;
-    // }
-    // if (dateExp.isAfter(DateTime.now())) {
-    //   var diff = dateExp.microsecond - DateTime.now().microsecondsSinceEpoch;
-    //   double timeLeft = diff / (60 * 60 * 1000);
-    //   if (timeLeft.floor() == 0) {
-    //     timeLeft = diff / (60 * 1000);
-    //     expiredAt = timeLeft.floor().toString() + ' Minutes';
-    //   } else {
-    //     if (timeLeft > 24) {
-    //       expiredAt = (timeLeft / 24).floor().toString() + ' Days';
-    //     } else {
-    //       expiredAt = timeLeft.floor().toString() + ' Hours';
-    //     }
-    //   }
-    // } else if (expired == 0) {
-    //   expiredAt = "Tidak ada Expired";
-    // }
     String postedDate = DateFormat('dd MMM yyyy HH:mm').format(m) + " WIB";
 
     return Container(
@@ -254,7 +170,7 @@ class SignalDetailWithHeaderNew extends StatelessWidget {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Text(
-                                    symbol!,
+                                    symbol ?? "Data not found",
                                     style: const TextStyle(
                                         fontFamily: 'Manrope',
                                         fontSize: 16,

@@ -1,20 +1,15 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:get/get.dart';
 
 import '../../../../constants/app_colors.dart';
 import '../../../../models/emiten.dart';
 
-class EmitenCategory extends StatefulWidget {
-  const EmitenCategory({Key? key}) : super(key: key);
-
-  @override
-  _EmitenCategoryState createState() => _EmitenCategoryState();
-}
-
-class _EmitenCategoryState extends State<EmitenCategory> {
-  String activeButton = 'Most Active';
-  List<Map<String, String?>> activeDataButton = [];
+class EmitenCategory extends StatelessWidget {
+  final RxString activeButton = 'Most Active'.obs;
+  final RxList<Map<String, String?>> activeDataButton =
+      <Map<String, String?>>[].obs;
 
   Future<EmitenModels> getDataFromJson() async {
     String jsonString =
@@ -25,79 +20,83 @@ class _EmitenCategoryState extends State<EmitenCategory> {
 
   void setActiveButton(String buttonName) async {
     EmitenModels? emitenModels = await getDataFromJson();
-    setState(() {
-      activeButton = buttonName;
-      if (buttonName == 'Most Active') {
-        activeDataButton = emitenModels.mostActiveData?.map((data) => {
-              'imageText': data.imageText,
-              'name': data.name,
-              'companyName': data.companyName,
-              'rank': data.rank,
-              'percentage': data.percentage,
-            }).toList() ??
-            [];
-      } else if (buttonName == 'Top Gamer (by %)') {
-        activeDataButton = emitenModels.topGamerData?.map((data) => {
-              'imageText': data.imageText,
-              'name': data.name,
-              'companyName': data.companyName,
-              'rank': data.rank,
-              'percentage': data.percentage,
-            }).toList() ??
-            [];
-      } else if (buttonName == 'Top Loser (by %)') {
-        activeDataButton = emitenModels.topLoserData?.map((data) => {
-              'imageText': data.imageText,
-              'name': data.name,
-              'companyName': data.companyName,
-              'rank': data.rank,
-              'percentage': data.percentage,
-            }).toList() ??
-            [];
-      } else if (buttonName == 'Top Volume') {
-        activeDataButton = emitenModels.topVolumeData?.map((data) => {
-              'imageText': data.imageText,
-              'name': data.name,
-              'companyName': data.companyName,
-              'rank': data.rank,
-              'percentage': data.percentage,
-            }).toList() ??
-            [];
-      } else {
-        activeDataButton = emitenModels.mostActiveData?.map((data) => {
-              'imageText': data.imageText,
-              'name': data.name,
-              'companyName': data.companyName,
-              'rank': data.rank,
-              'percentage': data.percentage,
-            }).toList() ??
-            [];
-      }
-    });
+    activeButton.value = buttonName;
+    if (buttonName == 'Most Active') {
+      activeDataButton.assignAll(emitenModels.mostActiveData
+              ?.map((data) => {
+                    'imageText': data.imageText,
+                    'name': data.name,
+                    'companyName': data.companyName,
+                    'rank': data.rank,
+                    'percentage': data.percentage,
+                  })
+              .toList() ??
+          []);
+    } else if (buttonName == 'Top Gamer (by %)') {
+      activeDataButton.assignAll(emitenModels.topGamerData
+              ?.map((data) => {
+                    'imageText': data.imageText,
+                    'name': data.name,
+                    'companyName': data.companyName,
+                    'rank': data.rank,
+                    'percentage': data.percentage,
+                  })
+              .toList() ??
+          []);
+    } else if (buttonName == 'Top Loser (by %)') {
+      activeDataButton.assignAll(emitenModels.topLoserData
+              ?.map((data) => {
+                    'imageText': data.imageText,
+                    'name': data.name,
+                    'companyName': data.companyName,
+                    'rank': data.rank,
+                    'percentage': data.percentage,
+                  })
+              .toList() ??
+          []);
+    } else if (buttonName == 'Top Volume') {
+      activeDataButton.assignAll(emitenModels.topVolumeData
+              ?.map((data) => {
+                    'imageText': data.imageText,
+                    'name': data.name,
+                    'companyName': data.companyName,
+                    'rank': data.rank,
+                    'percentage': data.percentage,
+                  })
+              .toList() ??
+          []);
+    } else {
+      activeDataButton.assignAll(emitenModels.mostActiveData
+              ?.map((data) => {
+                    'imageText': data.imageText,
+                    'name': data.name,
+                    'companyName': data.companyName,
+                    'rank': data.rank,
+                    'percentage': data.percentage,
+                  })
+              .toList() ??
+          []);
+    }
   }
 
-  void _initData() async {
+  Future<void> _initData() async {
     EmitenModels emitenModels = await getDataFromJson();
-    setState(() {
-      activeDataButton = emitenModels.mostActiveData?.map((data) => {
-            'imageText': data.imageText,
-            'name': data.name,
-            'companyName': data.companyName,
-            'rank': data.rank,
-            'percentage': data.percentage,
-          }).toList() ??
-          [];
-    });
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    _initData();
+    activeDataButton.assignAll(emitenModels.mostActiveData
+            ?.map((data) => {
+                  'imageText': data.imageText,
+                  'name': data.name,
+                  'companyName': data.companyName,
+                  'rank': data.rank,
+                  'percentage': data.percentage,
+                })
+            .toList() ??
+        []);
   }
 
   @override
   Widget build(BuildContext context) {
+    _initData(); // Call _initData() here instead of initState()
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -106,13 +105,15 @@ class _EmitenCategoryState extends State<EmitenCategory> {
           scrollDirection: Axis.horizontal,
           child: Row(
             children: <Widget>[
-              CustomButtons('Most Active', activeButton, setActiveButton),
+              CustomButtons('Most Active', activeButton.value, setActiveButton),
               const SizedBox(width: 10),
-              CustomButtons('Top Gamer (by %)', activeButton, setActiveButton),
+              CustomButtons(
+                  'Top Gamer (by %)', activeButton.value, setActiveButton),
               const SizedBox(width: 10),
-              CustomButtons('Top Loser (by %)', activeButton, setActiveButton),
+              CustomButtons(
+                  'Top Loser (by %)', activeButton.value, setActiveButton),
               const SizedBox(width: 10),
-              CustomButtons('Top Volume', activeButton, setActiveButton),
+              CustomButtons('Top Volume', activeButton.value, setActiveButton),
             ],
           ),
         ),
@@ -128,7 +129,9 @@ class CustomButtons extends StatelessWidget {
   final String activeButton;
   final Function setActiveButton;
 
-  const CustomButtons(this.buttonText, this.activeButton, this.setActiveButton, {Key? key}) : super(key: key);
+  const CustomButtons(this.buttonText, this.activeButton, this.setActiveButton,
+      {Key? key})
+      : super(key: key);
 
   bool get isActive => buttonText == activeButton;
 
@@ -167,12 +170,9 @@ class EmitenItems extends StatelessWidget {
   final String percentage;
 
   const EmitenItems(
-    this.imageText,
-    this.name,
-    this.companyName,
-    this.rank,
-    this.percentage, {Key? key}
-  ) : super(key: key);
+      this.imageText, this.name, this.companyName, this.rank, this.percentage,
+      {Key? key})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -281,4 +281,3 @@ class EmitenItemsLooping extends StatelessWidget {
     );
   }
 }
-

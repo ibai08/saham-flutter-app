@@ -76,7 +76,8 @@ class ChannelThumb extends StatelessWidget {
     // Watch the channel cache and update the channelStream accordingly
     Future.delayed(const Duration(seconds: 0)).then((_) async {
       channelStream?.value = channel;
-      Rx<String?>? data = await channel.watchChannelCache(appStateController.users.value.id);
+      Rx<String?>? data =
+          await channel.watchChannelCache(appStateController.users.value.id);
       if (data != null && data.isNotEmpty!) {
         try {
           Map boxData = jsonDecode(data.value!);
@@ -88,6 +89,7 @@ class ChannelThumb extends StatelessWidget {
           print("error channel Detail: $e");
         }
       }
+      print("profit bersih: ${channel.profit}");
     });
 
     if (level?.level == null) {
@@ -95,39 +97,41 @@ class ChannelThumb extends StatelessWidget {
     }
 
     return Obx(() {
-      ChannelCardSlim? tChannel = channelStream?.value;
+      ChannelCardSlim? tChannel = channel;
 
       RxString btnLabel = 'Subcsribe for FREE'.obs;
       Color? btnColor = AppColors.blueGem;
       Color? txtcolor = Colors.white;
 
-        if (tChannel?.username == appStateController.users.value.username) {
-          btnLabel.value = "LIHAT CHANNEL";
-          btnColor = Colors.grey[300];
-          txtcolor = Colors.grey[800];
-          // print("1");
-        } else if (tChannel?.subscribed != null && tChannel?.subscribed == true) {
-          btnLabel.value = "Subscribed";
-          btnColor = Colors.grey[300];
-          txtcolor = Colors.grey[800];
-          // print("2");
-        } else if (tChannel?.isPrivate == true) {
-          btnLabel.value = "Subscribe with TOKEN";
-          // print("3");
-        } else if (tChannel?.price != null) {
-          if (tChannel?.price == 0) {
-            // print("kena yang ini");
-            btnLabel.value = 'Subcsribe for FREE';
-          } else if (tChannel!.price! > 0) {
-            btnLabel.value = "Subscribe for Rp " + NumberFormat("#,###", "ID").format(tChannel.price);
-          }
-          // print("ini kena");
-        }// } else {
-        //   print("gak kena apa apa");
-        //   print("tchannel.price: ${tChannel?.price}");
-        // }
+      if (tChannel.username == appStateController.users.value.username) {
+        btnLabel.value = "LIHAT CHANNEL";
+        btnColor = Colors.grey[300];
+        txtcolor = Colors.grey[800];
+        // print("1");
+      } else if (tChannel.subscribed != null && tChannel.subscribed == true) {
+        btnLabel.value = "Subscribed";
+        btnColor = Colors.grey[300];
+        txtcolor = Colors.grey[800];
+        // print("2");
+      } else if (tChannel.isPrivate == true) {
+        btnLabel.value = "Subscribe with TOKEN";
+        // print("3");
+      } else if (tChannel.price != null) {
+        if (tChannel.price == 0) {
+          // print("kena yang ini");
+          btnLabel.value = 'Subcsribe for FREE';
+        } else if (tChannel.price! > 0) {
+          btnLabel.value = "Subscribe for Rp " +
+              NumberFormat("#,###", "ID").format(tChannel.price);
+        }
+        // print("ini kena");
+      } // } else {
+      //   print("gak kena apa apa");
+      //   print("tchannel.price: ${tChannel?.price}");
+      // }
 
-        // print("btnlabel: $btnLabel");
+      // print("btnlabel: $btnLabel");
+      print("profit: ${tChannel.profit}");
 
       return Container(
         width: width ?? double.infinity,
@@ -147,14 +151,13 @@ class ChannelThumb extends StatelessWidget {
               onTap: () {
                 OisModel.instance
                     .logActions(
-                  channelId: tChannel?.id,
-                  actionName: "view",
-                  stateName: from!,
-                )
+                      channelId: tChannel.id,
+                      actionName: "view",
+                      stateName: from!,
+                    )
                     .then((x) {})
                     .catchError((err) {});
-                Navigator.pushNamed(context, '/dsc/channels/',
-                    arguments: tChannel?.id);
+                Get.toNamed('/dsc/channels/', arguments: tChannel.id);
               },
               isMedium: false,
               avatar: avatar,
@@ -180,7 +183,7 @@ class ChannelThumb extends StatelessWidget {
                   child: Column(
                     children: [
                       ChannelPower(
-                        title: numberShortener((tChannel?.profit)!.ceil()),
+                        title: numberShortener((tChannel.profit)!.ceil()),
                         subtitle: "Profit (in IDR)",
                       ),
                     ],
@@ -188,7 +191,7 @@ class ChannelThumb extends StatelessWidget {
                 ),
                 Expanded(
                   child: ChannelPower(
-                    title: numberShortener(tChannel!.postPerWeek!.floor()),
+                    title: numberShortener(tChannel.postPerWeek!.floor()),
                     subtitle: "Post/Week",
                   ),
                 ),
@@ -196,17 +199,18 @@ class ChannelThumb extends StatelessWidget {
             ),
             UserModel.instance.hasLogin()
                 ? Container(
-                    margin: const EdgeInsets.only(top: 10, right: 20, bottom: 20, left: 20),
+                    margin: const EdgeInsets.only(
+                        top: 10, right: 20, bottom: 20, left: 20),
                     width: double.infinity,
                     child: TextButton(
                       onPressed: () {
                         if (tChannel.subscribed!) {
                           OisModel.instance
                               .logActions(
-                            channelId: tChannel.id!,
-                            actionName: "view",
-                            stateName: from!,
-                          )
+                                channelId: tChannel.id!,
+                                actionName: "view",
+                                stateName: from!,
+                              )
                               .then((x) {})
                               .catchError((err) {});
                           Navigator.pushNamed(context, '/dsc/channels/',

@@ -62,8 +62,12 @@ class ChannelProfileController extends GetxController {
   @override
   void onInit() {
     super.onInit();
-    if (channel.value!.price! > 0) {
-      price = numberShortener(channel.value!.price!.floor());
+    if (channel.value?.price != null) {
+      if (channel.value!.price! > 0) {
+        price = numberShortener(channel.value!.price!.floor());
+      }
+    } else {
+      print("null kenanya");
     }
     Future.delayed(Duration(microseconds: 0)).then((_) async {
       var result = await getMedal();

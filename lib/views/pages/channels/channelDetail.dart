@@ -28,15 +28,18 @@ class ChannelDetail extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    print("ini error: ${ModalRoute.of(context)?.settings.arguments}");
     if (ModalRoute.of(context)?.settings.arguments is int) {
+      print("ini error 2: ${ModalRoute.of(context)?.settings.arguments as int}");
       controller.channel = ModalRoute.of(context)?.settings.arguments as int;
       controller.getChannel();
+      print("jalan disini");
     }
 
     return Scaffold(
         appBar: NavTxt.getx(title: controller.titleObs),
         body: Obx(() {
-          if (controller.channelObs == null && !controller.hasError.value) {
+          if (controller.channelObs == null && controller.hasError.value) {
             print("kena tunggu");
             return const Center(
               child: Text(
@@ -45,7 +48,7 @@ class ChannelDetail extends StatelessWidget {
               ),
             );
           } else if (controller.hasError.value) {
-            print("kena maaf");
+            print("kena");
             return const Center(
               child: Text(
                 "Maaf.. data tidak ditemukan",
@@ -53,6 +56,7 @@ class ChannelDetail extends StatelessWidget {
               ),
             );
           }
+          print("selesai 1");
           controller.tabController =
               TabController(length: 4, vsync: controller);
           List<Widget> tabs = const [
@@ -69,10 +73,11 @@ class ChannelDetail extends StatelessWidget {
               text: "STATISTICS",
             ),
           ];
+          print("selesai 2");
           if (controller.channelDetail.username !=
                   appStateController.users.value.username &&
-              controller.channelDetail.isPrivate! &&
-              !controller.channelDetail.subscribed!) {
+              controller.channelDetail.isPrivate == true &&
+              controller.channelDetail.subscribed == true) {
             controller.tabController =
                 TabController(length: 1, vsync: controller);
             tabs = const [
@@ -81,9 +86,10 @@ class ChannelDetail extends StatelessWidget {
               )
             ];
           }
+          print("selesai 3");
           List<Widget> tabsView = [
             SummaryChannels(
-                controller.channel, controller.channelObs!.value!.createdTime!),
+                controller.channel, controller.channelObs?.value?.createdTime ?? DateTime(0)),
             ListActiveSignal(
                 controller.channel,
                 controller.channelObs?.value?.subscribed != null ||
@@ -91,16 +97,18 @@ class ChannelDetail extends StatelessWidget {
                         appStateController.users.value.username),
             ListHistorySignal(
                 controller.channel,
-                controller.channelObs!.value!.subscribed! ||
-                    controller.channelObs!.value!.username ==
+                controller.channelObs?.value?.subscribed != null ||
+                    controller.channelObs?.value?.username ==
                         appStateController.users.value.username),
             StatisticsChannel(controller.channel)
           ];
-          if (controller.channelDetail.username != appStateController.users.value.username && controller.channelDetail.isPrivate! && !controller.channelDetail.subscribed!) {
+          print("selesai 4");
+          if (controller.channelDetail.username != appStateController.users.value.username && controller.channelDetail.isPrivate == true && controller.channelDetail.subscribed == true) {
             tabsView = [
               ContactChannel(controller.channelDetail)
             ];
           }
+          print("selesai 5");
 
           return Container(
             child: NestedScrollView(

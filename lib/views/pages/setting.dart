@@ -10,12 +10,12 @@ import 'package:saham_01_app/views/appbar/navmain.dart';
 import 'package:saham_01_app/views/widgets/dialogLoading.dart';
 import 'package:saham_01_app/views/widgets/listItemProfile.dart';
 
-class Setting extends StatefulWidget {
-  @override
-  _SettingState createState() => _SettingState();
-}
+// class Setting extends StatefulWidget {
+//   @override
+//   _SettingState createState() => _SettingState();
+// }
 
-class _SettingState extends State<Setting> {
+class Setting extends GetView<AppStateController> {
   final AppStateController appStateController = Get.put(AppStateController());
 
   List<Widget> prepareWidget(UserInfo user) {
@@ -28,9 +28,10 @@ class _SettingState extends State<Setting> {
     if (user.id > 0) {
       silverlist = [
         ListItemSettings(
-          context: context,
+          context: Get.context,
           onTap: () {
-            Navigator.pushNamed(context, '/more/profile');
+            // Navigator.pushNamed(context, '/dsc/channels/');
+            Get.toNamed('/more/profile');
           },
           icon: Image.asset(
             "assets/icon/light/profile.png",
@@ -40,9 +41,10 @@ class _SettingState extends State<Setting> {
           text: "Profil Saya",
         ),
         ListItemSettings(
-          context: context,
+          context: Get.context,
           onTap: () {
-            Navigator.pushNamed(context, '/more/channel');
+            // Navigator.pushNamed(context, '/more/channel');
+            Get.toNamed('/more/channel');
           },
           icon: Image.asset(
             "assets/icon/light/copy-signal.png",
@@ -52,11 +54,11 @@ class _SettingState extends State<Setting> {
           text: "XYZ Copy Signal",
         ),
         ListItemSettings(
-          context: context,
-          // onTap: () {
-          //   // Navigator.pushNamed(context, '/more/mrg');
-          //   showAlert(context, LoadingState.warning, "Coming Soon");
-          // },
+          context: Get.context,
+          onTap: () {
+            // Navigator.pushNamed(context, '/more/mrg');
+            showAlert(Get.context!, LoadingState.warning, "Coming Soon");
+          },
           icon: Image.asset(
             // "assets/icon/brands/mrg.png",
             'assets/logo-black.png',
@@ -67,7 +69,7 @@ class _SettingState extends State<Setting> {
           text: "ABC",
         ),
         ListItemSettings(
-          context: context,
+          context: Get.context,
           // onTap: () {
           //   // Navigator.pushNamed(context, '/more/askap');
           //   showAlert(context, LoadingState.warning, "Coming Soon");
@@ -129,9 +131,10 @@ class _SettingState extends State<Setting> {
         //   text: "Kunjungi Website",
         // ),
         ListItemSettings(
-          context: context,
+          context: Get.context,
           onTap: () {
-            Navigator.pushNamed(context, '/refresh/');
+            // Navigator.pushNamed(context, '/refresh/');
+            Get.toNamed('/refresh/');
           },
           icon: Image.asset(
             "assets/icon/light/refresh.png",
@@ -155,7 +158,7 @@ class _SettingState extends State<Setting> {
         //         text: "TEST DEV ONLY",
         //       ),
         ListItemSettings(
-          context: context,
+          context: Get.context,
           icon: Image.asset(
             "assets/icon/light/logout.png",
             width: iconSize,
@@ -180,9 +183,10 @@ class _SettingState extends State<Setting> {
     } else {
       silverlist = [
         ListItemSettings(
-          context: context,
+          context: Get.context,
           onTap: () {
-            Navigator.pushNamed(context, '/forms/login');
+            // Navigator.pushNamed(context, '/forms/login');
+            Get.toNamed('/forms/login');
           },
           icon: Image.asset(
             "assets/icon/light/login.png",
@@ -192,9 +196,10 @@ class _SettingState extends State<Setting> {
           text: "Login",
         ),
         ListItemSettings(
-          context: context,
+          context: Get.context,
           onTap: () {
-            Navigator.pushNamed(context, '/forms/register');
+            // Navigator.pushNamed(context, '/forms/register');
+            Get.toNamed('/forms/register');
           },
           icon: Image.asset(
             "assets/icon/light/register.png",
@@ -209,10 +214,10 @@ class _SettingState extends State<Setting> {
     return silverlist;
   }
 
-  @override
-  void initState() {
-    super.initState();
-  }
+  // @override
+  // void initState() {
+  //   super.initState();
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -220,36 +225,35 @@ class _SettingState extends State<Setting> {
         appBar: NavMain(
           currentPage: "Settings",
           backPage: () async {
-             appStateController.setAppState(Operation.bringToHome, HomeTab.home);
-            },
+            appStateController.setAppState(Operation.bringToHome, HomeTab.home);
+          },
         ),
-        body: GetX<AppStateController>(
-            builder: (controller) {
-              return Container(
-                width: double.infinity,
-                height: MediaQuery.of(context).size.height,
-                child: ListView(
-                  shrinkWrap: true,
-                  children: <Widget>[
-                    Column(children: prepareWidget(controller.users.value)),
-                    // Align(
-                    //   alignment: Alignment.topCenter,
-                    //   child: Container(
-                    //     margin: EdgeInsets.only(top: 25),
-                    //     child: Text(
-                    //       "Find us on",
-                    //       style: TextStyle(
-                    //           fontWeight: FontWeight.w600,
-                    //           fontSize: 16,
-                    //           color: ConstColor.darkGrey),
-                    //     ),
-                    //   ),
-                    // ),
-                    // SocialMedia(),
-                    // VersionWidget()
-                  ],
-                ),
-              );
-            }));
+        body: GetX<AppStateController>(builder: (controller) {
+          return Container(
+            width: double.infinity,
+            height: MediaQuery.of(context).size.height,
+            child: ListView(
+              shrinkWrap: true,
+              children: <Widget>[
+                Column(children: prepareWidget(controller.users.value)),
+                // Align(
+                //   alignment: Alignment.topCenter,
+                //   child: Container(
+                //     margin: EdgeInsets.only(top: 25),
+                //     child: Text(
+                //       "Find us on",
+                //       style: TextStyle(
+                //           fontWeight: FontWeight.w600,
+                //           fontSize: 16,
+                //           color: ConstColor.darkGrey),
+                //     ),
+                //   ),
+                // ),
+                // SocialMedia(),
+                // VersionWidget()
+              ],
+            ),
+          );
+        }));
   }
 }

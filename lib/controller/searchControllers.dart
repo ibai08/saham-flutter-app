@@ -20,10 +20,11 @@ class SearchChannelsPopController extends GetxController {
   Future<void> initSearch() async {
     print("muncul");
     searchList.assignAll(await OisModel.instance.getSearchHistory());
-    print("muncul error");
-    findText = Get.arguments;
-    print("text:::: ${searchList}");
-    searchText.value = findText["text"];
+    // print("muncul error");
+    // findText = ModalRoute.of(Get.context!)?.settings.arguments as Map<dynamic, dynamic>;
+    // print("text:::: ${searchList}");
+    // searchText.value = findText["text"];
+    // print(searchText.value);
   }
 
   @override

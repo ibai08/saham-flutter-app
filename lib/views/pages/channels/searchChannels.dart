@@ -22,6 +22,7 @@ class SearchChannelsTab extends StatelessWidget {
         text: findText,
         popTo: '/search/channels/pop',
       ),
+      backgroundColor: AppColors.light,
       body: GestureDetector(
         onTap: () {
           FocusScope.of(context).requestFocus(FocusNode());
@@ -36,7 +37,7 @@ class SearchChannelsTab extends StatelessWidget {
                 floating: false,
                 snap: false,
                 forceElevated: true,
-                backgroundColor: Colors.white,
+                backgroundColor: AppColors.light,
                 leading: const Icon(
                   Icons.ac_unit,
                   color: Colors.transparent,
@@ -99,9 +100,9 @@ class SearchChannelsResult extends StatelessWidget {
   Widget build(BuildContext context) {
     searchChannelsResultController?.setFindTxt(findText!);
     return Obx(() {
-      print("testststst datat: ${searchChannelsResultController?.channelSearchResult}");
-      print("bool: ${searchChannelsResultController?.channelSearchResult.isEmpty}");
-      print("bool2: ${searchChannelsResultController?.channelSearchResult.length == 0}");
+      // print("testststst datat: ${searchChannelsResultController?.channelSearchResult}");
+      // print("bool: ${searchChannelsResultController?.channelSearchResult.isEmpty}");
+      // print("bool2: ${searchChannelsResultController?.channelSearchResult.length == 0}");
       if (searchChannelsResultController!.channelSearchResult.isEmpty && searchChannelsResultController!.hasError.value == false) {
         return const Center(
             child: Text(

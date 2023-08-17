@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
@@ -22,6 +24,20 @@ class SignalDashboardController extends GetxController with GetSingleTickerProvi
     }
   }
 
+  bool internet = false;
+  checkInternet() async {
+    try {
+      final result = await InternetAddress.lookup('google.com');
+      if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
+        internet = true;
+        print('connected');
+      }
+    } on SocketException catch (_) {
+      internet = false;
+      print('not connected');
+    }
+  }
+
   onResetTabs() {
     onResetTabChild();
   }
@@ -31,6 +47,7 @@ class SignalDashboardController extends GetxController with GetSingleTickerProvi
 
   void onInit() {
     super.onInit();
+    checkInternet();
     Future.delayed(const Duration(microseconds: 0)).then((_) async {
       if (appStateController.users.value.id < 1 || appStateController.users.value.verify!) {
         return;
@@ -89,6 +106,20 @@ class ListSignalWidgetController extends GetxController {
   Rx<Level?> medal = Rx<Level?>(null);
   RxInt loadingFilter = 0.obs;
 
+  bool internet = false;
+  checkInternet() async {
+    try {
+      final result = await InternetAddress.lookup('google.com');
+      if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
+        internet = true;
+        print('connected');
+      }
+    } on SocketException catch (_) {
+      internet = false;
+      print('not connected');
+    }
+  }
+
   Future<void> initializePageSignalAsync({bool clearCache = false}) async {
     try {
       dataSignal.clear();
@@ -137,6 +168,7 @@ class ListSignalWidgetController extends GetxController {
   @override
   void onInit() {
     super.onInit();
+    checkInternet();
     Future.delayed(const Duration(microseconds: 0)).then((_) async {
       initializePageSignalAsync();
     });
@@ -151,6 +183,23 @@ class ListChannelWidgetController extends GetxController {
   Rx<Level?> medal = Rx<Level?>(null);
   RxInt loadingSort = 0.obs;
 
+  bool internet = false;
+  checkInternet() async {
+    try {
+      final result = await InternetAddress.lookup('google.com');
+      if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
+        internet = true;
+        print('connected');
+      }
+    } on SocketException catch (_) {
+      internet = false;
+      print('not connected');
+    }
+    print("internet: $internet");
+  }
+
+  RxBool hasError = false.obs;
+
   final RefreshController refreshController = RefreshController(initialRefresh: false);
 
   Future<void> initializePageChannelAsync({bool clearCache = false}) async {
@@ -162,8 +211,11 @@ class ListChannelWidgetController extends GetxController {
       medal.value = result;
       print("berhasil");
     } catch (xerr) {
+      hasError.value = true;
+      print("erororro: ${hasError.value}");
       throw (xerr.toString());
     }
+    print("udah initialize");
   }
 
   void onRefreshChannel() async {
@@ -198,9 +250,11 @@ class ListChannelWidgetController extends GetxController {
   @override
   void onInit() {
     super.onInit();
+    checkInternet();
     Future.delayed(const Duration(microseconds: 0)).then((_) async {
       await initializePageChannelAsync();
     });
+    print("udah onInit");
   }
 }
 

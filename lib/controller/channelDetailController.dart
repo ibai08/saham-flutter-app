@@ -10,7 +10,7 @@ import 'package:saham_01_app/views/pages/channels/details/summary.dart';
 class ChannelDetailController extends GetxController with GetTickerProviderStateMixin {
   int channel = 0;
   bool _init = false;
-  late ChannelCardSlim channelDetail;
+  ChannelCardSlim channelDetail = ChannelCardSlim();
   late RefreshController refreshController;
   final RxString titleObs = ''.obs;
   final Rx<ChannelCardSlim?>? channelObs = Rx<ChannelCardSlim?>(null);
@@ -41,12 +41,12 @@ class ChannelDetailController extends GetxController with GetTickerProviderState
           "route": "/dsc/channels",
           "arguments": ModalRoute.of(Get.context!)?.settings.arguments
         });
-      } else if (appStateController.users.value.id > 0 && appStateController.users.value.isProfileComplete()) {
-        Get.offAndToNamed("/forms/editprofile", arguments: {
-          "route": "/dsc/channels/",
-          "arguments": ModalRoute.of(Get.context!)?.settings.arguments
-        });
-      }
+      }// } else if (appStateController.users.value.id > 0 && appStateController.users.value != null && appStateController.users.value.isProfileComplete()) {
+      //   Get.offAndToNamed("/forms/editprofile", arguments: {
+      //     "route": "/dsc/channels/",
+      //     "arguments": ModalRoute.of(Get.context!)?.settings.arguments
+      //   });
+      // }
     });
   }
 

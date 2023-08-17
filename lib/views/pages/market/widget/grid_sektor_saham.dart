@@ -5,7 +5,9 @@ class GridSektor extends StatefulWidget {
   final String? sektorImage;
   final String? sektorPrice;
 
-  const GridSektor(this.sektorText, this.sektorImage, this.sektorPrice, {Key? key}) : super(key: key);
+  const GridSektor(this.sektorText, this.sektorImage, this.sektorPrice,
+      {Key? key})
+      : super(key: key);
 
   @override
   _GridSektorState createState() => _GridSektorState();

@@ -15,4 +15,6 @@ List<Map<String, String>> symbolConfig = [
   {'symbol': 'TCID', 'title': 'Mandom Indonesia Tbk.'},
   {'symbol': 'TIFA', 'title': 'Tifa Finance Tbk.'},
   {'symbol': 'TINS', 'title': 'Timah Tbk.'},
+  {'symbol': 'TGKA', 'title': 'Tigaraksa Satria Tbk.'},
+  {'symbol': '', 'title': 'Unknown'},
 ];

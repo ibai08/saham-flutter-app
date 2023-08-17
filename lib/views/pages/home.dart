@@ -51,6 +51,12 @@ class Home extends StatelessWidget {
       controller: homeTabController.refreshController,
       onRefresh: homeTabController.onRefresh,
       onLoading: homeTabController.onLoad,
+      footer: CustomFooter(
+        builder: (contetx, mode) {
+          print("mode");
+          return SizedBox();
+        },
+      ),
       child: ListView(
         padding: const EdgeInsets.only(top: 20),
         physics: const BouncingScrollPhysics(),

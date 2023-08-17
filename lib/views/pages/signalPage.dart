@@ -17,20 +17,21 @@ import 'package:saham_01_app/views/widgets/info.dart';
 import 'package:saham_01_app/views/widgets/signalListWidgetNew.dart';
 import 'package:saham_01_app/views/widgets/signalShimmer.dart';
 
-
 class SignalDashboard extends StatelessWidget implements ScrollUpWidget {
-  final SignalDashboardController signalDashboardController = Get.put(SignalDashboardController());
+  final SignalDashboardController signalDashboardController =
+      Get.put(SignalDashboardController());
 
   final AppStateController appStateController = Get.put(AppStateController());
 
   SignalDashboard({Key? key}) : super(key: key);
-  
-  
+
   @override
   Widget build(BuildContext context) {
-    if (appStateController.users.value.id < 1 && !appStateController.users.value.verify!) {
+    if (appStateController.users.value.id < 1 &&
+        !appStateController.users.value.verify!) {
       return const Login();
-    } else if (appStateController.users.value.id > 0 && !appStateController.users.value.isProfileComplete()) {
+    } else if (appStateController.users.value.id > 0 &&
+        !appStateController.users.value.isProfileComplete()) {
       return Scaffold(
         appBar: NavMain(
           currentPage: "Jelajahi",
@@ -81,7 +82,8 @@ class SignalDashboard extends StatelessWidget implements ScrollUpWidget {
                     padding: const EdgeInsets.only(left: 20, right: 20),
                     labelColor: Colors.black,
                     unselectedLabelStyle: const TextStyle(fontSize: 16),
-                    labelStyle: const TextStyle(fontWeight: FontWeight.w600, fontSize: 16),
+                    labelStyle: const TextStyle(
+                        fontWeight: FontWeight.w600, fontSize: 16),
                     indicatorWeight: 1,
                     indicatorSize: TabBarIndicatorSize.tab,
                     indicatorColor: AppColors.blueGem,
@@ -110,13 +112,12 @@ class SignalDashboard extends StatelessWidget implements ScrollUpWidget {
   RefreshController get refreshController => throw UnimplementedError();
 }
 
- 
-
 class ListSignalWidget extends StatelessWidget implements ScrollUpWidget {
   ListSignalWidget({Key? key}) : super(key: key);
 
   @override
-  final ListSignalWidgetController controller = Get.put(ListSignalWidgetController());
+  final ListSignalWidgetController controller =
+      Get.put(ListSignalWidgetController());
 
   bool wantKeepAlive = true;
   List datas = [];
@@ -140,17 +141,19 @@ class ListSignalWidget extends StatelessWidget implements ScrollUpWidget {
               onLoad: "1",
             );
           }
-          // if (controller._dataSignal.length < 1) {
-          //   return Info(
-          //     title: "Oops...",
-          //     desc: "Signal tidak ditemukan",
-          //     caption: "Coba Lagi",
-          //     onTap: () {
-          //       controller.filter = 0 as RxInt;
-          //       controller._onRefreshSignal();
-          //     }
-          //   );
-          // }
+          if (controller.internet == false) {
+            return Info(onTap: controller.onRefreshSignal);
+          }
+          if (controller.dataSignal.length < 1) {
+            return Info(
+                title: "Oops...",
+                desc: "Signal tidak ditemukan",
+                caption: "Coba Lagi",
+                onTap: () {
+                  controller.filter = 0 as RxInt;
+                  controller.onRefreshSignal();
+                });
+          }
           return Column(
             children: [
               const SizedBox(
@@ -173,7 +176,7 @@ class ListSignalWidget extends StatelessWidget implements ScrollUpWidget {
                           body = SignalShimmer(
                             onLoad: "0",
                           );
-                        } else if (mode ==  LoadStatus.failed) {
+                        } else if (mode == LoadStatus.failed) {
                           body = const Text("Load Failed! Click retry");
                         } else if (mode == LoadStatus.canLoading) {
                           body = const Text("Release to load more");
@@ -188,12 +191,11 @@ class ListSignalWidget extends StatelessWidget implements ScrollUpWidget {
                       }),
                     ),
                     child: ListView(
-                      padding: const EdgeInsets.only(top: 15, left: 12, right: 12),
+                      padding:
+                          const EdgeInsets.only(top: 15, left: 12, right: 12),
                       children: <Widget>[
                         SignalListWidget(
-                          controller.dataSignal,
-                          controller.medal.value
-                        )
+                            controller.dataSignal, controller.medal.value)
                       ],
                     ),
                   ),
@@ -208,19 +210,21 @@ class ListSignalWidget extends StatelessWidget implements ScrollUpWidget {
 
   @override
   onResetTab() {
-    refreshController.position?.moveTo(0, duration: const Duration(milliseconds: 600));
+    refreshController.position
+        ?.moveTo(0, duration: const Duration(milliseconds: 600));
   }
 
   @override
-  final RefreshController refreshController = RefreshController(initialRefresh: false);
+  final RefreshController refreshController =
+      RefreshController(initialRefresh: false);
 }
 
 class ListChannelWidget extends StatelessWidget {
   @override
-  final ListChannelWidgetController controller = Get.put(ListChannelWidgetController());
+  final ListChannelWidgetController controller =
+      Get.put(ListChannelWidgetController());
 
   bool wantKeepAlive = true;
-  
 
   @override
   Widget build(BuildContext context) {
@@ -234,7 +238,7 @@ class ListChannelWidget extends StatelessWidget {
             onSortChanged: (index) {
               controller.sort.value = index;
               print("berubah: ${controller.sort}");
-              
+
               controller.initializePageChannelAsync();
               controller.refreshController.requestRefresh(needMove: false);
             },
@@ -247,6 +251,18 @@ class ListChannelWidget extends StatelessWidget {
               title: "",
               onLoad: "1",
             );
+          }
+          if (controller.internet == false) {
+            return Info(onTap: controller.onRefreshChannel);
+          }
+          if (controller.dataChannel.length < 1) {
+            return Info(
+                title: "Oops...",
+                desc: "Signal tidak ditemukan",
+                caption: "Coba Lagi",
+                onTap: () {
+                  controller.onRefreshChannel;
+                });
           }
           return Column(
             children: [
@@ -274,23 +290,27 @@ class ListChannelWidget extends StatelessWidget {
                         } else if (mode == LoadStatus.failed) {
                           body = const Text("Load Failed! Click retry!");
                         } else if (mode == LoadStatus.canLoading) {
-                          body = const Text("release to load more");
+                          body = const Text("Release to load more");
                         } else {
-                          body = const Text("No more Data");
+                          body = const Text("No more data");
                         }
+                        print("mode: $mode");
                         return Container(
                           child: Center(child: body),
                         );
                       }),
                     ),
                     child: ListView(
-                      padding: const EdgeInsets.only(top: 10, left: 13, right: 13),
+                      padding:
+                          const EdgeInsets.only(top: 10, left: 13, right: 13),
                       children: <Widget>[
                         ChannelListWidget(
-                          controller.dataChannel.map((i) => ChannelModel.instance.getDetail(i, clearCache: true)).toList(),
-                          controller.refreshController,
-                          controller.medal.value
-                        )
+                            controller.dataChannel
+                                .map((i) => ChannelModel.instance
+                                    .getDetail(i, clearCache: true))
+                                .toList(),
+                            controller.refreshController,
+                            controller.medal.value)
                       ],
                     ),
                   ),

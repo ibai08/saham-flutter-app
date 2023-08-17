@@ -9,8 +9,10 @@ class IndexSaham extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const SizedBox(height: 10,),
-        
+        const SizedBox(
+          height: 10,
+        ),
+
         // Saham Box Slider
         SingleChildScrollView(
           scrollDirection: Axis.horizontal,
@@ -36,7 +38,8 @@ class IndexSahamBox extends StatelessWidget {
   final String buttonText;
   final String descText;
 
-  const IndexSahamBox(this.buttonText, this.descText, {Key? key}) : super(key: key);
+  const IndexSahamBox(this.buttonText, this.descText, {Key? key})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -64,9 +67,8 @@ class IndexSahamBox extends StatelessWidget {
             Container(
               padding: const EdgeInsets.all(10.0),
               decoration: BoxDecoration(
-                color: const Color.fromRGBO(53, 6, 153, 1.0),
-                borderRadius: BorderRadius.circular(8.0)
-              ),
+                  color: const Color.fromRGBO(53, 6, 153, 1.0),
+                  borderRadius: BorderRadius.circular(8.0)),
               child: Text(
                 buttonText,
                 style: const TextStyle(
@@ -77,14 +79,13 @@ class IndexSahamBox extends StatelessWidget {
                 ),
               ),
             ),
-            const SizedBox(height: 10,),
+            const SizedBox(
+              height: 10,
+            ),
             Text(
               descText,
               style: TextStyle(
-                color: descColor,
-                fontSize: 14,
-                fontFamily: 'Manrope'
-              ),
+                  color: descColor, fontSize: 14, fontFamily: 'Manrope'),
             ),
           ],
         ),

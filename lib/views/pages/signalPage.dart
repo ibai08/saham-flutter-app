@@ -241,15 +241,22 @@ class ListChannelWidget extends StatelessWidget {
         if (controller.hasError.value) {
           return Info(onTap: controller.onRefreshChannel);
         }
-        if (controller.dataChannel.length < 1) {
-          return Info(
-            title: "Oops...",
-            desc: "Signal tidak ditemukan",
-            caption: "Coba Lagi",
-            onTap: () {
-              controller.onRefreshChannel;
-          });
-        }
+        // if (controller.dataChannel!.length < 1) {
+        //   // return Info(
+        //   //   title: "Oops...",
+        //   //   desc: "Signal tidak ditemukan",
+        //   //   caption: "Coba Lagi",
+        //   //   onTap: () {
+        //   //     controller.onRefreshChannel;
+        //   // });
+        //   return Center(
+        //     child: SizedBox(
+        //       width: 50,
+        //       height: 50,
+        //       child: CircularProgressIndicator(),
+        //     ),
+        //   );
+        // }
         return Stack(
           children: [
             Container(
@@ -265,6 +272,7 @@ class ListChannelWidget extends StatelessWidget {
                 activeSortIndex: controller.sort,
               ),
             ),
+          
            Column(
                 children: [
                   const SizedBox(
@@ -308,7 +316,7 @@ class ListChannelWidget extends StatelessWidget {
                           padding: const EdgeInsets.only(top: 10, left: 13, right: 13),
                           children: <Widget>[
                             ChannelListWidget(
-                              controller.dataChannel.map((i) => ChannelModel.instance.getDetail(i, clearCache: true)).toList(),
+                              controller.dataChannel?.map((i) => ChannelModel.instance.getDetail(i, clearCache: true)).toList(),
                               controller.refreshController,
                               controller.medal.value
                             )

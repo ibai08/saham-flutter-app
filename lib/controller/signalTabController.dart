@@ -10,9 +10,8 @@ import 'package:saham_01_app/models/entities/ois.dart';
 import 'package:saham_01_app/models/signal.dart';
 import 'package:saham_01_app/views/pages/signalPage.dart';
 
-class SignalDashboardController extends GetxController
-    with GetSingleTickerProviderStateMixin {
-  late RefreshController refreshController;
+class SignalDashboardController extends GetxController with GetSingleTickerProviderStateMixin {
+  late RefreshController refreshController ;
   late TabController tabController;
   ScrollController scrollController = ScrollController();
   late Level medal;
@@ -21,8 +20,7 @@ class SignalDashboardController extends GetxController
 
   void onTabChanged() {
     if (tabBodies[tabController.index] is ScrollUpWidget) {
-      onResetTabChild =
-          (tabBodies[tabController.index] as ScrollUpWidget).onResetTab;
+      onResetTabChild = (tabBodies[tabController.index] as ScrollUpWidget).onResetTab;
     }
   }
 
@@ -46,15 +44,14 @@ class SignalDashboardController extends GetxController
 
   Function onResetTabChild = () {};
 
+  @override
   void onInit() {
     super.onInit();
     checkInternet();
     Future.delayed(const Duration(microseconds: 0)).then((_) async {
-      if (appStateController.users.value.id < 1 ||
-          appStateController.users.value.verify!) {
+      if (appStateController.users.value.id < 1 || appStateController.users.value.verify!) {
         return;
-      } else if (appStateController.users.value.id > 0 &&
-          appStateController.users.value.isProfileComplete()) {
+      } else if (appStateController.users.value.id > 0 && appStateController.users.value.isProfileComplete()) {
         Get.toNamed("/forms/editprofile");
       }
     });
@@ -70,9 +67,9 @@ class SignalDashboardController extends GetxController
     ];
 
     if (tabBodies[tabController.index] is ScrollUpWidget) {
-      onResetTabChild =
-          (tabBodies[tabController.index] as ScrollUpWidget).onResetTab;
+      onResetTabChild = (tabBodies[tabController.index] as ScrollUpWidget).onResetTab;
     }
+
   }
 
   List<Widget> getTabTitle() {
@@ -102,8 +99,7 @@ class SignalDashboardController extends GetxController
 class ListSignalWidgetController extends GetxController {
   RxList<SignalCardSlim> dataSignal = RxList<SignalCardSlim>();
 
-  final RefreshController refreshController =
-      RefreshController(initialRefresh: false);
+  final RefreshController refreshController = RefreshController(initialRefresh: false);
 
   RxInt filter = 0.obs;
   RxInt page = 0.obs;
@@ -128,15 +124,15 @@ class ListSignalWidgetController extends GetxController {
     try {
       dataSignal.clear();
       print("test 1");
-      List<SignalCardSlim>? recentSignal =
-          await SignalModel.instance.getRecentSignalAsync(filter: filter.value);
+      List<SignalCardSlim>? recentSignal = await SignalModel.instance.getRecentSignalAsync(filter: filter.value);
+      print(recentSignal);
       print("test 2");
       dataSignal.addAll(recentSignal!);
       print("test 3");
       var result = await getMedal();
       medal.value = result;
     } catch (err) {
-      // throw(err.toString());
+      throw(err.toString());
     }
   }
 
@@ -147,18 +143,15 @@ class ListSignalWidgetController extends GetxController {
 
   void onLoadSignal() async {
     try {
-      List<SignalCardSlim>? recentSignal = await SignalModel.instance
-          .getRecentSignalAsync(
-              offset: dataSignal.length, filter: filter.value);
-      recentSignal = recentSignal!
-          .where((test) => !recentSignal!.contains(test.signalid))
-          .toList();
+      List<SignalCardSlim>? recentSignal = await SignalModel.instance.getRecentSignalAsync(offset: dataSignal.length, filter: filter.value);
+      recentSignal = recentSignal!.where((test) => !recentSignal!.contains(test.signalid)).toList();
       if (recentSignal.length > 0) {
         dataSignal.addAll(recentSignal);
         refreshController.loadComplete();
       } else {
         refreshController.loadNoData();
       }
+      print("jalan terus");
     } catch (x) {
       refreshController.loadNoData();
     }
@@ -171,8 +164,7 @@ class ListSignalWidgetController extends GetxController {
   }
 
   onResetTab() {
-    refreshController.position
-        ?.moveTo(0, duration: const Duration(milliseconds: 600));
+    refreshController.position?.moveTo(0, duration: const Duration(milliseconds: 600));
   }
 
   @override
@@ -186,39 +178,36 @@ class ListSignalWidgetController extends GetxController {
 }
 
 class ListChannelWidgetController extends GetxController {
-  RxList<int> dataChannel = RxList<int>();
+  RxList<int?>? dataChannel = <int?>[null].obs;
 
   RxInt sort = 0.obs;
   RxInt page = 0.obs;
   Rx<Level?> medal = Rx<Level?>(null);
   RxInt loadingSort = 0.obs;
 
-  bool internet = false;
-  checkInternet() async {
-    try {
-      final result = await InternetAddress.lookup('google.com');
-      if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
-        internet = true;
-        print('connected');
-      }
-    } on SocketException catch (_) {
-      internet = false;
-      print('not connected');
-    }
-    print("internet: $internet");
-  }
-
   RxBool hasError = false.obs;
 
-  final RefreshController refreshController =
-      RefreshController(initialRefresh: false);
+  // bool internet = false;
+  // checkInternet() async {
+  //   try {
+  //     final result = await InternetAddress.lookup('google.com');
+  //     if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
+  //       internet = true;
+  //       print('connected');
+  //     }
+  //   } on SocketException catch (_) {
+  //     internet = false;
+  //     print('not connected');
+  //   }
+  //   print("internet: $internet");
+  // }
+
+  final RefreshController refreshController = RefreshController(initialRefresh: false);
 
   Future<void> initializePageChannelAsync({bool clearCache = false}) async {
     try {
-      dataChannel.clear();
-      dataChannel.addAll(await ChannelModel.instance
-          .getRecommendedManualChannel(
-              clearCache: clearCache, offset: 0, sort: sort.value));
+      dataChannel?.clear();
+      dataChannel?.addAll(await ChannelModel.instance.getRecommendedManualChannel(clearCache: clearCache, offset: 0, sort: sort.value));
       page = 0.obs;
       var result = await getMedal();
       medal.value = result;
@@ -227,35 +216,46 @@ class ListChannelWidgetController extends GetxController {
       hasError.value = true;
       print("erororro: ${hasError.value}");
       throw (xerr.toString());
-      // throw (xerr.toString());
     }
     print("udah initialize");
   }
 
   void onRefreshChannel() async {
+    print("ngerefresh");
+    dataChannel?.addAll([]);
     await initializePageChannelAsync(clearCache: true);
     refreshController.refreshCompleted();
     refreshController.resetNoData();
   }
 
   void onLoadChannel() async {
+    // await initializePageChannelAsync(clearCache: false);
+    print("lsalalalalalaalal");
     try {
-      List<int> temp = await ChannelModel.instance.getRecommendedManualChannel(
-          clearCache: true, offset: dataChannel.length, sort: sort.value);
+      List<int> temp = await ChannelModel.instance.getRecommendedManualChannel(clearCache: true, offset: dataChannel!.length, sort: sort.value);
+      print("Jalan jalan");
+      print("object: $temp");
 
       if (temp.isNotEmpty) {
-        dataChannel.addAll(temp);
-        RxList<int> dataChannelList = dataChannel.toSet().toList().obs;
-        dataChannel = dataChannelList;
+        dataChannel?.addAll(temp);
+        dataChannel = dataChannel?.toSet().toList().obs;
+        dataChannel = dataChannel;
+        print("data channel: $dataChannel");
         page++;
         refreshController.loadComplete();
+        print("page: $page");
+      } else {
+        refreshController.loadNoData();
+        print("kennaaa");
       }
     } catch (ex) {
+      print("gak ke load");
+      hasError.value = true;
       Get.snackbar("Error", ex.toString());
       refreshController.loadFailed();
     }
 
-    sort = loadingSort;
+    sort.value = sort.value;
   }
 
   Future<Level> getMedal({bool clearCache = false}) async {
@@ -265,7 +265,7 @@ class ListChannelWidgetController extends GetxController {
   @override
   void onInit() {
     super.onInit();
-    checkInternet();
+    // checkInternet();
     Future.delayed(const Duration(microseconds: 0)).then((_) async {
       await initializePageChannelAsync();
     });

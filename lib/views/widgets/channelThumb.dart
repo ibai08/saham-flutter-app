@@ -89,7 +89,7 @@ class ChannelThumb extends StatelessWidget {
           print("error channel Detail: $e");
         }
       }
-      print("profit bersih: ${channel.profit}");
+      // print("profit bersih: ${channel.profit}");
     });
 
     if (level?.level == null) {
@@ -131,7 +131,7 @@ class ChannelThumb extends StatelessWidget {
       // }
 
       // print("btnlabel: $btnLabel");
-      print("profit: ${tChannel.profit}");
+      // print("profit: ${tChannel.profit}");
 
       return Container(
         width: width ?? double.infinity,

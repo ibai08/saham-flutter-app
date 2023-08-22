@@ -23,12 +23,10 @@ import '../widgets/homeTopRankShimmer.dart';
 import '../widgets/recentProfitSignalNew.dart';
 
 class Home extends StatelessWidget {
-  Home({Key? key}) : super(key: key);
+  // Home({Key? key}) : super(key: key);
   final HomeTabController homeTabController = Get.put(HomeTabController());
   final CheckInternetController checkInet = Get.put(CheckInternetController());
   final AppStateController appStateController = Get.put(AppStateController());
-
-  bool wantKeepAlive = true;
 
   @override
   Widget build(BuildContext context) {
@@ -46,7 +44,7 @@ class Home extends StatelessWidget {
 
   Widget prepareHome() {
     print("-0-0-0-0-0-0-0");
-    print("close signal: ${homeTabController.closedSignal}");
+    print("closed signal widget: ${homeTabController.closedSignal}");
     print("-1-1-1-1-1-1-1");
     return Obx(
       () => SmartRefresher(

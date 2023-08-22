@@ -10,13 +10,15 @@ class RecentProfitSignalWidgetNew extends StatelessWidget {
   final List<SignalInfo>? data;
   final Level? medal;
 
-  const RecentProfitSignalWidgetNew({Key? key, this.data, this.medal})
+  RecentProfitSignalWidgetNew({Key? key, this.data, this.medal})
       : super(key: key);
+
+  final HomeTabController homeTabController = Get.put(HomeTabController());
 
   @override
   Widget build(BuildContext context) {
     print("data: ${data}");
-    final HomeTabController homeTabController = Get.put(HomeTabController());
+    // final HomeTabController homeTabController = Get.put(HomeTabController());
     homeTabController.setSignals(data!);
 
     return GetX<HomeTabController>(
@@ -33,8 +35,25 @@ class RecentProfitSignalWidgetNew extends StatelessWidget {
               : const SizedBox(),
         );
       },
-      // ),
     );
+    // return Container(
+    //   child: StreamBuilder<List<SignalInfo>>(
+    //       stream: ss
+    //       builder: (context, snapshot) {
+    //         if (snapshot.hasError) {
+    //           return SizedBox();
+    //         }
+    //         if (snapshot.data == null) {
+    //           return HomeSignalJustMadeProfitShimmer();
+    //         }
+    //         return snapshot.data.length > 0
+    //             ? RecommendedSignal(
+    //                 medal: widget.medal,
+    //                 listSignalData: snapshot.data,
+    //               )
+    //             : SizedBox();
+    //       }),
+    // );
   }
 }
 

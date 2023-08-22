@@ -16,6 +16,7 @@ class HomeTabController extends GetxController {
   List<SignalInfo> closedSignal = <SignalInfo>[].obs;
   List<SlidePromo> listPromo = <SlidePromo>[].obs;
   List<SignalInfo> signalList = <SignalInfo>[].obs;
+  RxBool isLoading = false.obs;
 
   final RefreshController refreshController =
       RefreshController(initialRefresh: false);
@@ -92,7 +93,6 @@ class HomeTabController extends GetxController {
   }
 
   void onRefresh() async {
-    print("onRefresh");
     // await getEventPage();
     await initializePageAsync(clearCache: true);
     refreshController.refreshCompleted(resetFooterState: true);
@@ -101,6 +101,7 @@ class HomeTabController extends GetxController {
   }
 
   void onLoad() async {
+    isLoading.value = false;
     try {
       List<SignalInfo> newSignal = await SignalModel.instance
           .getClosedSignalsFeed(page: loadedPage.value + 1);
@@ -109,18 +110,17 @@ class HomeTabController extends GetxController {
         var ids = closedSignal.map((sig) => sig.id).toList();
         closedSignal
             .addAll(newSignal.where((newSig) => !ids.contains(newSig.id)));
-        print("closedSignal : ${closedSignal}");
+        print("closed signal controller : ${closedSignal}");
         print("-=-=-=-=-=-=-=");
         loadedPage.value++;
 
         print("loaded page: $loadedPage");
-
+        isLoading.value = false;
         refreshController.loadComplete();
-        print("berhasil");
+        print("ke reload");
       } else {
         refreshController.loadNoData();
       }
-      update();
     } catch (xerr) {
       refreshController.loadFailed();
       print("error: $xerr");
@@ -129,13 +129,11 @@ class HomeTabController extends GetxController {
 
   @override
   void onInit() {
-    super.onInit();
     Future.delayed(const Duration(microseconds: 0)).then((_) async {
       await initializePageAsync();
       await getEventPage();
-      onLoad();
-      update();
     });
+    super.onInit();
   }
 }
 

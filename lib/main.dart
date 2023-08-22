@@ -134,6 +134,7 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
+    Get.put(HomeTabController());
     return Builder(
       builder: (context) {
         return GetMaterialApp(

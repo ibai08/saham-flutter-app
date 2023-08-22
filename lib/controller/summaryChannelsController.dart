@@ -19,7 +19,8 @@ class SummaryChannelsController extends GetxController {
     try {
       hasError = '';
       summaryDetail = await ChannelModel.instance.getSummary2(channel.value);
-      summaryDetailAll = await ChannelModel.instance.getSummary2(channel.value, isAlltime: true);
+      summaryDetailAll = await ChannelModel.instance
+          .getSummary2(channel.value, isAlltime: true);
       chartDetail = await ChannelModel.instance.getChart(channel.value);
     } catch (e) {
       hasError = e.toString();

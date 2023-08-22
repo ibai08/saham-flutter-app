@@ -199,6 +199,7 @@ class _MyHomePageState extends State<MyHomePage>
     // InboxTabListTile(),
     // Setting()
   ];
+  
 
   late TabController _tabController;
   final appStateController = Get.find<AppStateController>();
@@ -316,4 +317,5 @@ class _MyHomePageState extends State<MyHomePage>
           ));
     });
   }
+
 }

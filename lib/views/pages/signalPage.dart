@@ -221,105 +221,107 @@ class ListSignalWidget extends StatelessWidget implements ScrollUpWidget {
 
 class ListChannelWidget extends StatelessWidget {
   @override
-  final ListChannelWidgetController controller =
-      Get.put(ListChannelWidgetController());
-
+  final ListChannelWidgetController controller = Get.put(ListChannelWidgetController());
+  // @override
+  // final RefreshController refreshController = RefreshController(initialRefresh: false);
   bool wantKeepAlive = true;
-
+  
   @override
   Widget build(BuildContext context) {
     // print("channel: ${controller.dataChannel}");
     print("index: ${controller.sort.value}");
-    return Stack(
-      children: [
-        Container(
-          padding: const EdgeInsets.only(left: 20),
-          child: SortButtonsWidget(
-            onSortChanged: (index) {
-              controller.sort.value = index;
-              print("berubah: ${controller.sort}");
-
-              controller.initializePageChannelAsync();
-              controller.refreshController.requestRefresh(needMove: false);
-            },
-            activeSortIndex: controller.sort,
-          ),
-        ),
-        Obx(() {
-          if (controller.dataChannel.isEmpty) {
-            return SignalShimmer(
-              title: "",
-              onLoad: "1",
-            );
-          }
-          if (controller.internet == false) {
-            return Info(onTap: controller.onRefreshChannel);
-          }
-          if (controller.dataChannel.length < 1) {
-            return Info(
-                title: "Oops...",
-                desc: "Signal tidak ditemukan",
-                caption: "Coba Lagi",
-                onTap: () {
-                  controller.onRefreshChannel;
-                });
-          }
-          return Column(
-            children: [
-              const SizedBox(
-                height: 45,
-              ),
-              Expanded(
-                child: Container(
-                  child: SmartRefresher(
-                    enablePullDown: true,
-                    enablePullUp: true,
-                    controller: controller.refreshController,
-                    onRefresh: controller.onRefreshChannel,
-                    onLoading: controller.onLoadChannel,
-                    footer: CustomFooter(
-                      builder: ((context, mode) {
-                        Widget body;
-                        if (mode == LoadStatus.idle) {
-                          body = const Text("");
-                        } else if (mode == LoadStatus.loading) {
-                          body = SignalShimmer(
-                            title: "",
-                            onLoad: "0",
-                          );
-                        } else if (mode == LoadStatus.failed) {
-                          body = const Text("Load Failed! Click retry!");
-                        } else if (mode == LoadStatus.canLoading) {
-                          body = const Text("Release to load more");
-                        } else {
-                          body = const Text("No more data");
-                        }
-                        print("mode: $mode");
-                        return Container(
-                          child: Center(child: body),
-                        );
-                      }),
-                    ),
-                    child: ListView(
-                      padding:
-                          const EdgeInsets.only(top: 10, left: 13, right: 13),
-                      children: <Widget>[
-                        ChannelListWidget(
-                            controller.dataChannel
-                                .map((i) => ChannelModel.instance
-                                    .getDetail(i, clearCache: true))
-                                .toList(),
-                            controller.refreshController,
-                            controller.medal.value)
-                      ],
-                    ),
-                  ),
-                ),
-              )
-            ],
+    return Obx(
+      () {
+        if (controller.dataChannel == null && controller.hasError.value == true) {
+          return SignalShimmer(
+            title: "Recommended Channels",
+            onLoad: "1",
           );
-        })
-      ],
+        }
+        if (controller.hasError.value) {
+          return Info(onTap: controller.onRefreshChannel);
+        }
+        if (controller.dataChannel.length < 1) {
+          return Info(
+            title: "Oops...",
+            desc: "Signal tidak ditemukan",
+            caption: "Coba Lagi",
+            onTap: () {
+              controller.onRefreshChannel;
+          });
+        }
+        return Stack(
+          children: [
+            Container(
+              padding: const EdgeInsets.only(left: 20),
+              child: SortButtonsWidget(
+                onSortChanged: (index) {
+                  print("berubah: ${controller.sort}");
+                  controller.sort.value = index;
+                  print("berubah2: ${controller.sort}");
+                  controller.initializePageChannelAsync;
+                  controller.refreshController.requestRefresh(needMove: false);
+                },
+                activeSortIndex: controller.sort,
+              ),
+            ),
+           Column(
+                children: [
+                  const SizedBox(
+                    height: 45,
+                  ),
+                  Expanded(
+                    child: Container(
+                      child: SmartRefresher(
+                        enablePullDown: true,
+                        enablePullUp: true,
+                        controller: controller.refreshController,
+                        onRefresh: controller.onRefreshChannel,
+                        onLoading: controller.onLoadChannel,
+                        footer: CustomFooter(
+                          builder: ((context, mode) {
+                            Widget body;
+                            if (mode == LoadStatus.idle) {
+                              print("kena idle");
+                              body = const Text("");
+                            } else if (mode == LoadStatus.loading) {
+                              print("kena loading");
+                              body = SignalShimmer(
+                                title: "",
+                                onLoad: "0",
+                              );
+                            } else if (mode == LoadStatus.failed) {
+                              body = const Text("Load Failed! Click retry!");
+                            } else if (mode == LoadStatus.canLoading) {
+                              print("kena can loading");
+                              body = const Text("Release to load more");
+                            } else {
+                              body = const Text("No more data");
+                            }
+                            print("mode: $mode");
+                            return Container(
+                              child: Center(child: body),
+                            );
+                          }),
+                        ),
+                        child: ListView(
+                          padding: const EdgeInsets.only(top: 10, left: 13, right: 13),
+                          children: <Widget>[
+                            ChannelListWidget(
+                              controller.dataChannel.map((i) => ChannelModel.instance.getDetail(i, clearCache: true)).toList(),
+                              controller.refreshController,
+                              controller.medal.value
+                            )
+                          ],
+                        ),
+                      ),
+                    ),
+                  )
+                ],
+              )
+          ],
+        );
+      }
     );
   }
 }

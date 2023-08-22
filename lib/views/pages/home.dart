@@ -32,13 +32,15 @@ class Home extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: NavMain(
-        currentPage: 'HomePage',
-        username: "Gopay Kai",
+    return Obx(
+      () => Scaffold(
+        appBar: NavMain(
+          currentPage: 'HomePage',
+          username: "Gopay Kai",
+        ),
+        body: prepareHome(),
+        backgroundColor: AppColors.light,
       ),
-      body: prepareHome(),
-      backgroundColor: AppColors.light,
     );
   }
 

@@ -94,24 +94,28 @@ class SortButtonsWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      scrollDirection: Axis.horizontal,
-      child: Row(
-        children: sortMap
-            .asMap()
-            .entries
-            .map((e) => SortButtonNew(
-                  onTap: () {
-                    print("testing bytton: ${e.key}");
-                    onSortChanged(e.key);
-                    activeSortIndex?.value = e.key;
-                    print("active sort: ${activeSortIndex?.value}");
-                  },
-                  text: e.value['title'],
-                  isActive: activeSortIndex?.value == e.key || (e.key == 0 && activeSortIndex == null)
-                ))
-            .toList(),
-      ),
+    return Obx(
+      () {
+        return SingleChildScrollView(
+          scrollDirection: Axis.horizontal,
+          child: Row(
+            children: sortMap
+                .asMap()
+                .entries
+                .map((e) => SortButtonNew(
+                      onTap: () {
+                        print("testing bytton: ${e.key}");
+                        onSortChanged(e.key);
+                        activeSortIndex?.value = e.key;
+                        print("active sort: ${activeSortIndex?.value}");
+                      },
+                      text: e.value['title'],
+                      isActive: activeSortIndex?.value == e.key || (e.key == 0 && activeSortIndex == null)
+                    ))
+                .toList(),
+          ),
+        );
+      }
     );
   }
 }

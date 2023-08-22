@@ -104,10 +104,6 @@ void main() async {
 
   Get.put(CheckInternetController());
   Get.put(DialogLoadingController());
-  // Get.put(SearchFormController());
-  Get.put(ListChannelWidgetController());
-
-  Get.put(HomeTabController());
 
   runApp(const MyApp());
 }
@@ -159,6 +155,7 @@ class _MyAppState extends State<MyApp> {
           getPages: [
             GetPage(name: '/home', page: () => const MyHomePage()),
             GetPage(name: '/homepage', page: () => Home()),
+            GetPage(name: '/channel-signal', page: () => SignalDashboard()),
             GetPage(name: '/maintenance', page: () => MaintenanceView()),
             // GetPage(name: '/update-app', page: () => UpdateVersionView()),
 
@@ -207,6 +204,8 @@ class _MyHomePageState extends State<MyHomePage>
   final appStateController = Get.find<AppStateController>();
 
   void _onTapItem(int index) {
+    print("onTapItem");
+    print(index);
     final appStateController = Get.find<AppStateController>();
     if (appStateController.currentTab == HomeTab.values[index]) {
       Widget temp = _layoutPage[index];

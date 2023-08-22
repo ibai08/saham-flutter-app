@@ -79,12 +79,12 @@ class HomeTabController extends GetxController {
       if (newSignal.isNotEmpty) {
         closedSignal.addAll(newSignal);
         loadedPage.value++;
+        print("initializePageAsync: ${closedSignal}");
+        print("initializePageAsync: ${loadedPage}");
       }
 
       var result = await getMedal(clearCache: clearCache);
       medal.value = result;
-      print("initializePageAsync: ${closedSignal}");
-      print("initializePageAsync: ${loadedPage}");
       print("initializePageAsync: ${medal}");
 
       refreshController.loadComplete();
@@ -92,6 +92,7 @@ class HomeTabController extends GetxController {
   }
 
   void onRefresh() async {
+    print("onRefresh");
     // await getEventPage();
     await initializePageAsync(clearCache: true);
     refreshController.refreshCompleted(resetFooterState: true);
@@ -103,7 +104,7 @@ class HomeTabController extends GetxController {
     try {
       List<SignalInfo> newSignal = await SignalModel.instance
           .getClosedSignalsFeed(page: loadedPage.value + 1);
-          print("newSIgnal: ${newSignal[3].symbol}");
+      print("newSIgnal: ${newSignal[3].symbol}");
       if (newSignal.length > 0) {
         var ids = closedSignal.map((sig) => sig.id).toList();
         closedSignal

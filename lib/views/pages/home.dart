@@ -28,7 +28,8 @@ class Home extends StatelessWidget {
   final CheckInternetController checkInet = Get.put(CheckInternetController());
   final AppStateController appStateController = Get.put(AppStateController());
 
-  // bool wantKeepAlive = true;
+  bool wantKeepAlive = true;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -45,40 +46,36 @@ class Home extends StatelessWidget {
     print("-0-0-0-0-0-0-0");
     print("close signal: ${homeTabController.closedSignal}");
     print("-1-1-1-1-1-1-1");
-    return SmartRefresher(
-      enablePullDown: true,
-      enablePullUp: true,
-      controller: homeTabController.refreshController,
-      onRefresh: homeTabController.onRefresh,
-      onLoading: homeTabController.onLoad,
-      footer: CustomFooter(
-        builder: (contetx, mode) {
-          print("mode");
-          return SizedBox();
-        },
-      ),
-      child: ListView(
-        padding: const EdgeInsets.only(top: 20),
-        physics: const BouncingScrollPhysics(),
-        scrollDirection: Axis.vertical,
-        children: <Widget>[
-          const TotalBalance(),
-          MostConsistentChannel(
-            medal: homeTabController.medal.value,
-            futureList:
-                homeTabController.getMostConsistentChannels(clearCache: false),
-          ),
-          const SizedBox(height: 20),
-          Container(
-            margin: const EdgeInsets.only(top: 25),
-            child: RecentProfitSignalWidgetNew(
-              data: homeTabController.closedSignal,
+    return Obx(
+      () => SmartRefresher(
+        enablePullDown: true,
+        enablePullUp: true,
+        controller: homeTabController.refreshController,
+        onRefresh: homeTabController.onRefresh,
+        onLoading: homeTabController.onLoad,
+        child: ListView(
+          padding: const EdgeInsets.only(top: 20),
+          physics: const BouncingScrollPhysics(),
+          scrollDirection: Axis.vertical,
+          children: <Widget>[
+            const TotalBalance(),
+            MostConsistentChannel(
               medal: homeTabController.medal.value,
+              futureList: homeTabController.getMostConsistentChannels(
+                  clearCache: false),
             ),
-          ),
-          // NewProfitSignal(),
-          // const SizedBox(height: 20),
-        ],
+            const SizedBox(height: 20),
+            Container(
+              margin: const EdgeInsets.only(top: 25),
+              child: RecentProfitSignalWidgetNew(
+                data: homeTabController.closedSignal,
+                medal: homeTabController.medal.value ?? Level(),
+              ),
+            ),
+            // NewProfitSignal(),
+            // const SizedBox(height: 20),
+          ],
+        ),
       ),
     );
   }
@@ -264,7 +261,9 @@ class _MostConsistentChannel extends State<MostConsistentChannel> {
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 24),
                   child: InkWell(
-                    onTap: () {},
+                    onTap: () {
+                      Navigator.pushNamed(context, '/channel-signal');
+                    },
                     child: Row(
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
@@ -318,9 +317,10 @@ class MostConsistentChannelThumbNew extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // if (medal?.level == null) {
-    //   return const MostConsistentChannelShimmer(pT: 0);
-    // }
+    print("medal gestur : ${medal?.level}");
+    if (medal?.level == null) {
+      return const MostConsistentChannelShimmer(pT: 70);
+    }
     fetchData();
 
     return Obx(() {

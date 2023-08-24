@@ -1,16 +1,16 @@
 import 'dart:convert';
 
 import 'package:firebase_messaging/firebase_messaging.dart';
-import 'package:saham_01_app/controller/appStatesController.dart';
-import 'package:saham_01_app/core/msgdef.dart';
-import 'package:saham_01_app/function/helper.dart';
-import 'package:saham_01_app/models/askap.dart';
-import 'package:saham_01_app/models/channel.dart';
-import 'package:saham_01_app/models/entities/inbox.dart';
-import 'package:saham_01_app/models/inbox.dart';
-import 'package:saham_01_app/models/mrg.dart';
-import 'package:saham_01_app/models/signal.dart';
-import 'package:saham_01_app/models/user.dart';
+import '../../controller/appStatesController.dart';
+import '../../core/msgdef.dart';
+import '../../function/helper.dart';
+import '../../models/askap.dart';
+import '../../models/channel.dart';
+import '../../models/entities/inbox.dart';
+import '../../models/inbox.dart';
+import '../../models/mrg.dart';
+import '../../models/signal.dart';
+import '../../models/user.dart';
 
 enum MessageEvent {
   onMessage,
@@ -28,14 +28,15 @@ class MessageProcessor {
     }
   }
 
-  static Future<void> onMessage(MessageEvent event, RemoteMessage message) async {
+  static Future<void> onMessage(
+      MessageEvent event, RemoteMessage message) async {
     Map data = message.data;
 
-    if(!data.containsKey("cmd")) {
+    if (!data.containsKey("cmd")) {
       throw Exception("UNKNOWN_COMMAND");
     }
     String cmd = data["cmd"];
-    switch(cmd) {
+    switch (cmd) {
       case MessageDefinition.logout:
         await UserModel.instance.logout(destroyToken: false);
         break;
@@ -48,17 +49,18 @@ class MessageProcessor {
             SignalModel.instance.deleteSignalCache(signalid);
           }
 
-          if (event == MessageEvent.onResume || event == MessageEvent.onLaunch || event == MessageEvent.onLocalNotif) {
+          if (event == MessageEvent.onResume ||
+              event == MessageEvent.onLaunch ||
+              event == MessageEvent.onLocalNotif) {
             if (signalid == 0) {
               return;
             }
             if (event == MessageEvent.onLaunch) {
               await Future.delayed(const Duration(seconds: 2));
             }
-            appStateController?.setAppState(Operation.pushNamed, {"route": "/dsc/signal/", "arguments": signalid});
-          } else if (event == MessageEvent.onMessage) {
-
-          }
+            appStateController?.setAppState(Operation.pushNamed,
+                {"route": "/dsc/signal/", "arguments": signalid});
+          } else if (event == MessageEvent.onMessage) {}
           InboxModel.instance.refreshAllBoxAsync(clearCache: true);
         }
         break;
@@ -67,7 +69,9 @@ class MessageProcessor {
           int channelid = int.tryParse(data["channelid"].toString()) ?? 0;
           ChannelModel.instance.getDetail(channelid, clearCache: true);
 
-          if (event == MessageEvent.onResume || event == MessageEvent.onLaunch || event == MessageEvent.onLocalNotif) {
+          if (event == MessageEvent.onResume ||
+              event == MessageEvent.onLaunch ||
+              event == MessageEvent.onLocalNotif) {
             if (channelid == 0) {
               return;
             }
@@ -75,10 +79,9 @@ class MessageProcessor {
               await Future.delayed(const Duration(seconds: 2));
             }
 
-            appStateController?.setAppState(Operation.pushNamed, {"route": "/dsc/signal/", "arguments": channelid});
-          } else if (event == MessageEvent.onMessage) {
-
-          }
+            appStateController?.setAppState(Operation.pushNamed,
+                {"route": "/dsc/signal/", "arguments": channelid});
+          } else if (event == MessageEvent.onMessage) {}
         }
         break;
       case MessageDefinition.mrgDepoVerifyRefuse:
@@ -89,14 +92,15 @@ class MessageProcessor {
           MrgModel.getLatestTransactions(clearCache: true);
           MrgModel.fetchUserData();
 
-          if (event == MessageEvent.onResume || event == MessageEvent.onLaunch || event == MessageEvent.onLocalNotif) {
+          if (event == MessageEvent.onResume ||
+              event == MessageEvent.onLaunch ||
+              event == MessageEvent.onLocalNotif) {
             if (event == MessageEvent.onLaunch) {
               await Future.delayed(const Duration(seconds: 2));
             }
-            appStateController?.setAppState(Operation.pushNamed, {"route": "/more/mrg"});
-          } else if (event == MessageEvent.onMessage) {
-
-          }
+            appStateController
+                ?.setAppState(Operation.pushNamed, {"route": "/more/mrg"});
+          } else if (event == MessageEvent.onMessage) {}
         }
         break;
       case MessageDefinition.askapDepoVerifySuccess:
@@ -108,24 +112,28 @@ class MessageProcessor {
           AskapModel.getLatestTransactions(clearCache: true);
           AskapModel.fetchUserData();
 
-          if (event == MessageEvent.onResume || event == MessageEvent.onLaunch || event == MessageEvent.onLocalNotif) {
+          if (event == MessageEvent.onResume ||
+              event == MessageEvent.onLaunch ||
+              event == MessageEvent.onLocalNotif) {
             if (event == MessageEvent.onLaunch) {
               await Future.delayed(const Duration(seconds: 2));
             }
-            appStateController?.setAppState(Operation.pushNamed, {"route": "/more/askap"});
-          } else if (event == MessageEvent.onMessage) {
-
-          }
+            appStateController
+                ?.setAppState(Operation.pushNamed, {"route": "/more/askap"});
+          } else if (event == MessageEvent.onMessage) {}
         }
         break;
-      case MessageDefinition.newInbox: 
+      case MessageDefinition.newInbox:
         {
-          if (event == MessageEvent.onResume || event == MessageEvent.onLaunch || event == MessageEvent.onLocalNotif) {
+          if (event == MessageEvent.onResume ||
+              event == MessageEvent.onLaunch ||
+              event == MessageEvent.onLocalNotif) {
             if (event == MessageEvent.onLaunch) {
               await Future.delayed(const Duration(seconds: 2));
             }
 
-            appStateController?.setAppState(Operation.bringToHome, HomeTab.home);
+            appStateController?.setAppState(
+                Operation.bringToHome, HomeTab.home);
 
             String inboxType = data["inboxType"];
             InboxType? type = enumFromString(inboxType, InboxType.values);
@@ -133,7 +141,9 @@ class MessageProcessor {
 
             if (inboxId > 0 && type != null) {
               await InboxModel.instance.refreshInboxByIdAsync(id: inboxId);
-              Map? valueMap = await InboxModel.instance.getBox()?.getMap(inboxId.toString());
+              Map? valueMap = await InboxModel.instance
+                  .getBox()
+                  ?.getMap(inboxId.toString());
 
               switch (type) {
                 case InboxType.wptfpost:
@@ -147,19 +157,21 @@ class MessageProcessor {
                   });
                   break;
                 case InboxType.html:
-                  appStateController?.setAppState(Operation.bringToHome, {
-                    "route": '/inbox/html',
-                    "arguments": valueMap
-                  });
+                  appStateController?.setAppState(Operation.bringToHome,
+                      {"route": '/inbox/html', "arguments": valueMap});
                   break;
                 case InboxType.signal:
                   Map tmpData = jsonDecode(valueMap?["message"]);
                   Map params = jsonDecode(valueMap?["params"]);
 
-                  if (params is Map && params.containsKey("type") && params["type"] == "signal") {
+                  if (params is Map &&
+                      params.containsKey("type") &&
+                      params["type"] == "signal") {
                     int signalid = 0;
-                    if (tmpData["signalid"] is String || tmpData["signalid"] is int) {
-                      signalid = int.tryParse(tmpData["signalid"].toString()) ?? 0;
+                    if (tmpData["signalid"] is String ||
+                        tmpData["signalid"] is int) {
+                      signalid =
+                          int.tryParse(tmpData["signalid"].toString()) ?? 0;
                     }
                     appStateController?.setAppState(Operation.pushNamed, {
                       "route": '/dsc/signal',
@@ -183,12 +195,10 @@ class MessageProcessor {
                   break;
               }
             }
-          } else if (event == MessageEvent.onMessage) {
-
-          }
+          } else if (event == MessageEvent.onMessage) {}
         }
         break;
-        default:
+      default:
         break;
     }
   }

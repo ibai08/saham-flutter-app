@@ -7,6 +7,6 @@ class Broker {
 }
 
 Map<String, Broker> brokerList = {
-  "mrg" : Broker(id: "mrg", shortName: "ABC", fullName: "ABC"),
-  "askap" : Broker(id: "askap", shortName: "DEFGHIJK", fullName: "DEFGHIJK"),
+  "mrg": Broker(id: "mrg", shortName: "ABC", fullName: "ABC"),
+  "askap": Broker(id: "askap", shortName: "DEFGHIJK", fullName: "DEFGHIJK"),
 };

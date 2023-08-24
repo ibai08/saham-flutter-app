@@ -2,10 +2,10 @@
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:saham_01_app/constants/channel_sort.dart';
-import 'package:saham_01_app/views/widgets/btnBlock.dart';
-import 'package:saham_01_app/views/widgets/btnShort.dart';
-import 'package:saham_01_app/views/widgets/btnSortNew.dart';
+import '../../constants/channel_sort.dart';
+import '../../views/widgets/btnBlock.dart';
+import '../../views/widgets/btnShort.dart';
+import '../../views/widgets/btnSortNew.dart';
 
 class SortChannelController extends GetxController {
   RxInt? sort = 0.obs;
@@ -46,7 +46,8 @@ Future<dynamic> showSortChannelModal(BuildContext context, int initialSort) {
                             },
                             text: e.value['title'],
                             isActive: sortController.sort?.value == e.key ||
-                                (e.key == 0 && sortController.sort?.value == null),
+                                (e.key == 0 &&
+                                    sortController.sort?.value == null),
                           ))
                       .toList(),
                 ),
@@ -87,35 +88,34 @@ class SortButtonsWidget extends StatelessWidget {
   RxInt? activeSortIndex = null;
   final Function(int) onSortChanged;
 
-  SortButtonsWidget({Key? key, 
+  SortButtonsWidget({
+    Key? key,
     required this.activeSortIndex,
     required this.onSortChanged,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Obx(
-      () {
-        return SingleChildScrollView(
-          scrollDirection: Axis.horizontal,
-          child: Row(
-            children: sortMap
-                .asMap()
-                .entries
-                .map((e) => SortButtonNew(
-                      onTap: () {
-                        print("testing bytton: ${e.key}");
-                        onSortChanged(e.key);
-                        activeSortIndex?.value = e.key;
-                        print("active sort: ${activeSortIndex?.value}");
-                      },
-                      text: e.value['title'],
-                      isActive: activeSortIndex?.value == e.key || (e.key == 0 && activeSortIndex == null)
-                    ))
-                .toList(),
-          ),
-        );
-      }
-    );
+    return Obx(() {
+      return SingleChildScrollView(
+        scrollDirection: Axis.horizontal,
+        child: Row(
+          children: sortMap
+              .asMap()
+              .entries
+              .map((e) => SortButtonNew(
+                  onTap: () {
+                    print("testing bytton: ${e.key}");
+                    onSortChanged(e.key);
+                    activeSortIndex?.value = e.key;
+                    print("active sort: ${activeSortIndex?.value}");
+                  },
+                  text: e.value['title'],
+                  isActive: activeSortIndex?.value == e.key ||
+                      (e.key == 0 && activeSortIndex == null)))
+              .toList(),
+        ),
+      );
+    });
   }
 }

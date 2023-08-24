@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:saham_01_app/models/entities/ois.dart';
+import '../../../../../models/entities/ois.dart';
 import 'package:charts_flutter/flutter.dart' as charts;
 
 // class SignalFrequence extends StatefulWidget {
@@ -74,8 +74,7 @@ class SignalFrequence extends StatelessWidget {
       _generateData(),
       animate: false,
       barGroupingType: charts.BarGroupingType.grouped,
-      domainAxis:
-          charts.OrdinalAxisSpec(renderSpec: charts.NoneRenderSpec()),
+      domainAxis: charts.OrdinalAxisSpec(renderSpec: charts.NoneRenderSpec()),
       behaviors: [
         charts.SeriesLegend(
           position: charts.BehaviorPosition.end,

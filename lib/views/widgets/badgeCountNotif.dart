@@ -1,7 +1,7 @@
 // ignore_for_file: file_names
 
 import 'package:flutter/material.dart';
-import 'package:saham_01_app/constants/app_colors.dart';
+import '../../constants/app_colors.dart';
 
 class BadgeCountNotif extends StatelessWidget {
   const BadgeCountNotif({Key? key, this.inboxCount}) : super(key: key);
@@ -19,7 +19,7 @@ class BadgeCountNotif extends StatelessWidget {
             height: 15,
             width: 15,
             child: Center(
-              child:  Text(
+              child: Text(
                 inboxCount! > 99 ? "99+" : inboxCount.toString(),
                 style: const TextStyle(
                     color: Colors.white,

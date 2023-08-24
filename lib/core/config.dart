@@ -1,7 +1,7 @@
 // ignore_for_file: avoid_print
 
 import 'package:firebase_remote_config/firebase_remote_config.dart';
-import 'package:saham_01_app/core/getStorage.dart';
+import '../../core/getStorage.dart';
 
 var settings = {"mode": "production"};
 

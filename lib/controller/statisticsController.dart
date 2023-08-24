@@ -1,6 +1,6 @@
 import 'package:get/get.dart';
-import 'package:saham_01_app/models/channel.dart';
-import 'package:saham_01_app/models/entities/ois.dart';
+import '../../models/channel.dart';
+import '../../models/entities/ois.dart';
 
 class StatisticsChannelController extends GetxController {
   final Rx<ChannelStat?>? statChannelObs = Rx<ChannelStat?>(null);

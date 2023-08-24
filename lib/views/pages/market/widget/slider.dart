@@ -31,8 +31,10 @@ class _EmitenCategoryState extends State<EmitenCategory> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const SizedBox(height: 10,),
-        
+        const SizedBox(
+          height: 10,
+        ),
+
         // Button
         SingleChildScrollView(
           scrollDirection: Axis.horizontal,
@@ -65,7 +67,9 @@ class CustomButtons extends StatelessWidget {
   final String activeButton;
   final Function setActiveButton;
 
-  const CustomButtons(this.buttonText, this.activeButton, this.setActiveButton, {Key? key}) : super(key: key);
+  const CustomButtons(this.buttonText, this.activeButton, this.setActiveButton,
+      {Key? key})
+      : super(key: key);
 
   bool get isActive => buttonText == activeButton;
 
@@ -78,10 +82,11 @@ class CustomButtons extends StatelessWidget {
       child: Container(
         padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
         decoration: BoxDecoration(
-          color: isActive ? const Color.fromRGBO(46, 42, 255, 0.5) : null,
-          borderRadius: BorderRadius.circular(8),
-          border: isActive ? Border.all(color: const Color.fromRGBO(53, 6, 153, 1.0)) : Border.all(color: Colors.grey)
-        ),
+            color: isActive ? const Color.fromRGBO(46, 42, 255, 0.5) : null,
+            borderRadius: BorderRadius.circular(8),
+            border: isActive
+                ? Border.all(color: const Color.fromRGBO(53, 6, 153, 1.0))
+                : Border.all(color: Colors.grey)),
         child: Text(
           buttonText,
           style: TextStyle(

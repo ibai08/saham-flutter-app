@@ -9,21 +9,22 @@ import 'package:get/get.dart' as Get;
 import 'package:http_parser/http_parser.dart';
 import 'package:image/image.dart';
 import 'package:intl/intl.dart';
-import 'package:saham_01_app/controller/appStatesController.dart';
-import 'package:saham_01_app/core/analytics.dart';
-import 'package:saham_01_app/core/cachefactory.dart';
-import 'package:saham_01_app/core/config.dart';
-import 'package:saham_01_app/core/firebasecm.dart';
-import 'package:saham_01_app/core/getStorage.dart';
-import 'package:saham_01_app/core/http.dart';
-import 'package:saham_01_app/core/string.dart';
-import 'package:saham_01_app/models/entities/user.dart';
+import '../../controller/appStatesController.dart';
+import '../../core/analytics.dart';
+import '../../core/cachefactory.dart';
+import '../../core/config.dart';
+import '../../core/firebasecm.dart';
+import '../../core/getStorage.dart';
+import '../../core/http.dart';
+import '../../core/string.dart';
+import '../../models/entities/user.dart';
 
 class UserModel {
   UserModel._privateConstructor();
   static UserModel instance = UserModel._privateConstructor();
 
-  final AppStateController appStateController = Get.Get.put(AppStateController());
+  final AppStateController appStateController =
+      Get.Get.put(AppStateController());
 
   Future<void> refreshController() async {
     Map? user = await getUserData();
@@ -53,21 +54,23 @@ class UserModel {
   Future<Map> loginWithGoogle(String token, {dynamic arguments}) async {
     Map ret = {"result": false};
     Map data = await TF2Request.request(
-      method: 'POST',
-      url: getHostName() + "/traders/api/v1/login/social/",
-      postParam: {"idToken": token}
-    );
+        method: 'POST',
+        url: getHostName() + "/traders/api/v1/login/social/",
+        postParam: {"idToken": token});
 
     if (!data.containsKey("error") && data.containsKey("message")) {
       Map result = data["message"];
-      if (result.containsKey("result") && result.containsKey("enc") && result.containsKey("user")) {
+      if (result.containsKey("result") &&
+          result.containsKey("enc") &&
+          result.containsKey("user")) {
         Map user = result["user"];
         bool ul = await setUserLogin(
-          result["result"], result["enc"], jsonEncode(user),
-          arguments: arguments
-        );
+            result["result"], result["enc"], jsonEncode(user),
+            arguments: arguments);
         if (ul) {
-          firebaseAnalytics.logLogin(loginMethod: "Google").then((x) {}, onError: (err) => print(err));
+          firebaseAnalytics
+              .logLogin(loginMethod: "Google")
+              .then((x) {}, onError: (err) => print(err));
           ret["result"] = true;
           return ret;
         }
@@ -90,20 +93,25 @@ class UserModel {
   Future<Map> login(String email, String password, {dynamic arguments}) async {
     Map ret = {"result": false};
     Map data = await TF2Request.request(
-      method: 'POST',
-      url: getHostName() + "/traders/api/v1/login/",
-      postParam: {"email": email, "password": password}
-    );
+        method: 'POST',
+        url: getHostName() + "/traders/api/v1/login/",
+        postParam: {"email": email, "password": password});
 
-    if(!data.containsKey("error") && data.containsKey("message")) {
+    if (!data.containsKey("error") && data.containsKey("message")) {
       Map result = data["message"];
-      if (result.containsKey("result") && result.containsKey("enc") && result.containsKey("user")) {
+      if (result.containsKey("result") &&
+          result.containsKey("enc") &&
+          result.containsKey("user")) {
         Map user = result["user"];
 
-        bool ul = await setUserLogin(result["result"], result["enc"], jsonEncode(user), arguments: arguments);
+        bool ul = await setUserLogin(
+            result["result"], result["enc"], jsonEncode(user),
+            arguments: arguments);
 
         if (ul) {
-          firebaseAnalytics.logLogin(loginMethod: "Email").then((x) {}, onError: (err) => print(err));
+          firebaseAnalytics
+              .logLogin(loginMethod: "Email")
+              .then((x) {}, onError: (err) => print(err));
           ret["result"] = true;
           return ret;
         }
@@ -135,7 +143,8 @@ class UserModel {
     }
   }
 
-  Future<Map> loginWithMT4(String broker, String mt4id, String password, {dynamic arguments}) async {
+  Future<Map> loginWithMT4(String broker, String mt4id, String password,
+      {dynamic arguments}) async {
     Map ret = {"result": false};
 
     Response res;
@@ -143,17 +152,24 @@ class UserModel {
     Dio dio = Dio();
     dio.options.connectTimeout = const Duration(milliseconds: 5000);
     dio.options.receiveTimeout = const Duration(milliseconds: 3000);
-    res = await dio.post(getHostName() + "/traders/api/v1/login-with-mt4/", data: {"broker": broker, "mt4id": mt4id, "password": password});
+    res = await dio.post(getHostName() + "/traders/api/v1/login-with-mt4/",
+        data: {"broker": broker, "mt4id": mt4id, "password": password});
     data = res.data;
 
     if (!data.containsKey("error") && data.containsKey("message")) {
       Map result = data["message"];
-      if (result.containsKey("result") && result.containsKey("enc") && result.containsKey("user")) {
+      if (result.containsKey("result") &&
+          result.containsKey("enc") &&
+          result.containsKey("user")) {
         Map user = result["user"];
 
-        bool ul = await setUserLogin(result["result"], result["enc"], jsonEncode(user),arguments: arguments);
+        bool ul = await setUserLogin(
+            result["result"], result["enc"], jsonEncode(user),
+            arguments: arguments);
         if (ul) {
-          firebaseAnalytics.logLogin(loginMethod: "MT4").then((x) {}, onError: (err) => print(err));
+          firebaseAnalytics
+              .logLogin(loginMethod: "MT4")
+              .then((x) {}, onError: (err) => print(err));
           ret["result"] = true;
           return ret;
         }
@@ -168,12 +184,12 @@ class UserModel {
 
   static Future<void> afterLogin() async {
     await TF2Request.authorizeRequest(
-      url: getHostName() + "/traders/api/v1/login/after/",
-      postParam: {"platform": Platform.isIOS ? "ios" : "android"} 
-    );
+        url: getHostName() + "/traders/api/v1/login/after/",
+        postParam: {"platform": Platform.isIOS ? "ios" : "android"});
   }
 
-   Future<bool> setUserLogin(String token, String credential, String userJson, {dynamic arguments}) async {
+  Future<bool> setUserLogin(String token, String credential, String userJson,
+      {dynamic arguments}) async {
     try {
       bool result = await updateCfgAsync("token", token);
       bool crd = await updateCfgAsync("crd", credential);
@@ -182,7 +198,10 @@ class UserModel {
         throw Exception("UNABLE_SAVE_TO_DATA");
       }
 
-      FCM.instance.getToken().then((fcmToken) => FCM.instance.userSetFCMToken(fcmToken).then((x) => null), onError: (error) async {
+      FCM.instance.getToken().then(
+          (fcmToken) =>
+              FCM.instance.userSetFCMToken(fcmToken).then((x) => null),
+          onError: (error) async {
         await updateCfgAsync("fcm_token_saved", "0");
       });
 
@@ -191,13 +210,17 @@ class UserModel {
       appStateController.setAppState(Operation.bringToHome, HomeTab.home);
 
       if (arguments != null) {
-        if (arguments is Map && arguments.containsKey("route") && arguments.containsKey("arguments")) {
+        if (arguments is Map &&
+            arguments.containsKey("route") &&
+            arguments.containsKey("arguments")) {
           appStateController.setAppState(Operation.pushNamed, arguments);
         } else if (arguments is String) {
-          appStateController.setAppState(Operation.pushNamed, {"route": "/forms/login", "arguments": arguments});
+          appStateController.setAppState(Operation.pushNamed,
+              {"route": "/forms/login", "arguments": arguments});
         }
       } else if (appStateController.users.value.verify!) {
-        appStateController.setAppState(Operation.pushNamed, {"route": "/forms/login"});
+        appStateController
+            .setAppState(Operation.pushNamed, {"route": "/forms/login"});
       }
 
       await SharedHelper.instance.clearBox(BoxName.cache);
@@ -214,10 +237,12 @@ class UserModel {
       //   print(err);
       // });
 
-
-      FirebaseCrashlytics.instance.setUserIdentifier('${appStateController.users.value.id}');
-      FirebaseCrashlytics.instance.setCustomKey("email", '${appStateController.users.value.email}');
-      FirebaseCrashlytics.instance.setCustomKey("username", '${appStateController.users.value.username}');
+      FirebaseCrashlytics.instance
+          .setUserIdentifier('${appStateController.users.value.id}');
+      FirebaseCrashlytics.instance
+          .setCustomKey("email", '${appStateController.users.value.email}');
+      FirebaseCrashlytics.instance.setCustomKey(
+          "username", '${appStateController.users.value.username}');
       firebaseAnalytics.setUserId(id: '${appStateController.users.value.id}');
       // MainZendesk().setVisitorInfo(
       //   email: '${appStateController.users.value.email}',
@@ -291,7 +316,8 @@ class UserModel {
       Dio dio = Dio();
       dio.options.connectTimeout = const Duration(milliseconds: 5000);
       dio.options.receiveTimeout = const Duration(milliseconds: 3000);
-      res = await dio.post(getHostName() + "/traders/api/v1/refreshlogin/", data: {"enc": enc});
+      res = await dio.post(getHostName() + "/traders/api/v1/refreshlogin/",
+          data: {"enc": enc});
       data = res.data;
 
       if (data.containsKey("message") && !data.containsKey("error")) {
@@ -354,9 +380,9 @@ class UserModel {
       if (destroyToken) {
         await FCM.instance.userSetFCMToken(null);
       }
-      firebaseAnalytics.logEvent(
-          name: "logout",
-          parameters: {"userid": appStateController.users.value.id}).then((x) {});
+      firebaseAnalytics.logEvent(name: "logout", parameters: {
+        "userid": appStateController.users.value.id
+      }).then((x) {});
       await SharedHelper.instance.clearAll();
       appStateController.setAppState(Operation.clearState, null);
       await FCM.instance.deleteInstanceID();
@@ -595,7 +621,8 @@ class UserModel {
         if (data["error"] == "LastResetError") {
           var waitUntil = DateTime.parse(data["message"]);
           var format = DateFormat.Hms().format(waitUntil.toLocal());
-          throw Exception("Mohon tunggu hingga pukul " + format +
+          throw Exception("Mohon tunggu hingga pukul " +
+              format +
               " untuk melakukan reset password lagi");
         } else {
           throw Exception("${data["error"]}: ${data["message"]}");

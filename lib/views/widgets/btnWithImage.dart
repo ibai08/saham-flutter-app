@@ -20,19 +20,18 @@ class BtnWithImage extends StatelessWidget {
       decoration: BoxDecoration(borderRadius: BorderRadius.circular(15)),
       margin: const EdgeInsets.symmetric(horizontal: 15),
       child: TextButton.icon(
-        onPressed: tap,
-        style: TextButton.styleFrom(
-          shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(4.0)),
-          padding: const EdgeInsets.symmetric(vertical: 15),
-          backgroundColor: Colors.white,
-        ),
-        icon: icon,
-        label: Text(
-          title,
-          style: const TextStyle(fontSize: 17),
-        )
-      ),
+          onPressed: tap,
+          style: TextButton.styleFrom(
+            shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(4.0)),
+            padding: const EdgeInsets.symmetric(vertical: 15),
+            backgroundColor: Colors.white,
+          ),
+          icon: icon,
+          label: Text(
+            title,
+            style: const TextStyle(fontSize: 17),
+          )),
     );
   }
 }

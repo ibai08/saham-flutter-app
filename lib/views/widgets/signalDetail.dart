@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
-import 'package:saham_01_app/constants/app_colors.dart';
-import 'package:saham_01_app/models/entities/symbols.dart';
-import 'package:saham_01_app/models/symbols.dart';
+import '../../constants/app_colors.dart';
+import '../../models/entities/symbols.dart';
+import '../../models/symbols.dart';
 
 class SignalDetailWidget extends GetxController {
   final String? symbol;
@@ -22,22 +22,21 @@ class SignalDetailWidget extends GetxController {
 
   final List<TradeSymbol> tradeSymbols = SymbolModel.instance.getSymbols();
 
-  SignalDetailWidget({
-    Key? key,
-    this.symbol,
-    this.type,
-    this.expired,
-    this.closeTime,
-    this.openTime,
-    this.createdAt,
-    this.pips,
-    this.tp,
-    this.sl,
-    this.price,
-    this.status,
-    this.profit,
-    this.id
-  });
+  SignalDetailWidget(
+      {Key? key,
+      this.symbol,
+      this.type,
+      this.expired,
+      this.closeTime,
+      this.openTime,
+      this.createdAt,
+      this.pips,
+      this.tp,
+      this.sl,
+      this.price,
+      this.status,
+      this.profit,
+      this.id});
 
   @override
   Widget build(BuildContext context) {
@@ -56,11 +55,13 @@ class SignalDetailWidget extends GetxController {
     switch (status) {
       case 0:
         if (pips! > 0) {
-          btnTxt = "${NumberFormat("#,###.##", "ID").format((pips! / 10) * 10000)} IDR";
+          btnTxt =
+              "${NumberFormat("#,###.##", "ID").format((pips! / 10) * 10000)} IDR";
           btnColor = AppColors.primaryGreen;
           txtColor = Colors.white;
         } else if (pips! < 0) {
-          btnTxt = "${NumberFormat("#,###.##", "ID").format((pips! / 10) * 10000)} IDR";
+          btnTxt =
+              "${NumberFormat("#,###.##", "ID").format((pips! / 10) * 10000)} IDR";
           btnColor = Colors.red;
           txtColor = Colors.white;
         } else {
@@ -78,10 +79,7 @@ class SignalDetailWidget extends GetxController {
               btnTxt,
               textAlign: TextAlign.center,
               style: TextStyle(
-                fontSize: 18,
-                fontWeight: FontWeight.w400,
-                color: txtColor
-              ),
+                  fontSize: 18, fontWeight: FontWeight.w400, color: txtColor),
             ),
           ),
         );
@@ -96,8 +94,7 @@ class SignalDetailWidget extends GetxController {
           margin: const EdgeInsets.only(top: 10),
           child: TextButton(
             style: TextButton.styleFrom(
-              padding: const EdgeInsets.symmetric(vertical: 0)
-            ),
+                padding: const EdgeInsets.symmetric(vertical: 0)),
             onPressed: () {
               Get.toNamed('/dsc/signal/', arguments: id);
             },
@@ -105,10 +102,7 @@ class SignalDetailWidget extends GetxController {
               btnTxt,
               textAlign: TextAlign.center,
               style: TextStyle(
-                fontSize: 18,
-                fontWeight: FontWeight.w400,
-                color: txtColor
-              ),
+                  fontSize: 18, fontWeight: FontWeight.w400, color: txtColor),
             ),
           ),
         );
@@ -123,8 +117,7 @@ class SignalDetailWidget extends GetxController {
           margin: const EdgeInsets.only(top: 10),
           child: TextButton(
             style: TextButton.styleFrom(
-              padding: const EdgeInsets.symmetric(vertical: 0)
-            ),
+                padding: const EdgeInsets.symmetric(vertical: 0)),
             onPressed: () {
               Get.toNamed('/dsc/signal/', arguments: id);
             },
@@ -132,10 +125,7 @@ class SignalDetailWidget extends GetxController {
               btnTxt,
               textAlign: TextAlign.center,
               style: TextStyle(
-                fontSize: 18,
-                fontWeight: FontWeight.w400,
-                color: txtColor
-              ),
+                  fontSize: 18, fontWeight: FontWeight.w400, color: txtColor),
             ),
           ),
         );
@@ -147,7 +137,7 @@ class SignalDetailWidget extends GetxController {
           color: btnColor,
           margin: const EdgeInsets.only(top: 10),
           child: TextButton(
-            style: TextButton.styleFrom(
+              style: TextButton.styleFrom(
                 padding: const EdgeInsets.symmetric(vertical: 0),
               ),
               onPressed: null,
@@ -156,8 +146,7 @@ class SignalDetailWidget extends GetxController {
                 textAlign: TextAlign.center,
                 style: TextStyle(
                     fontSize: 18, fontWeight: FontWeight.w400, color: txtColor),
-              )
-          ),
+              )),
         );
         break;
     }
@@ -165,9 +154,7 @@ class SignalDetailWidget extends GetxController {
     return Container(
       margin: const EdgeInsets.only(left: 10, right: 10, bottom: 15),
       padding: const EdgeInsets.only(top: 10),
-      decoration: const BoxDecoration(
-        color: Colors.white
-      ),
+      decoration: const BoxDecoration(color: Colors.white),
       child: Column(
         children: <Widget>[
           Container(
@@ -196,7 +183,8 @@ class SignalDetailWidget extends GetxController {
           ),
           Container(
             margin: const EdgeInsets.only(left: 15, right: 15, bottom: 10),
-            padding: const EdgeInsets.only(top: 8, left: 15, right: 15, bottom: 8),
+            padding:
+                const EdgeInsets.only(top: 8, left: 15, right: 15, bottom: 8),
             decoration: BoxDecoration(
               color: Colors.blueGrey[100],
               borderRadius: const BorderRadius.all(Radius.circular(4)),
@@ -210,9 +198,7 @@ class SignalDetailWidget extends GetxController {
                         symbol ?? ' ',
                         textAlign: TextAlign.left,
                         style: const TextStyle(
-                          fontWeight: FontWeight.w600,
-                          fontSize: 16
-                        ),
+                            fontWeight: FontWeight.w600, fontSize: 16),
                       ),
                     ),
                     Expanded(
@@ -220,9 +206,7 @@ class SignalDetailWidget extends GetxController {
                         type ?? ' ',
                         textAlign: TextAlign.right,
                         style: const TextStyle(
-                          fontWeight: FontWeight.w600,
-                          fontSize: 16
-                        ),
+                            fontWeight: FontWeight.w600, fontSize: 16),
                       ),
                     )
                   ],
@@ -233,72 +217,82 @@ class SignalDetailWidget extends GetxController {
                 Row(
                   children: <Widget>[
                     const Expanded(
-                      child: Text(
-                        'Price',
-                        textAlign: TextAlign.left,
-                        style: TextStyle(fontSize: 14)
-                      ),
+                      child: Text('Price',
+                          textAlign: TextAlign.left,
+                          style: TextStyle(fontSize: 14)),
                     ),
                     Expanded(
                       child: Text(
-                        price! > 0 ? (digit! > -1 ? price!.toStringAsFixed(digit) : price.toString()) : ' ', 
+                        price! > 0
+                            ? (digit! > -1
+                                ? price!.toStringAsFixed(digit)
+                                : price.toString())
+                            : ' ',
                         textAlign: TextAlign.right,
                         style: const TextStyle(
-                          fontWeight: FontWeight.w600,
-                          fontSize: 14
-                        ),
+                            fontWeight: FontWeight.w600, fontSize: 14),
                       ),
                     ),
                   ],
                 ),
-                tp! > 0 ? Divider(
-                  color: Colors.grey[500],
-                ) : const SizedBox(),
-                tp! > 0 ? Row(
-                  children: <Widget>[
-                    const Expanded(
-                      child: Text(
-                        'Take Profit',
-                        textAlign: TextAlign.left,
-                        style: TextStyle(fontSize: 14),
-                      ),
-                    ),
-                    Expanded(
-                      child: Text(
-                        tp! > 0 ? (digit! > -1 ? tp!.toStringAsFixed(digit) : tp.toString()) : ' ',
-                        textAlign: TextAlign.right,
-                        style: const TextStyle(
-                          fontWeight: FontWeight.w600,
-                          fontSize: 14
-                        ), 
-                      ),
-                    ),
-                  ],
-                ) : const SizedBox(),
-                sl! > 0 ? Divider(
-                  color: Colors.grey[500],
-                ) : const SizedBox(),
-                sl! > 0 ? Row (
-                  children: <Widget>[
-                    const Expanded(
-                      child: Text(
-                        'Stop Loss',
-                        textAlign: TextAlign.left,
-                        style: TextStyle(fontSize: 14),
-                      ),
-                    ),
-                    Expanded(
-                      child: Text(
-                        sl! > 0 ? (digit! > -1 ? sl!.toStringAsFixed(digit) : sl.toString()) : ' ',
-                        textAlign: TextAlign.right,
-                        style: const TextStyle(
-                          fontWeight: FontWeight.w600,
-                          fontSize: 14
+                tp! > 0
+                    ? Divider(
+                        color: Colors.grey[500],
+                      )
+                    : const SizedBox(),
+                tp! > 0
+                    ? Row(
+                        children: <Widget>[
+                          const Expanded(
+                            child: Text(
+                              'Take Profit',
+                              textAlign: TextAlign.left,
+                              style: TextStyle(fontSize: 14),
+                            ),
+                          ),
+                          Expanded(
+                            child: Text(
+                              tp! > 0
+                                  ? (digit! > -1
+                                      ? tp!.toStringAsFixed(digit)
+                                      : tp.toString())
+                                  : ' ',
+                              textAlign: TextAlign.right,
+                              style: const TextStyle(
+                                  fontWeight: FontWeight.w600, fontSize: 14),
+                            ),
+                          ),
+                        ],
+                      )
+                    : const SizedBox(),
+                sl! > 0
+                    ? Divider(
+                        color: Colors.grey[500],
+                      )
+                    : const SizedBox(),
+                sl! > 0
+                    ? Row(children: <Widget>[
+                        const Expanded(
+                          child: Text(
+                            'Stop Loss',
+                            textAlign: TextAlign.left,
+                            style: TextStyle(fontSize: 14),
+                          ),
                         ),
-                      ),
-                    ),
-                  ]
-                ) : const SizedBox(),
+                        Expanded(
+                          child: Text(
+                            sl! > 0
+                                ? (digit! > -1
+                                    ? sl!.toStringAsFixed(digit)
+                                    : sl.toString())
+                                : ' ',
+                            textAlign: TextAlign.right,
+                            style: const TextStyle(
+                                fontWeight: FontWeight.w600, fontSize: 14),
+                          ),
+                        ),
+                      ])
+                    : const SizedBox(),
               ],
             ),
           ),
@@ -309,25 +303,21 @@ class SignalDetailWidget extends GetxController {
                 Expanded(
                   flex: 2,
                   child: Text(
-                      status == 3 || status == 1
-                          ? "Expired at"
-                          : 'Opened at',
+                      status == 3 || status == 1 ? "Expired at" : 'Opened at',
                       textAlign: TextAlign.left,
                       style: const TextStyle(fontSize: 12)),
                 ),
                 Expanded(
                   flex: 3,
                   child: Text(
-                      status == 3 || status == 1
-                          ? expired!
-                          : openTime ?? ' ',
+                      status == 3 || status == 1 ? expired! : openTime ?? ' ',
                       textAlign: TextAlign.right,
                       style: const TextStyle(fontSize: 12)),
                 ),
               ],
             ),
           ),
-          if (status == 0 || status == 3) 
+          if (status == 0 || status == 3)
             Container(
               padding: const EdgeInsets.only(left: 15, right: 15, top: 10),
               child: Row(
@@ -352,6 +342,4 @@ class SignalDetailWidget extends GetxController {
       ),
     );
   }
-
-
 }

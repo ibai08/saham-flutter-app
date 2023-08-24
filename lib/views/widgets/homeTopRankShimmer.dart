@@ -1,7 +1,7 @@
 // ignore_for_file: sized_box_for_whitespace
 
 import 'package:flutter/material.dart';
-import 'package:saham_01_app/constants/app_colors.dart';
+import '../../constants/app_colors.dart';
 import 'package:shimmer/shimmer.dart';
 
 class MostConsistentChannelShimmer extends StatefulWidget {

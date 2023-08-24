@@ -2,7 +2,7 @@
 
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:saham_01_app/views/widgets/defaultImage.dart';
+import '../../views/widgets/defaultImage.dart';
 
 class ImageFromNetwork extends StatefulWidget {
   final String? url;
@@ -46,14 +46,11 @@ class _ImageFromNetworkState extends State<ImageFromNetwork> {
               return Container(
                 width: widget.width ?? 120,
                 height: widget.width ?? 120,
-                margin: EdgeInsets.only(
-                    top: widget.paddingTop ?? 0),
+                margin: EdgeInsets.only(top: widget.paddingTop ?? 0),
                 decoration: BoxDecoration(
                     shape: BoxShape.circle,
                     color: Colors.white,
-                    image: DecorationImage(
-                        image: imageProvider
-                    )),
+                    image: DecorationImage(image: imageProvider)),
               );
             } catch (oops) {
               print(oops);

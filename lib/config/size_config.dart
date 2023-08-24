@@ -22,9 +22,13 @@ class SizeConfig {
     blockSizeHorizontal = screenWidth! / _cNUMOFHORIZONTALGRID;
     blockSizeVertical = screenHeight! / _cNUMOFVERTICALGRID;
 
-    _safeAreaHorizontal = _mediaQueryData!.padding.left + _mediaQueryData!.padding.right;
-    _safeAreaVertical = _mediaQueryData!.padding.top + _mediaQueryData!.padding.bottom;
-    safeBlockHorizontal = (screenWidth! + _safeAreaHorizontal!) / _cNUMOFHORIZONTALGRID;
-    safeBlockVertical = (screenHeight! + _safeAreaVertical!) / _cNUMOFVERTICALGRID;
+    _safeAreaHorizontal =
+        _mediaQueryData!.padding.left + _mediaQueryData!.padding.right;
+    _safeAreaVertical =
+        _mediaQueryData!.padding.top + _mediaQueryData!.padding.bottom;
+    safeBlockHorizontal =
+        (screenWidth! + _safeAreaHorizontal!) / _cNUMOFHORIZONTALGRID;
+    safeBlockVertical =
+        (screenHeight! + _safeAreaVertical!) / _cNUMOFVERTICALGRID;
   }
 }

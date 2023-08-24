@@ -3,7 +3,7 @@
 import 'dart:convert';
 
 import 'package:mutex/mutex.dart';
-import 'package:saham_01_app/core/getStorage.dart';
+import '../../core/getStorage.dart';
 
 class CacheFactory {
   static Mutex mSync = Mutex();
@@ -25,7 +25,8 @@ class CacheFactory {
     mSync.release();
   }
 
-  static Future<dynamic> getCache(String key, Function func, int refreshSeconds) async {
+  static Future<dynamic> getCache(
+      String key, Function func, int refreshSeconds) async {
     Map? tmp = Map();
     Mutex m = getMutex(key);
     dynamic result;
@@ -35,7 +36,8 @@ class CacheFactory {
       tmp = await boxCache?.getMap(key);
       double last = tmp != null ? tmp["last"] : 0;
       double now = DateTime.now().millisecondsSinceEpoch / 1000;
-      if (((now - last) > refreshSeconds && refreshSeconds > -1) || tmp == null) {
+      if (((now - last) > refreshSeconds && refreshSeconds > -1) ||
+          tmp == null) {
         result = await func();
         Map data = {"last": now, "data": result};
         await boxCache?.put(key, jsonEncode(data));

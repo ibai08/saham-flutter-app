@@ -1,8 +1,8 @@
 // ignore_for_file: avoid_unnecessary_containers
 
 import 'package:flutter/material.dart';
-import 'package:saham_01_app/models/entities/ois.dart';
-import 'package:saham_01_app/views/widgets/signalDetailWithHeader.dart';
+import '../../models/entities/ois.dart';
+import '../../views/widgets/signalDetailWithHeader.dart';
 
 class RecentSignalListWidget extends StatefulWidget {
   final List<SignalInfo>? listSignal;

@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:saham_01_app/function/helper.dart';
-import 'package:saham_01_app/function/showAlert.dart';
-import 'package:saham_01_app/models/entities/ois.dart';
-import 'package:saham_01_app/models/ois.dart';
-import 'package:saham_01_app/views/widgets/btnBlock.dart';
-import 'package:saham_01_app/views/widgets/dialogLoading.dart';
+import '../../function/helper.dart';
+import '../../function/showAlert.dart';
+import '../../models/entities/ois.dart';
+import '../../models/ois.dart';
+import '../../views/widgets/btnBlock.dart';
+import '../../views/widgets/dialogLoading.dart';
 
 class Consts {
   Consts._();
@@ -117,7 +117,8 @@ class DialogTokenSubscription extends StatelessWidget {
           child: Stack(
             children: <Widget>[
               Container(
-                padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 25),
+                padding:
+                    const EdgeInsets.symmetric(vertical: 15, horizontal: 25),
                 margin: const EdgeInsets.only(top: 66),
                 decoration: BoxDecoration(
                   color: Colors.white,
@@ -152,7 +153,8 @@ class DialogTokenSubscription extends StatelessWidget {
                         focusNode: _tokenChannelsFocus,
                         decoration: const InputDecoration(
                           hintText: "Masukkan TOKEN",
-                          labelStyle: const TextStyle(fontWeight: FontWeight.w600),
+                          labelStyle:
+                              const TextStyle(fontWeight: FontWeight.w600),
                         ),
                         validator: (val) {
                           if (val!.isEmpty) {

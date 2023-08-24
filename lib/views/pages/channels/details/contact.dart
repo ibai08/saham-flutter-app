@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:saham_01_app/function/launchUrl.dart';
-import 'package:saham_01_app/models/entities/ois.dart';
+import '../../../../function/launchUrl.dart';
+import '../../../../models/entities/ois.dart';
 
 // class ContactChannel extends StatefulWidget {
 //   final ChannelCardSlim _channelDetail;
@@ -54,8 +54,7 @@ class ContactChannel extends StatelessWidget {
                     scheme: 'mailto',
                     path: channelDetail.contactEmail,
                     queryParameters: {
-                      'subject':
-                          "Subscribe Channel ${channelDetail.name}"
+                      'subject': "Subscribe Channel ${channelDetail.name}"
                     }).toString();
                 launchURL(contact);
               },

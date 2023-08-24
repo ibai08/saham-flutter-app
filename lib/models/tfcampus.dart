@@ -1,6 +1,6 @@
-import 'package:saham_01_app/core/http.dart';
-import 'package:saham_01_app/models/entities/tfcampus.dart';
-import 'package:saham_01_app/models/user.dart';
+import '../../core/http.dart';
+import '../../models/entities/tfcampus.dart';
+import '../../models/user.dart';
 
 class TfcampusModel {
   static Future<List<TFCampusClass>> getClassList() async {

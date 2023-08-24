@@ -1,7 +1,7 @@
 // ignore_for_file: prefer_typing_uninitialized_variables
 
 import 'package:flutter/material.dart';
-import 'package:saham_01_app/constants/app_colors.dart';
+import '../../constants/app_colors.dart';
 
 class PromptText extends StatelessWidget {
   const PromptText({

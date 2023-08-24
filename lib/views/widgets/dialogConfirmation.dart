@@ -42,9 +42,11 @@ class _DialogConfirmationState extends State<DialogConfirmation> {
     }
 
     return AlertDialog(
-      contentPadding: const EdgeInsets.only(left: 20, right: 20, top: 15, bottom: 0),
+      contentPadding:
+          const EdgeInsets.only(left: 20, right: 20, top: 15, bottom: 0),
       actionsPadding: const EdgeInsets.only(bottom: 5, right: 10),
-      titlePadding: const EdgeInsets.only(top: 20, left: 20, right: 20, bottom: 0),
+      titlePadding:
+          const EdgeInsets.only(top: 20, left: 20, right: 20, bottom: 0),
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(10),
       ),

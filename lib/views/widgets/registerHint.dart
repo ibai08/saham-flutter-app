@@ -1,6 +1,6 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:saham_01_app/constants/app_colors.dart';
+import '../../constants/app_colors.dart';
 
 class RegisterHint extends StatefulWidget {
   const RegisterHint({Key? key}) : super(key: key);

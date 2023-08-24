@@ -7,13 +7,13 @@ import 'package:dio/dio.dart';
 import 'package:get/get.dart' as Get;
 import 'package:image/image.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:saham_01_app/controller/appStatesController.dart';
-import 'package:saham_01_app/core/cachefactory.dart';
-import 'package:saham_01_app/core/config.dart';
-import 'package:saham_01_app/core/getStorage.dart';
-import 'package:saham_01_app/core/http.dart';
-import 'package:saham_01_app/models/entities/mrg.dart';
-import 'package:saham_01_app/models/user.dart';
+import '../../controller/appStatesController.dart';
+import '../../core/cachefactory.dart';
+import '../../core/config.dart';
+import '../../core/getStorage.dart';
+import '../../core/http.dart';
+import '../../models/entities/mrg.dart';
+import '../../models/user.dart';
 import 'package:sprintf/sprintf.dart';
 
 class MrgModel {
@@ -64,7 +64,8 @@ class MrgModel {
         refreshSecond = 0;
       }
       dynamic data = await CacheFactory.getCache(
-          sprintf(CacheKey.userMRGByID, [appStateController?.users.value.id]), () async {
+          sprintf(CacheKey.userMRGByID, [appStateController?.users.value.id]),
+          () async {
         Map fetchData = await TF2Request.authorizeRequest(
           url: getHostName() + "/mrg/api/v1/account/check/",
           method: 'GET',
@@ -115,7 +116,9 @@ class MrgModel {
       refreshSecond = 0;
     }
     dynamic data = await CacheFactory.getCache(
-        sprintf(CacheKey.transactionMRGByID, [appStateController?.users.value.id]), () async {
+        sprintf(
+            CacheKey.transactionMRGByID, [appStateController?.users.value.id]),
+        () async {
       Map fetchData = await TF2Request.authorizeRequest(
         url: getHostName() + "/mrg/api/v1/transaction/latest/",
         method: 'GET',
@@ -145,7 +148,9 @@ class MrgModel {
         refreshSecond = 0;
       }
       dynamic data = await CacheFactory.getCache(
-          sprintf(CacheKey.realAccMRGByID, [appStateController?.users.value.id]), () async {
+          sprintf(
+              CacheKey.realAccMRGByID, [appStateController?.users.value.id]),
+          () async {
         Map fetchData = await TF2Request.authorizeRequest(
           url: getHostName() + "/mrg/api/v1/account/",
           method: 'GET',
@@ -175,7 +180,9 @@ class MrgModel {
         refreshSecond = 0;
       }
       dynamic data = await CacheFactory.getCache(
-          sprintf(CacheKey.demoAccMRGByID, [appStateController?.users.value.id]), () async {
+          sprintf(
+              CacheKey.demoAccMRGByID, [appStateController?.users.value.id]),
+          () async {
         Map fetchData = await TF2Request.authorizeRequest(
           url: getHostName() + "/mrg/api/v1/account/demo/",
           method: 'GET',
@@ -206,7 +213,9 @@ class MrgModel {
         refreshSecond = 0;
       }
       dynamic data = await CacheFactory.getCache(
-          sprintf(CacheKey.contestAccMRGByID, [appStateController?.users.value.id]), () async {
+          sprintf(
+              CacheKey.contestAccMRGByID, [appStateController?.users.value.id]),
+          () async {
         Map fetchData = await TF2Request.authorizeRequest(
           url: getHostName() + "/mrg/api/v1/account/contest/",
           method: 'GET',
@@ -291,7 +300,9 @@ class MrgModel {
         refreshSecond = 0;
       }
       dynamic data = await CacheFactory.getCache(
-          sprintf(CacheKey.userBankMRGByID, [appStateController?.users.value.id]), () async {
+          sprintf(
+              CacheKey.userBankMRGByID, [appStateController?.users.value.id]),
+          () async {
         Map fetchData = await TF2Request.authorizeRequest(
           url: getHostName() + "/mrg/api/v1/user/bank/",
           method: 'GET',
@@ -354,7 +365,9 @@ class MrgModel {
         refreshSecond = 0;
       }
       await CacheFactory.getCache(
-          sprintf(CacheKey.uploadIDMRGByID, [appStateController?.users.value.id]), () async {
+          sprintf(
+              CacheKey.uploadIDMRGByID, [appStateController?.users.value.id]),
+          () async {
         Map fetchData = await TF2Request.authorizeRequest(
           url: getHostName() + "/mrg/api/v1/withdraw/check/",
           method: 'GET',
@@ -416,7 +429,8 @@ class MrgModel {
       }
 
       dynamic data = await CacheFactory.getCache(
-          sprintf(CacheKey.userImgMRGID, [appStateController?.users.value.id]), () async {
+          sprintf(CacheKey.userImgMRGID, [appStateController?.users.value.id]),
+          () async {
         Map fetchData = await TF2Request.authorizeRequest(
           url: getHostName() + "/mrg/api/v1/id/",
           method: 'GET',

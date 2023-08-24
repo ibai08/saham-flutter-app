@@ -1,9 +1,9 @@
 // ignore_for_file: sized_box_for_whitespace
 
 import 'package:flutter/material.dart';
-import 'package:saham_01_app/constants/app_colors.dart';
-import 'package:saham_01_app/models/entities/ois.dart';
-import 'package:saham_01_app/views/widgets/channelAvatar.dart';
+import '../../constants/app_colors.dart';
+import '../../models/entities/ois.dart';
+import '../../views/widgets/channelAvatar.dart';
 
 class HeadingChannelInfo extends StatelessWidget {
   const HeadingChannelInfo(

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:saham_01_app/views/widgets/imageFromNetwork.dart';
+import '../../views/widgets/imageFromNetwork.dart';
 
 class ChannelAvatar extends StatelessWidget {
   const ChannelAvatar({Key? key, this.width, this.imageUrl}) : super(key: key);

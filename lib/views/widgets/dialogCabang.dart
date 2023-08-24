@@ -3,9 +3,9 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:saham_01_app/models/user.dart';
-import 'package:saham_01_app/views/widgets/btnBlock.dart';
-import 'package:saham_01_app/views/widgets/customDropdownButton.dart';
+import '../../models/user.dart';
+import '../../views/widgets/btnBlock.dart';
+import '../../views/widgets/customDropdownButton.dart';
 
 class Consts {
   Consts._();

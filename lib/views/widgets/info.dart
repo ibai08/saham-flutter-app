@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:saham_01_app/constants/app_colors.dart';
+import '../../constants/app_colors.dart';
 
 class Info extends StatefulWidget {
   Info({
@@ -54,7 +54,7 @@ class _InfoState extends State<Info> {
       caption = "REFRESH";
     }
     if (widget.bgColorBtn == null) {
-      bgColorBtn =const Color.fromARGB(255, 187, 193, 197);
+      bgColorBtn = const Color.fromARGB(255, 187, 193, 197);
       colorCaption = AppColors.black;
     }
     if (widget.iconButton == null) {
@@ -65,8 +65,7 @@ class _InfoState extends State<Info> {
       );
     }
     return Container(
-        margin:
-            EdgeInsets.only(bottom: 25, top: marginTop ?? 0),
+        margin: EdgeInsets.only(bottom: 25, top: marginTop ?? 0),
         padding: const EdgeInsets.symmetric(horizontal: 15),
         width: double.infinity,
         child: Column(
@@ -84,7 +83,7 @@ class _InfoState extends State<Info> {
             Text(
               title!,
               textAlign: TextAlign.center,
-              style:const TextStyle(
+              style: const TextStyle(
                 fontSize: 18.0,
                 fontWeight: FontWeight.w600,
               ),
@@ -105,23 +104,23 @@ class _InfoState extends State<Info> {
             ),
             widget.caption != " "
                 ? ElevatedButton.icon(
-                  onPressed: () {
-                    onTap!();
-                  },
-                  style: ElevatedButton.styleFrom(
-                      padding:const EdgeInsets.symmetric(
-                          vertical: 10, horizontal: 25),
-                      primary: bgColorBtn),
-                  icon: iconButton!,
-                  label: Text(
-                    caption!,
-                    style: TextStyle(
-                      fontSize: 14,
-                      color: colorCaption,
+                    onPressed: () {
+                      onTap!();
+                    },
+                    style: ElevatedButton.styleFrom(
+                        padding: const EdgeInsets.symmetric(
+                            vertical: 10, horizontal: 25),
+                        primary: bgColorBtn),
+                    icon: iconButton!,
+                    label: Text(
+                      caption!,
+                      style: TextStyle(
+                        fontSize: 14,
+                        color: colorCaption,
+                      ),
+                      textAlign: TextAlign.center,
                     ),
-                    textAlign: TextAlign.center,
-                  ),
-                )
+                  )
                 : const Text(""),
           ],
         ));

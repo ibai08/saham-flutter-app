@@ -3,10 +3,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
-import 'package:saham_01_app/constants/app_colors.dart';
-import 'package:saham_01_app/controller/searchControllers.dart';
-import 'package:saham_01_app/function/sortChannelModal.dart';
-import 'package:saham_01_app/views/appbar/navChannel.dart';
+import '../../../constants/app_colors.dart';
+import '../../../controller/searchControllers.dart';
+import '../../../function/sortChannelModal.dart';
+import '../../../views/appbar/navChannel.dart';
 
 class SearchChannelsTab extends StatelessWidget {
   final SearchChannelsTabController searchChannelsTabController =
@@ -103,14 +103,16 @@ class SearchChannelsResult extends StatelessWidget {
       // print("testststst datat: ${searchChannelsResultController?.channelSearchResult}");
       // print("bool: ${searchChannelsResultController?.channelSearchResult.isEmpty}");
       // print("bool2: ${searchChannelsResultController?.channelSearchResult.length == 0}");
-      if (searchChannelsResultController!.channelSearchResult.isEmpty && searchChannelsResultController!.hasError.value == false) {
+      if (searchChannelsResultController!.channelSearchResult.isEmpty &&
+          searchChannelsResultController!.hasError.value == false) {
         return const Center(
             child: Text(
           "Tunggu ya..!!",
           style: TextStyle(fontWeight: FontWeight.w600, fontSize: 18),
         ));
       }
-      if (searchChannelsResultController?.channelSearchResult.length == 0 && searchChannelsResultController!.channelSearchResult.isEmpty) {
+      if (searchChannelsResultController?.channelSearchResult.length == 0 &&
+          searchChannelsResultController!.channelSearchResult.isEmpty) {
         return const Center(
             child: Text(
           "Maaf.. data tidak ditemukan",

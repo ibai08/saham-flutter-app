@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:saham_01_app/constants/app_colors.dart';
+import '../../constants/app_colors.dart';
 
 class UploadBtn extends StatelessWidget {
-  const UploadBtn({Key? key}) :super(key: key);
+  const UploadBtn({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -17,15 +17,11 @@ class UploadBtn extends StatelessWidget {
             padding: const EdgeInsets.symmetric(vertical: 7, horizontal: 15),
             margin: const EdgeInsets.only(bottom: 10),
             decoration: BoxDecoration(
-              color: AppColors.primaryGreen,
-              borderRadius: BorderRadius.circular(5)
-            ),
+                color: AppColors.primaryGreen,
+                borderRadius: BorderRadius.circular(5)),
             child: const Text(
               "Upload",
-              style: TextStyle(
-                color: Colors.white,
-                fontSize: 16
-              ),
+              style: TextStyle(color: Colors.white, fontSize: 16),
             ),
           ),
         )

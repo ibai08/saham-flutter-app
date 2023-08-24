@@ -15,12 +15,11 @@ class PostState {
 
   factory PostState.fromJson(Map<String, dynamic> json) {
     return PostState(
-      id: json['id'],
-      image: json['featured_media'],
-      title: json['title']['rendered'],
-      desc: json['excerpt']['rendered'],
-      url: json['link']
-    );
+        id: json['id'],
+        image: json['featured_media'],
+        title: json['title']['rendered'],
+        desc: json['excerpt']['rendered'],
+        url: json['link']);
   }
 }
 
@@ -44,17 +43,16 @@ class SlidePromo {
 
   factory SlidePromo.fromJson(Map<dynamic, dynamic> json) {
     return SlidePromo(
-      desc: json['description'],
-      image: json['url_img'],
-      title: json['title'],
-      url: json['url_link']
-    );
+        desc: json['description'],
+        image: json['url_img'],
+        title: json['title'],
+        url: json['url_link']);
   }
 }
 
 class SlidePromoJSON {
   final String? title;
-  final String?desc;
+  final String? desc;
   final String? image;
   final String? url;
 
@@ -62,10 +60,9 @@ class SlidePromoJSON {
 
   factory SlidePromoJSON.fromJson(Map<dynamic, dynamic> json) {
     return SlidePromoJSON(
-      desc: json['desc'],
-      image: json['image'],
-      title: json['title'],
-      url: json['url']
-    );
+        desc: json['desc'],
+        image: json['image'],
+        title: json['title'],
+        url: json['url']);
   }
 }

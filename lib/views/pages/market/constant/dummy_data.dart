@@ -114,7 +114,7 @@ class DummyDatas {
   ];
 
   static List<Map<String, String>> topVolumeData = [
-     {
+    {
       'imageText': 'assets/dild.png',
       'name': 'DILD',
       'companyName': 'Intiland Development Tbk.',

@@ -4,17 +4,16 @@ import 'dart:io';
 
 import 'package:dio/dio.dart';
 import 'package:get/get.dart' as Get;
-import 'package:saham_01_app/constants/channel_sort.dart';
-import 'package:saham_01_app/controller/appStatesController.dart';
-import 'package:saham_01_app/core/cachefactory.dart';
-import 'package:saham_01_app/core/getStorage.dart';
-import 'package:saham_01_app/core/http.dart';
-import 'package:saham_01_app/models/entities/ois.dart';
-import 'package:saham_01_app/models/user.dart';
+import '../../constants/channel_sort.dart';
+import '../../controller/appStatesController.dart';
+import '../../core/cachefactory.dart';
+import '../../core/getStorage.dart';
+import '../../core/http.dart';
+import '../../models/entities/ois.dart';
+import '../../models/user.dart';
 import 'package:sprintf/sprintf.dart';
 import 'package:image/image.dart';
 import 'package:http_parser/http_parser.dart';
-
 
 import '../core/config.dart';
 
@@ -22,7 +21,8 @@ class ChannelModel {
   ChannelModel._privateConstructor();
   static final ChannelModel instance = ChannelModel._privateConstructor();
 
-  final AppStateController appStateController = Get.Get.put(AppStateController());
+  final AppStateController appStateController =
+      Get.Get.put(AppStateController());
 
   Future<void> createChannel(
       {String? name,
@@ -70,7 +70,7 @@ class ChannelModel {
       String? bankRekening,
       String? bankOwner,
       List<ChannelPricing>? pricing}) async {
-      await TF2Request.authorizeRequest(
+    await TF2Request.authorizeRequest(
         method: 'POST',
         url: getHostName() + "/ois/api/v1/channel/update/",
         postParam: {
@@ -95,7 +95,7 @@ class ChannelModel {
   Future<int> muteChannel({int? channelid, bool? mute}) async {
     Map fetchData = await TF2Request.authorizeRequest(
         url: getHostName() + "/ois/api/v1/channel/mute/",
-        postParam: {"CHANNELID": channelid, "MUTE": mute,  0 : 1});
+        postParam: {"CHANNELID": channelid, "MUTE": mute, 0: 1});
     return fetchData["message"];
   }
 
@@ -107,9 +107,8 @@ class ChannelModel {
       refreshSecond = 0;
     }
     dynamic v = await CacheFactory.getCache(
-        sprintf(
-            CacheKey.channelByIDforUserID, [channelid, appStateController.users.value.id]),
-        () async {
+        sprintf(CacheKey.channelByIDforUserID,
+            [channelid, appStateController.users.value.id]), () async {
       Map fetchData = await TF2Request.authorizeRequest(
           url: getHostName() + "/ois/api/v1/channel/detail/",
           postParam: {"CHANNELID": channelid});
@@ -218,7 +217,6 @@ class ChannelModel {
 
         listChannelCardSlim.add(ccs);
       }
-
     } catch (xerr) {
       print(xerr);
     }
@@ -434,9 +432,8 @@ class ChannelModel {
         refreshSecond = 0;
       }
       dynamic data = await CacheFactory.getCache(
-          sprintf(
-              CacheKey.channelsMySubscriptionsByUserId, [appStateController.users.value.id]),
-          () async {
+          sprintf(CacheKey.channelsMySubscriptionsByUserId,
+              [appStateController.users.value.id]), () async {
         Map fetchData = await TF2Request.authorizeRequest(
           url: getHostName() + "/ois/api/v1/my/subscriptions/",
           method: 'GET',
@@ -446,8 +443,8 @@ class ChannelModel {
       }, refreshSecond);
 
       if (data is List) {
-        return Future.wait(data.map(
-            (dat) => getDetail(dat["channel_id"], clearCache: false)));
+        return Future.wait(
+            data.map((dat) => getDetail(dat["channel_id"], clearCache: false)));
         // List<ChannelCardSlim> temp = [];
         // for (Map dat in data) {
         //   if (dat.containsKey("channel_id")) {
@@ -476,9 +473,8 @@ class ChannelModel {
         refreshSecond = 0;
       }
       dynamic data = await CacheFactory.getCache(
-          sprintf(
-              CacheKey.channelsMySubscribersByUserId, [appStateController.users.value.id]),
-          () async {
+          sprintf(CacheKey.channelsMySubscribersByUserId,
+              [appStateController.users.value.id]), () async {
         Map fetchData = await TF2Request.authorizeRequest(
           url: getHostName() + "/ois/api/v1/my/subscribers/",
           method: 'GET',
@@ -532,7 +528,9 @@ class ChannelModel {
     }
 
     dynamic data = await CacheFactory.getCache(
-        sprintf(CacheKey.channelHistoryList, [appStateController.users.value.id]), () async {
+        sprintf(
+            CacheKey.channelHistoryList, [appStateController.users.value.id]),
+        () async {
       Map fetchData = await TF2Request.authorizeRequest(
           url: getHostName() + "/ois/api/v1/channel/history/point/",
           method: 'POST',
@@ -557,7 +555,8 @@ class ChannelModel {
     }
 
     dynamic data = await CacheFactory.getCache(
-        sprintf(CacheKey.channelRedeemHistory, [appStateController.users.value.id]),
+        sprintf(
+            CacheKey.channelRedeemHistory, [appStateController.users.value.id]),
         () async {
       Map fetchData = await TF2Request.authorizeRequest(
           url: getHostName() + "/ois/api/v1/channel/history/point/redeem/",

@@ -12,7 +12,7 @@ class EmitenItem extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         const Padding(
-          padding: EdgeInsets.only( bottom: 10),
+          padding: EdgeInsets.only(bottom: 10),
         ),
         Container(
           child: ListView(
@@ -55,23 +55,23 @@ class EmitenItem extends StatelessWidget {
                                     Text(
                                       'ASLC',
                                       style: TextStyle(
-                                        fontSize: 14,
-                                        fontWeight: FontWeight.w600,
-                                        fontFamily: 'Manrope'
-                                      ),
+                                          fontSize: 14,
+                                          fontWeight: FontWeight.w600,
+                                          fontFamily: 'Manrope'),
                                     ),
                                     Text(
                                       'Autopedia Sukses Lestari Tbk.',
                                       style: TextStyle(
-                                        fontSize: 10,
-                                        fontWeight: FontWeight.w400,
-                                        fontFamily: 'Manrope'
-                                      ),
+                                          fontSize: 10,
+                                          fontWeight: FontWeight.w400,
+                                          fontFamily: 'Manrope'),
                                     )
                                   ],
                                 ),
                               ),
-                              const SizedBox(width: 95,),
+                              const SizedBox(
+                                width: 95,
+                              ),
                               Container(
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.end,
@@ -79,19 +79,17 @@ class EmitenItem extends StatelessWidget {
                                     const Text(
                                       '101',
                                       style: TextStyle(
-                                        fontSize: 14,
-                                        fontWeight: FontWeight.w600,
-                                        fontFamily: 'Manrope'
-                                      ),
+                                          fontSize: 14,
+                                          fontWeight: FontWeight.w600,
+                                          fontFamily: 'Manrope'),
                                     ),
                                     Text(
                                       '+2(+2.02%)',
                                       style: TextStyle(
-                                        fontSize: 10,
-                                        fontWeight: FontWeight.w400,
-                                        fontFamily: 'Manrope',
-                                        color: AppColors.textGreenLight
-                                      ),
+                                          fontSize: 10,
+                                          fontWeight: FontWeight.w400,
+                                          fontFamily: 'Manrope',
+                                          color: AppColors.textGreenLight),
                                     )
                                   ],
                                 ),
@@ -105,7 +103,9 @@ class EmitenItem extends StatelessWidget {
                 ),
               ),
               // ITEM 2
-              const SizedBox(width: 10,),
+              const SizedBox(
+                width: 10,
+              ),
               Container(
                 width: MediaQuery.of(context).size.width,
                 margin: const EdgeInsets.only(bottom: 10),
@@ -140,23 +140,23 @@ class EmitenItem extends StatelessWidget {
                                     Text(
                                       'KAYU',
                                       style: TextStyle(
-                                        fontSize: 14,
-                                        fontWeight: FontWeight.w600,
-                                        fontFamily: 'Manrope'
-                                      ),
+                                          fontSize: 14,
+                                          fontWeight: FontWeight.w600,
+                                          fontFamily: 'Manrope'),
                                     ),
                                     Text(
                                       'Darmi Bersaudara Tbk.',
                                       style: TextStyle(
-                                        fontSize: 10,
-                                        fontWeight: FontWeight.w400,
-                                        fontFamily: 'Manrope'
-                                      ),
+                                          fontSize: 10,
+                                          fontWeight: FontWeight.w400,
+                                          fontFamily: 'Manrope'),
                                     )
                                   ],
                                 ),
                               ),
-                              const SizedBox(width: 135,),
+                              const SizedBox(
+                                width: 135,
+                              ),
                               Container(
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.end,
@@ -164,19 +164,17 @@ class EmitenItem extends StatelessWidget {
                                     const Text(
                                       '107',
                                       style: TextStyle(
-                                        fontSize: 14,
-                                        fontWeight: FontWeight.w600,
-                                        fontFamily: 'Manrope'
-                                      ),
+                                          fontSize: 14,
+                                          fontWeight: FontWeight.w600,
+                                          fontFamily: 'Manrope'),
                                     ),
                                     Text(
                                       '+1(0.94%)',
                                       style: TextStyle(
-                                        fontSize: 10,
-                                        fontWeight: FontWeight.w400,
-                                        fontFamily: 'Manrope',
-                                        color: AppColors.textGreenLight
-                                      ),
+                                          fontSize: 10,
+                                          fontWeight: FontWeight.w400,
+                                          fontFamily: 'Manrope',
+                                          color: AppColors.textGreenLight),
                                     )
                                   ],
                                 ),
@@ -190,7 +188,9 @@ class EmitenItem extends StatelessWidget {
                 ),
               ),
               // ITEM 3
-              const SizedBox(width: 10,),
+              const SizedBox(
+                width: 10,
+              ),
               Container(
                 width: MediaQuery.of(context).size.width,
                 margin: const EdgeInsets.only(bottom: 10),
@@ -225,42 +225,40 @@ class EmitenItem extends StatelessWidget {
                                     Text(
                                       'DILD',
                                       style: TextStyle(
-                                        fontSize: 14,
-                                        fontWeight: FontWeight.w600,
-                                        fontFamily: 'Manrope'
-                                      ),
+                                          fontSize: 14,
+                                          fontWeight: FontWeight.w600,
+                                          fontFamily: 'Manrope'),
                                     ),
                                     Text(
                                       'Intiland Development Tbk.',
                                       style: TextStyle(
-                                        fontSize: 10,
-                                        fontWeight: FontWeight.w400,
-                                        fontFamily: 'Manrope'
-                                      ),
+                                          fontSize: 10,
+                                          fontWeight: FontWeight.w400,
+                                          fontFamily: 'Manrope'),
                                     )
                                   ],
                                 ),
                               ),
-                              const SizedBox(width: 110,),
+                              const SizedBox(
+                                width: 110,
+                              ),
                               Column(
                                 crossAxisAlignment: CrossAxisAlignment.end,
                                 children: [
                                   const Text(
                                     '264',
                                     style: TextStyle(
-                                      fontSize: 14,
-                                      fontWeight: FontWeight.w600,
-                                      fontFamily: 'Manrope'
-                                    ),
+                                        fontSize: 14,
+                                        fontWeight: FontWeight.w600,
+                                        fontFamily: 'Manrope'),
                                   ),
                                   Text(
                                     '+6(+2.33%)',
                                     style: TextStyle(
-                                      fontSize: 10,
-                                      fontWeight: FontWeight.w400,
-                                      fontFamily: 'Manrope',
-                                      color: AppColors.textGreenLight
-                                    ),
+                                        fontSize: 10,
+                                        fontWeight: FontWeight.w400,
+                                        fontFamily: 'Manrope',
+                                        color: AppColors.textGreenLight),
                                   )
                                 ],
                               ),
@@ -308,23 +306,23 @@ class EmitenItem extends StatelessWidget {
                                     Text(
                                       'DOOH',
                                       style: TextStyle(
-                                        fontSize: 14,
-                                        fontWeight: FontWeight.w600,
-                                        fontFamily: 'Manrope'
-                                      ),
+                                          fontSize: 14,
+                                          fontWeight: FontWeight.w600,
+                                          fontFamily: 'Manrope'),
                                     ),
                                     Text(
                                       'Era Media Sejahtera Tbk.',
                                       style: TextStyle(
-                                        fontSize: 10,
-                                        fontWeight: FontWeight.w400,
-                                        fontFamily: 'Manrope'
-                                      ),
+                                          fontSize: 10,
+                                          fontWeight: FontWeight.w400,
+                                          fontFamily: 'Manrope'),
                                     )
                                   ],
                                 ),
                               ),
-                              const SizedBox(width: 125,),
+                              const SizedBox(
+                                width: 125,
+                              ),
                               Container(
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.end,
@@ -332,19 +330,17 @@ class EmitenItem extends StatelessWidget {
                                     const Text(
                                       '73',
                                       style: TextStyle(
-                                        fontSize: 14,
-                                        fontWeight: FontWeight.w600,
-                                        fontFamily: 'Manrope'
-                                      ),
+                                          fontSize: 14,
+                                          fontWeight: FontWeight.w600,
+                                          fontFamily: 'Manrope'),
                                     ),
                                     Text(
                                       '-1(-1.35%)',
                                       style: TextStyle(
-                                        fontSize: 10,
-                                        fontWeight: FontWeight.w400,
-                                        fontFamily: 'Manrope',
-                                        color: AppColors.accentRed
-                                      ),
+                                          fontSize: 10,
+                                          fontWeight: FontWeight.w400,
+                                          fontFamily: 'Manrope',
+                                          color: AppColors.accentRed),
                                     )
                                   ],
                                 ),
@@ -393,23 +389,23 @@ class EmitenItem extends StatelessWidget {
                                     Text(
                                       'SLIS',
                                       style: TextStyle(
-                                        fontSize: 14,
-                                        fontWeight: FontWeight.w600,
-                                        fontFamily: 'Manrope'
-                                      ),
+                                          fontSize: 14,
+                                          fontWeight: FontWeight.w600,
+                                          fontFamily: 'Manrope'),
                                     ),
                                     Text(
                                       'Gaya Abadi Sempurna Tbk.',
                                       style: TextStyle(
-                                        fontSize: 10,
-                                        fontWeight: FontWeight.w400,
-                                        fontFamily: 'Manrope'
-                                      ),
+                                          fontSize: 10,
+                                          fontWeight: FontWeight.w400,
+                                          fontFamily: 'Manrope'),
                                     )
                                   ],
                                 ),
                               ),
-                              const SizedBox(width: 110,),
+                              const SizedBox(
+                                width: 110,
+                              ),
                               Container(
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.end,
@@ -417,19 +413,17 @@ class EmitenItem extends StatelessWidget {
                                     const Text(
                                       '162',
                                       style: TextStyle(
-                                        fontSize: 14,
-                                        fontWeight: FontWeight.w600,
-                                        fontFamily: 'Manrope'
-                                      ),
+                                          fontSize: 14,
+                                          fontWeight: FontWeight.w600,
+                                          fontFamily: 'Manrope'),
                                     ),
                                     Text(
                                       '+0(+0.00%)',
                                       style: TextStyle(
-                                        fontSize: 10,
-                                        fontWeight: FontWeight.w400,
-                                        fontFamily: 'Manrope',
-                                        color: AppColors.textGrayLight
-                                      ),
+                                          fontSize: 10,
+                                          fontWeight: FontWeight.w400,
+                                          fontFamily: 'Manrope',
+                                          color: AppColors.textGrayLight),
                                     )
                                   ],
                                 ),

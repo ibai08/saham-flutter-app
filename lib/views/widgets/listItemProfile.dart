@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:saham_01_app/constants/app_colors.dart';
+import '../../constants/app_colors.dart';
 
 class ListItemSettings extends StatelessWidget {
   const ListItemSettings({
@@ -29,7 +29,8 @@ class ListItemSettings extends StatelessWidget {
                   bottom: BorderSide(color: AppColors.lightGrey, width: 1))),
           child: ListTile(
             title: Text(text!, style: const TextStyle(fontSize: 16)),
-            leading: Container(margin: const EdgeInsets.only(left: 7), child: icon),
+            leading:
+                Container(margin: const EdgeInsets.only(left: 7), child: icon),
           )),
     );
   }

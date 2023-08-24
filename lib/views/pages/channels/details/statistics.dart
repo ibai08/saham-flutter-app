@@ -4,14 +4,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
-import 'package:saham_01_app/controller/statisticsController.dart';
-import 'package:saham_01_app/models/entities/ois.dart';
-import 'package:saham_01_app/views/widgets/info.dart';
+import '../../../../controller/statisticsController.dart';
+import '../../../../models/entities/ois.dart';
+import '../../../../views/widgets/info.dart';
 import 'package:charts_flutter/flutter.dart' as charts;
-import 'package:saham_01_app/views/widgets/labelChart.dart';
+import '../../../../views/widgets/labelChart.dart';
 
 class StatisticsChannel extends StatelessWidget {
-  final StatisticsChannelController controller = Get.put(StatisticsChannelController());
+  final StatisticsChannelController controller =
+      Get.put(StatisticsChannelController());
   final int channel;
   StatisticsChannel(this.channel);
 
@@ -26,7 +27,8 @@ class StatisticsChannel extends StatelessWidget {
       padding: EdgeInsets.only(top: 15),
       color: Colors.grey[200],
       child: Obx(() {
-        if (controller.statChannelObs == null && !controller.hasError.value == true) {
+        if (controller.statChannelObs == null &&
+            !controller.hasError.value == true) {
           return const Center(
             child: Text(
               "Tunggu ya..!!",
@@ -34,7 +36,8 @@ class StatisticsChannel extends StatelessWidget {
             ),
           );
         }
-        if (controller.statChannelObs?.value?.listSymbolStat?.length == 0 && !controller.hasError.value) {
+        if (controller.statChannelObs?.value?.listSymbolStat?.length == 0 &&
+            !controller.hasError.value) {
           return const Center(
             child: Text(
               "Maaf.. data tidak ditemukan",
@@ -52,9 +55,17 @@ class StatisticsChannel extends StatelessWidget {
             ],
           );
         }
-        symbolFreqHeight = unitHeight / 2 * controller.statChannelObs!.value!.listSymbolStat!.length + 45;
-        plHeight = unitHeight / 2 * controller.statChannelObs!.value!.listSymbolStat!.length.toDouble() + 45;
-        controller.statChannelObs?.value?.listSymbolStat?.sort((b, a) => (a.sellCount! + a.buyCount!).compareTo(b.sellCount! + b.buyCount!));
+        symbolFreqHeight = unitHeight /
+                2 *
+                controller.statChannelObs!.value!.listSymbolStat!.length +
+            45;
+        plHeight = unitHeight /
+                2 *
+                controller.statChannelObs!.value!.listSymbolStat!.length
+                    .toDouble() +
+            45;
+        controller.statChannelObs?.value?.listSymbolStat?.sort((b, a) =>
+            (a.sellCount! + a.buyCount!).compareTo(b.sellCount! + b.buyCount!));
         return ListView(
           children: <Widget>[
             Container(
@@ -65,10 +76,7 @@ class StatisticsChannel extends StatelessWidget {
                 children: <Widget>[
                   Text(
                     'Symbol Frequency',
-                    style: TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.w600
-                    ),
+                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
                     textAlign: TextAlign.center,
                   ),
                   Container(
@@ -88,15 +96,12 @@ class StatisticsChannel extends StatelessWidget {
                 children: <Widget>[
                   Text(
                     'Profit / Loss (IDR)',
-                    style: TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.w600
-                    ),
+                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
                     textAlign: TextAlign.center,
                   ),
                   SizedBox(
-                        height: 10,
-                      ),
+                    height: 10,
+                  ),
                   LabelCharts(
                     text1: "Profit",
                     text2: "Loss",
@@ -105,7 +110,8 @@ class StatisticsChannel extends StatelessWidget {
                     width: double.infinity,
                     height: plHeight,
                     padding: EdgeInsets.symmetric(horizontal: 5),
-                    child: ProfitLossFrequence(controller.statChannelObs!.value!),
+                    child:
+                        ProfitLossFrequence(controller.statChannelObs!.value!),
                   )
                 ],
               ),
@@ -124,16 +130,19 @@ class SymbolFrequence extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     List<charts.Series<SymbolData, String>> generateData() {
-      List<SymbolData> data = channelStat.listSymbolStat!.map<SymbolData>((json) => SymbolData(json.symbol!, json.signalCount!)).toList();
+      List<SymbolData> data = channelStat.listSymbolStat!
+          .map<SymbolData>(
+              (json) => SymbolData(json.symbol!, json.signalCount!))
+          .toList();
       return [
         charts.Series<SymbolData, String>(
-          id: 'Symbols',
-          domainFn: (SymbolData symbols, _) => symbols.symbols,
-          measureFn: (SymbolData symbols, _) => symbols.frequence,
-          seriesColor: charts.Color.fromHex(code: "#00B451"),
-          data: data,
-          labelAccessorFn: (SymbolData symbols, _) => '${symbols.symbols}: ${symbols.frequence.toString()} Deals'
-        )
+            id: 'Symbols',
+            domainFn: (SymbolData symbols, _) => symbols.symbols,
+            measureFn: (SymbolData symbols, _) => symbols.frequence,
+            seriesColor: charts.Color.fromHex(code: "#00B451"),
+            data: data,
+            labelAccessorFn: (SymbolData symbols, _) =>
+                '${symbols.symbols}: ${symbols.frequence.toString()} Deals')
       ];
     }
 
@@ -142,8 +151,9 @@ class SymbolFrequence extends StatelessWidget {
       animate: true,
       vertical: false,
       barRendererDecorator: charts.BarLabelDecorator<String>(),
-      primaryMeasureAxis: charts.NumericAxisSpec(renderSpec: charts.NoneRenderSpec()),
-      domainAxis: charts.OrdinalAxisSpec(renderSpec:  charts.NoneRenderSpec()),
+      primaryMeasureAxis:
+          charts.NumericAxisSpec(renderSpec: charts.NoneRenderSpec()),
+      domainAxis: charts.OrdinalAxisSpec(renderSpec: charts.NoneRenderSpec()),
     );
   }
 }
@@ -155,18 +165,20 @@ class ProfitLossFrequence extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     List<charts.Series<SymbolProfitLoss, String>> generateData() {
-      List<SymbolProfitLoss> profit = channelStat.listSymbolStat!.map<SymbolProfitLoss>((json) => SymbolProfitLoss(
-        json.symbol!, (json.profitSum! + json.lossSum!) * 10000
-      )).toList();
+      List<SymbolProfitLoss> profit = channelStat.listSymbolStat!
+          .map<SymbolProfitLoss>((json) => SymbolProfitLoss(
+              json.symbol!, (json.profitSum! + json.lossSum!) * 10000))
+          .toList();
       return [
         charts.Series<SymbolProfitLoss, String>(
-          id: 'Profit/Loss',
-          domainFn: (SymbolProfitLoss symbols, _) => symbols.symbols,
-          measureFn: (SymbolProfitLoss symbols, _) => symbols.frequence,
-          data: profit,
-          colorFn: (SymbolProfitLoss symbols, _) => charts.Color.fromHex(code: symbols.frequence > 0 ? "#2962ff" : "#e52e29"),
-          labelAccessorFn: (SymbolProfitLoss symbols, _) => '${symbols.symbols}: ${NumberFormat("#,###.##", "ID").format(symbols.frequence)}'
-        )
+            id: 'Profit/Loss',
+            domainFn: (SymbolProfitLoss symbols, _) => symbols.symbols,
+            measureFn: (SymbolProfitLoss symbols, _) => symbols.frequence,
+            data: profit,
+            colorFn: (SymbolProfitLoss symbols, _) => charts.Color.fromHex(
+                code: symbols.frequence > 0 ? "#2962ff" : "#e52e29"),
+            labelAccessorFn: (SymbolProfitLoss symbols, _) =>
+                '${symbols.symbols}: ${NumberFormat("#,###.##", "ID").format(symbols.frequence)}')
       ];
     }
 
@@ -175,9 +187,10 @@ class ProfitLossFrequence extends StatelessWidget {
       animate: true,
       vertical: false,
       barRendererDecorator: charts.BarLabelDecorator<String>(),
-      primaryMeasureAxis: charts.NumericAxisSpec(renderSpec:  charts.NoneRenderSpec()),
+      primaryMeasureAxis:
+          charts.NumericAxisSpec(renderSpec: charts.NoneRenderSpec()),
       domainAxis: charts.OrdinalAxisSpec(
-      renderSpec: charts.NoneRenderSpec(), showAxisLine: false),
+          renderSpec: charts.NoneRenderSpec(), showAxisLine: false),
     );
   }
 }

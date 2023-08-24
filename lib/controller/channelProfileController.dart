@@ -1,22 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
-import 'package:saham_01_app/core/string.dart';
-import 'package:saham_01_app/function/helper.dart';
-import 'package:saham_01_app/function/removeFocus.dart';
-import 'package:saham_01_app/function/showAlert.dart';
-import 'package:saham_01_app/models/channel.dart';
-import 'package:saham_01_app/models/entities/ois.dart';
-import 'package:saham_01_app/views/widgets/dialogLoading.dart';
+import '../../core/string.dart';
+import '../../function/helper.dart';
+import '../../function/removeFocus.dart';
+import '../../function/showAlert.dart';
+import '../../models/channel.dart';
+import '../../models/entities/ois.dart';
+import '../../views/widgets/dialogLoading.dart';
 
 class ChannelProfileController extends GetxController {
-  final Rx<ChannelCardSlim?> channel = Rx<ChannelCardSlim?>(null);
-  
+  final Rx<ChannelCardSlim?>? channel = Rx<ChannelCardSlim?>(null);
+
   void setChannel(ChannelCardSlim channels) {
-    channel.value = channels;
+    channel?.value = channels;
   }
 
-  String price = "FREE";
+  RxString price = "0".obs;
+
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
   Future<void> submitToken() async {
@@ -31,25 +32,24 @@ class ChannelProfileController extends GetxController {
       DialogLoading dlg = DialogLoading();
       try {
         showDialog(
-          context: Get.context!,
-          barrierDismissible: false,
-          builder: (context) {
-            return dlg;
-          }
-        ).catchError((err) {
+            context: Get.context!,
+            barrierDismissible: false,
+            builder: (context) {
+              return dlg;
+            }).catchError((err) {
           throw err;
         });
         await Future.delayed(Duration(seconds: 2));
         Navigator.pop(Get.context!);
         showAlert(
-          Get.context!, LoadingState.success, "TOKEN berhasil dikonfirmasi", thens: (x) {
-            Navigator.pop(Get.context!, true);
-          }
-        );
-
+            Get.context!, LoadingState.success, "TOKEN berhasil dikonfirmasi",
+            thens: (x) {
+          Navigator.pop(Get.context!, true);
+        });
       } catch (e) {
         Navigator.pop(Get.context!);
-        showAlert(Get.context!, LoadingState.error, translateFromPattern(e.toString()));
+        showAlert(Get.context!, LoadingState.error,
+            translateFromPattern(e.toString()));
       }
     }
   }
@@ -59,16 +59,36 @@ class ChannelProfileController extends GetxController {
     return ChannelModel.instance.getMedalList(clearCache: clearCache);
   }
 
+  // @override
+  // void onReady() {
+  //   super.onReady();
+  //   // if (channel!.value?.price != null) {
+  //   //   if (channel!.value!.price! > 0) {
+  //   //     price.value = numberShortener(channel!.value!.price!.floor());
+  //   //   }
+  //   // } else {
+  //   //   print("null kenanya");
+  //   // }
+  //   // if (channel!.value!.price! > 0) {
+  //   //   price.value = numberShortener(channel!.value!.price!.floor());
+  //   // }
+  //   print("channel: ${channel?.value?.price}");
+  //   if (double.parse(price.value) > 0) {
+  //     price.value = numberShortener(channel!.value!.price!.floor());
+  //   } else {
+  //     price.value = "FREE";
+  //   }
+
+  // }
+
+  // @override
+  // void onUpdate() {
+  //   super.on
+  // }
+
   @override
   void onInit() {
     super.onInit();
-    if (channel.value?.price != null) {
-      if (channel.value!.price! > 0) {
-        price = numberShortener(channel.value!.price!.floor());
-      }
-    } else {
-      print("null kenanya");
-    }
     Future.delayed(Duration(microseconds: 0)).then((_) async {
       var result = await getMedal();
       medal.value = result;

@@ -10,6 +10,7 @@ class AppColors {
   static Color light = const Color.fromRGBO(241, 244, 246, 1);
   static Color grey = const Color.fromRGBO(187, 193, 197, 1);
   static Color grey2 = const Color.fromRGBO(236, 240, 244, 1);
+  static Color grey3 = const Color.fromRGBO(201, 204, 207, 1);
   static Color lightGrey = const Color.fromRGBO(187, 193, 197, 0.5);
   static Color lightGrey2 = const Color.fromRGBO(241, 244, 246, 1);
   static Color darkGrey = const Color.fromARGB(255, 146, 150, 153);

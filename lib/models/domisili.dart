@@ -1,6 +1,6 @@
-import 'package:saham_01_app/core/cachefactory.dart';
-import 'package:saham_01_app/core/getStorage.dart';
-import 'package:saham_01_app/core/http.dart';
+import '../../core/cachefactory.dart';
+import '../../core/getStorage.dart';
+import '../../core/http.dart';
 
 class Domisili {
   static Future<Map> getDomisili({bool clearCache = false}) async {

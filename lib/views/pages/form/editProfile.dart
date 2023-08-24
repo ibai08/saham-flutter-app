@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:saham_01_app/constants/app_colors.dart';
-import 'package:saham_01_app/controller/appStatesController.dart';
-import 'package:saham_01_app/function/changeFocus.dart';
-import 'package:saham_01_app/function/removeFocus.dart';
-import 'package:saham_01_app/controller/editProfileController.dart';
-import 'package:saham_01_app/views/appbar/navtxt.dart';
-import 'package:saham_01_app/views/widgets/btnBlock.dart';
+import '../../../constants/app_colors.dart';
+import '../../../controller/appStatesController.dart';
+import '../../../function/changeFocus.dart';
+import '../../../function/removeFocus.dart';
+import '../../../controller/editProfileController.dart';
+import '../../../views/appbar/navtxt.dart';
+import '../../../views/widgets/btnBlock.dart';
 
 final _formKey = GlobalKey<FormState>();
 
@@ -31,7 +31,8 @@ class EditProfile extends StatelessWidget {
 }
 
 class EditProfileForm extends StatelessWidget {
-  final EditProfileFormController editFormController = Get.put(EditProfileFormController());
+  final EditProfileFormController editFormController =
+      Get.put(EditProfileFormController());
 
   @override
   Widget build(BuildContext context) {
@@ -40,8 +41,15 @@ class EditProfileForm extends StatelessWidget {
       child: GetBuilder<AppStateController>(
         init: AppStateController(),
         builder: (controller) {
-          editFormController.villageCon.text = (controller.users.value.village != controller.usersEdit.value.village ? controller.usersEdit.value.village : controller.users.value.village)!;
-          editFormController.villageCon.text = editFormController.villageCon.text == 'null' ? "" : editFormController.villageCon.text;
+          editFormController.villageCon.text =
+              (controller.users.value.village !=
+                      controller.usersEdit.value.village
+                  ? controller.usersEdit.value.village
+                  : controller.users.value.village)!;
+          editFormController.villageCon.text =
+              editFormController.villageCon.text == 'null'
+                  ? ""
+                  : editFormController.villageCon.text;
           return Form(
             key: editFormController.formKey,
             child: ListView(
@@ -49,17 +57,13 @@ class EditProfileForm extends StatelessWidget {
               children: <Widget>[
                 TextFormField(
                   decoration: InputDecoration(
-                    labelText: 'Username',
-                    labelStyle: TextStyle(color: AppColors.black),
-                    contentPadding: const EdgeInsets.only(bottom: 5, top: 20),
-                    enabledBorder: UnderlineInputBorder(
-                      borderSide: BorderSide(
-                        width: 0.2,
-                        color: AppColors.darkGrey4
-                      )
-                    ),
-                    border: editFormController.borderUsername
-                  ),
+                      labelText: 'Username',
+                      labelStyle: TextStyle(color: AppColors.black),
+                      contentPadding: const EdgeInsets.only(bottom: 5, top: 20),
+                      enabledBorder: UnderlineInputBorder(
+                          borderSide: BorderSide(
+                              width: 0.2, color: AppColors.darkGrey4)),
+                      border: editFormController.borderUsername),
                   keyboardType: TextInputType.text,
                   textInputAction: TextInputAction.next,
                   controller: editFormController.usernameCon,
@@ -71,45 +75,39 @@ class EditProfileForm extends StatelessWidget {
                 ),
                 TextFormField(
                   decoration: InputDecoration(
-                    labelText: 'Email',
-                    labelStyle: TextStyle(color: AppColors.black),
-                    contentPadding: const EdgeInsets.only(bottom: 5, top: 20),
-                    enabledBorder: UnderlineInputBorder(
-                      borderSide: BorderSide(
-                        width: 0.3,
-                        color: AppColors.darkGrey4
-                      )
-                    ),
-                    border: InputBorder.none
-                  ),
+                      labelText: 'Email',
+                      labelStyle: TextStyle(color: AppColors.black),
+                      contentPadding: const EdgeInsets.only(bottom: 5, top: 20),
+                      enabledBorder: UnderlineInputBorder(
+                          borderSide: BorderSide(
+                              width: 0.3, color: AppColors.darkGrey4)),
+                      border: InputBorder.none),
                   keyboardType: TextInputType.emailAddress,
                   textInputAction: TextInputAction.next,
                   controller: editFormController.emailCon,
                   readOnly: true,
                   focusNode: editFormController.emailFocus,
                   onFieldSubmitted: (term) {
-                    changeFocus(context, editFormController.emailFocus, editFormController.fullnameFocus);
+                    changeFocus(context, editFormController.emailFocus,
+                        editFormController.fullnameFocus);
                   },
                 ),
                 TextFormField(
                   decoration: InputDecoration(
-                    labelText: 'Nama Lengkap',
-                    labelStyle: TextStyle(color: AppColors.black),
-                    contentPadding: const EdgeInsets.only(bottom: 5, top: 20),
-                    enabledBorder: UnderlineInputBorder(
-                      borderSide: BorderSide(
-                        width: 0.3,
-                        color: AppColors.darkGrey4
-                      )
-                    ),
-                    border: InputBorder.none
-                  ),
+                      labelText: 'Nama Lengkap',
+                      labelStyle: TextStyle(color: AppColors.black),
+                      contentPadding: const EdgeInsets.only(bottom: 5, top: 20),
+                      enabledBorder: UnderlineInputBorder(
+                          borderSide: BorderSide(
+                              width: 0.3, color: AppColors.darkGrey4)),
+                      border: InputBorder.none),
                   keyboardType: TextInputType.text,
                   textInputAction: TextInputAction.next,
                   controller: editFormController.fullnameCon,
                   focusNode: editFormController.fullnameFocus,
                   onFieldSubmitted: (term) {
-                    changeFocus(context, editFormController.fullnameFocus, editFormController.phoneFocus);
+                    changeFocus(context, editFormController.fullnameFocus,
+                        editFormController.phoneFocus);
                   },
                 ),
                 TextFormField(
@@ -118,18 +116,16 @@ class EditProfileForm extends StatelessWidget {
                     labelStyle: TextStyle(color: AppColors.black),
                     contentPadding: const EdgeInsets.only(bottom: 5, top: 20),
                     enabledBorder: UnderlineInputBorder(
-                      borderSide: BorderSide(
-                        width: 0.3,
-                        color: AppColors.darkGrey4
-                      )
-                    ),
+                        borderSide:
+                            BorderSide(width: 0.3, color: AppColors.darkGrey4)),
                   ),
                   keyboardType: TextInputType.number,
                   textInputAction: TextInputAction.next,
                   controller: editFormController.phoneCon,
                   focusNode: editFormController.phoneFocus,
                   onFieldSubmitted: (term) {
-                    changeFocus(context, editFormController.phoneFocus, editFormController.address1Focus);
+                    changeFocus(context, editFormController.phoneFocus,
+                        editFormController.address1Focus);
                   },
                 ),
                 TextFormField(
@@ -138,11 +134,8 @@ class EditProfileForm extends StatelessWidget {
                     labelStyle: TextStyle(color: AppColors.black),
                     contentPadding: const EdgeInsets.only(bottom: 5, top: 20),
                     enabledBorder: UnderlineInputBorder(
-                      borderSide: BorderSide(
-                        width: 0.3,
-                        color: AppColors.darkGrey4
-                      )
-                    ),
+                        borderSide:
+                            BorderSide(width: 0.3, color: AppColors.darkGrey4)),
                   ),
                   keyboardType: TextInputType.multiline,
                   maxLines: null,
@@ -156,11 +149,8 @@ class EditProfileForm extends StatelessWidget {
                     labelStyle: TextStyle(color: AppColors.black),
                     contentPadding: const EdgeInsets.only(bottom: 5, top: 20),
                     enabledBorder: UnderlineInputBorder(
-                      borderSide: BorderSide(
-                        width: 0.3,
-                        color: AppColors.darkGrey4
-                      )
-                    ),
+                        borderSide:
+                            BorderSide(width: 0.3, color: AppColors.darkGrey4)),
                   ),
                   keyboardType: TextInputType.multiline,
                   maxLines: null,
@@ -173,13 +163,11 @@ class EditProfileForm extends StatelessWidget {
                     labelStyle: TextStyle(color: AppColors.black),
                     contentPadding: const EdgeInsets.only(bottom: 5, top: 20),
                     enabledBorder: UnderlineInputBorder(
-                      borderSide: BorderSide(
-                        width: 0.2,
-                        color: AppColors.darkGrey4
-                      )
-                    ),
+                        borderSide:
+                            BorderSide(width: 0.2, color: AppColors.darkGrey4)),
                   ),
-                  keyboardType: const TextInputType.numberWithOptions(decimal: false),
+                  keyboardType:
+                      const TextInputType.numberWithOptions(decimal: false),
                   textInputAction: TextInputAction.next,
                   controller: editFormController.zipcodeCon,
                   focusNode: editFormController.zipcodeFocus,
@@ -189,17 +177,13 @@ class EditProfileForm extends StatelessWidget {
                 ),
                 TextFormField(
                   decoration: InputDecoration(
-                    labelText: 'Kelurahan / Desa',
-                    labelStyle: TextStyle(color: AppColors.black),
-                    contentPadding: const EdgeInsets.only(bottom: 5, top: 20),
-                    enabledBorder: UnderlineInputBorder(
-                      borderSide: BorderSide(
-                        width: 0.3,
-                        color: AppColors.darkGrey4
-                      )
-                    ),
-                    suffixIcon: const Icon(Icons.arrow_right)
-                  ),
+                      labelText: 'Kelurahan / Desa',
+                      labelStyle: TextStyle(color: AppColors.black),
+                      contentPadding: const EdgeInsets.only(bottom: 5, top: 20),
+                      enabledBorder: UnderlineInputBorder(
+                          borderSide: BorderSide(
+                              width: 0.3, color: AppColors.darkGrey4)),
+                      suffixIcon: const Icon(Icons.arrow_right)),
                   keyboardType: TextInputType.text,
                   readOnly: true,
                   textInputAction: TextInputAction.next,
@@ -217,9 +201,7 @@ class EditProfileForm extends StatelessWidget {
                     editFormController.performSaveProfile(appStateController);
                   },
                 ),
-                const SizedBox(
-                  height: 10
-                )
+                const SizedBox(height: 10)
               ],
             ),
           );

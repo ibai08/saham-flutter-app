@@ -6,8 +6,8 @@ class AccountTypeAskap {
   String? maxlot;
   String? maxopenlot;
   String? spread;
-  String?swap;
-  String?commission;
+  String? swap;
+  String? commission;
   String? leverage;
   String? po;
   String? insurance;
@@ -327,11 +327,6 @@ class BankBrokerAskap {
   }
 
   Map toMap() {
-    return {
-      "id": id,
-      "bank": bank,
-      "no": no,
-      "symbol": symbol
-    };
+    return {"id": id, "bank": bank, "no": no, "symbol": symbol};
   }
 }

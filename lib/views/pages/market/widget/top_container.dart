@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:saham_01_app/views/pages/market/widget/line_chart.dart';
+import '../../../../views/pages/market/widget/line_chart.dart';
 
 class MarketCard extends StatelessWidget {
   const MarketCard({Key? key}) : super(key: key);

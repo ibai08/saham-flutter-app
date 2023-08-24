@@ -6,7 +6,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get_rx/src/rx_types/rx_types.dart';
 import 'package:sprintf/sprintf.dart';
-import 'package:saham_01_app/core/getStorage.dart';
+import '../../core/getStorage.dart';
 
 enum TransactionType { subscribePayment, withdraw, reward }
 
@@ -1008,8 +1008,7 @@ class ChannelCardSlim {
   Future<Rx<String?>?> watchChannelCache(int userid) async {
     try {
       SharedBoxHelper? box = SharedHelper.instance.getBox(BoxName.cache);
-      return box?.
-          watch(sprintf(CacheKey.channelByIDforUserID, [id, userid]));
+      return box?.watch(sprintf(CacheKey.channelByIDforUserID, [id, userid]));
     } catch (xerr) {}
     return null;
   }
@@ -1017,8 +1016,7 @@ class ChannelCardSlim {
   Future<void> saveToUserCacheAsync(int userid) async {
     SharedBoxHelper? box = SharedHelper.instance.getBox(BoxName.cache);
     // save this ChannelCardSlim object to box... jadi kita bisa stream nantinya...
-    box?.putMap(sprintf(CacheKey.channelByIDforUserID, [id, userid]),
-      toMap());
+    box?.putMap(sprintf(CacheKey.channelByIDforUserID, [id, userid]), toMap());
   }
 
   Map<String, dynamic> toMap() {
@@ -1109,11 +1107,10 @@ class SignalPageData {
   List<ChannelCardSlim>? listChannel;
   SignalPageData({this.listSignal, this.listChannel});
   SignalPageData remake(
-      {List<SignalCardSlim>? mListSignal, List<ChannelCardSlim>? mlistChannel}) {
-    List<SignalCardSlim>? tmpSignal =
-        mListSignal ?? listSignal;
-    List<ChannelCardSlim>? tmpChannel =
-        mlistChannel ?? listChannel;
+      {List<SignalCardSlim>? mListSignal,
+      List<ChannelCardSlim>? mlistChannel}) {
+    List<SignalCardSlim>? tmpSignal = mListSignal ?? listSignal;
+    List<ChannelCardSlim>? tmpChannel = mlistChannel ?? listChannel;
     return SignalPageData(listSignal: tmpSignal, listChannel: tmpChannel);
   }
 
@@ -1301,7 +1298,9 @@ class OisMyChannelPageData {
   Map? listChannelBalance;
 
   OisMyChannelPageData(
-      {@required this.lastSync, @required this.listMyChannel, @required this.listChannelBalance});
+      {@required this.lastSync,
+      @required this.listMyChannel,
+      @required this.listChannelBalance});
 
   Map toMap() {
     List<Map> data = [];

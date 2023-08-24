@@ -4,12 +4,12 @@ import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
-import 'package:saham_01_app/config/symbol_config.dart';
-import 'package:saham_01_app/controller/appStatesController.dart';
-import 'package:saham_01_app/models/entities/ois.dart';
-import 'package:saham_01_app/models/entities/user.dart';
-import 'package:saham_01_app/models/ois.dart';
-import 'package:saham_01_app/views/widgets/HeadingChannelInfoNew.dart';
+import '../../config/symbol_config.dart';
+import '../../controller/appStatesController.dart';
+import '../../models/entities/ois.dart';
+import '../../models/entities/user.dart';
+import '../../models/ois.dart';
+import '../../views/widgets/HeadingChannelInfoNew.dart';
 
 import '../../constants/app_colors.dart';
 import '../../core/analytics.dart';
@@ -138,6 +138,7 @@ class SignalDetailWithHeaderNew extends StatelessWidget {
                             //   Navigator.pushNamed(context, '/forms/login');
                             // });
                           }
+                          // print("jalan ontap");
                         },
                         isMedium: false,
                         avatar: avatar,

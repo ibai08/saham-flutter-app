@@ -3,7 +3,6 @@
 import 'package:flutter/material.dart';
 import 'package:shimmer/shimmer.dart';
 
-
 class SignalShimmer extends StatelessWidget {
   final String? title;
   final String? onLoad;
@@ -14,7 +13,6 @@ class SignalShimmer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    
     return Container(
       width: MediaQuery.of(context).size.width,
       child: ListView(

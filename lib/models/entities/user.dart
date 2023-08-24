@@ -24,73 +24,70 @@ class UserInfo {
   int? mrgid;
   int? askapid;
 
-  UserInfo({
-    required this.id,
-    this.email,
-    this.fullname,
-    this.phone,
-    this.country,
-    this.username,
-    this.address1,
-    this.address2,
-    this.city,
-    this.province,
-    this.avatar,
-    this.cabang,
-    this.zipcode,
-    this.villageid,
-    this.village,
-    this.protection,
-    this.tfcStudent,
-    this.subscribe,
-    this.verify,
-    this.bankName,
-    this.bankNumber,
-    this.bankUsername,
-    this.mrgid,
-    this.askapid
-  });
+  UserInfo(
+      {required this.id,
+      this.email,
+      this.fullname,
+      this.phone,
+      this.country,
+      this.username,
+      this.address1,
+      this.address2,
+      this.city,
+      this.province,
+      this.avatar,
+      this.cabang,
+      this.zipcode,
+      this.villageid,
+      this.village,
+      this.protection,
+      this.tfcStudent,
+      this.subscribe,
+      this.verify,
+      this.bankName,
+      this.bankNumber,
+      this.bankUsername,
+      this.mrgid,
+      this.askapid});
 
   static UserInfo init() {
     return UserInfo(
-      id: 0,
-      protection: false,
-      tfcStudent: false,
-      subscribe: false,
-      verify: false,
-      mrgid: 0,
-      askapid: 0
-    );
+        id: 0,
+        protection: false,
+        tfcStudent: false,
+        subscribe: false,
+        verify: false,
+        mrgid: 0,
+        askapid: 0);
   }
 
   static UserInfo clone(UserInfo user) {
     try {
       return UserInfo(
-        id: user.id,
-        email: user.email,
-        fullname: user.fullname,
-        phone: user.phone,
-        country: user.country,
-        username: user.username,
-        address1: user.address1,
-        address2: user.address2,
-        city: user.city,
-        province: user.province,
-        avatar: user.avatar,
-        cabang: user.cabang,
-        zipcode: user.zipcode,
-        villageid: user.villageid,
-        village: user.village,
-        protection: user.protection,
-        tfcStudent: user.tfcStudent,
-        subscribe: user.subscribe,
-        verify: user.verify,
-        bankName: user.bankName,
-        bankNumber: user.bankNumber,
-        bankUsername: user.bankUsername,
-        mrgid: user.mrgid,
-        askapid: user.askapid
-      );
+          id: user.id,
+          email: user.email,
+          fullname: user.fullname,
+          phone: user.phone,
+          country: user.country,
+          username: user.username,
+          address1: user.address1,
+          address2: user.address2,
+          city: user.city,
+          province: user.province,
+          avatar: user.avatar,
+          cabang: user.cabang,
+          zipcode: user.zipcode,
+          villageid: user.villageid,
+          village: user.village,
+          protection: user.protection,
+          tfcStudent: user.tfcStudent,
+          subscribe: user.subscribe,
+          verify: user.verify,
+          bankName: user.bankName,
+          bankNumber: user.bankNumber,
+          bankUsername: user.bankUsername,
+          mrgid: user.mrgid,
+          askapid: user.askapid);
     } catch (xerr) {
       return UserInfo.init();
     }

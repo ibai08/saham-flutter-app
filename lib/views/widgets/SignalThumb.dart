@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:saham_01_app/constants/app_colors.dart';
-import 'package:saham_01_app/models/entities/ois.dart';
-import 'package:saham_01_app/models/ois.dart';
-import 'package:saham_01_app/models/signal.dart';
-import 'package:saham_01_app/views/widgets/headingChannelInfo.dart';
+import '../../constants/app_colors.dart';
+import '../../models/entities/ois.dart';
+import '../../models/ois.dart';
+import '../../models/signal.dart';
+import '../../views/widgets/headingChannelInfo.dart';
 
 class SignalThumb extends StatelessWidget {
   const SignalThumb(
@@ -87,7 +87,8 @@ class SignalThumb extends StatelessWidget {
               },
             ),
             Container(
-              padding: const EdgeInsets.only(top: 5, left: 15, right: 15, bottom: 10),
+              padding: const EdgeInsets.only(
+                  top: 5, left: 15, right: 15, bottom: 10),
               child: Row(
                 children: <Widget>[
                   const Expanded(
@@ -107,7 +108,8 @@ class SignalThumb extends StatelessWidget {
             ),
             Container(
               margin: const EdgeInsets.only(left: 10, right: 10, bottom: 10),
-              padding: const EdgeInsets.only(top: 8, left: 15, right: 15, bottom: 8),
+              padding:
+                  const EdgeInsets.only(top: 8, left: 15, right: 15, bottom: 8),
               decoration: const BoxDecoration(
                   color: Color.fromARGB(255, 225, 230, 232),
                   borderRadius: BorderRadius.all(Radius.circular(4))),

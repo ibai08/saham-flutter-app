@@ -2,8 +2,8 @@ import 'dart:convert';
 
 import 'package:dio/dio.dart';
 import 'package:intl/intl.dart';
-import 'package:saham_01_app/core/http.dart';
-import 'package:saham_01_app/models/entities/post.dart';
+import '../../core/http.dart';
+import '../../models/entities/post.dart';
 
 enum PostOption { news, monthlyOutlook }
 

@@ -1,5 +1,5 @@
 import 'package:dio/dio.dart';
-import 'package:saham_01_app/core/config.dart';
+import '../../core/config.dart';
 
 String getHostName() {
   return settings["mode"] == "production"
@@ -12,7 +12,8 @@ String getMainSite() {
 }
 
 class TF2Request {
-  static Future<Map> request({String method = 'POST', String? url, Map? postParam}) async {
+  static Future<Map> request(
+      {String method = 'POST', String? url, Map? postParam}) async {
     Response res;
     Map data = {};
     Dio dio = Dio();
@@ -32,7 +33,11 @@ class TF2Request {
     return data;
   }
 
-  static Future<Map> authorizeRequest({String method = 'POST', String? url, Map? postParam, FormData? formData}) async {
+  static Future<Map> authorizeRequest(
+      {String method = 'POST',
+      String? url,
+      Map? postParam,
+      FormData? formData}) async {
     Response res;
     Dio dio = Dio();
     dio.options.connectTimeout = const Duration(milliseconds: 10000);
@@ -90,7 +95,8 @@ class TF2Request {
       Dio dio = Dio();
       dio.options.connectTimeout = const Duration(milliseconds: 5000);
       dio.options.receiveTimeout = const Duration(milliseconds: 3000);
-      res = await dio.post(getHostName() + "/traders/api/v1/refreshlogin/", data: {"enc": enc});
+      res = await dio.post(getHostName() + "/traders/api/v1/refreshlogin/",
+          data: {"enc": enc});
       data = res.data;
 
       if (data.containsKey("message") && !data.containsKey("error")) {

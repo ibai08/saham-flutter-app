@@ -2,12 +2,13 @@ import 'dart:convert';
 
 import 'package:dio/dio.dart';
 import 'package:get/get.dart' as Get;
-import 'package:saham_01_app/controller/appStatesController.dart';
-import 'package:saham_01_app/core/http.dart';
-import 'package:saham_01_app/models/user.dart';
+import '../../controller/appStatesController.dart';
+import '../../core/http.dart';
+import '../../models/user.dart';
 
 class Regional {
-  final AppStateController appStateController = Get.Get.put(AppStateController());
+  final AppStateController appStateController =
+      Get.Get.put(AppStateController());
   Future<Map> getRegion(String kd) async {
     Response res;
     if (appStateController.users.value.id < 1) {

@@ -1,9 +1,8 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:saham_01_app/controller/appStatesController.dart';
-import 'package:saham_01_app/core/device.dart';
-import 'package:saham_01_app/core/firebasecm.dart';
-import 'package:saham_01_app/core/http.dart';
-
+import '../../controller/appStatesController.dart';
+import '../../core/device.dart';
+import '../../core/firebasecm.dart';
+import '../../core/http.dart';
 
 class FAuth {
   static final FAuth instance = FAuth._internal();
@@ -13,13 +12,12 @@ class FAuth {
 
   Future<String> getFirebaseCustomToken() async {
     Map data = await TF2Request.authorizeRequest(
-      url: getHostName() + "/traders/api/v1/fb-custom-token/",
-      method: 'POST',
-      postParam: {
-        "fcm": await FCM.instance.getToken(),
-        "devid": await DeviceInfo.getId()
-      }
-    );
+        url: getHostName() + "/traders/api/v1/fb-custom-token/",
+        method: 'POST',
+        postParam: {
+          "fcm": await FCM.instance.getToken(),
+          "devid": await DeviceInfo.getId()
+        });
 
     return data["message"];
   }
@@ -36,6 +34,4 @@ class FAuth {
     String? fcmToken = await FCM.instance.getToken();
     appStateController?.setAppState(Operation.setFCMToken, fcmToken);
   }
-
-
 }

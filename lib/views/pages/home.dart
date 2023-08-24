@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
-import 'package:saham_01_app/controller/homeTabController.dart';
+import '../../controller/homeTabController.dart';
 
 import '../../constants/app_colors.dart';
 import '../../controller/appStatesController.dart';

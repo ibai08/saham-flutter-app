@@ -2,23 +2,23 @@
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:saham_01_app/constants/app_colors.dart';
-import 'package:saham_01_app/controller/appStatesController.dart';
-import 'package:saham_01_app/function/changeFocus.dart';
-import 'package:saham_01_app/function/helper.dart';
-import 'package:saham_01_app/function/removeFocus.dart';
-import 'package:saham_01_app/function/showAlert.dart';
-import 'package:saham_01_app/models/user.dart';
-import 'package:saham_01_app/views/appbar/navtxt.dart';
-import 'package:saham_01_app/views/pages/form/verifyEmail.dart';
-import 'package:saham_01_app/views/widgets/btnBlock.dart';
-import 'package:saham_01_app/views/widgets/dialogCabang.dart';
-import 'package:saham_01_app/views/widgets/dialogConfirmation.dart';
-import 'package:saham_01_app/views/widgets/dialogLoading.dart';
-import 'package:saham_01_app/views/widgets/line.dart';
-import 'package:saham_01_app/views/widgets/passwordIcon.dart';
-import 'package:saham_01_app/views/widgets/registerHint.dart';
-import 'package:saham_01_app/views/widgets/toast.dart';
+import '../../../constants/app_colors.dart';
+import '../../../controller/appStatesController.dart';
+import '../../../function/changeFocus.dart';
+import '../../../function/helper.dart';
+import '../../../function/removeFocus.dart';
+import '../../../function/showAlert.dart';
+import '../../../models/user.dart';
+import '../../../views/appbar/navtxt.dart';
+import '../../../views/pages/form/verifyEmail.dart';
+import '../../../views/widgets/btnBlock.dart';
+import '../../../views/widgets/dialogCabang.dart';
+import '../../../views/widgets/dialogConfirmation.dart';
+import '../../../views/widgets/dialogLoading.dart';
+import '../../../views/widgets/line.dart';
+import '../../../views/widgets/passwordIcon.dart';
+import '../../../views/widgets/registerHint.dart';
+import '../../../views/widgets/toast.dart';
 
 class Login extends StatefulWidget {
   const Login({Key? key}) : super(key: key);
@@ -59,7 +59,9 @@ class _LoginState extends State<Login> {
           onTap: () {
             FocusScope.of(context).requestFocus(FocusNode());
           },
-          child: appStateController.users.value.id < 1 ? const LoginForm() : VerifyEmail(),
+          child: appStateController.users.value.id < 1
+              ? const LoginForm()
+              : VerifyEmail(),
         ));
   }
 }
@@ -121,7 +123,9 @@ class _LoginForm extends State<LoginForm> {
               context: ctx,
               builder: (ctx) {
                 dc = DialogCabang(
-                    res["users"], ModalRoute.of(context)?.settings.arguments as Map<dynamic, dynamic>?);
+                    res["users"],
+                    ModalRoute.of(context)?.settings.arguments
+                        as Map<dynamic, dynamic>?);
                 return dc as Widget;
               });
           dc?.cekLogin();
@@ -154,7 +158,8 @@ class _LoginForm extends State<LoginForm> {
               arguments: _emailController.text);
         }
       } else {
-        showAlert(context, LoadingState.error, translateFromPattern(x.toString()));
+        showAlert(
+            context, LoadingState.error, translateFromPattern(x.toString()));
       }
     }
   }

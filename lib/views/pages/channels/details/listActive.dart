@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
-import 'package:saham_01_app/controller/listActiveController.dart';
-import 'package:saham_01_app/views/widgets/info.dart';
+import '../../../../controller/listActiveController.dart';
+import '../../../../views/widgets/info.dart';
 
 class ListActiveSignal extends StatelessWidget {
   final ListActiveController controller = Get.put(ListActiveController());

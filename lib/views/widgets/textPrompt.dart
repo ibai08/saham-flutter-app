@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:saham_01_app/constants/app_colors.dart';
+import '../../constants/app_colors.dart';
 
 class TextPrompt extends StatelessWidget {
   const TextPrompt({
@@ -46,15 +46,15 @@ class TextPrompt extends StatelessWidget {
             height: 10,
           ),
           TextButton(
-            onPressed:() {
+            onPressed: () {
               fn;
             },
             style:
                 TextButton.styleFrom(backgroundColor: AppColors.primaryGreen),
             child: Text(
               cta!,
-              style:
-                  const TextStyle(color: Colors.white, fontWeight: FontWeight.w600),
+              style: const TextStyle(
+                  color: Colors.white, fontWeight: FontWeight.w600),
             ),
           )
         ],

@@ -337,8 +337,7 @@ class ContestAccMrg extends MrgAccount {
       "password": password,
       "active": active,
       "req_date": reqDate.toString(),
-      "depo_date":
-          depoDate == null ? depoDate : depoDate.toString(),
+      "depo_date": depoDate == null ? depoDate : depoDate.toString(),
     };
   }
 }

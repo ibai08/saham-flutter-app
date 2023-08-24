@@ -1,9 +1,9 @@
-class TradeSymbol{
+class TradeSymbol {
   final String? name;
   final int? digit;
 
   TradeSymbol({
-    this.name, 
+    this.name,
     this.digit,
   });
 

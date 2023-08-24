@@ -69,7 +69,8 @@ class DefaultFirebaseOptions {
     messagingSenderId: '961411800758',
     projectId: 'prototype-saham',
     storageBucket: 'prototype-saham.appspot.com',
-    iosClientId: '961411800758-4b14c4lom7qt0o1d2ao6318ji73onnpe.apps.googleusercontent.com',
+    iosClientId:
+        '961411800758-4b14c4lom7qt0o1d2ao6318ji73onnpe.apps.googleusercontent.com',
     iosBundleId: 'co.id.tradersfamily',
   );
 }

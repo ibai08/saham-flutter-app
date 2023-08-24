@@ -11,6 +11,7 @@ import 'package:saham_01_app/core/string.dart';
 import 'package:saham_01_app/models/entities/ois.dart';
 import 'package:saham_01_app/models/ois.dart';
 import 'package:saham_01_app/models/user.dart';
+import 'package:saham_01_app/views/widgets/HeadingChannelInfoNew.dart';
 import 'package:saham_01_app/views/widgets/channelPower.dart';
 import 'package:saham_01_app/views/widgets/headingChannelInfo.dart';
 
@@ -147,7 +148,7 @@ class ChannelThumb extends StatelessWidget {
         ),
         child: Column(
           children: <Widget>[
-            HeadingChannelInfo(
+            HeadingChannelInfoNew(
               onTap: () {
                 OisModel.instance
                     .logActions(
@@ -161,6 +162,7 @@ class ChannelThumb extends StatelessWidget {
               },
               isMedium: false,
               avatar: avatar,
+              useMedal: false,
               level: level,
               medals: medals,
               title: name,
@@ -184,7 +186,7 @@ class ChannelThumb extends StatelessWidget {
                     children: [
                       ChannelPower(
                         title: numberShortener((tChannel.profit)!.ceil()),
-                        subtitle: "Profit (in IDR)",
+                        subtitle: "Profit",
                       ),
                     ],
                   ),
@@ -192,7 +194,7 @@ class ChannelThumb extends StatelessWidget {
                 Expanded(
                   child: ChannelPower(
                     title: numberShortener(tChannel.postPerWeek!.floor()),
-                    subtitle: "Post/Week",
+                    subtitle: "Post / Week",
                   ),
                 ),
               ],

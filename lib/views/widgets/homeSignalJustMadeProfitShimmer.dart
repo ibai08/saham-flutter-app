@@ -1,8 +1,8 @@
 // ignore_for_file: sized_box_for_whitespace, avoid_unnecessary_containers
 
 import 'package:flutter/material.dart';
-import 'package:saham_01_app/constants/app_colors.dart';
-import 'package:saham_01_app/views/pages/home.dart';
+import '../../constants/app_colors.dart';
+import '../../views/pages/home.dart';
 import 'package:shimmer/shimmer.dart';
 
 class HomeSignalJustMadeProfitShimmer extends StatefulWidget {

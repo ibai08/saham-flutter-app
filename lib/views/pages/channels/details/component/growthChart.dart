@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:saham_01_app/constants/app_colors.dart';
-import 'package:saham_01_app/controller/growthChartController.dart';
-import 'package:saham_01_app/models/entities/ois.dart';
-import 'package:saham_01_app/views/pages/channels/details/charts/growth.dart';
-import 'package:saham_01_app/views/widgets/info.dart';
+import '../../../../../constants/app_colors.dart';
+import '../../../../../controller/growthChartController.dart';
+import '../../../../../models/entities/ois.dart';
+import '../../../../../views/pages/channels/details/charts/growth.dart';
+import '../../../../../views/widgets/info.dart';
 
 const List<Widget> fruits = <Widget>[
   Text(
@@ -37,14 +37,13 @@ class GrowthChartComponentWidget extends StatelessWidget {
   final List<ChannelSummaryGrowth>? data;
   final Function? onLoading;
 
-  GrowthChartComponentWidget({Key? key, this.data, this.onLoading}) : super(key: key);
+  GrowthChartComponentWidget({Key? key, this.data, this.onLoading})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     final controller = Get.put(GrowthChartController());
-    Widget growthChartWidget = const SizedBox(
-      height: 0
-    );
+    Widget growthChartWidget = const SizedBox(height: 0);
 
     controller.setChannelGrowth(data!);
 
@@ -55,7 +54,8 @@ class GrowthChartComponentWidget extends StatelessWidget {
         return Container(
           padding: const EdgeInsets.symmetric(vertical: 25),
           child: const Center(
-            child: Text("Tunggu ya..!!", style:  TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
+            child: Text("Tunggu ya..!!",
+                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
           ),
         );
       }
@@ -63,7 +63,10 @@ class GrowthChartComponentWidget extends StatelessWidget {
       if (controller.hasError == true) {
         return ListView(
           children: <Widget>[
-            Info(onTap: onLoading, image: const SizedBox(),)
+            Info(
+              onTap: onLoading,
+              image: const SizedBox(),
+            )
           ],
         );
       }
@@ -78,13 +81,11 @@ class GrowthChartComponentWidget extends StatelessWidget {
               RichText(
                 textAlign: TextAlign.center,
                 text: TextSpan(
-                  text: "Growth Channels",
-                  style: TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.bold,
-                    color: AppColors.black
-                  )
-                ),
+                    text: "Growth Channels",
+                    style: TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold,
+                        color: AppColors.black)),
               ),
               const SizedBox(
                 height: 20,
@@ -111,8 +112,7 @@ class GrowthChartComponentWidget extends StatelessWidget {
               Container(
                 width: double.infinity,
                 padding: const EdgeInsets.only(
-                  bottom: 25, left: 35, right: 35, top: 15
-                ),
+                    bottom: 25, left: 35, right: 35, top: 15),
                 height: 300,
                 child: ChartGrowth(lGrowth, controller.timeVal.value),
               ),
@@ -122,9 +122,8 @@ class GrowthChartComponentWidget extends StatelessWidget {
                   borderRadius: BorderRadius.all(Radius.circular(4)),
                 ),
                 child: Padding(
-                  padding: const EdgeInsets.symmetric(
-                    vertical: 4, horizontal: 4
-                  ),
+                  padding:
+                      const EdgeInsets.symmetric(vertical: 4, horizontal: 4),
                   child: ToggleButtons(
                     onPressed: (int index) {
                       controller.updateTimeVal(index);

@@ -1,15 +1,15 @@
 // ignore_for_file: sized_box_for_whitespace, avoid_print
 
 import 'package:flutter/material.dart';
-import 'package:saham_01_app/core/config.dart';
-import 'package:saham_01_app/function/launchUrl.dart';
+import '../../core/config.dart';
+import '../../function/launchUrl.dart';
 
 class SocialMedia extends StatelessWidget {
   const SocialMedia({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) => Container(
-      padding:const EdgeInsets.symmetric(vertical: 5),
+      padding: const EdgeInsets.symmetric(vertical: 5),
       child: Row(
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.center,

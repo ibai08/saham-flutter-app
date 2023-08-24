@@ -37,8 +37,10 @@ class _CustomButtonsState extends State<CustomButton> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const SizedBox(height: 10,),
-        
+        const SizedBox(
+          height: 10,
+        ),
+
         // Button
         SingleChildScrollView(
           scrollDirection: Axis.horizontal,
@@ -77,7 +79,9 @@ class CustomButtons extends StatelessWidget {
   final String activeButton;
   final Function setActiveButton;
 
-  const CustomButtons(this.buttonText, this.activeButton, this.setActiveButton, {Key? key}) : super(key: key);
+  const CustomButtons(this.buttonText, this.activeButton, this.setActiveButton,
+      {Key? key})
+      : super(key: key);
 
   bool get isActive => buttonText == activeButton;
 
@@ -90,10 +94,11 @@ class CustomButtons extends StatelessWidget {
       child: Container(
         padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
         decoration: BoxDecoration(
-          color: isActive ? const Color.fromRGBO(53, 6, 153, 1.0) : null,
-          borderRadius: BorderRadius.circular(8),
-          border: isActive ? Border.all(color: const Color.fromRGBO(53, 6, 153, 1.0)) : null
-        ),
+            color: isActive ? const Color.fromRGBO(53, 6, 153, 1.0) : null,
+            borderRadius: BorderRadius.circular(8),
+            border: isActive
+                ? Border.all(color: const Color.fromRGBO(53, 6, 153, 1.0))
+                : null),
         child: Text(
           buttonText,
           style: TextStyle(

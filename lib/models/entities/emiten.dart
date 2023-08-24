@@ -5,7 +5,12 @@ class MostActiveData {
   String? rank;
   String? percentage;
 
-  MostActiveData({this.imageText, this.name, this.companyName, this.rank, this.percentage});
+  MostActiveData(
+      {this.imageText,
+      this.name,
+      this.companyName,
+      this.rank,
+      this.percentage});
 
   MostActiveData.fromJson(Map<String, dynamic> json) {
     imageText = json['imageText'];
@@ -22,7 +27,7 @@ class MostActiveData {
     data['companyName'] = companyName;
     data['rank'] = rank;
     data['percentage'] = percentage;
-    return data; 
+    return data;
   }
 }
 
@@ -33,7 +38,12 @@ class TopGamerData {
   String? rank;
   String? percentage;
 
-  TopGamerData({this.imageText, this.name, this.companyName, this.rank, this.percentage});
+  TopGamerData(
+      {this.imageText,
+      this.name,
+      this.companyName,
+      this.rank,
+      this.percentage});
 
   TopGamerData.fromJson(Map<String, dynamic> json) {
     imageText = json['imageText'];
@@ -50,7 +60,7 @@ class TopGamerData {
     data['companyName'] = companyName;
     data['rank'] = rank;
     data['percentage'] = percentage;
-    return data; 
+    return data;
   }
 }
 
@@ -61,7 +71,12 @@ class TopLoserData {
   String? rank;
   String? percentage;
 
-  TopLoserData({this.imageText, this.name, this.companyName, this.rank, this.percentage});
+  TopLoserData(
+      {this.imageText,
+      this.name,
+      this.companyName,
+      this.rank,
+      this.percentage});
 
   TopLoserData.fromJson(Map<String, dynamic> json) {
     imageText = json['imageText'];
@@ -78,7 +93,7 @@ class TopLoserData {
     data['companyName'] = companyName;
     data['rank'] = rank;
     data['percentage'] = percentage;
-    return data; 
+    return data;
   }
 }
 
@@ -89,7 +104,12 @@ class TopVolumeData {
   String? rank;
   String? percentage;
 
-  TopVolumeData({this.imageText, this.name, this.companyName, this.rank, this.percentage});
+  TopVolumeData(
+      {this.imageText,
+      this.name,
+      this.companyName,
+      this.rank,
+      this.percentage});
 
   TopVolumeData.fromJson(Map<String, dynamic> json) {
     imageText = json['imageText'];
@@ -106,7 +126,7 @@ class TopVolumeData {
     data['companyName'] = companyName;
     data['rank'] = rank;
     data['percentage'] = percentage;
-    return data; 
+    return data;
   }
 }
 
@@ -117,7 +137,12 @@ class EmitenData {
   String? rank;
   String? percentage;
 
-  EmitenData({this.imageText, this.name, this.companyName, this.rank, this.percentage});
+  EmitenData(
+      {this.imageText,
+      this.name,
+      this.companyName,
+      this.rank,
+      this.percentage});
 
   EmitenData.fromJson(Map<String, dynamic> json) {
     imageText = json['imageText'];
@@ -134,6 +159,6 @@ class EmitenData {
     data['companyName'] = companyName;
     data['rank'] = rank;
     data['percentage'] = percentage;
-    return data; 
+    return data;
   }
 }

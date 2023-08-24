@@ -2,17 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image/image.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
-import 'package:saham_01_app/core/analytics.dart';
-import 'package:saham_01_app/models/channel.dart';
-import 'package:saham_01_app/models/entities/ois.dart';
-import 'package:saham_01_app/models/ois.dart';
-import 'package:saham_01_app/models/signal.dart';
-import 'package:saham_01_app/views/widgets/SignalThumb.dart';
-import 'package:saham_01_app/views/widgets/channelThumb.dart';
+import '../../core/analytics.dart';
+import '../../models/channel.dart';
+import '../../models/entities/ois.dart';
+import '../../models/ois.dart';
+import '../../models/signal.dart';
+import '../../views/widgets/SignalThumb.dart';
+import '../../views/widgets/channelThumb.dart';
 
 class SearchChannelsPopController extends GetxController {
   final RxString searchText = RxString('');
-  final RxList<String> searchList = RxList<String>([]); 
+  final RxList<String> searchList = RxList<String>([]);
 
   String getText = "";
   late Map findText;
@@ -39,7 +39,8 @@ class SearchChannelsPopController extends GetxController {
   }
 }
 
-class SearchChannelsTabController extends GetxController with GetSingleTickerProviderStateMixin {
+class SearchChannelsTabController extends GetxController
+    with GetSingleTickerProviderStateMixin {
   late TabController tabController;
   late ScrollController scrollController;
 
@@ -58,9 +59,11 @@ class SearchChannelsTabController extends GetxController with GetSingleTickerPro
 }
 
 class SearchChannelsResultController extends GetxController {
-  final RefreshController refreshController = RefreshController(initialRefresh: false);
+  final RefreshController refreshController =
+      RefreshController(initialRefresh: false);
 
-  late final RxList<ChannelCardSlim> channelSearchResult = RxList<ChannelCardSlim>();
+  late final RxList<ChannelCardSlim> channelSearchResult =
+      RxList<ChannelCardSlim>();
 
   var findTxt = ''.obs;
 
@@ -105,7 +108,8 @@ class SearchChannelsResultController extends GetxController {
       var result = await getMedal();
       level.value = result;
       int offset = listChannel.length;
-      List<ChannelCardSlim> getNewListChannel = await ChannelModel.instance.searchChannel(findtext: findTxt.value, offset: offset, sort: sort);
+      List<ChannelCardSlim> getNewListChannel = await ChannelModel.instance
+          .searchChannel(findtext: findTxt.value, offset: offset, sort: sort);
       print("textvalue: ${findTxt.value}");
       print("Search channelss: ${getNewListChannel[0].name}");
       firebaseAnalytics.logViewSearchResults(searchTerm: findTxt.value);
@@ -134,7 +138,8 @@ class SearchChannelsResultController extends GetxController {
 }
 
 class SearchSignalResultController extends GetxController {
-  final RefreshController refreshController = RefreshController(initialRefresh: false);
+  final RefreshController refreshController =
+      RefreshController(initialRefresh: false);
 
   final RxList<SignalCardSlim>? signalSearchResult = RxList<SignalCardSlim>();
 
@@ -177,7 +182,8 @@ class SearchSignalResultController extends GetxController {
       level.value = result;
       await Future.delayed(Duration(seconds: 1));
       int offset = listSignal.length;
-      List<SignalCardSlim> getNewListSignal = await SignalModel.instance.searchSignal(findTxt.value, offset);
+      List<SignalCardSlim> getNewListSignal =
+          await SignalModel.instance.searchSignal(findTxt.value, offset);
       if (getNewListSignal.isNotEmpty) {
         listSignal.addAll(getNewListSignal);
         signalSearchResult?.addAll(listSignal);

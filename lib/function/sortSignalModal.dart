@@ -2,11 +2,11 @@
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:saham_01_app/config/signal_filter.dart';
-import 'package:saham_01_app/constants/channel_sort.dart';
-import 'package:saham_01_app/views/widgets/btnBlock.dart';
-import 'package:saham_01_app/views/widgets/btnShort.dart';
-import 'package:saham_01_app/views/widgets/btnSortNew.dart';
+import '../../config/signal_filter.dart';
+import '../../constants/channel_sort.dart';
+import '../../views/widgets/btnBlock.dart';
+import '../../views/widgets/btnShort.dart';
+import '../../views/widgets/btnSortNew.dart';
 
 class SortSignalController extends GetxController {
   var sort = 0.obs;
@@ -47,7 +47,8 @@ Future<dynamic> showSortSignalModal(BuildContext context, int initialSort) {
                             },
                             text: e.value['title'],
                             isActive: sortController.sort.value == e.key ||
-                                (e.key == 0 && sortController.sort.value == null),
+                                (e.key == 0 &&
+                                    sortController.sort.value == null),
                           ))
                       .toList(),
                 ),
@@ -88,7 +89,8 @@ class SortFilterWidget extends StatelessWidget {
   final int? activeSortIndex;
   final Function(int)? onSortChanged;
 
-  const SortFilterWidget({Key? key, 
+  const SortFilterWidget({
+    Key? key,
     @required this.activeSortIndex,
     @required this.onSortChanged,
   }) : super(key: key);

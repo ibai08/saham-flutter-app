@@ -3,21 +3,18 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
-import 'package:saham_01_app/constants/app_colors.dart';
-import 'package:saham_01_app/controller/appStatesController.dart';
-import 'package:saham_01_app/core/getStorage.dart';
+import '../../constants/app_colors.dart';
+import '../../controller/appStatesController.dart';
+import '../../core/getStorage.dart';
 // import 'package:tradersfamily_app/appbar/navmain.dart';
-import 'package:saham_01_app/views/pages/market/widget/index_saham.dart';
+import '../../views/pages/market/widget/index_saham.dart';
 // import 'package:tradersfamily_app/pages/market/widget/slider.dart';
-import 'package:saham_01_app/views/pages/market/widget/grid_sektor_saham.dart';
-import 'package:saham_01_app/views/pages/market/widget/stock_info.dart';
-import 'package:saham_01_app/views/pages/market/widget/top_container.dart';
-import 'package:saham_01_app/views/pages/market/widget/emiten_slider.dart' as EmitenSlider;
-
-
+import '../../views/pages/market/widget/grid_sektor_saham.dart';
+import '../../views/pages/market/widget/stock_info.dart';
+import '../../views/pages/market/widget/top_container.dart';
+import '../../views/pages/market/widget/emiten_slider.dart' as EmitenSlider;
 
 import '../appbar/navmain.dart';
-
 
 class MarketPage extends StatefulWidget {
   const MarketPage({Key? key}) : super(key: key);
@@ -41,7 +38,8 @@ class _MarketPageState extends State<MarketPage> {
   //   _tabController.dispose();
   //   super.dispose();
   // }
-  SharedBoxHelper? boxs = SharedHelper.instance.getBox(CacheKey.oisSearchHistory);
+  SharedBoxHelper? boxs =
+      SharedHelper.instance.getBox(CacheKey.oisSearchHistory);
   GetStorage store = GetStorage();
   void saya() async {
     print("ini boxs: ${store.read(CacheKey.oisSearchHistory)}");
@@ -50,12 +48,10 @@ class _MarketPageState extends State<MarketPage> {
   @override
   void initState() {
     saya();
-  }     
+  }
 
-  
   @override
   Widget build(BuildContext context) {
-    
     return Scaffold(
       backgroundColor: AppColors.light,
       appBar: NavMain(
@@ -77,7 +73,7 @@ class _MarketPageState extends State<MarketPage> {
             margin: const EdgeInsets.symmetric(vertical: 6.0, horizontal: 16.0),
             child: Column(
               children: [
-                 StockInfoRow(
+                StockInfoRow(
                   title1: 'Open',
                   value1: '6,704.23',
                   title2: 'Lot',
@@ -99,7 +95,11 @@ class _MarketPageState extends State<MarketPage> {
                         children: const [
                           Text(
                             'Emiten Berdasarkan Kategori',
-                            style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600, height: 1.8, fontFamily: 'Manrope'),
+                            style: TextStyle(
+                                fontSize: 16,
+                                fontWeight: FontWeight.w600,
+                                height: 1.8,
+                                fontFamily: 'Manrope'),
                           ),
                         ],
                       ),
@@ -127,7 +127,7 @@ class _MarketPageState extends State<MarketPage> {
                             'Lihat Semua',
                             style: TextStyle(
                               fontSize: 12.0,
-                              fontFamily: 'Manrope',          
+                              fontFamily: 'Manrope',
                             ),
                           ),
                           const SizedBox(width: 3.5),
@@ -149,10 +149,9 @@ class _MarketPageState extends State<MarketPage> {
                         child: Text(
                           'Index Saham',
                           style: TextStyle(
-                            fontSize: 16,
-                            fontWeight: FontWeight.w600,
-                            fontFamily: 'Manrope'
-                          ),
+                              fontSize: 16,
+                              fontWeight: FontWeight.w600,
+                              fontFamily: 'Manrope'),
                         ),
                       ),
                       const SizedBox(width: 10),
@@ -164,7 +163,7 @@ class _MarketPageState extends State<MarketPage> {
                             'Lihat Semua',
                             style: TextStyle(
                               fontSize: 12.0,
-                              fontFamily: 'Manrope',      
+                              fontFamily: 'Manrope',
                             ),
                           ),
                           const SizedBox(width: 3.5),
@@ -182,7 +181,7 @@ class _MarketPageState extends State<MarketPage> {
                   child: Column(
                     children: [
                       const Align(
-                      alignment: AlignmentDirectional.centerStart,
+                        alignment: AlignmentDirectional.centerStart,
                         child: Text(
                           'Sektor Saham',
                           style: TextStyle(
@@ -200,13 +199,16 @@ class _MarketPageState extends State<MarketPage> {
                         shrinkWrap: true,
                         physics: const NeverScrollableScrollPhysics(),
                         children: const [
-                          GridSektor('Bahan Baku', 'assets/package.png', '-0.97%'),
+                          GridSektor(
+                              'Bahan Baku', 'assets/package.png', '-0.97%'),
                           GridSektor('Primer', 'assets/coffee.png', '-0.35%'),
                           GridSektor('Non Primer', 'assets/tv.png', '-0.97%'),
                           GridSektor('Energi', 'assets/zap.png', '-1.15%'),
-                          GridSektor('Keuangan', 'assets/dollar-sign.png', '-0.37%'),
+                          GridSektor(
+                              'Keuangan', 'assets/dollar-sign.png', '-0.37%'),
                           GridSektor('Kesehatan', 'assets/heart.png', '-0.39%'),
-                          GridSektor('Industri', 'assets/idustry.png', '-1.25%'),
+                          GridSektor(
+                              'Industri', 'assets/idustry.png', '-1.25%'),
                           GridSektor('Prasarana', 'assets/road.png', '+0.03%'),
                           GridSektor('Properti', 'assets/house.png', '-0.36%'),
                           GridSektor('Teknologi', 'assets/cpu.png', '-0.07%'),
@@ -224,8 +226,3 @@ class _MarketPageState extends State<MarketPage> {
     );
   }
 }
-
-
-
-
-

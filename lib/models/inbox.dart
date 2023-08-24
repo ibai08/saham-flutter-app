@@ -6,19 +6,20 @@ import 'dart:convert';
 import 'package:dio/dio.dart';
 import 'package:get/get.dart' as Get;
 import 'package:get/state_manager.dart';
-import 'package:saham_01_app/controller/appStatesController.dart';
-import 'package:saham_01_app/core/config.dart';
-import 'package:saham_01_app/core/getStorage.dart';
-import 'package:saham_01_app/core/http.dart';
-import 'package:saham_01_app/function/helper.dart';
-import 'package:saham_01_app/models/entities/inbox.dart';
-import 'package:saham_01_app/models/user.dart';
+import '../../controller/appStatesController.dart';
+import '../../core/config.dart';
+import '../../core/getStorage.dart';
+import '../../core/http.dart';
+import '../../function/helper.dart';
+import '../../models/entities/inbox.dart';
+import '../../models/user.dart';
 
 class InboxModel {
   InboxModel._privateConstructor();
   static final InboxModel instance = InboxModel._privateConstructor();
   final RxMap<int, dynamic> _obsBox = RxMap<int, dynamic>();
-  final AppStateController appStateController = Get.Get.put(AppStateController());
+  final AppStateController appStateController =
+      Get.Get.put(AppStateController());
 
   SharedBoxHelper? getBox() {
     return SharedHelper.instance.getBox(BoxName.inbox);
@@ -55,18 +56,22 @@ class InboxModel {
         }
         // update inbox...
         await updateInboxAsync(
-          id: data["msgid"],
-          title: data["title"],
-          description: data["description"],
-          message: data["message"],
-          params: data["params"],
-          baca: data["baca"],
-          created: data["tm_created"]);
+            id: data["msgid"],
+            title: data["title"],
+            description: data["description"],
+            message: data["message"],
+            params: data["params"],
+            baca: data["baca"],
+            created: data["tm_created"]);
       }
     } catch (ex) {}
   }
 
-  Future<void> refreshAllBoxAsync({clearCache = true,animateDelay = true, load = false,InboxType? type}) async {
+  Future<void> refreshAllBoxAsync(
+      {clearCache = true,
+      animateDelay = true,
+      load = false,
+      InboxType? type}) async {
     try {
       SharedBoxHelper? _inboxBox = SharedHelper.instance.getBox(BoxName.inbox);
 
@@ -261,7 +266,7 @@ class InboxModel {
     }
     for (InboxTag tag in tags) {
       await refreshAllBoxNewAsync(
-        clearCache: false, animateDelay: false, type: tag);
+          clearCache: false, animateDelay: false, type: tag);
     }
     await updateInboxCountAsync();
     return true;
@@ -269,15 +274,14 @@ class InboxModel {
 
   Future<bool> setReadAllInboxMessageOnServer() async {
     Map data = await TF2Request.authorizeRequest(
-      url: getHostName() + "/traders/api/v1/my-inbox/read/all/",
-      method: 'POST',
-      postParam: {"baca": 1}
-    );
+        url: getHostName() + "/traders/api/v1/my-inbox/read/all/",
+        method: 'POST',
+        postParam: {"baca": 1});
 
     if (!data.containsKey("error")) {
       _obsBox.forEach((key, value) async {
         await refreshAllBoxNewAsync(
-          clearCache: true, animateDelay: false, type: InboxTag.values[key]);
+            clearCache: true, animateDelay: false, type: InboxTag.values[key]);
       });
       await updateInboxCountAsync();
       return true;
@@ -340,7 +344,11 @@ class InboxModel {
     return 0;
   }
 
-  Future<void> refreshAllBoxNewAsync({clearCache = true, animateDelay = true, load = false, InboxTag? type}) async {
+  Future<void> refreshAllBoxNewAsync(
+      {clearCache = true,
+      animateDelay = true,
+      load = false,
+      InboxTag? type}) async {
     try {
       if (type == null) {
         _obsBox.forEach((key, value) async {
@@ -415,22 +423,24 @@ class InboxModel {
       inbox = await _inboxBox?.getAllMap();
 
       // sort data sebelum ditampilkan
-      Map? sortedData = sortInbox(Map.fromIterable(inbox!.values.where((v) {
-        Map params = jsonDecode(v["params"]);
-        List<InboxTag> tags = [];
+      Map? sortedData = sortInbox(Map.fromIterable(
+          inbox!.values.where((v) {
+            Map params = jsonDecode(v["params"]);
+            List<InboxTag> tags = [];
 
-        if (params.containsKey("tags") && params["tags"] is List) {
-          tags = (params["tags"] as List)
-              .map((tag) => enumFromString(tag, InboxTag.values))
-              .toList();
-        }
+            if (params.containsKey("tags") && params["tags"] is List) {
+              tags = (params["tags"] as List)
+                  .map((tag) => enumFromString(tag, InboxTag.values))
+                  .toList();
+            }
 
-        if (tags.contains(type) || type == null) {
-          return true;
-        } else {
-          return false;
-        }
-      }), key: (v) => v["id"]));
+            if (tags.contains(type) || type == null) {
+              return true;
+            } else {
+              return false;
+            }
+          }),
+          key: (v) => v["id"]));
 
       if (type == null) {
         // masukkan ke streamcontroller
@@ -541,13 +551,15 @@ class InboxModel {
   }
 
   Future<void> updateInboxCountAsync() async {
-    if(UserModel.instance.hasLogin()) {
+    if (UserModel.instance.hasLogin()) {
       Map data = await TF2Request.authorizeRequest(
-        method: 'GET',
-        url: getHostName() + "/traders/api/v2/my-inbox/unread/tag/"
-      );
-      if (!data.containsKey("error") && data.containsKey("message") && data["message"] is Map) {
-        appStateController.setAppState(Operation.setInboxCountTag, InboxCount.fromMap(data["message"]));
+          method: 'GET',
+          url: getHostName() + "/traders/api/v2/my-inbox/unread/tag/");
+      if (!data.containsKey("error") &&
+          data.containsKey("message") &&
+          data["message"] is Map) {
+        appStateController.setAppState(
+            Operation.setInboxCountTag, InboxCount.fromMap(data["message"]));
       }
     } else {
       SharedBoxHelper? box = SharedHelper.instance.getBox(BoxName.inbox);
@@ -559,8 +571,8 @@ class InboxModel {
       var inboxCount = InboxCount.init();
 
       inboxes?.forEach((key, value) {
-        if (inboxRead.containsKey(value["id"].toString()) && inboxRead[value["id"].toString()] == 1) {
-
+        if (inboxRead.containsKey(value["id"].toString()) &&
+            inboxRead[value["id"].toString()] == 1) {
         } else {
           Map params = jsonDecode(value["params"]);
           if (params.containsKey("tag") && params["tags"] is List) {

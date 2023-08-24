@@ -1,4 +1,4 @@
-export 'package:saham_01_app/views/pages/market/widget/slider.dart';
+export '../../../../views/pages/market/widget/slider.dart';
 import 'package:flutter/material.dart';
 
 class IndexSaham extends StatelessWidget {

@@ -50,23 +50,22 @@ class BadgeItem extends StatelessWidget {
               decoration:
                   BoxDecoration(borderRadius: BorderRadius.circular(15)),
               child: TextButton.icon(
-                onPressed: tap,
-                style: TextButton.styleFrom(
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(4.0)),
-                  padding: const EdgeInsets.symmetric(vertical: 20),
-                  backgroundColor: Colors.white,
-                ),
-                icon: Image.asset(
-                  images!,
-                  width: 25,
-                  height: 25,
-                ),
-                label: Text(
-                  title!,
-                  style: const TextStyle(fontSize: 12),
-                )
-              ),
+                  onPressed: tap,
+                  style: TextButton.styleFrom(
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(4.0)),
+                    padding: const EdgeInsets.symmetric(vertical: 20),
+                    backgroundColor: Colors.white,
+                  ),
+                  icon: Image.asset(
+                    images!,
+                    width: 25,
+                    height: 25,
+                  ),
+                  label: Text(
+                    title!,
+                    style: const TextStyle(fontSize: 12),
+                  )),
             ),
           ],
         ),

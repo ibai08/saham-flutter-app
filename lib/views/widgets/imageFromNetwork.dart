@@ -47,15 +47,14 @@ class _ImageFromNetworkState extends State<ImageFromNetwork> {
               return Container(
                 width: widget.width ?? 120,
                 height: widget.width ?? 120,
-                margin: EdgeInsets.only(
-                    top: widget.paddingTop ?? 0),
+                margin: EdgeInsets.only(top: widget.paddingTop ?? 0),
                 decoration: BoxDecoration(
                     shape: BoxShape.circle,
                     color: Colors.white,
                     image: DecorationImage(
-                        image: widget.url == null ? defaultImage as ImageProvider : imageProvider
-                    )
-                ),
+                        image: widget.url == null
+                            ? defaultImage as ImageProvider
+                            : imageProvider)),
               );
             } catch (oops) {
               print(oops);

@@ -5,13 +5,13 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
-import 'package:saham_01_app/controller/appStatesController.dart';
-import 'package:saham_01_app/function/helper.dart';
-import 'package:saham_01_app/function/removeFocus.dart';
-import 'package:saham_01_app/function/showAlert.dart';
-import 'package:saham_01_app/models/user.dart';
-import 'package:saham_01_app/views/widgets/btnBlock.dart';
-import 'package:saham_01_app/views/widgets/dialogLoading.dart';
+import '../../../controller/appStatesController.dart';
+import '../../../function/helper.dart';
+import '../../../function/removeFocus.dart';
+import '../../../function/showAlert.dart';
+import '../../../models/user.dart';
+import '../../../views/widgets/btnBlock.dart';
+import '../../../views/widgets/dialogLoading.dart';
 
 class VerifyEmailController extends GetxController {
   RxInt? time = 0.obs;
@@ -19,8 +19,9 @@ class VerifyEmailController extends GetxController {
 
   final AppStateController appStateController = Get.put(AppStateController());
 
-  final RefreshController refreshController = RefreshController(initialRefresh: false);
-  
+  final RefreshController refreshController =
+      RefreshController(initialRefresh: false);
+
   // void startTimer() {
   //   time.value = 90;
   //   timer = Timer.periodic(const Duration(seconds: 1), (timer) {
@@ -44,15 +45,15 @@ class VerifyEmailController extends GetxController {
     try {
       if (await UserModel.instance.resendVerifyEmailAuthorized()) {
         Navigator.pop(ctx);
-        showAlert(ctx, LoadingState.success,translateFromPattern("RESEND_VERIFY_EMAIL_SUCCESS"));
+        showAlert(ctx, LoadingState.success,
+            translateFromPattern("RESEND_VERIFY_EMAIL_SUCCESS"));
       } else {
         throw Exception("RESEND_VERIFY_EMAIL_FAILED");
       }
       performTime();
     } catch (ex) {
       Navigator.pop(ctx);
-      showAlert(ctx, LoadingState.error,
-          translateFromPattern(ex.toString()));
+      showAlert(ctx, LoadingState.error, translateFromPattern(ex.toString()));
     }
   }
 
@@ -86,7 +87,6 @@ class VerifyEmailController extends GetxController {
 
   @override
   void onInit() {
-    
     performTime();
     Future.delayed(const Duration(seconds: 0)).then((value) async {
       if (appStateController.users.value.verify!) {
@@ -95,19 +95,20 @@ class VerifyEmailController extends GetxController {
       }
 
       if (ModalRoute.of(Get.context!)!.settings.arguments is String) {
-        String? token = ModalRoute.of(Get.context!)?.settings.arguments as String?;
+        String? token =
+            ModalRoute.of(Get.context!)?.settings.arguments as String?;
         DialogLoading dlg = DialogLoading();
         showDialog(
-          context: Get.context!,
-          barrierDismissible: false,
-          builder: (ctx) {
-            return dlg;
-          }
-        );
+            context: Get.context!,
+            barrierDismissible: false,
+            builder: (ctx) {
+              return dlg;
+            });
         try {
           if (await UserModel.instance.verifyEmail(token: token!)) {
             Get.back();
-            showAlert(Get.context!, LoadingState.success, translateFromPattern("VERIFY_EMAIL_SUCCESS"), thens: (x) {
+            showAlert(Get.context!, LoadingState.success,
+                translateFromPattern("VERIFY_EMAIL_SUCCESS"), thens: (x) {
               Get.toNamed("/forms/afterverify");
             });
           } else {
@@ -115,7 +116,8 @@ class VerifyEmailController extends GetxController {
           }
         } catch (ex) {
           Get.back();
-          showAlert(Get.context!, LoadingState.error, translateFromPattern(ex.toString()));
+          showAlert(Get.context!, LoadingState.error,
+              translateFromPattern(ex.toString()));
         }
       }
     });
@@ -131,11 +133,13 @@ class VerifyEmailController extends GetxController {
 class VerifyEmail extends StatelessWidget {
   VerifyEmail({Key? key}) : super(key: key);
 
-  final VerifyEmailController verifyController = Get.put(VerifyEmailController());
+  final VerifyEmailController verifyController =
+      Get.put(VerifyEmailController());
 
   @override
   Widget build(BuildContext context) {
-    return Obx(() {
+    return Obx(
+      () {
         return SmartRefresher(
           enablePullDown: true,
           enablePullUp: false,
@@ -180,7 +184,8 @@ class VerifyEmail extends StatelessWidget {
                             "Kami telah mengirim kode verifikasi ke email Anda di ",
                       ),
                       TextSpan(
-                          text: verifyController.appStateController.users.value.email,
+                          text: verifyController
+                              .appStateController.users.value.email,
                           style: const TextStyle(
                             fontWeight: FontWeight.w600,
                           )),
@@ -209,17 +214,18 @@ class VerifyEmail extends StatelessWidget {
                   if (verifyController.time?.value == null) {
                     return const Center(child: CircularProgressIndicator());
                   }
-                  return verifyController.time!.value <= 0 ? BtnBlock(
-                    onTap: () {
-                      verifyController.peformResend(context);
-                    },
-                  ) : Text(
-                    verifyController._printDuration(Duration(seconds: verifyController.time!.value)),
-                    style: const TextStyle(
-                      fontSize: 21,
-                      fontWeight: FontWeight.w600
-                    ),
-                  );
+                  return verifyController.time!.value <= 0
+                      ? BtnBlock(
+                          onTap: () {
+                            verifyController.peformResend(context);
+                          },
+                        )
+                      : Text(
+                          verifyController._printDuration(
+                              Duration(seconds: verifyController.time!.value)),
+                          style: const TextStyle(
+                              fontSize: 21, fontWeight: FontWeight.w600),
+                        );
                 }),
                 const SizedBox(
                   height: 5,

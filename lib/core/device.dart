@@ -2,7 +2,6 @@ import 'dart:io';
 
 import 'package:device_info/device_info.dart';
 
-
 class DeviceInfo {
   static Future<String> getId() async {
     DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();

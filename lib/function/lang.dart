@@ -19,7 +19,7 @@ const lang = {
       'Anda bisa memiliki hingga [max_channel_count] channel',
   'MINIMUM_CHANNEL_PRICE_IS_[min_channel_price]':
       'Harga minimum channel [min_channel_price]',
-  'SPECIAL_PRICE_MUST_BE_LOWER_THAN_NORMAL_PRICE':
+  'SPECIAL_PRICE_MUSTf_BE_LOWER_THAN_NORMAL_PRICE':
       'Harga khusus harus lebih rendah daripada harga umum',
   'SPECIAL_PRICE_MUST_BE_HIGHER_THAN_LOWER_PERIOD':
       'Harga khusus harus lebih tinggi daripada harga pada periode sebelumnya',

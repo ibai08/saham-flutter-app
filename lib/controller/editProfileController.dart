@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:saham_01_app/controller/appStatesController.dart';
-import 'package:saham_01_app/function/helper.dart';
-import 'package:saham_01_app/function/removeFocus.dart';
-import 'package:saham_01_app/function/showAlert.dart';
-import 'package:saham_01_app/models/entities/user.dart';
-import 'package:saham_01_app/models/user.dart';
-import 'package:saham_01_app/views/widgets/dialogLoading.dart';
+import '../../controller/appStatesController.dart';
+import '../../function/helper.dart';
+import '../../function/removeFocus.dart';
+import '../../function/showAlert.dart';
+import '../../models/entities/user.dart';
+import '../../models/user.dart';
+import '../../views/widgets/dialogLoading.dart';
 
 class EditProfileFormController extends GetxController {
   final usernameCon = TextEditingController();
@@ -40,27 +40,53 @@ class EditProfileFormController extends GetxController {
       }
     });
 
-    usernameCon.text = (appStateController.users.value.username != appStateController.usersEdit.value.username ? appStateController.usersEdit.value.username : appStateController.users.value.username)!;
+    usernameCon.text = (appStateController.users.value.username !=
+            appStateController.usersEdit.value.username
+        ? appStateController.usersEdit.value.username
+        : appStateController.users.value.username)!;
 
-    emailCon.text = (appStateController.users.value.email != appStateController.usersEdit.value.email ? appStateController.usersEdit.value.email : appStateController.users.value.email)!;
+    emailCon.text = (appStateController.users.value.email !=
+            appStateController.usersEdit.value.email
+        ? appStateController.usersEdit.value.email
+        : appStateController.users.value.email)!;
 
-    fullnameCon.text = (appStateController.users.value.fullname != appStateController.usersEdit.value.fullname ? appStateController.usersEdit.value.fullname : appStateController.users.value.fullname)!;
+    fullnameCon.text = (appStateController.users.value.fullname !=
+            appStateController.usersEdit.value.fullname
+        ? appStateController.usersEdit.value.fullname
+        : appStateController.users.value.fullname)!;
 
-    phoneCon.text = (appStateController.users.value.phone != appStateController.usersEdit.value.phone ? appStateController.usersEdit.value.phone : appStateController.users.value.phone)!;
+    phoneCon.text = (appStateController.users.value.phone !=
+            appStateController.usersEdit.value.phone
+        ? appStateController.usersEdit.value.phone
+        : appStateController.users.value.phone)!;
 
-    zipcodeCon.text = (appStateController.users.value.zipcode != appStateController.usersEdit.value.zipcode ? appStateController.usersEdit.value.zipcode : appStateController.users.value.zipcode)!;
+    zipcodeCon.text = (appStateController.users.value.zipcode !=
+            appStateController.usersEdit.value.zipcode
+        ? appStateController.usersEdit.value.zipcode
+        : appStateController.users.value.zipcode)!;
 
-    address1Con.text = (appStateController.users.value.address1 != appStateController.usersEdit.value.address1 ? appStateController.usersEdit.value.address1 : appStateController.users.value.address1)!;
+    address1Con.text = (appStateController.users.value.address1 !=
+            appStateController.usersEdit.value.address1
+        ? appStateController.usersEdit.value.address1
+        : appStateController.users.value.address1)!;
 
-    address2Con.text = (appStateController.users.value.address2 != appStateController.usersEdit.value.address2 ? appStateController.usersEdit.value.address2 : appStateController.users.value.address2)!;
+    address2Con.text = (appStateController.users.value.address2 !=
+            appStateController.usersEdit.value.address2
+        ? appStateController.usersEdit.value.address2
+        : appStateController.users.value.address2)!;
 
-    villageCon.text = (appStateController.users.value.village != appStateController.usersEdit.value.village ? appStateController.usersEdit.value.village : appStateController.users.value.village)!;
+    villageCon.text = (appStateController.users.value.village !=
+            appStateController.usersEdit.value.village
+        ? appStateController.usersEdit.value.village
+        : appStateController.users.value.village)!;
 
     usernameCon.text = usernameCon.text == 'null' ? "" : usernameCon.text;
     address2Con.text = address2Con.text == 'null' ? "" : address2Con.text;
     zipcodeCon.text = zipcodeCon.text == 'null' ? '' : zipcodeCon.text;
 
-    borderUsername = usernameCon.text != "" ? InputBorder.none : const UnderlineInputBorder();
+    borderUsername = usernameCon.text != ""
+        ? InputBorder.none
+        : const UnderlineInputBorder();
     editOnlyUsername = usernameCon.text != "" ? true : false;
     super.onInit();
   }
@@ -69,12 +95,11 @@ class EditProfileFormController extends GetxController {
     removeFocus(Get.context);
     DialogLoading dlg = DialogLoading();
     showDialog(
-      barrierDismissible: false,
-      context: Get.context!,
-      builder: (context) {
-        return dlg;
-      }
-    );
+        barrierDismissible: false,
+        context: Get.context!,
+        builder: (context) {
+          return dlg;
+        });
 
     UserInfo editProf = UserInfo.clone(stt.userEdit);
     editProf.fullname = fullnameCon.text;
@@ -89,25 +114,21 @@ class EditProfileFormController extends GetxController {
       result = await UserModel.instance.editProfile(editProf);
       if (result) {
         Get.back();
-        showAlert(
-          Get.context!,
-          LoadingState.success,
-          "Update profile berhasil",
-          thens: (x) {
-            appStateController.setAppState(Operation.bringToHome, HomeTab.home);
-            Map? arg = Get.arguments;
-            if (arg != null) {
-              if (arg.containsKey("route") && arg.containsKey("arguments")) {
-                appStateController.setAppState(Operation.pushNamed, arg);
-              }
+        showAlert(Get.context!, LoadingState.success, "Update profile berhasil",
+            thens: (x) {
+          appStateController.setAppState(Operation.bringToHome, HomeTab.home);
+          Map? arg = Get.arguments;
+          if (arg != null) {
+            if (arg.containsKey("route") && arg.containsKey("arguments")) {
+              appStateController.setAppState(Operation.pushNamed, arg);
             }
           }
-        );
+        });
       }
     } catch (e) {
       Get.back();
-      showAlert(Get.context!, LoadingState.error, translateFromPattern(e.toString()));
+      showAlert(
+          Get.context!, LoadingState.error, translateFromPattern(e.toString()));
     }
   }
-
 }

@@ -5,18 +5,17 @@ import 'package:get/get.dart' as Get;
 import 'package:http_parser/http_parser.dart';
 import 'package:image/image.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:saham_01_app/controller/appStatesController.dart';
-import 'package:saham_01_app/core/cachefactory.dart';
-import 'package:saham_01_app/core/getStorage.dart';
-import 'package:saham_01_app/core/http.dart';
-import 'package:saham_01_app/models/entities/askap.dart';
-import 'package:saham_01_app/models/user.dart';
+import '../../controller/appStatesController.dart';
+import '../../core/cachefactory.dart';
+import '../../core/getStorage.dart';
+import '../../core/http.dart';
+import '../../models/entities/askap.dart';
+import '../../models/user.dart';
 import 'package:sprintf/sprintf.dart';
 
 class AskapModel {
   static const realAcc = "real";
   static const demoAcc = "demo";
-
 
   static Future<void> fetchUserData({bool clearCache = false}) async {
     try {
@@ -72,7 +71,8 @@ class AskapModel {
         refreshSecond = 0;
       }
       dynamic data = await CacheFactory.getCache(
-          sprintf(CacheKey.userAskapByID, [appStateController?.users.value.id]), () async {
+          sprintf(CacheKey.userAskapByID, [appStateController?.users.value.id]),
+          () async {
         Map fetchData = await TF2Request.authorizeRequest(
             method: "GET", url: getHostName() + "/askap/api/v1/account/check/");
         return fetchData["message"];
@@ -91,10 +91,9 @@ class AskapModel {
   static Future<List> checkSymbolAccount(int account, String symbol) async {
     List listTradeSymbol = [];
     Map fetchData = await TF2Request.authorizeRequest(
-      url: getHostName() + "/askap/api/v1/account/symbol/",
-      method: 'POST',
-      postParam: {"account": account, "symbol": symbol}
-    );
+        url: getHostName() + "/askap/api/v1/account/symbol/",
+        method: 'POST',
+        postParam: {"account": account, "symbol": symbol});
     listTradeSymbol = fetchData["message"];
 
     return listTradeSymbol;
@@ -122,7 +121,9 @@ class AskapModel {
         refreshSecond = 0;
       }
       dynamic data = await CacheFactory.getCache(
-        sprintf(CacheKey.realAccAskapByID, [appStateController?.users.value.id]), () async {
+          sprintf(
+              CacheKey.realAccAskapByID, [appStateController?.users.value.id]),
+          () async {
         Map fetchData = await TF2Request.authorizeRequest(
           url: getHostName() + "/askap/api/v1/account/",
           method: 'GET',
@@ -151,7 +152,9 @@ class AskapModel {
         refreshSecond = 0;
       }
       dynamic data = await CacheFactory.getCache(
-          sprintf(CacheKey.demoAccAskapByID, [appStateController?.users.value.id]), () async {
+          sprintf(
+              CacheKey.demoAccAskapByID, [appStateController?.users.value.id]),
+          () async {
         Map fetchData = await TF2Request.authorizeRequest(
           url: getHostName() + "/askap/api/v1/account/demo/",
           method: 'GET',
@@ -230,8 +233,8 @@ class AskapModel {
         refreshSecond = 0;
       }
       dynamic data = await CacheFactory.getCache(
-          sprintf(CacheKey.transactionAskapByID, [appStateController?.users.value.id]),
-          () async {
+          sprintf(CacheKey.transactionAskapByID,
+              [appStateController?.users.value.id]), () async {
         Map fetchData = await TF2Request.authorizeRequest(
           url: getHostName() + "/askap/api/v1/transaction/latest/",
           method: 'GET',

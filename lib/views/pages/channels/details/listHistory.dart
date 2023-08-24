@@ -3,8 +3,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
-import 'package:saham_01_app/controller/listHistoryController.dart';
-import 'package:saham_01_app/views/widgets/info.dart';
+import '../../../../controller/listHistoryController.dart';
+import '../../../../views/widgets/info.dart';
 
 class ListHistorySignal extends StatelessWidget {
   final int channel;

@@ -1,12 +1,13 @@
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
-import 'package:saham_01_app/models/entities/ois.dart';
-import 'package:saham_01_app/models/signal.dart';
-import 'package:saham_01_app/views/widgets/signalDetail.dart';
+import '../../models/entities/ois.dart';
+import '../../models/signal.dart';
+import '../../views/widgets/signalDetail.dart';
 
 class ListHistoryController extends GetxController {
-  final RefreshController refreshController = RefreshController(initialRefresh: false);
+  final RefreshController refreshController =
+      RefreshController(initialRefresh: false);
   final RxList<SignalInfo>? signalInfo = RxList<SignalInfo>([]);
   List<SignalInfo> listSignal = [];
   RxInt channels = 0.obs;
@@ -24,12 +25,16 @@ class ListHistoryController extends GetxController {
   List<SignalDetailWidget> getSignals(List<SignalInfo> cc) {
     List<SignalDetailWidget> result = [];
     cc.forEach((signal) {
-      DateTime expir = DateTime.parse(signal.openTime!).add(Duration(hours: 7, seconds: signal.expired!));
-      DateTime dtCloseTime = DateTime.parse(signal.closeTime!).add(Duration(hours: 7));
+      DateTime expir = DateTime.parse(signal.openTime!)
+          .add(Duration(hours: 7, seconds: signal.expired!));
+      DateTime dtCloseTime =
+          DateTime.parse(signal.closeTime!).add(Duration(hours: 7));
       String expiredDate = DateFormat('dd MMM yyyy HH:mm').format(expir);
       String closeTimed = DateFormat('dd MMM yyyy HH:mm').format(dtCloseTime);
-      String createdAt = DateFormat('dd MMM yyyy HH:mm').format(DateTime.parse(signal.createdAt!).add(Duration(hours: 7)));
-      String openTimed = DateFormat('dd MMM yyyy HH:mm').format(DateTime.parse(signal.openTime!).add(Duration(hours: 7)));
+      String createdAt = DateFormat('dd MMM yyyy HH:mm')
+          .format(DateTime.parse(signal.createdAt!).add(Duration(hours: 7)));
+      String openTimed = DateFormat('dd MMM yyyy HH:mm')
+          .format(DateTime.parse(signal.openTime!).add(Duration(hours: 7)));
       int status = signal.active!;
       if (signal.expired == 0) {
         expiredDate = "Tidak ada expired";
@@ -52,9 +57,7 @@ class ListHistoryController extends GetxController {
           profit: signal.profit,
           type: getTradeCommandString(signal.op!),
         ));
-      } catch (e) {
-
-      }
+      } catch (e) {}
     });
     return result;
   }
@@ -63,7 +66,8 @@ class ListHistoryController extends GetxController {
     int offset = 0;
     try {
       offset = listSignal.length;
-      List<SignalInfo> activeSignal = await SignalModel.instance.getChannelSignals(channels.value, 1, offset);
+      List<SignalInfo> activeSignal = await SignalModel.instance
+          .getChannelSignals(channels.value, 1, offset);
       if (activeSignal.length > 0) {
         listSignal.addAll(activeSignal);
         signalInfo?.addAll(listSignal);
@@ -83,7 +87,8 @@ class ListHistoryController extends GetxController {
   void onRefresh() async {
     listSignal.clear();
     try {
-      List<SignalInfo> activeSignal = await SignalModel.instance.getChannelSignals(channels.value, 1, 0);
+      List<SignalInfo> activeSignal =
+          await SignalModel.instance.getChannelSignals(channels.value, 1, 0);
       if (activeSignal.length > 0) {
         listSignal.addAll(activeSignal);
         signalInfo?.addAll(listSignal);

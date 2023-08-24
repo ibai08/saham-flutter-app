@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:saham_01_app/controller/homeTabController.dart';
-import 'package:saham_01_app/models/entities/ois.dart';
-import 'package:saham_01_app/views/pages/home.dart';
-import 'package:saham_01_app/views/widgets/homeSignalJustMadeProfitShimmer.dart';
-import 'package:saham_01_app/views/widgets/recentSignalListWidget.dart';
+import '../../controller/homeTabController.dart';
+import '../../models/entities/ois.dart';
+import '../../views/pages/home.dart';
+import '../../views/widgets/homeSignalJustMadeProfitShimmer.dart';
+import '../../views/widgets/recentSignalListWidget.dart';
 
 class RecentProfitSignalWidgetNew extends StatelessWidget {
   final List<SignalInfo>? data;

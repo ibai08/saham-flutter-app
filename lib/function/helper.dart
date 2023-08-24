@@ -23,9 +23,7 @@ String translateFromPattern(String string) {
 
   RegExp exp = RegExp(r"\[(\w+)\]");
   var pattern = lang.keys.firstWhere((test) {
-    return (RegExp(test.replaceAll(exp, "(.*)")))
-        .allMatches(string)
-        .isNotEmpty;
+    return (RegExp(test.replaceAll(exp, "(.*)"))).allMatches(string).isNotEmpty;
   });
 
   if (pattern == null) {
@@ -70,4 +68,3 @@ String translateFromPattern(String string) {
     return template!;
   }
 }
-

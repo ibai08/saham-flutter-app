@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
-import 'package:saham_01_app/models/entities/ois.dart';
-import 'package:saham_01_app/views/widgets/channelThumb.dart';
-import 'package:saham_01_app/views/widgets/signalShimmer.dart';
+import '../../models/entities/ois.dart';
+import '../../views/widgets/channelThumb.dart';
+import '../../views/widgets/signalShimmer.dart';
 
 class ChannelListWidget extends StatelessWidget {
   final List<Future<ChannelCardSlim>>? listChannel;

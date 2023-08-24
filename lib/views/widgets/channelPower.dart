@@ -18,15 +18,18 @@ class ChannelPower extends StatelessWidget {
         subtitle!,
         softWrap: false,
         style: TextStyle(
-            fontSize: 18,
-            color: AppColors.grey,
-            fontWeight: FontWeight.w600),
+            fontSize: 12,
+            color: AppColors.darkGrey2,
+            fontWeight: FontWeight.w300,
+            fontFamily: 'Manrope'),
         textAlign: TextAlign.start,
       ),
       subtitle: Text(title!,
-          style: const TextStyle(
-            fontSize: 16,
-          ),
+          style: TextStyle(
+              fontSize: 20,
+              color: AppColors.black,
+              fontWeight: FontWeight.w600,
+              fontFamily: 'Manrope'),
           textAlign: TextAlign.start),
     );
   }

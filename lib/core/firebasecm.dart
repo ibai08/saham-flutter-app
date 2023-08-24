@@ -4,11 +4,10 @@ import 'dart:io';
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
-import 'package:saham_01_app/core/config.dart';
-import 'package:saham_01_app/core/http.dart';
-import 'package:saham_01_app/core/msgproc.dart';
+import '../../core/config.dart';
+import '../../core/http.dart';
+import '../../core/msgproc.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
-
 
 Future<dynamic> myBackgroundMessageHandler(RemoteMessage message) async {
   print("onBackgroundMessage: $message");
@@ -29,7 +28,7 @@ class FCM {
   }
 
   Future<void> initializeFcmNotification() async {
-    if(init) {
+    if (init) {
       return;
     }
 
@@ -48,22 +47,22 @@ class FCM {
     });
 
     if (Platform.isIOS) {
-      await FirebaseMessaging.instance.setForegroundNotificationPresentationOptions(
-        alert: true,
-        badge: true,
-        sound: true
-      );
+      await FirebaseMessaging.instance
+          .setForegroundNotificationPresentationOptions(
+              alert: true, badge: true, sound: true);
     } else if (Platform.isAndroid) {
       const AndroidNotificationChannel channel = AndroidNotificationChannel(
-        'high_importance_channel',
-        'High Importance Notifications',
-        description: 'This channel is used for important notifications.',
-        importance: Importance.max
-      );
+          'high_importance_channel', 'High Importance Notifications',
+          description: 'This channel is used for important notifications.',
+          importance: Importance.max);
 
-      final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
+      final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
+          FlutterLocalNotificationsPlugin();
 
-      await flutterLocalNotificationsPlugin.resolvePlatformSpecificImplementation<AndroidFlutterLocalNotificationsPlugin>()?.createNotificationChannel(channel);
+      await flutterLocalNotificationsPlugin
+          .resolvePlatformSpecificImplementation<
+              AndroidFlutterLocalNotificationsPlugin>()
+          ?.createNotificationChannel(channel);
 
       FirebaseMessaging.onMessage.listen((RemoteMessage message) async {
         RemoteNotification? notification = message.notification;
@@ -71,26 +70,21 @@ class FCM {
 
         if (notification != null && android != null) {
           flutterLocalNotificationsPlugin.show(
-            notification.hashCode,
-            notification.title,
-            notification.body,
-            NotificationDetails(
-              android: AndroidNotificationDetails(
-                channel.id,
-                channel.name,
-                channelDescription: channel.description,
-                icon: android.smallIcon,
-                playSound: true
-              )
-            )
-          );
+              notification.hashCode,
+              notification.title,
+              notification.body,
+              NotificationDetails(
+                  android: AndroidNotificationDetails(channel.id, channel.name,
+                      channelDescription: channel.description,
+                      icon: android.smallIcon,
+                      playSound: true)));
         }
       }, onError: (error) {
         print("onMessage: $error");
       });
     }
 
-    if(Platform.isIOS) {
+    if (Platform.isIOS) {
       FirebaseMessaging.onBackgroundMessage(myBackgroundMessageHandler);
     }
 
@@ -122,7 +116,7 @@ class FCM {
     init = true;
   }
 
-   _saveDeviceToken() async {
+  _saveDeviceToken() async {
     await _fcm.getToken();
   }
 

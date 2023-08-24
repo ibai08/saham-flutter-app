@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
-import 'package:saham_01_app/controller/appStatesController.dart';
-import 'package:saham_01_app/core/string.dart';
-import 'package:saham_01_app/function/helper.dart';
-import 'package:saham_01_app/models/entities/mrg.dart';
-import 'package:saham_01_app/models/mrg.dart';
-import 'package:saham_01_app/views/widgets/dialogLoading.dart';
+import '../../controller/appStatesController.dart';
+import '../../core/string.dart';
+import '../../function/helper.dart';
+import '../../models/entities/mrg.dart';
+import '../../models/mrg.dart';
+import '../../views/widgets/dialogLoading.dart';
 
 class ListTileAction extends StatelessWidget {
-  ListTileAction({ Key? key, this.data, this.no }) : super(key: key);
+  ListTileAction({Key? key, this.data, this.no}) : super(key: key);
 
   final RealAccMrg? data;
   final int? no;
@@ -18,12 +18,13 @@ class ListTileAction extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var accountType = (appStateController?.userMrg.value.accountTypes)?.singleWhere((type) => type.id == data?.type, orElse: null);
+    var accountType = (appStateController?.userMrg.value.accountTypes)
+        ?.singleWhere((type) => type.id == data?.type, orElse: null);
     return Container(
       padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 15),
       decoration: BoxDecoration(
-        border: Border(bottom: BorderSide(width: 1, color: Colors.grey[300]!))
-      ),
+          border:
+              Border(bottom: BorderSide(width: 1, color: Colors.grey[300]!))),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
@@ -109,12 +110,12 @@ class ListTileAction extends StatelessWidget {
                       }
 
                       Navigator.pop(context);
-                      // showDialog(
-                      //     context: context,
-                      //     builder: (context) {
-                      //       // return DialogMarginInOut(data: margin);
-                      //     });
-                      // break;
+                    // showDialog(
+                    //     context: context,
+                    //     builder: (context) {
+                    //       // return DialogMarginInOut(data: margin);
+                    //     });
+                    // break;
                   }
                 } catch (ex) {
                   print(ex);

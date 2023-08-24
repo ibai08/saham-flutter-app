@@ -1,17 +1,18 @@
 import 'package:dio/dio.dart';
 import 'package:get/get.dart' as Get;
 import 'package:get_storage/get_storage.dart';
-import 'package:saham_01_app/controller/appStatesController.dart';
-import 'package:saham_01_app/core/cachefactory.dart';
-import 'package:saham_01_app/core/getStorage.dart';
-import 'package:saham_01_app/core/http.dart';
-import 'package:saham_01_app/models/channel.dart';
-import 'package:saham_01_app/models/entities/ois.dart';
-import 'package:saham_01_app/models/user.dart';
+import '../../controller/appStatesController.dart';
+import '../../core/cachefactory.dart';
+import '../../core/getStorage.dart';
+import '../../core/http.dart';
+import '../../models/channel.dart';
+import '../../models/entities/ois.dart';
+import '../../models/user.dart';
 
 class OisModel {
   OisModel._privateConstructor();
-  final AppStateController appStateController = Get.Get.put(AppStateController());
+  final AppStateController appStateController =
+      Get.Get.put(AppStateController());
   static final OisModel instance = OisModel._privateConstructor();
 
   Future<OisDashboardPageData> synchronizeDashboard(
@@ -411,51 +412,53 @@ class OisModel {
   }
 
   Future<List<String>> getSearchHistory() async {
-  try {
-    if (!UserModel.instance.hasLogin()) {
-      throw Exception("PLEASE_LOGIN_FIRST");
-    }
-
-    GetStorage sp = GetStorage();
-    if (!sp.hasData(CacheKey.oisSearchHistory)) {
-      Map fetchData = await TF2Request.authorizeRequest(
-          method: "GET", url: getHostName() + "/ois/api/v1/my/search/history/");
-      if (!fetchData.containsKey("error") &&
-          fetchData.containsKey("message") &&
-          fetchData["message"] is List) {
-        sp.write(
-            CacheKey.oisSearchHistory,
-            fetchData["message"]
-                .map<String>((map) => map["term"].toString())
-                .toList());
+    try {
+      if (!UserModel.instance.hasLogin()) {
+        throw Exception("PLEASE_LOGIN_FIRST");
       }
-    }
 
-    return Future.value(List<String>.from(sp.read(CacheKey.oisSearchHistory)));
-  } catch (error) {
-    print("Error while fetching search history: $error");
-    return []; // Return an empty list or handle the error accordingly.
+      GetStorage sp = GetStorage();
+      if (!sp.hasData(CacheKey.oisSearchHistory)) {
+        Map fetchData = await TF2Request.authorizeRequest(
+            method: "GET",
+            url: getHostName() + "/ois/api/v1/my/search/history/");
+        if (!fetchData.containsKey("error") &&
+            fetchData.containsKey("message") &&
+            fetchData["message"] is List) {
+          sp.write(
+              CacheKey.oisSearchHistory,
+              fetchData["message"]
+                  .map<String>((map) => map["term"].toString())
+                  .toList());
+        }
+      }
+
+      return Future.value(
+          List<String>.from(sp.read(CacheKey.oisSearchHistory)));
+    } catch (error) {
+      print("Error while fetching search history: $error");
+      return []; // Return an empty list or handle the error accordingly.
+    }
   }
-}
 
   Future<void> updateLocalSearchHistory(String term) async {
-  try {
-    GetStorage sp = GetStorage();
-    if (sp.hasData(CacheKey.oisSearchHistory)) {
-      List<dynamic> cacheHistory = sp.read(CacheKey.oisSearchHistory);
-      List<String> historyList = cacheHistory.cast<String>();
+    try {
+      GetStorage sp = GetStorage();
+      if (sp.hasData(CacheKey.oisSearchHistory)) {
+        List<dynamic> cacheHistory = sp.read(CacheKey.oisSearchHistory);
+        List<String> historyList = cacheHistory.cast<String>();
 
-      List<String> temp = [term];
-      temp.addAll(historyList);
-      sp.write(CacheKey.oisSearchHistory, temp.toSet().toList());
-    } else {
-      sp.write(CacheKey.oisSearchHistory, [term]);
+        List<String> temp = [term];
+        temp.addAll(historyList);
+        sp.write(CacheKey.oisSearchHistory, temp.toSet().toList());
+      } else {
+        sp.write(CacheKey.oisSearchHistory, [term]);
+      }
+    } catch (error) {
+      print("Error updating local search history: $error");
+      // Handle the error here as needed
     }
-  } catch (error) {
-    print("Error updating local search history: $error");
-    // Handle the error here as needed
   }
-}
 
   Future<List<dynamic>> getBanks() async {
     dynamic v = await CacheFactory.getCache(CacheKey.oisBanks, () async {

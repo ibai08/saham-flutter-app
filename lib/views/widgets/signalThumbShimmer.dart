@@ -22,10 +22,7 @@ class _SignalThumbShimmerState extends State<SignalThumbShimmer> {
           width: widget.width ?? double.infinity,
           height: 150.0,
           margin: EdgeInsets.only(
-              top: 0,
-              bottom: widget.marginBottom ?? 15,
-              left: 10,
-              right: 10),
+              top: 0, bottom: widget.marginBottom ?? 15, left: 10, right: 10),
           decoration: BoxDecoration(
             boxShadow: [BoxShadow(color: Colors.grey[300]!, blurRadius: 4)],
             color: Colors.white,

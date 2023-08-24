@@ -2,7 +2,7 @@ import 'dart:convert';
 
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
-import 'package:saham_01_app/core/http.dart';
+import '../../core/http.dart';
 
 fetchData(contex, url) async {
   List list;
@@ -20,6 +20,6 @@ fetchDataDio(context, url) async {
   dio.options.connectTimeout = const Duration(milliseconds: 10000); //5s
   dio.options.receiveTimeout = const Duration(milliseconds: 30000);
   res = await dio.get(getMainSite() + url);
-  list = res.data as List;  
+  list = res.data as List;
   return list;
 }

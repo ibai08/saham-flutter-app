@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:saham_01_app/models/entities/ois.dart';
-import 'package:saham_01_app/views/widgets/signalThumbNew.dart';
+import '../../models/entities/ois.dart';
+import '../../views/widgets/signalThumbNew.dart';
 
 // class SignalListWidgetController extends GetxController {
 //   final RxList<SignalCardSlim> listSignal = RxList<SignalCardSlim>();
@@ -27,23 +27,23 @@ class SignalListWidget extends StatelessWidget {
         itemCount: signal.length,
         itemBuilder: (context, i) {
           return SignalThumbNew(
-              level: medal,
-              medals: signal[i].medals,
-              subscriber: signal[i].subs,
-              title: signal[i].channelName,
-              expired: signal[i].expired,
-              channelId: signal[i].channelId,
-              id: signal[i].signalid,
-              createdAt: signal[i].createdAt,
-              symbol: signal[i].symbol,
-              avatar: signal[i].channelAvatar,
-              op: signal[i].op,);
+            level: medal,
+            medals: signal[i].medals,
+            subscriber: signal[i].subs,
+            title: signal[i].channelName,
+            expired: signal[i].expired,
+            channelId: signal[i].channelId,
+            id: signal[i].signalid,
+            createdAt: signal[i].createdAt,
+            symbol: signal[i].symbol,
+            avatar: signal[i].channelAvatar,
+            op: signal[i].op,
+          );
         },
       ),
     );
   }
 
   @override
-  Widget build(BuildContext context) =>
-      listSignalView(listSignal!, medal!);
+  Widget build(BuildContext context) => listSignalView(listSignal!, medal!);
 }

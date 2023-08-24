@@ -19,49 +19,53 @@ class LabelCharts extends StatelessWidget {
         children: <Widget>[
           Row(
             children: <Widget>[
-              const Expanded(child: SizedBox(),),
-              Expanded(
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  mainAxisSize: MainAxisSize.min,
-                  children: <Widget>[
-                    Expanded(
-                      child: Column(
-                        mainAxisSize: MainAxisSize.min,
-                        children: <Widget>[
-                          Container(
-                            color: Colors.blue[600],
-                            width: 10,
-                            height: 10,
-                          ),
-                        ],
-                      ),
-                    ),
-                    Expanded(child: Text(text1!),),
-                  ],
-                )
+              const Expanded(
+                child: SizedBox(),
               ),
               Expanded(
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  mainAxisSize: MainAxisSize.min,
-                  children: <Widget>[
-                    Expanded(
-                      child: Column(
-                        mainAxisSize: MainAxisSize.min,
-                        children: <Widget>[
-                          Container(
-                            color: Colors.red[500],
-                            width: 10,
-                            height: 10,
-                          ),
-                        ],
-                      ),
+                  child: Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisSize: MainAxisSize.min,
+                children: <Widget>[
+                  Expanded(
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: <Widget>[
+                        Container(
+                          color: Colors.blue[600],
+                          width: 10,
+                          height: 10,
+                        ),
+                      ],
                     ),
-                    Expanded(child: Text(text2!),),
-                  ],
-                )
-              ),
+                  ),
+                  Expanded(
+                    child: Text(text1!),
+                  ),
+                ],
+              )),
+              Expanded(
+                  child: Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisSize: MainAxisSize.min,
+                children: <Widget>[
+                  Expanded(
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: <Widget>[
+                        Container(
+                          color: Colors.red[500],
+                          width: 10,
+                          height: 10,
+                        ),
+                      ],
+                    ),
+                  ),
+                  Expanded(
+                    child: Text(text2!),
+                  ),
+                ],
+              )),
             ],
           ),
         ],

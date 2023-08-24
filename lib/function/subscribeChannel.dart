@@ -2,14 +2,14 @@
 
 import 'package:flutter/material.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
-import 'package:saham_01_app/function/helper.dart';
-import 'package:saham_01_app/function/showAlert.dart';
-import 'package:saham_01_app/models/channel.dart';
-import 'package:saham_01_app/models/entities/ois.dart';
-import 'package:saham_01_app/models/ois.dart';
-import 'package:saham_01_app/views/widgets/dialogConfirmation.dart';
-import 'package:saham_01_app/views/widgets/dialogLoading.dart';
-import 'package:saham_01_app/views/widgets/dialogTokenSubscription.dart';
+import '../../function/helper.dart';
+import '../../function/showAlert.dart';
+import '../../models/channel.dart';
+import '../../models/entities/ois.dart';
+import '../../models/ois.dart';
+import '../../views/widgets/dialogConfirmation.dart';
+import '../../views/widgets/dialogLoading.dart';
+import '../../views/widgets/dialogTokenSubscription.dart';
 import 'package:get/get.dart' as Get;
 
 Future<void> subscribe(ChannelCardSlim channel, BuildContext context,
@@ -55,8 +55,8 @@ Future<void> confirmPayment(ChannelCardSlim channel, BuildContext context,
     confirmPay = await showDialog(
         context: context,
         barrierDismissible: true,
-        builder: (context) =>
-            const DialogConfirmation(desc: "Yakin ingin mensubscribe channel ini?"));
+        builder: (context) => const DialogConfirmation(
+            desc: "Yakin ingin mensubscribe channel ini?"));
   } else {
     confirmPay = true;
   }
@@ -81,8 +81,7 @@ Future<void> confirmPayment(ChannelCardSlim channel, BuildContext context,
         });
         channel =
             await ChannelModel.instance.getDetail(channel.id, clearCache: true);
-         await Navigator.pushNamed(context, "/dsc/payment",
-            arguments: channel);
+        await Navigator.pushNamed(context, "/dsc/payment", arguments: channel);
         Navigator.pop(context);
       } catch (ex) {
         Navigator.pop(context);
@@ -112,8 +111,10 @@ subcribeChannel(ChannelCardSlim channels, BuildContext context,
               },
             );
           });
+      print("Sukses unsubscribe");
     } catch (e) {
       print(e);
+      print("gagal unsub");
       Navigator.pop(context);
     }
 

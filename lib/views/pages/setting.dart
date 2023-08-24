@@ -2,13 +2,13 @@
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:saham_01_app/controller/appStatesController.dart';
-import 'package:saham_01_app/function/showAlert.dart';
-import 'package:saham_01_app/models/entities/user.dart';
-import 'package:saham_01_app/models/user.dart';
-import 'package:saham_01_app/views/appbar/navmain.dart';
-import 'package:saham_01_app/views/widgets/dialogLoading.dart';
-import 'package:saham_01_app/views/widgets/listItemProfile.dart';
+import '../../controller/appStatesController.dart';
+import '../../function/showAlert.dart';
+import '../../models/entities/user.dart';
+import '../../models/user.dart';
+import '../../views/appbar/navmain.dart';
+import '../../views/widgets/dialogLoading.dart';
+import '../../views/widgets/listItemProfile.dart';
 
 // class Setting extends StatefulWidget {
 //   @override

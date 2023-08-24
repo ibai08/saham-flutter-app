@@ -7,7 +7,12 @@ class EmitenModels {
   List<TopVolumeData>? topVolumeData;
   List<EmitenData>? emitenData;
 
-  EmitenModels({this.mostActiveData, this.topGamerData, this.topLoserData, this.topVolumeData, this.emitenData});
+  EmitenModels(
+      {this.mostActiveData,
+      this.topGamerData,
+      this.topLoserData,
+      this.topVolumeData,
+      this.emitenData});
 
   EmitenModels.fromJson(Map<String, dynamic> json) {
     if (json['mostActiveData'] != null) {

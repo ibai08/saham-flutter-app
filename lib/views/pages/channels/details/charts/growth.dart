@@ -1,9 +1,9 @@
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:saham_01_app/constants/app_colors.dart';
-import 'package:saham_01_app/core/config.dart';
-import 'package:saham_01_app/models/entities/ois.dart';
+import '../../../../../constants/app_colors.dart';
+import '../../../../../core/config.dart';
+import '../../../../../models/entities/ois.dart';
 
 class ChartGrowth extends StatelessWidget {
   final List<ChannelSummaryGrowth> listGrowth;

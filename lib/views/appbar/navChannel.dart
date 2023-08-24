@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:saham_01_app/constants/app_colors.dart';
-import 'package:saham_01_app/core/config.dart';
-import 'package:saham_01_app/function/showAlert.dart';
-import 'package:saham_01_app/models/ois.dart';
-import 'package:saham_01_app/views/widgets/dialogLoading.dart';
+import '../../constants/app_colors.dart';
+import '../../core/config.dart';
+import '../../function/showAlert.dart';
+import '../../models/ois.dart';
+import '../../views/widgets/dialogLoading.dart';
 
 enum NavChannelState {
   basic,
@@ -87,11 +87,11 @@ class SearchForm extends GetView<SearchFormController> {
               const EdgeInsets.only(top: 10, bottom: 10, left: 15, right: 15),
           focusedBorder: OutlineInputBorder(
             borderSide: BorderSide(color: AppColors.lightGrey),
-            borderRadius: BorderRadius.circular(10),
+            borderRadius: BorderRadius.circular(4),
           ),
           enabledBorder: OutlineInputBorder(
             borderSide: BorderSide(color: AppColors.white),
-            borderRadius: BorderRadius.circular(10),
+            borderRadius: BorderRadius.circular(4),
           ),
         ),
         readOnly: controller.readyonly,

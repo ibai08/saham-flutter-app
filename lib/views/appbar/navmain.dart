@@ -3,9 +3,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
-import 'package:saham_01_app/constants/app_colors.dart';
-import 'package:saham_01_app/controller/appStatesController.dart';
-import 'package:saham_01_app/views/widgets/imageFromNetwork.dart';
+import '../../constants/app_colors.dart';
+import '../../controller/appStatesController.dart';
+import '../../views/widgets/imageFromNetwork.dart';
 
 // class NavMain extends AppBar {
 //   NavMain({Key? key, Widget? title})
@@ -152,7 +152,7 @@ class NavMain extends AppBar {
                 statusBarColor: AppColors.white,
                 statusBarIconBrightness: Brightness.dark),
             iconTheme: IconThemeData(color: AppColors.black),
-            backgroundColor: AppColors.lightGrey2,
+            backgroundColor: AppColors.light,
             automaticallyImplyLeading: false,
             shadowColor: AppColors.white);
 }

@@ -1,16 +1,14 @@
-
-
 import 'package:flutter/material.dart';
 
 class PullLeftRight extends StatelessWidget {
-  const PullLeftRight({
-    Key? key, 
-    this.title, 
-    this.desc, 
-    this.isBoldTitle, 
-    this.height, 
-    this.bordered
-  }) :super(key: key);
+  const PullLeftRight(
+      {Key? key,
+      this.title,
+      this.desc,
+      this.isBoldTitle,
+      this.height,
+      this.bordered})
+      : super(key: key);
 
   final String? title;
   final String? desc;
@@ -43,10 +41,10 @@ class PullLeftRight extends StatelessWidget {
                   title!,
                   textAlign: TextAlign.left,
                   style: TextStyle(
-                    fontSize: 14,
-                    height: heightTxt,
-                    fontWeight: boldTitile ? FontWeight.w600 : FontWeight.normal
-                  ),
+                      fontSize: 14,
+                      height: heightTxt,
+                      fontWeight:
+                          boldTitile ? FontWeight.w600 : FontWeight.normal),
                 ),
               ),
               Expanded(
@@ -55,9 +53,7 @@ class PullLeftRight extends StatelessWidget {
                   desc!,
                   textAlign: TextAlign.right,
                   style: const TextStyle(
-                    fontWeight: FontWeight.w600,
-                    fontSize: 14, height: 1.4
-                  ),
+                      fontWeight: FontWeight.w600, fontSize: 14, height: 1.4),
                 ),
               ),
             ],

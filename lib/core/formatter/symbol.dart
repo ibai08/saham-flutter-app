@@ -1,5 +1,5 @@
 import 'package:flutter/services.dart';
-import 'package:saham_01_app/models/entities/symbols.dart';
+import '../../models/entities/symbols.dart';
 
 List<double> extDecimalArray = [
   1.0,
@@ -96,22 +96,20 @@ class SymbolInputFormatter extends TextInputFormatter {
       }
 
       if (lastDecimal.length > digit) {
-        String newText = double.parse(
-                firstDecimal + "." + lastDecimal.substring(0, digit))
-            .toStringAsFixed(digit);
+        String newText =
+            double.parse(firstDecimal + "." + lastDecimal.substring(0, digit))
+                .toStringAsFixed(digit);
         if (newText.length < offset) {
           offset--;
         }
         return newValue.copyWith(
-            text: newText,
-            selection: TextSelection.collapsed(offset: offset));
+            text: newText, selection: TextSelection.collapsed(offset: offset));
       }
     }
     if (newValue.selection.baseOffset == 0) {
       return newValue;
     }
-    if (digit > extDecimalArray.length ||
-        digit > extNumberFormat.length) {
+    if (digit > extDecimalArray.length || digit > extNumberFormat.length) {
       return newValue;
     }
     if (newValue.text.contains(".") && newValue.text.length > 1) {

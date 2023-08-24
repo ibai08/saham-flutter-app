@@ -4,37 +4,38 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:firebase_remote_config/firebase_remote_config.dart';
 import 'package:flutter/services.dart';
-import 'package:saham_01_app/config/tab_list.dart';
-import 'package:saham_01_app/constants/app_colors.dart';
-import 'package:saham_01_app/controller/appStatesController.dart';
-import 'package:saham_01_app/controller/signalTabController.dart';
-import 'package:saham_01_app/core/analytics.dart';
-import 'package:saham_01_app/core/config.dart';
-import 'package:saham_01_app/core/firebasecm.dart';
-import 'package:saham_01_app/core/getStorage.dart';
-// import 'package:saham_01_app/controller/homeTabController.dart';
-import 'package:saham_01_app/firebase_options.dart';
+import '../../config/tab_list.dart';
+import '../../constants/app_colors.dart';
+import '../../controller/appStatesController.dart';
+import '../../controller/growthChartController.dart';
+import '../../controller/signalTabController.dart';
+import '../../core/analytics.dart';
+import '../../core/config.dart';
+import '../../core/firebasecm.dart';
+import '../../core/getStorage.dart';
+// import '../../controller/homeTabController.dart';
+import '../../firebase_options.dart';
 import 'package:flutter/material.dart';
-import 'package:saham_01_app/maintenance.dart';
-import 'package:saham_01_app/models/askap.dart';
-import 'package:saham_01_app/models/mrg.dart';
-import 'package:saham_01_app/models/user.dart';
-import 'package:saham_01_app/splashScreen.dart';
+import '../../maintenance.dart';
+import '../../models/askap.dart';
+import '../../models/mrg.dart';
+import '../../models/user.dart';
+import '../../splashScreen.dart';
 import 'package:get/get.dart';
-import 'package:saham_01_app/views/pages/channels/channelDetail.dart';
-import 'package:saham_01_app/views/pages/channels/searchChannels.dart';
-import 'package:saham_01_app/views/pages/form/editProfile.dart';
-import 'package:saham_01_app/views/pages/form/login.dart';
-import 'package:saham_01_app/views/pages/form/verifyEmail.dart';
-import 'package:saham_01_app/views/pages/market.dart';
-import 'package:saham_01_app/views/pages/search/searchChannelspop.dart';
-import 'package:saham_01_app/views/pages/setting.dart';
-import 'package:saham_01_app/views/pages/signalPage.dart';
-import 'package:saham_01_app/views/widgets/dialogConfirmation.dart';
-import 'package:saham_01_app/views/widgets/dialogLoading.dart';
+import '../../views/pages/channels/channelDetail.dart';
+import '../../views/pages/channels/searchChannels.dart';
+import '../../views/pages/form/editProfile.dart';
+import '../../views/pages/form/login.dart';
+import '../../views/pages/form/verifyEmail.dart';
+import '../../views/pages/market.dart';
+import '../../views/pages/search/searchChannelspop.dart';
+import '../../views/pages/setting.dart';
+import '../../views/pages/signalPage.dart';
+import '../../views/widgets/dialogConfirmation.dart';
+import '../../views/widgets/dialogLoading.dart';
 // import 'package:mixpanel_flutter/mixpanel_flutter.dart';
 // import 'package:redux/redux.dart';
-// import 'package:saham_01_app/updateVersion.dart';
+// import '../../updateVersion.dart';
 import 'controller/checkInternetController.dart';
 import 'controller/homeTabController.dart';
 import 'interface/scrollUpWidget.dart';
@@ -104,6 +105,7 @@ void main() async {
 
   Get.put(CheckInternetController());
   Get.put(DialogLoadingController());
+  Get.put(GrowthChartController());
 
   runApp(const MyApp());
 }
@@ -200,7 +202,6 @@ class _MyHomePageState extends State<MyHomePage>
     // InboxTabListTile(),
     // Setting()
   ];
-  
 
   late TabController _tabController;
   final appStateController = Get.find<AppStateController>();
@@ -209,11 +210,16 @@ class _MyHomePageState extends State<MyHomePage>
     print("onTapItem");
     print(index);
     final appStateController = Get.find<AppStateController>();
+    final listChannelController = Get.find<ListChannelWidgetController>();
     if (appStateController.currentTab == HomeTab.values[index]) {
       Widget temp = _layoutPage[index];
       if (temp is ScrollUpWidget) {
         (temp as ScrollUpWidget).onResetTab();
       }
+    }
+    if (index != 2) {
+      listChannelController.sort.value = 0;
+      listChannelController.initializePageChannelAsync();
     }
     // FirebaseCrashlytics.instance.log("Home Screen: ${HomeTab.values[index]}");
     appStateController.setHomeTab(HomeTab.values[index]);
@@ -318,5 +324,4 @@ class _MyHomePageState extends State<MyHomePage>
           ));
     });
   }
-
 }

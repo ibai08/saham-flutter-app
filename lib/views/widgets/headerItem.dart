@@ -47,12 +47,13 @@ class HeaderItem extends StatelessWidget {
             SizedBox(
               height: sizedSize == 5 && icon != null ? 2 : 6,
             ),
-            icon ?? Image.asset(
-                    images!,
-                    width: 31,
-                    height: 31,
-                    fit: BoxFit.contain,
-                  ),
+            icon ??
+                Image.asset(
+                  images!,
+                  width: 31,
+                  height: 31,
+                  fit: BoxFit.contain,
+                ),
             SizedBox(
               height: icon == null ? 8 : sizedSize,
             ),

@@ -1,4 +1,4 @@
-import 'package:saham_01_app/core/http.dart';
+import '../../core/http.dart';
 
 class ProtraderModel {
   static Future<String> submitRegisProtrader({Map? data}) async {

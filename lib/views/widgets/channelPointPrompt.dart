@@ -2,7 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:saham_01_app/constants/app_colors.dart';
+import '../../constants/app_colors.dart';
 
 class ChannelPointPrompt extends StatelessWidget {
   final String? level;
@@ -69,7 +69,8 @@ class ChannelPointPrompt extends StatelessWidget {
                     ]),
               ),
               Card(
-                margin: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
+                margin:
+                    const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(2),
                 ),
@@ -99,7 +100,9 @@ class ChannelPointPrompt extends StatelessWidget {
                                 textAlign: TextAlign.center,
                               ),
                               Text(
-                                NumberFormat.currency(decimalDigits: 0, symbol: "").format(point?.round()),
+                                NumberFormat.currency(
+                                        decimalDigits: 0, symbol: "")
+                                    .format(point?.round()),
                                 textAlign: TextAlign.center,
                                 style: const TextStyle(
                                     fontWeight: FontWeight.w600,

@@ -2,7 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:saham_01_app/constants/app_colors.dart';
+import '../../constants/app_colors.dart';
 
 enum LoadingState { progress, info, warning, success, error }
 
@@ -304,7 +304,8 @@ class DialogLoading extends StatelessWidget {
 
   DialogLoading({Key? key, this.autoclose}) : super(key: key);
 
-  final DialogLoadingController loadingController = Get.put(DialogLoadingController());
+  final DialogLoadingController loadingController =
+      Get.put(DialogLoadingController());
 
   Widget getDialogWidget(BuildContext context, _LoadingStateData loading) {
     Widget icon = CircularProgressIndicator(
@@ -357,8 +358,6 @@ class DialogLoading extends StatelessWidget {
     );
   }
 
-  
-
   @override
   Widget build(BuildContext context) {
     if (autoclose != null) {
@@ -369,7 +368,8 @@ class DialogLoading extends StatelessWidget {
     return Dialog(
       elevation: 0.0,
       backgroundColor: Colors.transparent,
-      child: Obx(() {
+      child: Obx(
+        () {
           // _LoadingStateData? loading = controller._caption?.value ?? _LoadingStateData(
           //   state: LoadingState.progress,
           //   backgroundColor: Colors.white,
@@ -377,16 +377,18 @@ class DialogLoading extends StatelessWidget {
           //   caption: "Mohon tunggu..."
           // );
           _LoadingStateData? loading = loadingController._caption?.value;
-          loading?.caption != null ? loading : loading = _LoadingStateData(
-            state: LoadingState.progress,
-            backgroundColor: Colors.white,
-            fontColor: Colors.black,
-            caption: "Mohon tunggu..."
-          );
+          loading?.caption != null
+              ? loading
+              : loading = _LoadingStateData(
+                  state: LoadingState.progress,
+                  backgroundColor: Colors.white,
+                  fontColor: Colors.black,
+                  caption: "Mohon tunggu...");
           return Stack(
             children: <Widget>[
               Container(
-                padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 15),
+                padding:
+                    const EdgeInsets.symmetric(vertical: 15, horizontal: 15),
                 margin: const EdgeInsets.only(top: 30),
                 decoration: BoxDecoration(
                   color: loading?.backgroundColor,

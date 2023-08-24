@@ -111,9 +111,9 @@ class _UpdateVersionViewState extends State<UpdateVersionView> {
                       text: "Versi terbaru: ",
                     ),
                     TextSpan(
-                        text:
-                            remoteConfig.getString('force_update_version_string'),
-                        style: const  TextStyle(
+                        text: remoteConfig
+                            .getString('force_update_version_string'),
+                        style: const TextStyle(
                           fontWeight: FontWeight.w600,
                         )),
                   ],

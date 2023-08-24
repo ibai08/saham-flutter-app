@@ -1,4 +1,4 @@
-class OfficeState{
+class OfficeState {
   final String? branch;
   final String? building;
   final String? address;
@@ -14,7 +14,21 @@ class OfficeState{
   final String? openDay;
   final String? openHour;
 
-  OfficeState({this.branch, this.building, this.address, this.city, this.postalCode, this.phoneCode, this.phone, this.sms, this.smsMessage, this.whatsapp, this.whatsappMessage, this.mapLocation, this.openDay, this.openHour});
+  OfficeState(
+      {this.branch,
+      this.building,
+      this.address,
+      this.city,
+      this.postalCode,
+      this.phoneCode,
+      this.phone,
+      this.sms,
+      this.smsMessage,
+      this.whatsapp,
+      this.whatsappMessage,
+      this.mapLocation,
+      this.openDay,
+      this.openHour});
 
   factory OfficeState.fromJson(Map json) {
     return OfficeState(

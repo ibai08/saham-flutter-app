@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
-import 'package:saham_01_app/models/flspots.dart';
+import '../../../../models/flspots.dart';
 import 'dart:convert';
 
 class ChartSaham extends StatefulWidget {

@@ -1,7 +1,7 @@
 import 'dart:convert';
 
-import 'package:saham_01_app/core/config.dart';
-import 'package:saham_01_app/models/entities/symbols.dart';
+import '../../core/config.dart';
+import '../../models/entities/symbols.dart';
 
 class SymbolModel {
   SymbolModel._privateConstructor();

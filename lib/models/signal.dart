@@ -3,14 +3,14 @@
 import 'dart:convert';
 
 import 'package:get/get.dart';
-import 'package:saham_01_app/controller/appStatesController.dart';
-import 'package:saham_01_app/core/cachefactory.dart';
-import 'package:saham_01_app/core/getStorage.dart';
-import 'package:saham_01_app/core/http.dart';
-import 'package:saham_01_app/models/channel.dart';
-import 'package:saham_01_app/models/entities/ois.dart';
-import 'package:saham_01_app/models/entities/symbols.dart';
-import 'package:saham_01_app/models/user.dart';
+import '../../controller/appStatesController.dart';
+import '../../core/cachefactory.dart';
+import '../../core/getStorage.dart';
+import '../../core/http.dart';
+import '../../models/channel.dart';
+import '../../models/entities/ois.dart';
+import '../../models/entities/symbols.dart';
+import '../../models/user.dart';
 import 'package:sprintf/sprintf.dart';
 
 class SignalModel {
@@ -37,7 +37,8 @@ class SignalModel {
 
     do {
       tryCount++;
-      Map<dynamic, dynamic>? tmpSignalMap = await _signalBox?.getMap(signalid.toString());
+      Map<dynamic, dynamic>? tmpSignalMap =
+          await _signalBox?.getMap(signalid.toString());
       if (tmpSignalMap != null) {
         tmpSignal = SignalInfo.fromMap(tmpSignalMap);
       } else {
@@ -50,10 +51,12 @@ class SignalModel {
     } while (tryCount > 1);
 
     if (tmpSignal != null) {
-      ChannelCardSlim? channel = await ChannelModel.instance.getDetail(tmpSignal.channel!.id!);
+      ChannelCardSlim? channel =
+          await ChannelModel.instance.getDetail(tmpSignal.channel!.id!);
       if (channel == null) {
         throw Exception("CHANNEL_NOT_FOUND");
-      } else if (channel.subscribed! && channel.username != appStateController.users.value.username) {
+      } else if (channel.subscribed! &&
+          channel.username != appStateController.users.value.username) {
         throw Exception("CHANNEL_NOT_SUBSCRIBED");
       } else {
         _signalCache[signalid!] = tmpSignal;
@@ -69,8 +72,7 @@ class SignalModel {
   Future<List> getSymbols() async {
     List<TradeSymbol> listTradeSymbol = [];
     Map fetchData = await TF2Request.authorizeRequest(
-      url: getHostName() + "/ois/api/v1/symbols/", method: 'GET'
-    );
+        url: getHostName() + "/ois/api/v1/symbols/", method: 'GET');
     List symbolList = fetchData["message"];
 
     symbolList.forEach((v1) {
@@ -84,9 +86,8 @@ class SignalModel {
     List<SignalCardSlim> listSignalBadgeSlim = [];
     try {
       Map fetchData = await TF2Request.authorizeRequest(
-        url: getHostName() + "/ois/api/v1/signal/search/",
-        postParam: {"title": findtext, "offset": offset}
-      );
+          url: getHostName() + "/ois/api/v1/signal/search/",
+          postParam: {"title": findtext, "offset": offset});
       List signalList = fetchData["message"];
 
       signalList.forEach((v1) {
@@ -114,7 +115,8 @@ class SignalModel {
     }
   }
 
-  Future<List<SignalInfo>> getClosedSignalsFeed({bool clearCache = false, int page = 1}) async {
+  Future<List<SignalInfo>> getClosedSignalsFeed(
+      {bool clearCache = false, int page = 1}) async {
     try {
       int refreshSecond = 3600 * 5;
       if (clearCache) {
@@ -122,74 +124,83 @@ class SignalModel {
       }
       // print(clearCache);
       dynamic data = await CacheFactory.getCache(
-        sprintf(CacheKey.closedSignalFeed, [page]), () async {
-          Map? fetchData = {"message": List};
-          print("fetchdata: $fetchData");
-          String url = getHostName() + "/ois/api/v2/channel/signal/feed/";
-          print("url: $url");
-          Map? postParam = {"page": page};
-          // print("postparam: ${UserModel.instance.hasLogin()}");
-          if (UserModel.instance.hasLogin() == true) {
-            fetchData = await TF2Request.authorizeRequest(
-              url: url, method: 'POST', postParam: postParam
-            );
-          } else {
-            fetchData = await TF2Request.request(
-              url: url, method: 'POST', postParam: postParam
-            );
-          }
-          return fetchData["message"];
-        }, refreshSecond
-      );
+          sprintf(CacheKey.closedSignalFeed, [page]), () async {
+        Map? fetchData = {"message": List};
+        print("fetchdata: $fetchData");
+        String url = getHostName() + "/ois/api/v2/channel/signal/feed/";
+        print("url: $url");
+        Map? postParam = {"page": page};
+        // print("postparam: ${UserModel.instance.hasLogin()}");
+        if (UserModel.instance.hasLogin() == true) {
+          fetchData = await TF2Request.authorizeRequest(
+              url: url, method: 'POST', postParam: postParam);
+        } else {
+          fetchData = await TF2Request.request(
+              url: url, method: 'POST', postParam: postParam);
+        }
+        return fetchData["message"];
+      }, refreshSecond);
       // log(data.toString(), name: "myLog");
-      
+
       if (data is List) {
-        return data.map((signalMap) => SignalInfo?.createObject(
-          active: int?.tryParse(signalMap["active"].toString()) ?? 0,
-          caption: signalMap?["caption"],
-          channelId: int?.tryParse(signalMap["channel_id"].toString()) ?? 0,
-          channelPrice: double?.tryParse(signalMap["channelPrice"].toString()) ?? 0.00,
-          channelStatus: int?.tryParse(signalMap["status"].toString()) ?? 0,
-          channelCreatedTimeStamp: int?.tryParse(signalMap["created_time"].toString()) ?? 0,
-          closePrice: double?.tryParse(signalMap["close_price"].toString()) ?? 0.00,
-          closeTime: signalMap?["close_time"],
-          createdAt: signalMap?["created_at"],
-          expired: int?.tryParse(signalMap["expired"].toString()) ?? 0,
-          id: int?.tryParse(signalMap["id"].toString()) ?? 0,
-          notified: int?.tryParse(signalMap["notified"].toString()) ?? 0,
-          op: int?.tryParse(signalMap["op"].toString()) ?? 0,
-          price: double?.tryParse(signalMap["price"].toString()) ?? 0.00,
-          profit: double?.tryParse(signalMap["pips"].toString()) ?? 0.00,
-          sl: double?.tryParse(signalMap["sl"].toString()) ?? 0.00,
-          tp: double?.tryParse(signalMap["tp"].toString()) ?? 0.00,
-          subs: int?.tryParse(signalMap["subs"].toString()) ?? 0,
-          symbol: signalMap?["symbol"],
-          title: signalMap?["title"],
-          userid: int?.tryParse(signalMap["userid"].toString()) ?? 0,
-          username: signalMap?["username"],
-          channelAvatar: signalMap?["avatar"],
-          medals: int?.tryParse(signalMap["medals"].toString()) ?? 0,
-          point: double?.tryParse(signalMap["point"].toString()) ?? 0.00,
-        )).toList();
+        return data
+            .map((signalMap) => SignalInfo?.createObject(
+                  active: int?.tryParse(signalMap["active"].toString()) ?? 0,
+                  caption: signalMap?["caption"],
+                  channelId:
+                      int?.tryParse(signalMap["channel_id"].toString()) ?? 0,
+                  channelPrice:
+                      double?.tryParse(signalMap["channelPrice"].toString()) ??
+                          0.00,
+                  channelStatus:
+                      int?.tryParse(signalMap["status"].toString()) ?? 0,
+                  channelCreatedTimeStamp:
+                      int?.tryParse(signalMap["created_time"].toString()) ?? 0,
+                  closePrice:
+                      double?.tryParse(signalMap["close_price"].toString()) ??
+                          0.00,
+                  closeTime: signalMap?["close_time"],
+                  createdAt: signalMap?["created_at"],
+                  expired: int?.tryParse(signalMap["expired"].toString()) ?? 0,
+                  id: int?.tryParse(signalMap["id"].toString()) ?? 0,
+                  notified:
+                      int?.tryParse(signalMap["notified"].toString()) ?? 0,
+                  op: int?.tryParse(signalMap["op"].toString()) ?? 0,
+                  price:
+                      double?.tryParse(signalMap["price"].toString()) ?? 0.00,
+                  profit:
+                      double?.tryParse(signalMap["pips"].toString()) ?? 0.00,
+                  sl: double?.tryParse(signalMap["sl"].toString()) ?? 0.00,
+                  tp: double?.tryParse(signalMap["tp"].toString()) ?? 0.00,
+                  subs: int?.tryParse(signalMap["subs"].toString()) ?? 0,
+                  symbol: signalMap?["symbol"],
+                  title: signalMap?["title"],
+                  userid: int?.tryParse(signalMap["userid"].toString()) ?? 0,
+                  username: signalMap?["username"],
+                  channelAvatar: signalMap?["avatar"],
+                  medals: int?.tryParse(signalMap["medals"].toString()) ?? 0,
+                  point:
+                      double?.tryParse(signalMap["point"].toString()) ?? 0.00,
+                ))
+            .toList();
       }
     } catch (xerr) {
       print("error xerr: $xerr");
-    };
+    }
+    ;
     return [];
   }
 
   Future<List<SignalInfo>> getChannelSignals(
-    int? channelid, int? active, int? offset
-  ) async {
+      int? channelid, int? active, int? offset) async {
     List<SignalInfo> listSignalInfo = [];
     Map fetchData = await TF2Request.authorizeRequest(
-      url: getHostName() + "/ois/api/v2/channel/signal/",
-      postParam: {
-        "CHANNELID": channelid,
-        "active": active,
-        "offset": offset
-      }
-    );
+        url: getHostName() + "/ois/api/v2/channel/signal/",
+        postParam: {
+          "CHANNELID": channelid,
+          "active": active,
+          "offset": offset
+        });
     List signalList = fetchData["message"];
 
     for (Map signalMap in signalList) {
@@ -197,10 +208,13 @@ class SignalModel {
         active: int.tryParse(signalMap["active"].toString()) ?? 0,
         caption: signalMap["caption"],
         channelId: int.tryParse(signalMap["channel_id"].toString()) ?? 0,
-        channelPrice: double.tryParse(signalMap["channelPrice"].toString()) ?? 0.00,
+        channelPrice:
+            double.tryParse(signalMap["channelPrice"].toString()) ?? 0.00,
         channelStatus: int.tryParse(signalMap["status"].toString()) ?? 0,
-        channelCreatedTimeStamp: int.tryParse(signalMap["created_time"].toString()) ?? 0,
-        closePrice: double.tryParse(signalMap["close_price"].toString()) ?? 0.00,
+        channelCreatedTimeStamp:
+            int.tryParse(signalMap["created_time"].toString()) ?? 0,
+        closePrice:
+            double.tryParse(signalMap["close_price"].toString()) ?? 0.00,
         closeTime: signalMap["close_time"],
         createdAt: signalMap["created_at"],
         expired: int.tryParse(signalMap["expired"].toString()) ?? 0,
@@ -225,7 +239,8 @@ class SignalModel {
     return listSignalInfo;
   }
 
-  Future<List<SignalCardSlim>?> getRecentSignalAsync({int limit = 10, int offset = 0, int filter = 0}) async {
+  Future<List<SignalCardSlim>?> getRecentSignalAsync(
+      {int limit = 10, int offset = 0, int filter = 0}) async {
     List<SignalCardSlim> listSignalBadgeSlim = [];
     try {
       Map fetchData = await TF2Request.authorizeRequest(
@@ -235,7 +250,10 @@ class SignalModel {
 
       signalList.forEach((v1) {
         // ignore: prefer_is_empty
-        if (listSignalBadgeSlim.where((test) => test.signalid == v1["id"]).length == 0) {
+        if (listSignalBadgeSlim
+                .where((test) => test.signalid == v1["id"])
+                .length ==
+            0) {
           listSignalBadgeSlim.add(SignalCardSlim.fromMap({
             "channelId": v1["channel_id"],
             "channelName": v1["title"],
@@ -253,7 +271,8 @@ class SignalModel {
       });
 
       listSignalBadgeSlim.sort((a, b) {
-        return DateTime.parse(b.createdAt!).compareTo(DateTime.parse(a.createdAt!));
+        return DateTime.parse(b.createdAt!)
+            .compareTo(DateTime.parse(a.createdAt!));
       });
       return listSignalBadgeSlim;
     } catch (xerr) {
@@ -263,24 +282,27 @@ class SignalModel {
     return null;
   }
 
-  Future<SignalInfo?> getSignalDetailAsync(int signalid, {bool clearCache = false}) async {
+  Future<SignalInfo?> getSignalDetailAsync(int signalid,
+      {bool clearCache = false}) async {
     try {
       dynamic data = await _signalBox?.get(signalid.toString());
       SignalInfo _signalData;
       if (data == null || data == "" || clearCache) {
         Map fetchData = await TF2Request.authorizeRequest(
-          url: getHostName() + "/ois/api/v2/signal/detail/",
-          postParam: {"signalid": signalid}
-        );
+            url: getHostName() + "/ois/api/v2/signal/detail/",
+            postParam: {"signalid": signalid});
         Map signalMap = fetchData["message"];
         _signalData = SignalInfo.createObject(
           active: int.tryParse(signalMap["active"].toString()) ?? 0,
           caption: signalMap["caption"],
           channelId: int.tryParse(signalMap["channel_id"].toString()) ?? 0,
-          channelPrice: double.tryParse(signalMap["channelPrice"].toString()) ?? 0.00,
+          channelPrice:
+              double.tryParse(signalMap["channelPrice"].toString()) ?? 0.00,
           channelStatus: int.tryParse(signalMap["status"].toString()) ?? 0,
-          channelCreatedTimeStamp: int.tryParse(signalMap["created_time"].toString()) ?? 0,
-          closePrice: double.tryParse(signalMap["close_price"].toString()) ?? 0.00,
+          channelCreatedTimeStamp:
+              int.tryParse(signalMap["created_time"].toString()) ?? 0,
+          closePrice:
+              double.tryParse(signalMap["close_price"].toString()) ?? 0.00,
           closeTime: signalMap["close_time"],
           createdAt: signalMap["created_at"],
           expired: int.tryParse(signalMap["expired"].toString()) ?? 0,
@@ -301,7 +323,8 @@ class SignalModel {
           point: double.tryParse(signalMap["point"].toString()) ?? 0.00,
         );
 
-        await _signalBox?.putMap(_signalData.id.toString(), _signalData.toMap()!);
+        await _signalBox?.putMap(
+            _signalData.id.toString(), _signalData.toMap()!);
       } else {
         Map mapData = jsonDecode(data);
         _signalData = SignalInfo.fromMap(mapData);
@@ -314,7 +337,14 @@ class SignalModel {
     return null;
   }
 
-  Future<int> createSignal({int? channelid, String? cmd, String? symbol, double? price, double? sl, double? tp, int? hour}) async {
+  Future<int> createSignal(
+      {int? channelid,
+      String? cmd,
+      String? symbol,
+      double? price,
+      double? sl,
+      double? tp,
+      int? hour}) async {
     Map<String, dynamic> postParam = {
       "CHANNELID": channelid,
       "SYMBOL": symbol,
@@ -326,9 +356,8 @@ class SignalModel {
     };
 
     Map fetchData = await TF2Request.authorizeRequest(
-      url: getHostName() + "/ois/api/v1/signal/create/",
-      postParam: postParam
-    );
+        url: getHostName() + "/ois/api/v1/signal/create/",
+        postParam: postParam);
 
     SharedBoxHelper? cache = SharedHelper.instance.getBox(BoxName.cache);
     await cache?.delete(CacheKey.oisDashboard);
@@ -340,10 +369,9 @@ class SignalModel {
     Map postParam = {"account": mt4, "symbol": symbol};
 
     Map fetchData = await TF2Request.authorizeRequest(
-      url: getHostName() + "/mrg/api/v1/account/symbol/",
-      postParam: postParam
-    );
-    
+        url: getHostName() + "/mrg/api/v1/account/symbol/",
+        postParam: postParam);
+
     return fetchData["message"];
   }
 
@@ -378,9 +406,8 @@ class SignalModel {
   Future<List<SignalTradeCopyLogSlim>> getSignalTradeByMe(int signalid,
       {int refreshSeconds = 18000}) async {
     List data = await CacheFactory.getCache(
-        sprintf(
-            CacheKey.signalTradeByIDnUserID, [signalid, appStateController.users.value.id]),
-        () async {
+        sprintf(CacheKey.signalTradeByIDnUserID,
+            [signalid, appStateController.users.value.id]), () async {
       Map fetchData = await TF2Request.authorizeRequest(
           url: getHostName() + "/ois/api/v1/signal/trade/byme/",
           postParam: {"SIGNALID": signalid});

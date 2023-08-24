@@ -1,8 +1,8 @@
 import 'package:dio/dio.dart';
-import 'package:saham_01_app/core/cachefactory.dart';
-import 'package:saham_01_app/core/getStorage.dart';
-import 'package:saham_01_app/core/http.dart';
-import 'package:saham_01_app/models/entities/office.dart';
+import '../../core/cachefactory.dart';
+import '../../core/getStorage.dart';
+import '../../core/http.dart';
+import '../../models/entities/office.dart';
 
 class Office {
   static Future<List<OfficeState>> getOfficeDetails(clearCache) async {

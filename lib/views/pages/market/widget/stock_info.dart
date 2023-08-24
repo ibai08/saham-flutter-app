@@ -14,7 +14,8 @@ class StockInfoRow extends StatelessWidget {
   final String? title6;
   final String? value6;
 
-  const StockInfoRow({Key? key, 
+  const StockInfoRow({
+    Key? key,
     this.title1,
     this.value1,
     this.title2,

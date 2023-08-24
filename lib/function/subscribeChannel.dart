@@ -109,6 +109,7 @@ subcribeChannel(ChannelCardSlim channels, BuildContext context,
                 lanjut = 1;
                 Navigator.pop(context);
               },
+              caps: "Unsubs",
             );
           });
       print("Sukses unsubscribe");

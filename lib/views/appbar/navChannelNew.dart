@@ -13,11 +13,7 @@ enum NavChannelNewState {
 class SearchFormNewController extends GetxController {
   final Rx<GlobalKey<FormState>> formKey = GlobalKey<FormState>().obs;
   final TextEditingController searchCon = TextEditingController();
-  Widget icon = Image.asset(
-    "assets/icon-search.png",
-    width: 20,
-    height: 20,
-  );
+  
 
   Function popToFn = () {};
   bool readyonly = false;
@@ -47,6 +43,12 @@ class SearchForm extends GetView<SearchFormNewController> {
   final String? popTo;
   final bool? tryInput;
 
+  Widget icon = Image.asset(
+    "assets/icon/search.png",
+    width: 20,
+    height: 20,
+  );
+
   SearchForm({Key? key, this.text, this.popTo, this.tryInput})
       : super(key: key);
 
@@ -71,15 +73,16 @@ class SearchForm extends GetView<SearchFormNewController> {
           filled: true,
           fillColor: AppColors.white,
           prefixIcon: IconButton(
-            icon: controller.icon,
+            color: AppColors.black,
+            icon: icon,
             onPressed: () {
               Future.delayed(const Duration(milliseconds: 0)).then((_) {
                 controller.searchCon.clear();
               });
             },
           ),
-          hintText: "Cari Channels",
-          hintStyle: TextStyle(color: AppColors.darkGrey3),
+          hintText: "Cari Channel",
+          hintStyle: TextStyle(color: AppColors.darkGrey2, fontFamily: 'Manrope', fontSize: 14),
           border: InputBorder.none,
           contentPadding:
               const EdgeInsets.only(top: 10, bottom: 10, left: 15, right: 15),
@@ -180,8 +183,8 @@ class NavChannelNew extends AppBar {
                     )
                   : customAction!,
             ],
-            iconTheme: const IconThemeData(color: Colors.black),
-            backgroundColor: const Color.fromRGBO(242, 246, 247, 1),
-            shadowColor: const Color.fromRGBO(242, 246, 247, 1),
-            elevation: 2);
+            iconTheme: IconThemeData(color: AppColors.black),
+            backgroundColor: AppColors.light,
+            shadowColor: Colors.transparent,
+            elevation: null);
 }

@@ -132,7 +132,7 @@ class ChannelThumb extends StatelessWidget {
       // }
 
       // print("btnlabel: $btnLabel");
-      // print("profit: ${tChannel.profit}");
+      print("profit: ${tChannel.profit}");
 
       return Container(
         width: width ?? double.infinity,
@@ -171,14 +171,14 @@ class ChannelThumb extends StatelessWidget {
             const Padding(
               padding: EdgeInsets.symmetric(horizontal: 15),
               child: Divider(
-                height: 1,
-                thickness: 1,
+                height: 0.5,
+                thickness: 0.5,
                 indent: 1,
                 endIndent: 0,
                 color: Color(0xFFC9CCCF),
               ),
             ),
-            const SizedBox(height: 5),
+            const SizedBox(height: 0),
             Row(
               children: <Widget>[
                 Expanded(
@@ -187,6 +187,7 @@ class ChannelThumb extends StatelessWidget {
                       ChannelPower(
                         title: numberShortener((tChannel.profit)!.ceil()),
                         subtitle: "Profit",
+                        isGreen: true,
                       ),
                     ],
                   ),
@@ -195,6 +196,7 @@ class ChannelThumb extends StatelessWidget {
                   child: ChannelPower(
                     title: numberShortener(tChannel.postPerWeek!.floor()),
                     subtitle: "Post / Week",
+                    isGreen: false,
                   ),
                 ),
               ],
@@ -202,7 +204,7 @@ class ChannelThumb extends StatelessWidget {
             UserModel.instance.hasLogin()
                 ? Container(
                     margin: const EdgeInsets.only(
-                        top: 10, right: 20, bottom: 20, left: 20),
+                        top: 6, right: 20, bottom: 20, left: 20),
                     width: double.infinity,
                     child: TextButton(
                       onPressed: () {
@@ -239,7 +241,8 @@ class ChannelThumb extends StatelessWidget {
                         style: TextStyle(
                           color: txtcolor,
                           fontWeight: FontWeight.w400,
-                          fontSize: 13,
+                          fontSize: 12,
+                          fontFamily: 'Manrope'
                         ),
                       ),
                     ),

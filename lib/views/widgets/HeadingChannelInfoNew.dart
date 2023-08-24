@@ -108,7 +108,7 @@ class HeadingChannelInfoNew extends StatelessWidget {
                                   overflow: TextOverflow.ellipsis,
                                   text: TextSpan(
                                     style: TextStyle(
-                                        color: AppColors.darkGrey,
+                                        color: AppColors.darkGrey2,
                                         fontSize: isLarge!
                                             ? 12
                                             : isMedium!
@@ -119,12 +119,12 @@ class HeadingChannelInfoNew extends StatelessWidget {
                                           text:
                                               "${level?.level?[level!.level!.indexWhere((x) => (medals! >= x.minMedal! && medals! <= x.maxMedal!))].name}",
                                           style: TextStyle(
-                                              color: AppColors.primaryGreen,
-                                              fontWeight: FontWeight.w600,
-                                              fontSize: 12)),
+                                              color: AppColors.darkGrey2,
+                                              fontWeight: FontWeight.w400,
+                                              fontSize: 10)),
                                       TextSpan(
                                         text: "  |  $subscriber Subscriber",
-                                        style: const TextStyle(fontSize: 12),
+                                        style: const TextStyle(fontSize: 10),
                                       ),
                                     ],
                                   ),

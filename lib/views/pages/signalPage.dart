@@ -71,30 +71,32 @@ class SignalDashboard extends StatelessWidget implements ScrollUpWidget {
             return <Widget>[
               Container(
                 child: SliverAppBar(
+                  shadowColor: Colors.transparent,
                   pinned: true,
-                  backgroundColor: Colors.black,
-                  // foregroundColor: Colors.blue,
-                  // backgroundColor: Colors.blueAccent,
-                  // shadowColor: Colors.red,
-                  leadingWidth: 20,
-                  expandedHeight: 10,
-                  flexibleSpace: NavChannelNew(
-                    context: context,
-                    state: NavChannelNewState.basic,
-                    popTo: '/search/channels/pop',
+                  floating: true,
+                  backgroundColor: AppColors.light,
+                  // leadingWidth: 20,
+                  expandedHeight: 100,
+                  flexibleSpace: FlexibleSpaceBar(
+                    collapseMode: CollapseMode.pin,
+                    background: NavChannelNew(
+                      context: context,
+                      state: NavChannelNewState.basic,
+                      popTo: '/search/channels/pop',
+                    ),
                   ),
                   bottom: PreferredSize(
-                    preferredSize: Size.fromHeight(48 + 2),
+                    preferredSize: Size.fromHeight(48),
                     child: Column(
                       children: [
-                        TabBar(
-                          padding: const EdgeInsets.only(left: 20, right: 20),
+                        TabBar( 
+                          padding: const EdgeInsets.only(left: 20, right: 20, top: 10),
                           labelColor: AppColors.blueGem,
                           unselectedLabelColor: AppColors.darkGrey2,
-                          unselectedLabelStyle: const TextStyle(fontSize: 16),
+                          unselectedLabelStyle: const TextStyle(fontSize: 16, fontWeight: FontWeight.w600, fontFamily: 'Manrope'),
                           labelStyle: const TextStyle(
-                              fontWeight: FontWeight.w600, fontSize: 16),
-                          indicatorWeight: 1.5,
+                              fontWeight: FontWeight.w600, fontSize: 16, fontFamily: 'Manrope'),
+                          indicatorWeight: 1,
                           automaticIndicatorColorAdjustment: false,
                           indicatorSize: TabBarIndicatorSize.tab,
                           indicatorColor: AppColors.blueGem,
@@ -279,8 +281,8 @@ class ListChannelWidget extends StatelessWidget {
       return Stack(
         children: [
           Container(
-            margin: EdgeInsets.only(top: 14, bottom: 14),
-            padding: const EdgeInsets.only(left: 20),
+            margin: EdgeInsets.only(top: 14, bottom: 14, left: 20),
+            // padding: const EdgeInsets.only(left: 20),
             child: SortButtonsWidget(
               onSortChanged: (index) {
                 print("berubah: ${controller.sort}");
@@ -295,7 +297,7 @@ class ListChannelWidget extends StatelessWidget {
           Column(
             children: [
               const SizedBox(
-                height: 59,
+                height: 50,
               ),
               Expanded(
                 child: Container(

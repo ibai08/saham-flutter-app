@@ -73,6 +73,7 @@ class SearchForm extends GetView<SearchFormController> {
           filled: true,
           fillColor: AppColors.white,
           suffixIcon: IconButton(
+            color: AppColors.black,
             icon: controller.icon,
             onPressed: () {
               Future.delayed(const Duration(milliseconds: 0)).then((_) {

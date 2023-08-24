@@ -23,6 +23,7 @@ class SortButtonNew extends StatelessWidget {
     return Obx(
       () {
         return Container(
+          height: 30,
           margin: const EdgeInsets.only(right: 10),
           child: TextButton(
             onPressed: () {

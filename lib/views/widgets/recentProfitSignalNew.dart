@@ -75,7 +75,7 @@ class RecommendedSignal extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
         const TitlePartHome(
-          title: "Signal yang baru saja profit",
+          title: "Signal baru saja profit",
         ),
         RecentSignalListWidget(listSignalData, medal),
       ],

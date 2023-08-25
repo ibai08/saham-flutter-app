@@ -32,7 +32,7 @@ class NavMain extends AppBar {
                             children: <Widget>[
                               Container(
                                 alignment: Alignment.center,
-                                padding: const EdgeInsets.only(left: 5),
+                                padding: const EdgeInsets.only(left: 1.5),
                                 height: 50,
                                 child: RichText(
                                   text: TextSpan(

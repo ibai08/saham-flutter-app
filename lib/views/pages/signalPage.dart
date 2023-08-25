@@ -86,17 +86,17 @@ class SignalDashboard extends StatelessWidget implements ScrollUpWidget {
                     ),
                   ),
                   bottom: PreferredSize(
-                    preferredSize: Size.fromHeight(48),
+                    preferredSize: Size.fromHeight(48 + 10),
                     child: Column(
                       children: [
                         TabBar( 
-                          padding: const EdgeInsets.only(left: 20, right: 20, top: 10),
+                          padding: const EdgeInsets.only(left: 22.5, right: 22.5, top: 10),
                           labelColor: AppColors.blueGem,
                           unselectedLabelColor: AppColors.darkGrey2,
                           unselectedLabelStyle: const TextStyle(fontSize: 16, fontWeight: FontWeight.w600, fontFamily: 'Manrope'),
                           labelStyle: const TextStyle(
                               fontWeight: FontWeight.w600, fontSize: 16, fontFamily: 'Manrope'),
-                          indicatorWeight: 1,
+                          indicatorWeight: 0.5,
                           automaticIndicatorColorAdjustment: false,
                           indicatorSize: TabBarIndicatorSize.tab,
                           indicatorColor: AppColors.blueGem,
@@ -104,7 +104,7 @@ class SignalDashboard extends StatelessWidget implements ScrollUpWidget {
                           controller: signalDashboardController.tabController,
                         ),
                         Container(
-                          margin: const EdgeInsets.only(left: 20, right: 20),
+                          margin: const EdgeInsets.only(left: 23, right: 23),
                           height: 1, // Atur tinggi indikator tambahan di sini
                           color: AppColors.darkGrey2,
                         )
@@ -281,7 +281,7 @@ class ListChannelWidget extends StatelessWidget {
       return Stack(
         children: [
           Container(
-            margin: EdgeInsets.only(top: 14, bottom: 14, left: 20),
+            margin: EdgeInsets.only(top: 14, bottom: 14, left: 22.5, right: 18),
             // padding: const EdgeInsets.only(left: 20),
             child: SortButtonsWidget(
               onSortChanged: (index) {

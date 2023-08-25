@@ -24,7 +24,7 @@ class _HomeSignalJustMadeProfitShimmerState
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         const TitlePartHome(
-          title: "Signal yang baru saja profit",
+          title: "Signal baru saja profit",
         ),
         Column(
           children: [

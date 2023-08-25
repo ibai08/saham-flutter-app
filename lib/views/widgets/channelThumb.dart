@@ -185,7 +185,7 @@ class ChannelThumb extends StatelessWidget {
                   child: Column(
                     children: [
                       ChannelPower(
-                        title: numberShortener((tChannel.profit)!.ceil()),
+                        title: "+" + numberShortener((tChannel.profit)!.ceil()),
                         subtitle: "Profit",
                         isGreen: true,
                       ),

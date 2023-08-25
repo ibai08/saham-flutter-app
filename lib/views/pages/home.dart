@@ -66,7 +66,7 @@ class Home extends StatelessWidget {
             ),
             const SizedBox(height: 20),
             Container(
-              margin: const EdgeInsets.only(top: 25),
+              margin: const EdgeInsets.only(top: 18),
               child: RecentProfitSignalWidgetNew(
                 data: homeTabController.closedSignal,
                 medal: homeTabController.medal.value ?? Level(),
@@ -231,8 +231,7 @@ class _MostConsistentChannel extends State<MostConsistentChannel> {
                   crossAxisAlignment: CrossAxisAlignment.end,
                   children: <Widget>[
                     Padding(
-                      padding: const EdgeInsets.symmetric(
-                          vertical: 0, horizontal: 5),
+                      padding: const EdgeInsets.only(left: 3),
                       child: ListTile(
                         dense: true,
                         title: Text(
@@ -240,14 +239,15 @@ class _MostConsistentChannel extends State<MostConsistentChannel> {
                           style: TextStyle(
                               color: AppColors.black,
                               fontWeight: FontWeight.w600,
-                              fontSize: 16),
+                              fontSize: 16,
+                              fontFamily: 'Manrope'),
                         ),
                       ),
                     ),
                   ],
                 ),
                 SingleChildScrollView(
-                  padding: const EdgeInsets.only(left: 12, right: 12),
+                  padding: const EdgeInsets.only(left: 10, right: 10),
                   scrollDirection: Axis.horizontal,
                   child: Row(
                       children: snapshot.data!.map((ChannelCardSlim map) {
@@ -259,7 +259,7 @@ class _MostConsistentChannel extends State<MostConsistentChannel> {
                 ),
                 const SizedBox(height: 10),
                 Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 24),
+                  padding: const EdgeInsets.only(left: 19),
                   child: InkWell(
                     onTap: () {
                       Navigator.pushNamed(context, '/channel-signal');
@@ -270,7 +270,7 @@ class _MostConsistentChannel extends State<MostConsistentChannel> {
                         const Text(
                           "Lihat Semua",
                           style: TextStyle(
-                              fontSize: 12, fontWeight: FontWeight.w400),
+                              fontSize: 12, fontWeight: FontWeight.w400, fontFamily: 'Manrope'),
                         ),
                         const SizedBox(width: 3),
                         Image.asset("assets/icon/light/arrow-right.png",
@@ -324,21 +324,21 @@ class MostConsistentChannelThumbNew extends StatelessWidget {
     fetchData();
 
     return Obx(() {
-      UserInfo? user;
+      UserInfo? user = appStateController.users.value;
       ChannelCardSlim? tChannel = channelInfo?.value;
       tChannel ??= channel;
       // ChannelCardSlim tChannel = snapshot.data;
       String btnLabel = 'Subscribe for FREE';
-      Color btnColor = AppColors.blueGem;
-      Color txtcolor = Colors.white;
+      Color? btnColor = AppColors.blueGem;
+      Color? txtcolor = Colors.white;
       if (tChannel?.username == appStateController.users.value.username) {
         btnLabel = "LIHAT CHANNEL";
-        btnColor = Colors.grey[300]!;
-        txtcolor = Colors.grey[800]!;
+        btnColor = Colors.grey[300];
+        txtcolor = Colors.grey[800];
       } else if (tChannel!.subscribed!) {
         btnLabel = "Subscribed";
-        btnColor = Colors.grey[300]!;
-        txtcolor = Colors.grey[800]!;
+        btnColor = Colors.grey[300];
+        txtcolor = Colors.grey[800];
       } else if (tChannel.isPrivate == true) {
         btnLabel = "Subscribe with TOKEN";
       } else if (tChannel.price! > 0) {
@@ -348,7 +348,7 @@ class MostConsistentChannelThumbNew extends StatelessWidget {
 
       return GestureDetector(
         onTap: () {
-          if (user!.id > 0) {
+          if (user.id > 0) {
             firebaseAnalytics.logViewItem(items: [
               AnalyticsEventItem(
                 itemId: "${channel?.id}",
@@ -509,10 +509,10 @@ class TitlePartHome extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(left: 23, bottom: 10),
+      padding: const EdgeInsets.only(left: 19.5, bottom: 10),
       child: Text(
         title!,
-        style: const TextStyle(fontWeight: FontWeight.w600, fontSize: 16),
+        style: const TextStyle(fontWeight: FontWeight.w600, fontSize: 16, fontFamily: 'Manrope'),
         textAlign: TextAlign.left,
       ),
     );

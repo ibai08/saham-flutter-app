@@ -5,8 +5,8 @@ import '../../constants/app_colors.dart';
 import 'package:shimmer/shimmer.dart';
 
 class MostConsistentChannelShimmer extends StatefulWidget {
-  const MostConsistentChannelShimmer({Key? key, this.pT}) : super(key: key);
-  final double? pT;
+  const MostConsistentChannelShimmer({Key? key, this.sH}) : super(key: key);
+  final double? sH;
 
   @override
   State<MostConsistentChannelShimmer> createState() =>
@@ -19,10 +19,11 @@ class MmostConsistentChannelShimmerState
 
   @override
   Widget build(BuildContext context) {
-    double? pT = widget.pT;
+    double top = widget.sH! * 0.08;
+    print("top: ${top}");
     return Container(
       width: MediaQuery.of(context).size.width,
-      padding: EdgeInsets.only(top: pT!),
+      padding: EdgeInsets.only(top: top, bottom: 20),
       child: Column(
         children: <Widget>[
           Column(

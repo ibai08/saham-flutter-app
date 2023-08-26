@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:intl/intl.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import '../../controller/homeTabController.dart';
@@ -23,10 +24,12 @@ import '../widgets/homeTopRankShimmer.dart';
 import '../widgets/recentProfitSignalNew.dart';
 
 class Home extends StatelessWidget {
-  // Home({Key? key}) : super(key: key);
+  Home({Key? key}) : super(key: key);
+  final GetStorage gs = GetStorage();
   final HomeTabController homeTabController = Get.put(HomeTabController());
   final CheckInternetController checkInet = Get.put(CheckInternetController());
   final AppStateController appStateController = Get.put(AppStateController());
+  List<SignalInfo>? signals;
 
   @override
   Widget build(BuildContext context) {
@@ -46,6 +49,33 @@ class Home extends StatelessWidget {
     print("-0-0-0-0-0-0-0");
     print("closed signal widget: ${homeTabController.closedSignal}");
     print("-1-1-1-1-1-1-1");
+    print("homeTabController.medal.value!.toMap()");
+    print(homeTabController.medal.value!.toMap());
+    // set medal to local storage
+    if (homeTabController.medal.value != null) {
+      gs.write("medal", homeTabController.medal.value!.toMap());
+    }
+    dynamic gsMedal = gs.read("medal");
+
+    print(
+        "homeTabController.closedSignal.isNotEmpty: ${homeTabController.closedSignal.isNotEmpty}");
+    // set signal to localstorage
+    if (homeTabController.closedSignal.isNotEmpty) {
+      gs.write(
+          "recentProfitSignalList",
+          homeTabController.closedSignal
+              .map((person) => person.toMap())
+              .toList());
+
+      signals = homeTabController.closedSignal;
+      print("kena 1");
+    } else {
+      print("kena 2");
+      dynamic gsSignals = gs.read("recentProfitSignalList");
+      signals = gsSignals;
+    }
+    print("signals: ${signals}");
+
     return Obx(
       () => SmartRefresher(
         enablePullDown: true,
@@ -60,16 +90,16 @@ class Home extends StatelessWidget {
           children: <Widget>[
             const TotalBalance(),
             MostConsistentChannel(
-              medal: homeTabController.medal.value,
               futureList: homeTabController.getMostConsistentChannels(
                   clearCache: false),
+              medal: homeTabController.medal.value ?? Level.fromMap(gsMedal),
             ),
             const SizedBox(height: 20),
             Container(
               margin: const EdgeInsets.only(top: 18),
               child: RecentProfitSignalWidgetNew(
-                data: homeTabController.closedSignal,
-                medal: homeTabController.medal.value ?? Level(),
+                data: signals,
+                medal: homeTabController.medal.value ?? Level.fromMap(gsMedal),
               ),
             ),
             // NewProfitSignal(),
@@ -215,11 +245,12 @@ class MostConsistentChannel extends StatefulWidget {
 class _MostConsistentChannel extends State<MostConsistentChannel> {
   @override
   Widget build(BuildContext context) {
+    final double screenHeight = MediaQuery.of(context).size.height;
     return FutureBuilder<List<ChannelCardSlim>>(
         future: widget.futureList,
         builder: (context, snapshot) {
           if (snapshot.hasError || snapshot.data == null) {
-            return const MostConsistentChannelShimmer(pT: 70);
+            return MostConsistentChannelShimmer(sH: screenHeight);
           }
           return Container(
             width: MediaQuery.of(context).size.width,
@@ -262,7 +293,7 @@ class _MostConsistentChannel extends State<MostConsistentChannel> {
                   padding: const EdgeInsets.only(left: 19),
                   child: InkWell(
                     onTap: () {
-                      Navigator.pushNamed(context, '/channel-signal');
+                      Get.toNamed('/channel-signal');
                     },
                     child: Row(
                       crossAxisAlignment: CrossAxisAlignment.center,
@@ -317,9 +348,10 @@ class MostConsistentChannelThumbNew extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final double screenHeight = MediaQuery.of(context).size.height;
     print("medal gestur : ${medal?.level}");
     if (medal?.level == null) {
-      return const MostConsistentChannelShimmer(pT: 70);
+      return MostConsistentChannelShimmer(sH: screenHeight);
     }
     fetchData();
 

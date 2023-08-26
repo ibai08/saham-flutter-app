@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../controller/homeTabController.dart';
@@ -17,8 +19,6 @@ class RecentProfitSignalWidgetNew extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print("data: ${data}");
-    // final HomeTabController homeTabController = Get.put(HomeTabController());
     homeTabController.setSignals(data!);
 
     return GetX<HomeTabController>(

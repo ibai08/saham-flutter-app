@@ -735,6 +735,15 @@ class SignalInfo {
   // static List<String> getKeyRequired() {
   //   return _keyRequired;
   // }
+  // Map<String, dynamic> toJson() {
+  //   final Map<String, dynamic> data = <String, dynamic>{};
+  //   data['imageText'] = imageText;
+  //   data['name'] = name;
+  //   data['companyName'] = companyName;
+  //   data['rank'] = rank;
+  //   data['percentage'] = percentage;
+  //   return data;
+  // }
 }
 
 class SignalTradeCopyLog {
@@ -1620,8 +1629,8 @@ class Level {
         level: List<LevelElement>.from(
             json["level"].map((x) => LevelElement.fromJson(x))),
         exchangePointMultiplier: json["exchange_point_multiplier"],
-        minDate: int.parse(json["minDate"]),
-        maxDate: int.parse(json["maxDate"]),
+        minDate: int.parse(json["minDate"].toString()),
+        maxDate: int.parse(json["maxDate"].toString()),
         urlRule: json["url_rule"],
       );
 

@@ -65,8 +65,12 @@ class NavMain extends AppBar {
                                           fit: BoxFit.fitWidth),
                                     ),
                                     const SizedBox(width: 10),
-                                    Container(
+                                    GestureDetector(
+                                      onTap: () {
+                                        Get.toNamed('/more/profile');
+                                      },
                                       child: Container(
+                                        
                                         width: 35,
                                         height: 35,
                                         child: CircleAvatar(

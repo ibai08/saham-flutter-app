@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 import '../core/config.dart';
@@ -16,6 +17,10 @@ class HomeTabController extends GetxController {
   List<SignalInfo> closedSignal = <SignalInfo>[].obs;
   List<SlidePromo> listPromo = <SlidePromo>[].obs;
   List<SignalInfo> signalList = <SignalInfo>[].obs;
+  final GetStorage gs = GetStorage();
+  List<SignalInfo>? signals;
+  List<SignalInfo> signals2 = <SignalInfo>[].obs;
+  dynamic gsMedal;
 
   final RefreshController refreshController =
       RefreshController(initialRefresh: false);
@@ -57,6 +62,7 @@ class HomeTabController extends GetxController {
 
   Future<void> initializePageAsync({bool clearCache = false}) async {
     try {
+      print("prosess1");
       List<Future> temp = [
         getMostConsistentChannels(clearCache: clearCache),
       ];
@@ -68,6 +74,7 @@ class HomeTabController extends GetxController {
             .clearClosedSignalsFeed(page: loadedPage.value));
       }
 
+      print("proses 2");
       await Future.wait(temp);
 
       loadedPage.value = 0;
@@ -86,6 +93,7 @@ class HomeTabController extends GetxController {
       medal.value = result;
 
       refreshController.loadComplete();
+      print("berhasil initialize");
     } catch (xerr) {}
   }
 
@@ -126,9 +134,36 @@ class HomeTabController extends GetxController {
     super.onInit();
     Future.delayed(const Duration(microseconds: 0)).then((_) async {
       await initializePageAsync();
+      print("berhasil initpageasync");
       await getEventPage();
+      print("berhasil getEVent");
       onLoad();
       update();
     });
+    // initializePageAsync();
+    // getEventPage();
   }
+
+  // @override
+  // void onReady() {
+  //   super.onReady();
+  //   if (medal.value != null) {
+  //     gs.write("medal", medal.value?.toMap());
+  //   }
+  //   dynamic gsMedal = gs.read("medal");
+  //   print("closedsignal.isnotempty: ${closedSignal.isNotEmpty}");
+  //   if (closedSignal.isNotEmpty) {
+  //     gs.write(
+  //         "recentProfitSignalList",
+  //         closedSignal
+  //             .map((person) => person.toMap())
+  //             .toList());
+  //             // signals2.addAll(signals);
+  //             signals = closedSignal;
+  //             print("kena 1");
+  //   } else {
+  //     print("kena 2");
+  //   }
+  //   print("signasllllls: $signals");
+  // }
 }

@@ -4,6 +4,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:firebase_remote_config/firebase_remote_config.dart';
 import 'package:flutter/services.dart';
+import 'package:saham_01_app/views/pages/more/profile/profile.dart';
 import '../../config/tab_list.dart';
 import '../../constants/app_colors.dart';
 import '../../controller/appStatesController.dart';
@@ -106,6 +107,7 @@ void main() async {
   Get.put(CheckInternetController());
   Get.put(DialogLoadingController());
   Get.put(GrowthChartController());
+  Get.put(HomeTabController());
 
   runApp(const MyApp());
 }
@@ -165,6 +167,8 @@ class _MyAppState extends State<MyApp> {
             GetPage(name: '/forms/login', page: () => const Login()),
             GetPage(
                 name: '/forms/editprofile', page: () => const EditProfile()),
+            GetPage(name: '/more/profile', page: () => Profile()),
+            
 
             GetPage(
                 name: '/search/channels/pop', page: () => SearchChannelsPop()),

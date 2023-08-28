@@ -50,34 +50,33 @@ class Home extends StatelessWidget {
     print("closed signal widget: ${homeTabController.closedSignal}");
     print("-1-1-1-1-1-1-1");
     print("homeTabController.medal.value!.toMap()");
-    print(homeTabController.medal.value!.toMap());
-    // set medal to local storage
-    if (homeTabController.medal.value != null) {
-      gs.write("medal", homeTabController.medal.value!.toMap());
-    }
-    dynamic gsMedal = gs.read("medal");
+    // // print(homeTabController.medal.value!.toMap());
+    // // set medal to local storage
+    // if (homeTabController.medal.value != null) {
+    //   gs.write("medal", homeTabController.medal.value!.toMap());
+    // }
+    // dynamic gsMedal = gs.read("medal");
 
-    print(
-        "homeTabController.closedSignal.isNotEmpty: ${homeTabController.closedSignal.isNotEmpty}");
-    // set signal to localstorage
-    if (homeTabController.closedSignal.isNotEmpty) {
-      gs.write(
-          "recentProfitSignalList",
-          homeTabController.closedSignal
-              .map((person) => person.toMap())
-              .toList());
+    // print(
+    //     "homeTabController.closedSignal.isNotEmpty: ${homeTabController.closedSignal.isNotEmpty}");
+    // // set signal to localstorage
+    // if (homeTabController.closedSignal.isNotEmpty) {
+    //   gs.write(
+    //       "recentProfitSignalList",
+    //       homeTabController.closedSignal
+    //           .map((person) => person.toMap())
+    //           .toList());
 
-      signals = homeTabController.closedSignal;
-      print("kena 1");
-    } else {
-      print("kena 2");
-      dynamic gsSignals = gs.read("recentProfitSignalList");
-      signals = gsSignals;
-    }
-    print("signals: ${signals}");
+    //   signals = homeTabController.closedSignal;
+    //   print("kena 1");
+    // } else {
+    //   print("kena 2");
+    //   dynamic gsSignals = gs.read("recentProfitSignalList");
+    //   signals = gsSignals;
+    // }
+    // print("signals: ${signals}");
 
-    return Obx(
-      () => SmartRefresher(
+    return SmartRefresher(
         enablePullDown: true,
         enablePullUp: true,
         controller: homeTabController.refreshController,
@@ -92,22 +91,21 @@ class Home extends StatelessWidget {
             MostConsistentChannel(
               futureList: homeTabController.getMostConsistentChannels(
                   clearCache: false),
-              medal: homeTabController.medal.value ?? Level.fromMap(gsMedal),
+              medal: homeTabController.medal.value ,
             ),
             const SizedBox(height: 20),
             Container(
               margin: const EdgeInsets.only(top: 18),
               child: RecentProfitSignalWidgetNew(
-                data: signals,
-                medal: homeTabController.medal.value ?? Level.fromMap(gsMedal),
+                data: homeTabController.closedSignal,
+                medal: homeTabController.medal.value ,
               ),
             ),
             // NewProfitSignal(),
             // const SizedBox(height: 20),
           ],
         ),
-      ),
-    );
+      );
   }
 }
 

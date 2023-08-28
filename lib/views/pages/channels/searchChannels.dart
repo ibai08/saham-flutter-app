@@ -170,7 +170,6 @@ class SearchSignalResult extends StatelessWidget {
 
   Widget build(BuildContext context) {
     searchSignalResultController.setFindTxt(findText!);
-    return Obx(() {
       if (searchSignalResultController.signalSearchResult == null) {
         return const Center(
           child: Text(
@@ -187,19 +186,20 @@ class SearchSignalResult extends StatelessWidget {
           ),
         );
       }
-      return SmartRefresher(
-        enablePullDown: false,
-        enablePullUp:
-            searchSignalResultController.signalSearchResult!.length > 4
-                ? true
-                : false,
-        controller: searchSignalResultController.refreshController,
-        onLoading: searchSignalResultController.onLoading,
-        child: ListView(
-          children: searchSignalResultController
-              .getSignals(searchSignalResultController.signalSearchResult!),
+      return Obx(
+        () => SmartRefresher(
+          enablePullDown: false,
+          enablePullUp:
+              searchSignalResultController.signalSearchResult!.length > 4
+                  ? true
+                  : false,
+          controller: searchSignalResultController.refreshController,
+          onLoading: searchSignalResultController.onLoading,
+          child: ListView(
+            children: searchSignalResultController
+                .getSignals(searchSignalResultController.signalSearchResult!),
+          ),
         ),
       );
-    });
   }
 }

@@ -15,7 +15,7 @@ class RecentProfitSignalWidgetNew extends StatelessWidget {
   RecentProfitSignalWidgetNew({Key? key, this.data, this.medal})
       : super(key: key);
 
-  final HomeTabController homeTabController = Get.put(HomeTabController());
+  final HomeTabController homeTabController = Get.find();
 
   @override
   Widget build(BuildContext context) {

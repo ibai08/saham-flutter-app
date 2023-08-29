@@ -239,7 +239,7 @@ class SignalModel {
     return listSignalInfo;
   }
 
-  Future<List<SignalCardSlim>?> getRecentSignalAsync(
+  Future<List<SignalCardSlim>> getRecentSignalAsync(
       {int limit = 10, int offset = 0, int filter = 0}) async {
     List<SignalCardSlim> listSignalBadgeSlim = [];
     try {
@@ -279,7 +279,7 @@ class SignalModel {
       print("errrroro zerr: ${xerr.toString()}");
     }
 
-    return null;
+    return [];
   }
 
   Future<SignalInfo?> getSignalDetailAsync(int signalid,

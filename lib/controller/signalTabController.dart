@@ -130,11 +130,11 @@ class ListSignalWidgetController extends GetxController {
     try {
       dataSignal.clear();
       print("test 1");
-      List<SignalCardSlim>? recentSignal =
+      List<SignalCardSlim> recentSignal =
           await SignalModel.instance.getRecentSignalAsync(filter: filter.value);
       print(recentSignal);
       print("test 2");
-      dataSignal.addAll(recentSignal!);
+      dataSignal.addAll(recentSignal);
       print("test 3");
       var result = await getMedal();
       medal.value = result;
@@ -153,7 +153,7 @@ class ListSignalWidgetController extends GetxController {
       List<SignalCardSlim>? recentSignal = await SignalModel.instance
           .getRecentSignalAsync(
               offset: dataSignal.length, filter: filter.value);
-      recentSignal = recentSignal!
+      recentSignal = recentSignal
           .where((test) => !recentSignal!.contains(test.signalid))
           .toList();
       if (recentSignal.length > 0) {

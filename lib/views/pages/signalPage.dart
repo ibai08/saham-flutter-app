@@ -339,7 +339,7 @@ class ListChannelWidget extends StatelessWidget {
                       children: <Widget>[
                         ChannelListWidget(
                             controller.dataChannel
-                                ?.map((i) => ChannelModel.instance
+                                !.map((i) => ChannelModel.instance
                                     .getDetail(i, clearCache: true))
                                 .toList(),
                             controller.refreshController,

@@ -5,7 +5,7 @@ import '../../views/widgets/channelThumb.dart';
 import '../../views/widgets/signalShimmer.dart';
 
 class ChannelListWidget extends StatelessWidget {
-  final List<Future<ChannelCardSlim>>? listChannel;
+  final List<Future<ChannelCardSlim>> listChannel;
   final RefreshController? refreshController;
   final Level? medal;
   ChannelListWidget(this.listChannel, this.refreshController, this.medal);
@@ -50,5 +50,5 @@ class ChannelListWidget extends StatelessWidget {
   }
 
   @override
-  Widget build(BuildContext context) => listChannelView(listChannel!, medal!);
+  Widget build(BuildContext context) => listChannelView(listChannel, medal!);
 }

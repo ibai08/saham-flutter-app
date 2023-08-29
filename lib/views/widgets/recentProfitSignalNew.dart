@@ -30,7 +30,7 @@ class RecentProfitSignalWidgetNew extends StatelessWidget {
           child: controller.signalList.isNotEmpty
               ? RecommendedSignal(
                   listSignalData: controller.signalList,
-                  medal: medal!,
+                  medal: medal,
                 )
               : const SizedBox(),
         );

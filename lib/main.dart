@@ -175,7 +175,6 @@ class _MyAppState extends State<MyApp> {
                 name: '/forms/editprofile', page: () => const EditProfile()),
             GetPage(name: '/forms/editpassword', page: () => EditPassword()),
             GetPage(name: '/more/profile', page: () => Profile()),
-            
 
             GetPage(
                 name: '/search/channels/pop', page: () => SearchChannelsPop()),

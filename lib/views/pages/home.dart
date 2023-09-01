@@ -25,87 +25,53 @@ import '../widgets/recentProfitSignalNew.dart';
 
 class Home extends StatelessWidget {
   Home({Key? key}) : super(key: key);
-  final GetStorage gs = GetStorage();
   final HomeTabController homeTabController = Get.put(HomeTabController());
   final CheckInternetController checkInet = Get.put(CheckInternetController());
   final AppStateController appStateController = Get.put(AppStateController());
-  List<SignalInfo>? signals;
 
   @override
   Widget build(BuildContext context) {
-    return Obx(
-      () => Scaffold(
-        appBar: NavMain(
-          currentPage: 'HomePage',
-          username: "Gopay Kai",
-        ),
-        body: prepareHome(),
-        backgroundColor: AppColors.light,
+    return Scaffold(
+      appBar: NavMain(
+        currentPage: 'HomePage',
+        username: "Gopay Kai",
       ),
+      body: Obx(() => prepareHome()),
+      backgroundColor: AppColors.light,
     );
   }
 
   Widget prepareHome() {
-    print("-0-0-0-0-0-0-0");
-    print("closed signal widget: ${homeTabController.closedSignal}");
-    print("-1-1-1-1-1-1-1");
-    print("homeTabController.medal.value!.toMap()");
-    print(homeTabController.medal.value!.toMap());
-    // set medal to local storage
-    if (homeTabController.medal.value != null) {
-      gs.write("medal", homeTabController.medal.value!.toMap());
-    }
-    dynamic gsMedal = gs.read("medal");
-
-    print(
-        "homeTabController.closedSignal.isNotEmpty: ${homeTabController.closedSignal.isNotEmpty}");
-    // set signal to localstorage
-    if (homeTabController.closedSignal.isNotEmpty) {
-      gs.write(
-          "recentProfitSignalList",
-          homeTabController.closedSignal
-              .map((person) => person.toMap())
-              .toList());
-
-      signals = homeTabController.closedSignal;
-      print("kena 1");
-    } else {
-      print("kena 2");
-      dynamic gsSignals = gs.read("recentProfitSignalList");
-      signals = gsSignals;
-    }
-    print("signals: ${signals}");
-
-    return Obx(
-      () => SmartRefresher(
-        enablePullDown: true,
-        enablePullUp: true,
-        controller: homeTabController.refreshController,
-        onRefresh: homeTabController.onRefresh,
-        onLoading: homeTabController.onLoad,
-        child: ListView(
-          padding: const EdgeInsets.only(top: 20),
-          physics: const BouncingScrollPhysics(),
-          scrollDirection: Axis.vertical,
-          children: <Widget>[
-            const TotalBalance(),
-            MostConsistentChannel(
-              futureList: homeTabController.getMostConsistentChannels(
-                  clearCache: false),
-              medal: homeTabController.medal.value ?? Level.fromMap(gsMedal),
+    return SmartRefresher(
+      enablePullDown: true,
+      enablePullUp: true,
+      controller: homeTabController.refreshController,
+      onRefresh: homeTabController.onRefresh,
+      onLoading: homeTabController.onLoad,
+      child: ListView(
+        padding: const EdgeInsets.only(top: 20),
+        physics: const BouncingScrollPhysics(),
+        scrollDirection: Axis.vertical,
+        children: <Widget>[
+          const TotalBalance(),
+          MostConsistentChannel(
+            futureList:
+                homeTabController.getMostConsistentChannels(clearCache: false),
+            medal: homeTabController.medal.value,
+          ),
+          const SizedBox(height: 20),
+          Container(
+            margin: const EdgeInsets.only(top: 18),
+            child: RecentProfitSignalWidgetNew(
+              data: homeTabController.closedSignal.isNotEmpty
+                  ? homeTabController.closedSignal
+                  : [],
+              medal: homeTabController.medal.value,
             ),
-            const SizedBox(height: 20),
-            Container(
-              margin: const EdgeInsets.only(top: 18),
-              child: RecentProfitSignalWidgetNew(
-                data: signals,
-                medal: homeTabController.medal.value ?? Level.fromMap(gsMedal),
-              ),
-            ),
-            // NewProfitSignal(),
-            // const SizedBox(height: 20),
-          ],
-        ),
+          ),
+          // NewProfitSignal(),
+          // const SizedBox(height: 20),
+        ],
       ),
     );
   }
@@ -301,7 +267,9 @@ class _MostConsistentChannel extends State<MostConsistentChannel> {
                         const Text(
                           "Lihat Semua",
                           style: TextStyle(
-                              fontSize: 12, fontWeight: FontWeight.w400, fontFamily: 'Manrope'),
+                              fontSize: 12,
+                              fontWeight: FontWeight.w400,
+                              fontFamily: 'Manrope'),
                         ),
                         const SizedBox(width: 3),
                         Image.asset("assets/icon/light/arrow-right.png",
@@ -544,7 +512,8 @@ class TitlePartHome extends StatelessWidget {
       padding: const EdgeInsets.only(left: 19.5, bottom: 10),
       child: Text(
         title!,
-        style: const TextStyle(fontWeight: FontWeight.w600, fontSize: 16, fontFamily: 'Manrope'),
+        style: const TextStyle(
+            fontWeight: FontWeight.w600, fontSize: 16, fontFamily: 'Manrope'),
         textAlign: TextAlign.left,
       ),
     );

@@ -10,6 +10,7 @@ import '../models/post.dart';
 import '../models/signal.dart';
 
 class HomeTabController extends GetxController {
+  RxBool isLoading = true.obs;
   RxString stringcoba = "".obs;
   RxInt loadedPage = 0.obs;
   RxBool noData = false.obs;
@@ -17,10 +18,7 @@ class HomeTabController extends GetxController {
   List<SignalInfo> closedSignal = <SignalInfo>[].obs;
   List<SlidePromo> listPromo = <SlidePromo>[].obs;
   List<SignalInfo> signalList = <SignalInfo>[].obs;
-  final GetStorage gs = GetStorage();
   List<SignalInfo>? signals;
-  List<SignalInfo> signals2 = <SignalInfo>[].obs;
-  dynamic gsMedal;
 
   final RefreshController refreshController =
       RefreshController(initialRefresh: false);
@@ -62,7 +60,6 @@ class HomeTabController extends GetxController {
 
   Future<void> initializePageAsync({bool clearCache = false}) async {
     try {
-      print("prosess1");
       List<Future> temp = [
         getMostConsistentChannels(clearCache: clearCache),
       ];
@@ -74,7 +71,6 @@ class HomeTabController extends GetxController {
             .clearClosedSignalsFeed(page: loadedPage.value));
       }
 
-      print("proses 2");
       await Future.wait(temp);
 
       loadedPage.value = 0;
@@ -86,14 +82,13 @@ class HomeTabController extends GetxController {
       if (newSignal.isNotEmpty) {
         closedSignal.addAll(newSignal);
         loadedPage.value++;
+        isLoading.value = false;
       }
-      print("closedSignal: ${closedSignal}");
 
       var result = await getMedal(clearCache: clearCache);
       medal.value = result;
 
       refreshController.loadComplete();
-      print("berhasil initialize");
     } catch (xerr) {}
   }
 
@@ -108,18 +103,13 @@ class HomeTabController extends GetxController {
     try {
       List<SignalInfo> newSignal = await SignalModel.instance
           .getClosedSignalsFeed(page: loadedPage.value + 1);
-      if (newSignal.length > 0) {
+      if (newSignal.isNotEmpty) {
         var ids = closedSignal.map((sig) => sig.id).toList();
         closedSignal
             .addAll(newSignal.where((newSig) => !ids.contains(newSig.id)));
-        print("closedSignal : ${closedSignal}");
-        print("-=-=-=-=-=-=-=");
         loadedPage.value++;
 
-        print("loaded page: $loadedPage");
-
         refreshController.loadComplete();
-        print("berhasil");
       } else {
         refreshController.loadNoData();
       }
@@ -134,36 +124,7 @@ class HomeTabController extends GetxController {
     super.onInit();
     Future.delayed(const Duration(microseconds: 0)).then((_) async {
       await initializePageAsync();
-      print("berhasil initpageasync");
       await getEventPage();
-      print("berhasil getEVent");
-      onLoad();
-      update();
     });
-    // initializePageAsync();
-    // getEventPage();
   }
-
-  // @override
-  // void onReady() {
-  //   super.onReady();
-  //   if (medal.value != null) {
-  //     gs.write("medal", medal.value?.toMap());
-  //   }
-  //   dynamic gsMedal = gs.read("medal");
-  //   print("closedsignal.isnotempty: ${closedSignal.isNotEmpty}");
-  //   if (closedSignal.isNotEmpty) {
-  //     gs.write(
-  //         "recentProfitSignalList",
-  //         closedSignal
-  //             .map((person) => person.toMap())
-  //             .toList());
-  //             // signals2.addAll(signals);
-  //             signals = closedSignal;
-  //             print("kena 1");
-  //   } else {
-  //     print("kena 2");
-  //   }
-  //   print("signasllllls: $signals");
-  // }
 }

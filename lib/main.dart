@@ -4,7 +4,11 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:firebase_remote_config/firebase_remote_config.dart';
 import 'package:flutter/services.dart';
+import 'package:saham_01_app/remoteConfig.dart';
+import 'package:saham_01_app/views/pages/form/register.dart';
+import 'package:saham_01_app/views/pages/more/profile/forms/editPassword.dart';
 import 'package:saham_01_app/views/pages/more/profile/profile.dart';
+import 'package:saham_01_app/views/pages/search/searchDomisili.dart';
 import '../../config/tab_list.dart';
 import '../../constants/app_colors.dart';
 import '../../controller/appStatesController.dart';
@@ -159,19 +163,23 @@ class _MyAppState extends State<MyApp> {
           initialRoute: '/',
           getPages: [
             GetPage(name: '/home', page: () => const MyHomePage()),
+            GetPage(name: '/remote-config', page: () => RemoteConfigView()),
             GetPage(name: '/homepage', page: () => Home()),
             GetPage(name: '/channel-signal', page: () => SignalDashboard()),
             GetPage(name: '/maintenance', page: () => MaintenanceView()),
             // GetPage(name: '/update-app', page: () => UpdateVersionView()),
 
             GetPage(name: '/forms/login', page: () => const Login()),
+            GetPage(name: '/forms/register', page: () => Register()),
             GetPage(
                 name: '/forms/editprofile', page: () => const EditProfile()),
+            GetPage(name: '/forms/editpassword', page: () => EditPassword()),
             GetPage(name: '/more/profile', page: () => Profile()),
             
 
             GetPage(
                 name: '/search/channels/pop', page: () => SearchChannelsPop()),
+            GetPage(name: '/search/domisili', page: () => SearchDomisili()),
 
             GetPage(name: '/dsc/search', page: () => SearchChannelsTab()),
             GetPage(name: '/dsc/channels/', page: () => ChannelDetail())

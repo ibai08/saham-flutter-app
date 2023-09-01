@@ -1,0 +1,15 @@
+{
+    "type": "center",
+    "child": {
+        "type": "text",
+        "args": {
+            "text": "Text test json",
+            "style": {
+                "color": "#000",
+                "fontSize": 18
+            },
+            "maxLines": 1, 
+            "overflow": "ellipsis" 
+        }
+    }
+}

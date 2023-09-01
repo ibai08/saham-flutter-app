@@ -22,7 +22,7 @@ class NavMain extends AppBar {
                 ? GetBuilder<AppStateController>(
                     init: AppStateController(),
                     builder: (controller) {
-                      print("user: ${controller.users.value.avatar}");
+                      print("user: ${controller.users.value.fullname}");
                       return Column(
                         children: [
                           const SizedBox(height: 15),
@@ -36,12 +36,12 @@ class NavMain extends AppBar {
                                 height: 50,
                                 child: RichText(
                                   text: TextSpan(
-                                    text: 'Haiss, ',
-                                    style: const TextStyle(
-                                        color: Colors.black, fontSize: 20),
+                                    text: 'Hai, ',
+                                    style: TextStyle(
+                                        color: AppColors.lightBlack2, fontSize: 20, fontFamily: 'Manrope', fontWeight: FontWeight.w400),
                                     children: <TextSpan>[
                                       TextSpan(
-                                        text: username,
+                                        text:  controller.users.value.username != null && controller.users.value.username != 'null' ? controller.users.value.username : username,
                                         style: const TextStyle(
                                             fontWeight: FontWeight.bold,
                                             fontSize: 20),
@@ -67,7 +67,7 @@ class NavMain extends AppBar {
                                     const SizedBox(width: 10),
                                     GestureDetector(
                                       onTap: () {
-                                        Get.toNamed('/more/profile');
+                                        controller.users.value.fullname != null && controller.users.value.fullname != 'null' ? Get.toNamed('/more/profile') : () {};
                                       },
                                       child: Container(
                                         

@@ -7,6 +7,7 @@ import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:saham_01_app/constants/app_colors.dart';
 import 'package:saham_01_app/controller/appStatesController.dart';
+import 'package:saham_01_app/controller/signalTabController.dart';
 import 'package:saham_01_app/core/string.dart';
 import 'package:saham_01_app/models/entities/ois.dart';
 import 'package:saham_01_app/models/ois.dart';
@@ -14,6 +15,8 @@ import 'package:saham_01_app/models/user.dart';
 import 'package:saham_01_app/views/widgets/HeadingChannelInfoNew.dart';
 import 'package:saham_01_app/views/widgets/channelPower.dart';
 import 'package:saham_01_app/views/widgets/headingChannelInfo.dart';
+
+import '../../function/subscribeChannel.dart';
 
 class ChannelThumb extends StatelessWidget {
   final int? id;
@@ -34,6 +37,7 @@ class ChannelThumb extends StatelessWidget {
   final int? medals;
 
   final AppStateController appStateController = Get.put(AppStateController());
+  final ListChannelWidgetController controller = Get.find();
 
   ChannelThumb({
     Key? key,
@@ -220,7 +224,7 @@ class ChannelThumb extends StatelessWidget {
                           Navigator.pushNamed(context, '/dsc/channels/',
                               arguments: tChannel.id);
                         } else {
-                          // subcribeChannel(tChannel, context, null);
+                          subcribeChannel(tChannel, context, controller.refreshController);
                         }
                       },
                       style: TextButton.styleFrom(

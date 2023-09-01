@@ -13,7 +13,7 @@ import '../../views/widgets/dialogTokenSubscription.dart';
 import 'package:get/get.dart' as Get;
 
 Future<void> subscribe(ChannelCardSlim channel, BuildContext context,
-    RefreshController refreshController) async {
+    RefreshController? refreshController) async {
   DialogLoading dlg = DialogLoading();
   showDialog(
       context: context,
@@ -36,7 +36,7 @@ Future<void> subscribe(ChannelCardSlim channel, BuildContext context,
       DialogTokenSubscription dialogToken =
           DialogTokenSubscription(channel: channel);
       await showDialog(context: context, builder: (ctx) => dialogToken);
-      refreshController.requestRefresh(needMove: false);
+      refreshController?.requestRefresh(needMove: false);
     } else {
       Get.Get.back();
       showAlert(
@@ -49,7 +49,7 @@ Future<void> subscribe(ChannelCardSlim channel, BuildContext context,
 }
 
 Future<void> confirmPayment(ChannelCardSlim channel, BuildContext context,
-    RefreshController refreshController) async {
+    RefreshController? refreshController) async {
   bool confirmPay;
   if (channel.subscribed!) {
     confirmPay = await showDialog(
@@ -93,7 +93,7 @@ Future<void> confirmPayment(ChannelCardSlim channel, BuildContext context,
 }
 
 subcribeChannel(ChannelCardSlim channels, BuildContext context,
-    RefreshController refreshController) async {
+    RefreshController? refreshController) async {
   if (channels.subscribed!) {
     //UNSUBSCRIBE
     int lanjut = 0;

@@ -41,44 +41,44 @@ class EditProfileFormController extends GetxController {
     });
 
     usernameCon.text = (appStateController.users.value.username !=
-            appStateController.usersEdit.value.username
-        ? appStateController.usersEdit.value.username
-        : appStateController.users.value.username)!;
+            appStateController.usersEdit.value.username)
+        ? appStateController.usersEdit.value.username ?? ''
+        : appStateController.users.value.username ?? '';
 
     emailCon.text = (appStateController.users.value.email !=
-            appStateController.usersEdit.value.email
-        ? appStateController.usersEdit.value.email
-        : appStateController.users.value.email)!;
+            appStateController.usersEdit.value.email)
+        ? appStateController.usersEdit.value.email ?? ''
+        : appStateController.users.value.email ?? '';
 
     fullnameCon.text = (appStateController.users.value.fullname !=
-            appStateController.usersEdit.value.fullname
-        ? appStateController.usersEdit.value.fullname
-        : appStateController.users.value.fullname)!;
+            appStateController.usersEdit.value.fullname)
+        ? appStateController.usersEdit.value.fullname ?? ''
+        : appStateController.users.value.fullname ?? '';
 
     phoneCon.text = (appStateController.users.value.phone !=
-            appStateController.usersEdit.value.phone
-        ? appStateController.usersEdit.value.phone
-        : appStateController.users.value.phone)!;
+            appStateController.usersEdit.value.phone)
+        ? appStateController.usersEdit.value.phone ?? ''
+        : appStateController.users.value.phone ?? '';
 
     zipcodeCon.text = (appStateController.users.value.zipcode !=
-            appStateController.usersEdit.value.zipcode
-        ? appStateController.usersEdit.value.zipcode
-        : appStateController.users.value.zipcode)!;
+            appStateController.usersEdit.value.zipcode)
+        ? appStateController.usersEdit.value.zipcode ?? ''
+        : appStateController.users.value.zipcode ?? '';
 
     address1Con.text = (appStateController.users.value.address1 !=
-            appStateController.usersEdit.value.address1
-        ? appStateController.usersEdit.value.address1
-        : appStateController.users.value.address1)!;
+            appStateController.usersEdit.value.address1)
+        ? appStateController.usersEdit.value.address1 ?? ''
+        : appStateController.users.value.address1 ?? '';
 
     address2Con.text = (appStateController.users.value.address2 !=
-            appStateController.usersEdit.value.address2
-        ? appStateController.usersEdit.value.address2
-        : appStateController.users.value.address2)!;
+            appStateController.usersEdit.value.address2)
+        ? appStateController.usersEdit.value.address2 ?? ''
+        : appStateController.users.value.address2 ?? '';
 
     villageCon.text = (appStateController.users.value.village !=
-            appStateController.usersEdit.value.village
-        ? appStateController.usersEdit.value.village
-        : appStateController.users.value.village)!;
+            appStateController.usersEdit.value.village)
+        ? appStateController.usersEdit.value.village ?? ''
+        : appStateController.users.value.village ?? '';
 
     usernameCon.text = usernameCon.text == 'null' ? "" : usernameCon.text;
     address2Con.text = address2Con.text == 'null' ? "" : address2Con.text;
@@ -91,7 +91,7 @@ class EditProfileFormController extends GetxController {
     super.onInit();
   }
 
-  performSaveProfile(stt) async {
+  performSaveProfile() async {
     removeFocus(Get.context);
     DialogLoading dlg = DialogLoading();
     showDialog(
@@ -101,7 +101,7 @@ class EditProfileFormController extends GetxController {
           return dlg;
         });
 
-    UserInfo editProf = UserInfo.clone(stt.userEdit);
+    UserInfo editProf = UserInfo.clone(appStateController.usersEdit.value);
     editProf.fullname = fullnameCon.text;
     editProf.phone = phoneCon.text;
     editProf.address1 = address1Con.text;

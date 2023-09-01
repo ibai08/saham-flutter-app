@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image/image.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
+import 'package:saham_01_app/views/pages/channels/searchChannels.dart';
 import '../../core/analytics.dart';
 import '../../models/channel.dart';
 import '../../models/entities/ois.dart';
@@ -9,6 +10,8 @@ import '../../models/ois.dart';
 import '../../models/signal.dart';
 import '../../views/widgets/SignalThumb.dart';
 import '../../views/widgets/channelThumb.dart';
+import '../interface/scrollUpWidget.dart';
+import '../views/pages/signalPage.dart';
 
 class SearchChannelsPopController extends GetxController {
   final RxString searchText = RxString('');
@@ -42,12 +45,13 @@ class SearchChannelsPopController extends GetxController {
 class SearchChannelsTabController extends GetxController
     with GetSingleTickerProviderStateMixin {
   late TabController tabController;
+  late List<Widget> tabBodies;
   late ScrollController scrollController;
 
   @override
   void onInit() {
     super.onInit();
-    tabController = TabController(vsync: this, length: 2, initialIndex: 1);
+    tabController = TabController(vsync: this, length: 2);
     scrollController = ScrollController();
   }
 
@@ -110,16 +114,21 @@ class SearchChannelsResultController extends GetxController {
       int offset = listChannel.length;
       List<ChannelCardSlim> getNewListChannel = await ChannelModel.instance
           .searchChannel(findtext: findTxt.value, offset: offset, sort: sort);
+      print("offset channels: $offset");
       print("textvalue: ${findTxt.value}");
-      print("Search channelss: ${getNewListChannel[0].name}");
+      // print("Search channelss: ${getNewListChannel[0].name}");
+      print("Get news boys: ${getNewListChannel}");
       firebaseAnalytics.logViewSearchResults(searchTerm: findTxt.value);
       if (getNewListChannel.length > 0) {
         listChannel.addAll(getNewListChannel);
         channelSearchResult.addAll(listChannel);
         refreshController.loadComplete();
+        print("kena iffff channels");
       } else {
         channelSearchResult.addAll(listChannel);
         refreshController.loadNoData();
+        print("kena elsssee channels");
+        hasError.value = true;
       }
     } catch (e) {
       print("error: $e");
@@ -128,12 +137,15 @@ class SearchChannelsResultController extends GetxController {
     }
   }
 
+
+
   @override
   void onInit() {
     super.onInit();
     Future.delayed(Duration(seconds: 0)).then((val) async {
       onLoading();
     });
+    print("udah init channels");
   }
 }
 
@@ -146,6 +158,8 @@ class SearchSignalResultController extends GetxController {
   RxList<SignalCardSlim> listSignal = <SignalCardSlim>[].obs;
 
   Rx<Level?> level = Rx<Level?>(null);
+
+  final RxBool hasError = false.obs;
 
   var findTxt = ''.obs;
 
@@ -180,20 +194,25 @@ class SearchSignalResultController extends GetxController {
     try {
       var result = await getMedal();
       level.value = result;
-      await Future.delayed(Duration(seconds: 1));
+      // await Future.delayed(Duration(seconds: 1));
       int offset = listSignal.length;
+      print("ini offset: $offset");
+      print("searcg signalll: ${findTxt.value}");
       List<SignalCardSlim> getNewListSignal =
           await SignalModel.instance.searchSignal(findTxt.value, offset);
-      if (getNewListSignal.isNotEmpty) {
+          print("get newss signal: ${getNewListSignal}");
+      if (getNewListSignal.length > 0) {
         listSignal.addAll(getNewListSignal);
         signalSearchResult?.addAll(listSignal);
         refreshController.loadComplete();
       } else {
         signalSearchResult?.addAll(listSignal);
         refreshController.loadNoData();
+        hasError.value = true;
       }
     } catch (e) {
       refreshController.loadNoData();
+      hasError.value = true;
     }
   }
 
@@ -203,5 +222,6 @@ class SearchSignalResultController extends GetxController {
     Future.delayed(Duration(seconds: 0)).then((val) async {
       onLoading();
     });
+    print("udah init signalss");
   }
 }

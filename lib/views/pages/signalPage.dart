@@ -162,8 +162,14 @@ class ListSignalWidget extends StatelessWidget implements ScrollUpWidget {
               onLoad: "1",
             );
           }
-          if (controller.internet == false) {
-            return Info(onTap: controller.onRefreshSignal);
+
+          if (controller.internet == false || controller.hasError.value && controller.dataSignal.isEmpty) {
+            return Info(
+              title: "Network Error",
+              desc: "Jaringan Error",
+              caption: "Coba Lagi",
+              onTap: controller.onRefreshSignal,
+            );
           }
           if (controller.dataSignal.length < 1) {
             return Info(
@@ -171,7 +177,7 @@ class ListSignalWidget extends StatelessWidget implements ScrollUpWidget {
                 desc: "Signal tidak ditemukan",
                 caption: "Coba Lagi",
                 onTap: () {
-                  controller.filter = 0 as RxInt;
+                  controller.filter.value = 0;
                   controller.onRefreshSignal();
                 });
           }

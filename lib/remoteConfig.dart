@@ -24,6 +24,7 @@ class _RemoteConfigViewState extends State<RemoteConfigView> {
       await remoteConfig.fetchAndActivate();
       _refreshController.refreshCompleted();
     } catch (e) {
+      print("error remote config: ${e.toString()}");
       showToast(
           context,
           "Terjadi kesalahan, periksa koneksi internet anda dan coba lagi",

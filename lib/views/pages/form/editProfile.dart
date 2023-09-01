@@ -198,7 +198,7 @@ class EditProfileForm extends StatelessWidget {
                 BtnBlock(
                   title: "Simpan",
                   onTap: () {
-                    editFormController.performSaveProfile(appStateController);
+                    editFormController.performSaveProfile();
                   },
                 ),
                 const SizedBox(height: 10)

@@ -10,7 +10,7 @@ class ChannelListWidget extends StatelessWidget {
   final Level? medal;
   ChannelListWidget(this.listChannel, this.refreshController, this.medal);
 
-  Widget listChannelView(List<Future<ChannelCardSlim>> channels, Level medal) {
+  Widget listChannelView(List<Future<ChannelCardSlim>> channels, Level? medal) {
     print("ada medal: $medal");
     return ListView.builder(
       shrinkWrap: true,
@@ -50,5 +50,5 @@ class ChannelListWidget extends StatelessWidget {
   }
 
   @override
-  Widget build(BuildContext context) => listChannelView(listChannel, medal!);
+  Widget build(BuildContext context) => listChannelView(listChannel, medal);
 }

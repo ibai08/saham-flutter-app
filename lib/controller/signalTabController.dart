@@ -112,6 +112,9 @@ class ListSignalWidgetController extends GetxController {
   Rx<Level?> medal = Rx<Level?>(null);
   RxInt loadingFilter = 0.obs;
 
+  RxBool hasError = false.obs;
+  RxString errorMessage = ''.obs;
+
   bool internet = false;
   checkInternet() async {
     try {
@@ -130,7 +133,7 @@ class ListSignalWidgetController extends GetxController {
     try {
       dataSignal.clear();
       print("test 1");
-      List<SignalCardSlim> recentSignal =
+      List<SignalCardSlim>? recentSignal =
           await SignalModel.instance.getRecentSignalAsync(filter: filter.value);
       print(recentSignal);
       print("test 2");
@@ -139,6 +142,8 @@ class ListSignalWidgetController extends GetxController {
       var result = await getMedal();
       medal.value = result;
     } catch (err) {
+      hasError.value = true;
+      errorMessage.value = err.toString();
       throw (err.toString());
     }
   }
@@ -164,6 +169,8 @@ class ListSignalWidgetController extends GetxController {
       }
       print("jalan terus");
     } catch (x) {
+      hasError.value = true;
+      errorMessage.value = x.toString();
       refreshController.loadNoData();
     }
 
@@ -198,6 +205,7 @@ class ListChannelWidgetController extends GetxController {
   RxInt loadingSort = 0.obs;
 
   RxBool hasError = false.obs;
+  RxString errorMessage = ''.obs;
 
   // bool internet = false;
   // checkInternet() async {
@@ -229,7 +237,8 @@ class ListChannelWidgetController extends GetxController {
       print("berhasil");
     } catch (xerr) {
       hasError.value = true;
-      print("erororro: ${hasError.value}");
+      errorMessage.value = xerr.toString();
+      // print("erororro: ${hasError.value}");
       throw (xerr.toString());
     }
     print("udah initialize");
@@ -265,9 +274,10 @@ class ListChannelWidgetController extends GetxController {
         print("kennaaa");
       }
     } catch (ex) {
-      print("gak ke load");
+      // print("gak ke load");
       hasError.value = true;
-      Get.snackbar("Error", ex.toString());
+      errorMessage.value = ex.toString();
+      // Get.snackbar("Error", ex.toString());
       refreshController.loadFailed();
     }
 

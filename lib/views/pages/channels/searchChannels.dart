@@ -11,10 +11,17 @@ import '../../../views/appbar/navChannel.dart';
 class SearchChannelsTab extends StatelessWidget {
   final SearchChannelsTabController searchChannelsTabController =
       Get.put(SearchChannelsTabController());
+  final SearchChannelsResultController? searchChannelsResultController =
+      Get.put(SearchChannelsResultController());
+  final SearchSignalResultController searchSignalResultController =
+      Get.put(SearchSignalResultController());
+  
 
   @override
   Widget build(BuildContext context) {
     String? findText = ModalRoute.of(context)?.settings.arguments.toString();
+    searchSignalResultController.setFindTxt(findText!);
+    searchChannelsResultController?.setFindTxt(findText);
     return Scaffold(
       appBar: NavChannel(
         context: context,
@@ -88,7 +95,7 @@ class SearchChannelsTab extends StatelessWidget {
 
 class SearchChannelsResult extends StatelessWidget {
   final SearchChannelsResultController? searchChannelsResultController =
-      Get.put(SearchChannelsResultController());
+      Get.find();
 
   final String? findText;
 
@@ -98,7 +105,8 @@ class SearchChannelsResult extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    searchChannelsResultController?.setFindTxt(findText!);
+    print("find text channelll: $findText");
+    
     return Obx(() {
       // print("testststst datat: ${searchChannelsResultController?.channelSearchResult}");
       // print("bool: ${searchChannelsResultController?.channelSearchResult.isEmpty}");
@@ -162,32 +170,34 @@ class SearchChannelsResult extends StatelessWidget {
 
 class SearchSignalResult extends StatelessWidget {
   final SearchSignalResultController searchSignalResultController =
-      Get.put(SearchSignalResultController());
+      Get.find();
 
   final String? findText;
 
   SearchSignalResult({Key? key, this.findText}) : super(key: key);
 
   Widget build(BuildContext context) {
-    searchSignalResultController.setFindTxt(findText!);
-      if (searchSignalResultController.signalSearchResult == null) {
-        return const Center(
-          child: Text(
-            "Tunggu ya..!!",
-            style: TextStyle(fontWeight: FontWeight.w600, fontSize: 18),
-          ),
-        );
-      }
-      if (searchSignalResultController.signalSearchResult?.length == 0) {
-        return const Center(
-          child: Text(
-            "Maaf.. data tidak ditemukan",
-            style: TextStyle(fontWeight: FontWeight.w600, fontSize: 18),
-          ),
-        );
-      }
-      return Obx(
-        () => SmartRefresher(
+    print("find text signall: $findText");
+    // searchSignalResultController.setFindTxt(findText!);
+      return Obx( () {
+        print("length.: ${searchSignalResultController.signalSearchResult?.length == 0 && searchSignalResultController.signalSearchResult!.isEmpty}");
+        if (searchSignalResultController.signalSearchResult!.isEmpty && searchSignalResultController.hasError.value == false) {
+          return const Center(
+            child: Text(
+              "Tunggu ya..!!",
+              style: TextStyle(fontWeight: FontWeight.w600, fontSize: 18),
+            ),
+          );
+        }
+        if (searchSignalResultController.signalSearchResult?.length == 0 && searchSignalResultController.signalSearchResult!.isEmpty) {
+          return const Center(
+            child: Text(
+              "Maaf.. data tidak ditemukan",
+              style: TextStyle(fontWeight: FontWeight.w600, fontSize: 18),
+            ),
+          );
+        }
+        return SmartRefresher(
           enablePullDown: false,
           enablePullUp:
               searchSignalResultController.signalSearchResult!.length > 4
@@ -199,7 +209,8 @@ class SearchSignalResult extends StatelessWidget {
             children: searchSignalResultController
                 .getSignals(searchSignalResultController.signalSearchResult!),
           ),
-        ),
+        );
+      }
       );
   }
 }

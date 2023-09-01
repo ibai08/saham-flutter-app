@@ -69,17 +69,19 @@ class _DialogConfirmationState extends State<DialogConfirmation> {
             Navigator.pop(context, false);
           },
         ),
-        // widget.tapWidget ??
-        //     TextButton(
-        //       child: Text(
-        //         caps!,
-        //         style: TextStyle(
-        //             fontWeight: FontWeight.bold,
-        //             color: Colors.blue[700],
-        //             fontSize: 12),
-        //       ),
-        //       onPressed: action,
-        //     ),
+        widget.tapWidget ??
+            TextButton(
+              child: Text(
+                caps!,
+                style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    color: Colors.blue[700],
+                    fontSize: 12),
+              ),
+              onPressed: () {
+                action!();
+              },
+            ),
       ],
     );
   }

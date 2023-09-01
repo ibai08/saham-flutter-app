@@ -88,7 +88,9 @@ class SignalModel {
       Map fetchData = await TF2Request.authorizeRequest(
           url: getHostName() + "/ois/api/v1/signal/search/",
           postParam: {"title": findtext, "offset": offset});
+          print("map fecthdata: $fetchData");
       List signalList = fetchData["message"];
+      print("signallist:: $signalList");
 
       signalList.forEach((v1) {
         listSignalBadgeSlim.add(SignalCardSlim.fromMap({
@@ -103,7 +105,7 @@ class SignalModel {
         }));
       });
     } catch (xerr) {
-      print(xerr);
+      print("error mengambil search signal: $xerr");
     }
 
     return listSignalBadgeSlim;
@@ -276,7 +278,7 @@ class SignalModel {
       });
       return listSignalBadgeSlim;
     } catch (xerr) {
-      print("errrroro zerr: ${xerr.toString()}");
+      print("error fetch recent signal: ${xerr.toString()}");
     }
 
     return [];

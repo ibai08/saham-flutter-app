@@ -12,8 +12,10 @@ class CheckInternetController extends GetxController {
       if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
         internet.value = true;
       }
+      print("connect internet");
     } on SocketException catch (_) {
       internet.value = false;
+      print("Gak konek internet"); 
     }
   }
 }

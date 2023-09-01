@@ -401,7 +401,7 @@ class ChannelModel {
 
       return List<int>.from(data);
     } catch (xerr, stack) {
-      print("harusnya error");
+      print("error fetch recommended manual channel");
       print(xerr);
       print(stack);
     }

@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_conditional_assignment, avoid_print
+// ignore_for_file: prefer_conditional_assignment, avoid_print, avoid_function_literals_in_foreach_calls
 
 import 'dart:convert';
 
@@ -16,19 +16,20 @@ import 'package:sprintf/sprintf.dart';
 class SignalModel {
   static final SignalModel instance = SignalModel._privateConstructor();
   SignalModel._privateConstructor();
-  late SharedBoxHelper? _signalBox;
+  SharedBoxHelper? _signalBox;
   final AppStateController appStateController = Get.put(AppStateController());
 
-  RxMap<int, SignalInfo> _signalCache = <int, SignalInfo>{}.obs;
+  RxMap<int, SignalInfo> signalCache = <int, SignalInfo>{}.obs;
 
-  Future<void> subsribeSignalAsync({int? signalid, bool? clearCache}) async {
+  Future<String> subsribeSignalAsync({int? signalid, bool? clearCache}) async {
     SignalInfo? tmpSignal;
+    if (_signalBox == null) {
+      _signalBox = SharedHelper.instance.getBox(BoxName.signal);
+    }
     if (clearCache!) {
       _signalBox?.delete(signalid.toString());
     }
-    if (_signalCache.containsKey(signalid)) {
-      return;
-    }
+
     if (_signalBox == null) {
       _signalBox = SharedHelper.instance.getBox(BoxName.signal);
     }
@@ -54,22 +55,22 @@ class SignalModel {
       ChannelCardSlim? channel =
           await ChannelModel.instance.getDetail(tmpSignal.channel!.id!);
       if (channel == null) {
-        throw Exception("CHANNEL_NOT_FOUND");
+        return "CHANNEL_NOT_FOUND";
       } else if (channel.subscribed! &&
           channel.username != appStateController.users.value.username) {
-        throw Exception("CHANNEL_NOT_SUBSCRIBED");
+        return "CHANNEL_NOT_SUBSCRIBED";
       } else {
-        _signalCache[signalid!] = tmpSignal;
+        signalCache[signalid!] = tmpSignal;
       }
     }
-    return null;
+    return "null";
   }
 
   void removeSignalCache(String identifier) {
-    _signalCache.remove(identifier);
+    signalCache.remove(identifier);
   }
 
-  Future<List> getSymbols() async {
+  Future<List<TradeSymbol>> getSymbols() async {
     List<TradeSymbol> listTradeSymbol = [];
     Map fetchData = await TF2Request.authorizeRequest(
         url: getHostName() + "/ois/api/v1/symbols/", method: 'GET');
@@ -189,7 +190,6 @@ class SignalModel {
     } catch (xerr) {
       print("error xerr: $xerr");
     }
-    ;
     return [];
   }
 

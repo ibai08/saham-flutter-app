@@ -141,6 +141,7 @@ class ListSignalWidgetController extends GetxController {
       print("test 3");
       var result = await getMedal();
       medal.value = result;
+      print("berhasil fetch medal");
     } catch (err) {
       hasError.value = true;
       errorMessage.value = err.toString();

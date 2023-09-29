@@ -1,7 +1,7 @@
+// ignore_for_file: file_names
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:pull_to_refresh/pull_to_refresh.dart';
-import '../../core/string.dart';
 import '../../function/helper.dart';
 import '../../function/removeFocus.dart';
 import '../../function/showAlert.dart';
@@ -39,7 +39,7 @@ class ChannelProfileController extends GetxController {
             }).catchError((err) {
           throw err;
         });
-        await Future.delayed(Duration(seconds: 2));
+        await Future.delayed(const Duration(seconds: 2));
         Navigator.pop(Get.context!);
         showAlert(
             Get.context!, LoadingState.success, "TOKEN berhasil dikonfirmasi",
@@ -89,7 +89,7 @@ class ChannelProfileController extends GetxController {
   @override
   void onInit() {
     super.onInit();
-    Future.delayed(Duration(microseconds: 0)).then((_) async {
+    Future.delayed(const Duration(microseconds: 0)).then((_) async {
       var result = await getMedal();
       medal.value = result;
     });

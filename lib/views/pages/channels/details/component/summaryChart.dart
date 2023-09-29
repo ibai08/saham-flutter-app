@@ -1,3 +1,5 @@
+// ignore_for_file: file_names
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../../../../controller/summaryChartControllers.dart';
@@ -17,66 +19,64 @@ class SummaryChartWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     controller.setSummaryDetail(data!);
-    return Container(
-      child: Obx(() {
-        if (controller.channelSummaryDetail == null) {
-          return Container(
-            padding: const EdgeInsets.symmetric(vertical: 25),
-            child: const Center(
-                child: Text(
-              "Tunggu ya..!!",
-              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
-            )),
-          );
-        }
-        Rx<ChannelSummaryDetail?>? sDetail = controller.channelSummaryDetail;
-        var official = [];
-        var beta = [];
-        sDetail?.value?.signalCount == 773
-            ? official.add(sDetail)
-            : beta.add(sDetail);
-        if (sDetail!.value!.signalCount! < 1) {
-          return ListView(
-            children: <Widget>[
-              Info(
-                image: SizedBox(),
-                title: "Tidak ada Summary",
-                desc: "Signal terlalu sedikit",
-                onTap: onLoading,
-              )
-            ],
-          );
-        }
-        return Column(
-          children: [
-            Container(
-              margin: const EdgeInsets.only(top: 15),
-              padding: const EdgeInsets.only(top: 20, bottom: 20),
-              color: Colors.white,
-              child: Column(
-                children: <Widget>[
-                  Text(
-                    isAlltime!
-                        ? 'Signal Frequency Beta Version'
-                        : 'Signal Frequency Official Version',
-                    style: const TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.bold,
-                    ),
-                    textAlign: TextAlign.center,
-                  ),
-                  Container(
-                    width: double.infinity,
-                    height: 200,
-                    padding: EdgeInsets.symmetric(horizontal: 20),
-                    child: SignalFrequence(sDetail),
-                  )
-                ],
-              ),
-            ),
+    return Obx(() {
+      if (controller.channelSummaryDetail == null) {
+        return Container(
+          padding: const EdgeInsets.symmetric(vertical: 25),
+          child: const Center(
+              child: Text(
+            "Tunggu ya..!!",
+            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+          )),
+        );
+      }
+      Rx<ChannelSummaryDetail?>? sDetail = controller.channelSummaryDetail;
+      var official = [];
+      var beta = [];
+      sDetail?.value?.signalCount == 773
+          ? official.add(sDetail)
+          : beta.add(sDetail);
+      if (sDetail!.value!.signalCount! < 1) {
+        return ListView(
+          children: <Widget>[
+            Info(
+              image: const SizedBox(),
+              title: "Tidak ada Summary",
+              desc: "Signal terlalu sedikit",
+              onTap: onLoading,
+            )
           ],
         );
-      }),
-    );
+      }
+      return Column(
+        children: [
+          Container(
+            margin: const EdgeInsets.only(top: 15),
+            padding: const EdgeInsets.only(top: 20, bottom: 20),
+            color: Colors.white,
+            child: Column(
+              children: <Widget>[
+                Text(
+                  isAlltime!
+                      ? 'Signal Frequency Beta Version'
+                      : 'Signal Frequency Official Version',
+                  style: const TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.bold,
+                  ),
+                  textAlign: TextAlign.center,
+                ),
+                Container(
+                  width: double.infinity,
+                  height: 200,
+                  padding: const EdgeInsets.symmetric(horizontal: 20),
+                  child: SignalFrequence(sDetail),
+                )
+              ],
+            ),
+          ),
+        ],
+      );
+    });
   }
 }

@@ -115,7 +115,7 @@ class _MarketPageState extends State<MarketPage> {
                   ),
                 ),
                 Container(
-                  margin: const EdgeInsets.only(bottom: 20.0, right: 16.0),
+                  margin: const EdgeInsets.only(bottom: 20.0),
                   child: Column(
                     children: [
                       EmitenSlider.EmitenCategory(),
@@ -141,7 +141,7 @@ class _MarketPageState extends State<MarketPage> {
                   ),
                 ),
                 Container(
-                  margin: const EdgeInsets.only(bottom: 20.0, right: 16.0),
+                  margin: const EdgeInsets.only(bottom: 20.0),
                   child: Column(
                     children: [
                       const Align(
@@ -177,7 +177,7 @@ class _MarketPageState extends State<MarketPage> {
                   ),
                 ),
                 Container(
-                  margin: const EdgeInsets.only(bottom: 16.0, right: 16.0),
+                  margin: const EdgeInsets.only(bottom: 16.0),
                   child: Column(
                     children: [
                       const Align(

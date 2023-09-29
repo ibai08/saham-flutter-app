@@ -1,3 +1,5 @@
+// ignore_for_file: library_prefixes, unnecessary_null_comparison
+
 import 'package:dio/dio.dart';
 import 'package:get/get.dart' as Get;
 import 'package:get_storage/get_storage.dart';
@@ -70,7 +72,7 @@ class OisModel {
           fetchData.containsKey("message") &&
           fetchData["message"] is List) {
         List<ChannelCardSlim> listChannelCardSlim = [];
-        Map<String, double> listChannelBalance = Map();
+        Map<String, double> listChannelBalance = {};
         if (fetchData["message"].length > 0) {
           for (Map v in fetchData["message"]) {
             listChannelBalance[v["id"].toString()] =

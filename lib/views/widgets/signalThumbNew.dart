@@ -151,6 +151,7 @@ class SignalThumbNew extends StatelessWidget {
               title: title,
               subscriber: subscriber,
               onTap: () {
+                print("arguments-------------------: $channelId");
                 OisModel.instance
                     .logActions(
                         channelId: channelId,

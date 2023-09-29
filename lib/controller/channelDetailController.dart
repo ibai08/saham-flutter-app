@@ -1,10 +1,11 @@
+// ignore_for_file: file_names
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import '../../controller/appStatesController.dart';
 import '../../models/channel.dart';
 import '../../models/entities/ois.dart';
-import '../../views/pages/channels/details/summary.dart';
 
 class ChannelDetailController extends GetxController
     with GetTickerProviderStateMixin {

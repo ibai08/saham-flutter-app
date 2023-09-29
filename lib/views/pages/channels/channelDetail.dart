@@ -243,7 +243,10 @@ class ChannelProfile extends StatelessWidget {
       paddingBtn = 15;
       btnSubs = TextButton(
         onPressed: () {
-          Get.toNamed('/dsc/channels/new', arguments: channel);
+          Get.toNamed('/dsc/channels/new', arguments: {
+            "channel": channel,
+            "appStateController": appStateController.users.value
+          });
         },
         child:
             const Text("Edit Channel", style: TextStyle(color: Colors.white)),

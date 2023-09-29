@@ -1,0 +1,1087 @@
+{
+    "type": "Container",
+    "width":  500.0,
+    "margin": "0.0,0.0,0.0,0.0",
+    "child": {
+        "type": "Column",
+        "children": [
+            {
+                "type": "Padding",
+                "padding": "18.0,0.0,18.0,0.0",
+                "child": {
+                    "type": "Container",
+                    "decoration": {
+                        "borderRadius": "8.0,8.0,0.0,0.0",
+                        "color": "#FFFFFFFF"
+                    },
+                    "child": {
+                        "type": "Column",
+                        "children": [
+                            {
+                                "type": "Row",
+                                "mainAxisAlignment": "spaceBetween",
+                                "children": [
+                                    {
+                                        "type": "Padding",
+                                        "padding": "16.0,16.0,16.0,16.0",
+                                        "child": {
+                                            "type": "Column",
+                                            "crossAxisAlignment": "start",
+                                            "mainAxisAlignment": "center",
+                                            "children": [
+                                                {
+                                                    "type": "Text",
+                                                    "data": "Total Balance",
+                                                    "style": {
+                                                        "fontSize": 12.0,
+                                                        "fontWeight": "w400",
+                                                        "height": 1.2
+                                                    }
+                                                },
+                                                {
+                                                    "type": "Text",
+                                                    "data": "Rp5,000,000.00",
+                                                    "style": {
+                                                        "fontSize": 20.0,
+                                                        "fontWeight": "w600",
+                                                        "height": 1.6
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    },
+                                    {
+                                        "type": "Padding",
+                                        "padding": "16.0,16.0,16.0,16.0",
+                                        "child": {
+                                            "type": "AssetImage",
+                                            "name": "assets/Lotus Logo.png",
+                                            "width": 16.0,
+                                            "height": 46.0
+                                        }
+                                    }
+                                ]
+                            },
+                            {
+                                "type": "Container",
+                                "decoration": {
+                                    "color": "#FF350699",
+                                    "borderRadius": "0.0,0.0,8.0,8.0"
+                                },
+                                "child": {
+                                    "type": "Row",
+                                    "mainAxisAlignment": "spaceBetween",
+                                    "children": [
+                                        {
+                                            "type": "Container",
+                                            "padding": "16.0,16.0,16.0,16.0",
+                                            "child": {
+                                                "type": "Column",
+                                                "crossAxisAlignment": "start",
+                                                "mainAxisAlignment": "center",
+                                                "children": [
+                                                    {
+                                                        "type": "Text",
+                                                        "data": "Buying Power",
+                                                        "style": {
+                                                            "fontSize": 8.0,
+                                                            "fontWeight": "w400",
+                                                            "color": "#FFFFFFFF",
+                                                            "height": 1.2
+                                                        }
+                                                    },
+                                                    {
+                                                        "type": "Text",
+                                                        "data": "Rp1,345,000.00",
+                                                        "style": {
+                                                            "fontSize": 14.0,
+                                                            "fontWeight": "w600",
+                                                            "color": "#FFFFFFFF",
+                                                            "height": 1.6
+                                                        }
+                                                    }
+                                                ]
+                                            }
+                                        },
+                                        {
+                                            "type": "Container",
+                                            "padding": "0.0,0.0,15.0,0.0",
+                                            "child": {
+                                                "type": "ElevatedButton",
+                                                "click_event": "",
+                                                "primary": "#FFC6EC29",
+                                                "child": {
+                                                    "type": "Row",
+                                                    "mainAxisAlignment": "center",
+                                                    "children": [
+                                                        {
+                                                            "type": "AssetImage",
+                                                            "name": "assets/icon/light/plus.png",
+                                                            "width": 16.0,
+                                                            "height": 16.0
+                                                        },
+                                                        {
+                                                            "type": "SizedBox",
+                                                            "width": 5.0
+                                                        },
+                                                        {
+                                                            "type": "Text",
+                                                            "data": "Deposite",
+                                                            "style": {
+                                                                "color": "#FF000000",
+                                                                "fontSize": 14.0,
+                                                                "fontFamily": "Manrope"
+                                                            }
+                                                        }
+                                                    ]
+                                                }
+                                            }
+                                        }
+                                    ]
+                                }
+                            }
+                        ]
+                    }
+                }
+            },
+            {
+                "type": "Column",
+                "mainAxisAlignment": "end",
+                "crossAxisAlignment": "end",
+                "children": [
+                    {
+                        "type": "Padding",
+                        "padding": "3.0,0.0,0.0,0.0",
+                        "child": {
+                            "type": "ListTile",
+                            "dense": true,
+                            "title": { 
+                                "type": "Text",
+                                "data": "Channel Trending",
+                                "style": {
+                                    "color": "#FF000000",
+                                    "fontWeight": "w600",
+                                    "fontSize": 16.0,
+                                    "fontFamily": "Manrope"
+                                } 
+                            }
+                        }
+                    }
+                ]
+            }, 
+            {
+                "type": "SingleChildScrollView",
+                "padding": "10.0,0.0,10.0,0.0",
+                "scrollDirection": "horizontal",
+                "child": {
+                    "type": "Row",
+                    "children": [
+                        {
+                            "type": "Container",
+                            "padding": "10.0,15.0,10.0,15.0",
+                            "margin": "9.0,5.0,9.0,5.0",
+                            "decoration": {
+                                "borderRadius": "5.0,5.0,5.0,5.0",
+                                "color": "FFFFFFFF"
+                            },
+                            "width": 240.0,
+                            "child": {
+                                "type": "Column",
+                                "children": [
+                                    {
+                                        "type": "Row",
+                                        "children": [
+                                            {
+                                                "type": "Container",
+                                                "width": 40.0,
+                                                "height": 40.0,
+                                                "decoration": {
+                                                    "shape": "circle",
+                                                    "color": "#FFFFFFFF"
+                                                },
+                                                "child": {
+                                                    "type": "AssetImage",
+                                                    "name": "assets/default-channel-icon.jpg",
+                                                    "fit": "cover"
+                                                }
+                                            },
+                                            {
+                                                "type": "SizedBox",
+                                                "width": 2.0
+                                            },
+                                            {
+                                                "type": "AssetImage",
+                                                "name": "assets/icon/medal/master.png",
+                                                "width": 35.0,
+                                                "height": 35.0
+                                            },
+                                            {
+                                                "type": "Column",
+                                                "crossAxisAlignment": "start",
+                                                "children": [
+                                                    {
+                                                        "type": "Text",
+                                                        "data": "Nama Channel",
+                                                        "overflow": "ellipsis",
+                                                        "style": {
+                                                            "color": "#FF000000",
+                                                            "fontWeight": "w600",
+                                                            "fontSize": 14.0
+                                                        }
+                                                    },
+                                                    {
+                                                        "type": "SizedBox",
+                                                        "height": 3.0
+                                                    },
+                                                    {
+                                                        "type": "RichText",
+                                                        "textAlign": "left",
+                                                        "overflow": "ellipsis",
+                                                        "text": {
+                                                            "type": "textSpan",
+                                                            "style": {
+                                                                "color": "#FF929699"
+                                                            },
+                                                            "children": [
+                                                                {
+                                                                    "type": "textSpan",
+                                                                    "text": "Legends",
+                                                                    "style": {
+                                                                        "color": "#FF00B451",
+                                                                        "fontWeight": "w600",
+                                                                        "fontSize": 9.5
+                                                                    }
+                                                                },
+                                                                {
+                                                                    "type": "textSpan",
+                                                                    "text": "  |  123 Subscriber",
+                                                                    "style": {
+                                                                        "color": "#FF00B451",
+                                                                        "fontWeight": "w600",
+                                                                        "fontSize": 9.5
+                                                                    }
+                                                                }
+                                                            ]
+                                                        }
+                                                    }
+                                                ]
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "Padding",
+                                        "padding": "14.0,10.0,14.0,10.0",
+                                        "child": {
+                                            "type": "Row",
+                                            "children": [
+                                                {
+                                                    "type": "AssetImage",
+                                                    "name": "assets/icon/light/trending-up.png"
+                                                },
+                                                {
+                                                    "type": "SizedBox",
+                                                    "width": 8.0 
+                                                },
+                                                {
+                                                    "type": "Text",
+                                                    "data": "+1 JT",
+                                                    "style": {
+                                                        "fontSize": 20.0,
+                                                        "fontWeight": "w600",
+                                                        "color": "#FF00B451"
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    },
+                                    {
+                                        "type": "Container",
+                                        "margin": "8.0,10.0,8.0,3.0",
+                                        "width": 9999999999.0,
+                                        "child": {
+                                            "type": "TextButton",
+                                            "click_event": {
+                                                "eventType": "routing",
+                                                "routeType": "pushNamed",
+                                                "routeName": "/dsc/channels/",
+                                                "arguments": 90220
+                                            },
+                                            "backgroundColor": "#FF350699",
+                                            "tapTargetSize": "shrinkWrap",
+                                            "padding": "10.0,10.0,10.0,10.0",
+                                            "borderRadius": "4.0,4.0,4.0,4.0",
+                                            "child": {
+                                                "type": "Text",
+                                                "data": "Subscribe for 100",
+                                                "style": {
+                                                    "color": "#FFFFFFFF",
+                                                    "fontWeight": "w400",
+                                                    "fontSize": 13.0
+                                                }
+                                            }
+                                        }
+                                    }
+                                ]
+                            }
+                        },
+                        {
+                            "type": "Container",
+                            "padding": "10.0,15.0,10.0,15.0",
+                            "margin": "9.0,5.0,9.0,5.0",
+                            "decoration": {
+                                "borderRadius": "5.0,5.0,5.0,5.0",
+                                "color": "FFFFFFFF"
+                            },
+                            "width": 240.0,
+                            "child": {
+                                "type": "Column",
+                                "children": [
+                                    {
+                                        "type": "Row",
+                                        "children": [
+                                            {
+                                                "type": "Container",
+                                                "width": 40.0,
+                                                "height": 40.0,
+                                                "decoration": {
+                                                    "shape": "circle",
+                                                    "color": "#FFFFFFFF"
+                                                },
+                                                "child": {
+                                                    "type": "AssetImage",
+                                                    "name": "assets/default-channel-icon.jpg",
+                                                    "fit": "cover"
+                                                }
+                                            },
+                                            {
+                                                "type": "SizedBox",
+                                                "width": 2.0
+                                            },
+                                            {
+                                                "type": "AssetImage",
+                                                "name": "assets/icon/medal/master.png",
+                                                "width": 35.0,
+                                                "height": 35.0
+                                            },
+                                            {
+                                                "type": "Column",
+                                                "crossAxisAlignment": "start",
+                                                "children": [
+                                                    {
+                                                        "type": "Text",
+                                                        "data": "Nama Channel",
+                                                        "overflow": "ellipsis",
+                                                        "style": {
+                                                            "color": "#FF000000",
+                                                            "fontWeight": "w600",
+                                                            "fontSize": 14.0
+                                                        }
+                                                    },
+                                                    {
+                                                        "type": "SizedBox",
+                                                        "height": 3.0
+                                                    },
+                                                    {
+                                                        "type": "RichText",
+                                                        "textAlign": "left",
+                                                        "overflow": "ellipsis",
+                                                        "text": {
+                                                            "type": "textSpan",
+                                                            "style": {
+                                                                "color": "#FF929699"
+                                                            },
+                                                            "children": [
+                                                                {
+                                                                    "type": "textSpan",
+                                                                    "text": "Legends",
+                                                                    "style": {
+                                                                        "color": "#FF00B451",
+                                                                        "fontWeight": "w600",
+                                                                        "fontSize": 9.5
+                                                                    }
+                                                                },
+                                                                {
+                                                                    "type": "textSpan",
+                                                                    "text": "  |  123 Subscriber",
+                                                                    "style": {
+                                                                        "color": "#FF00B451",
+                                                                        "fontWeight": "w600",
+                                                                        "fontSize": 9.5
+                                                                    }
+                                                                }
+                                                            ]
+                                                        }
+                                                    }
+                                                ]
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "Padding",
+                                        "padding": "14.0,10.0,14.0,10.0",
+                                        "child": {
+                                            "type": "Row",
+                                            "children": [
+                                                {
+                                                    "type": "AssetImage",
+                                                    "name": "assets/icon/light/trending-up.png"
+                                                },
+                                                {
+                                                    "type": "SizedBox",
+                                                    "width": 8.0 
+                                                },
+                                                {
+                                                    "type": "Text",
+                                                    "data": "+1 JT",
+                                                    "style": {
+                                                        "fontSize": 20.0,
+                                                        "fontWeight": "w600",
+                                                        "color": "#FF00B451"
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    },
+                                    {
+                                        "type": "Container",
+                                        "margin": "8.0,10.0,8.0,3.0",
+                                        "width": 9999999999,
+                                        "child": {
+                                            "type": "TextButton",
+                                            "backgroundColor": "#FF350699",
+                                            "tapTargetSize": "shrinkWrap",
+                                            "click_event": {
+                                                "eventType": "openBrowser",
+                                                "url": "https://www.google.com"
+                                            },
+                                            "padding": "10.0,10.0,10.0,10.0",
+                                            "borderRadius": "4.0,4.0,4.0,4.0",
+                                            "child": {
+                                                "type": "Text",
+                                                "data": "Subscribe for 100",
+                                                "style": {
+                                                    "color": "#FFFFFFFF",
+                                                    "fontWeight": "w400",
+                                                    "fontSize": 13.0
+                                                }
+                                            }
+                                        }
+                                    }
+                                ]
+                            }
+                        },
+                        {
+                            "type": "Container",
+                            "padding": "10.0,15.0,10.0,15.0",
+                            "margin": "9.0,5.0,9.0,5.0",
+                            "decoration": {
+                                "borderRadius": "5.0,5.0,5.0,5.0",
+                                "color": "FFFFFFFF"
+                            },
+                            "width": 240.0,
+                            "child": {
+                                "type": "Column",
+                                "children": [
+                                    {
+                                        "type": "Row",
+                                        "children": [
+                                            {
+                                                "type": "Container",
+                                                "width": 40.0,
+                                                "height": 40.0,
+                                                "decoration": {
+                                                    "shape": "circle",
+                                                    "color": "#FFFFFFFF"
+                                                },
+                                                "child": {
+                                                    "type": "AssetImage",
+                                                    "name": "assets/default-channel-icon.jpg",
+                                                    "fit": "cover"
+                                                }
+                                            },
+                                            {
+                                                "type": "SizedBox",
+                                                "width": 2.0
+                                            },
+                                            {
+                                                "type": "AssetImage",
+                                                "name": "assets/icon/medal/master.png",
+                                                "width": 35.0,
+                                                "height": 35.0
+                                            },
+                                            {
+                                                "type": "Column",
+                                                "crossAxisAlignment": "start",
+                                                "children": [
+                                                    {
+                                                        "type": "Text",
+                                                        "data": "Nama Channel",
+                                                        "overflow": "ellipsis",
+                                                        "style": {
+                                                            "color": "#FF000000",
+                                                            "fontWeight": "w600",
+                                                            "fontSize": 14.0
+                                                        }
+                                                    },
+                                                    {
+                                                        "type": "SizedBox",
+                                                        "height": 3.0
+                                                    },
+                                                    {
+                                                        "type": "RichText",
+                                                        "textAlign": "left",
+                                                        "overflow": "ellipsis",
+                                                        "text": {
+                                                            "type": "textSpan",
+                                                            "style": {
+                                                                "color": "#FF929699"
+                                                            },
+                                                            "children": [
+                                                                {
+                                                                    "type": "textSpan",
+                                                                    "text": "Legends",
+                                                                    "style": {
+                                                                        "color": "#FF00B451",
+                                                                        "fontWeight": "w600",
+                                                                        "fontSize": 9.5
+                                                                    }
+                                                                },
+                                                                {
+                                                                    "type": "textSpan",
+                                                                    "text": "  |  123 Subscriber",
+                                                                    "style": {
+                                                                        "color": "#FF00B451",
+                                                                        "fontWeight": "w600",
+                                                                        "fontSize": 9.5
+                                                                    }
+                                                                }
+                                                            ]
+                                                        }
+                                                    }
+                                                ]
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "Padding",
+                                        "padding": "14.0,10.0,14.0,10.0",
+                                        "child": {
+                                            "type": "Row",
+                                            "children": [
+                                                {
+                                                    "type": "AssetImage",
+                                                    "name": "assets/icon/light/trending-up.png"
+                                                },
+                                                {
+                                                    "type": "SizedBox",
+                                                    "width": 8.0 
+                                                },
+                                                {
+                                                    "type": "Text",
+                                                    "data": "+1 JT",
+                                                    "style": {
+                                                        "fontSize": 20.0,
+                                                        "fontWeight": "w600",
+                                                        "color": "#FF00B451"
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    },
+                                    {
+                                        "type": "Container",
+                                        "margin": "8.0,10.0,8.0,3.0",
+                                        "width": 9999999999.0,
+                                        "child": {
+                                            "type": "TextButton",
+                                            "backgroundColor": "#FF350699",
+                                            "tapTargetSize": "shrinkWrap",
+                                            "padding": "10.0,10.0,10.0,10.0",
+                                            "borderRadius": "4.0,4.0,4.0,4.0",
+                                            "child": {
+                                                "type": "Text",
+                                                "data": "Subscribe for 100",
+                                                "style": {
+                                                    "color": "#FFFFFFFF",
+                                                    "fontWeight": "w400",
+                                                    "fontSize": 13.0
+                                                }
+                                            }
+                                        }
+                                    }
+                                ]
+                            }
+                        },
+                        {
+                            "type": "Container",
+                            "padding": "10.0,15.0,10.0,15.0",
+                            "margin": "9.0,5.0,9.0,5.0",
+                            "decoration": {
+                                "borderRadius": "5.0,5.0,5.0,5.0",
+                                "color": "FFFFFFFF"
+                            },
+                            "width": 240.0,
+                            "child": {
+                                "type": "Column",
+                                "children": [
+                                    {
+                                        "type": "Row",
+                                        "children": [
+                                            {
+                                                "type": "Container",
+                                                "width": 40.0,
+                                                "height": 40.0,
+                                                "decoration": {
+                                                    "shape": "circle",
+                                                    "color": "#FFFFFFFF"
+                                                },
+                                                "child": {
+                                                    "type": "AssetImage",
+                                                    "name": "assets/default-channel-icon.jpg",
+                                                    "fit": "cover"
+                                                }
+                                            },
+                                            {
+                                                "type": "SizedBox",
+                                                "width": 2.0
+                                            },
+                                            {
+                                                "type": "AssetImage",
+                                                "name": "assets/icon/medal/master.png",
+                                                "width": 35.0,
+                                                "height": 35.0
+                                            },
+                                            {
+                                                "type": "Column",
+                                                "crossAxisAlignment": "start",
+                                                "children": [
+                                                    {
+                                                        "type": "Text",
+                                                        "data": "Nama Channel",
+                                                        "overflow": "ellipsis",
+                                                        "style": {
+                                                            "color": "#FF000000",
+                                                            "fontWeight": "w600",
+                                                            "fontSize": 14.0
+                                                        }
+                                                    },
+                                                    {
+                                                        "type": "SizedBox",
+                                                        "height": 3.0
+                                                    },
+                                                    {
+                                                        "type": "RichText",
+                                                        "textAlign": "left",
+                                                        "overflow": "ellipsis",
+                                                        "text": {
+                                                            "type": "textSpan",
+                                                            "style": {
+                                                                "color": "#FF929699"
+                                                            },
+                                                            "children": [
+                                                                {
+                                                                    "type": "textSpan",
+                                                                    "text": "Legends",
+                                                                    "style": {
+                                                                        "color": "#FF00B451",
+                                                                        "fontWeight": "w600",
+                                                                        "fontSize": 9.5
+                                                                    }
+                                                                },
+                                                                {
+                                                                    "type": "textSpan",
+                                                                    "text": "  |  123 Subscriber",
+                                                                    "style": {
+                                                                        "color": "#FF00B451",
+                                                                        "fontWeight": "w600",
+                                                                        "fontSize": 9.5
+                                                                    }
+                                                                }
+                                                            ]
+                                                        }
+                                                    }
+                                                ]
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "Padding",
+                                        "padding": "14.0,10.0,14.0,10.0",
+                                        "child": {
+                                            "type": "Row",
+                                            "children": [
+                                                {
+                                                    "type": "AssetImage",
+                                                    "name": "assets/icon/light/trending-up.png"
+                                                },
+                                                {
+                                                    "type": "SizedBox",
+                                                    "width": 8.0
+                                                },
+                                                {
+                                                    "type": "Text",
+                                                    "data": "+1 JT",
+                                                    "style": {
+                                                        "fontSize": 20.0,
+                                                        "fontWeight": "w600",
+                                                        "color": "#FF00B451"
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    },
+                                    {
+                                        "type": "Container",
+                                        "margin": "8.0,10.0,8.0,3.0",
+                                        "width": 9999999999,
+                                        "child": {
+                                            "type": "TextButton",
+                                            "backgroundColor": "#FF350699",
+                                            "tapTargetSize": "shrinkWrap",
+                                            "padding": "10.0,10.0,10.0,10.0",
+                                            "borderRadius": "4.0,4.0,4.0,4.0",
+                                            "child": {
+                                                "type": "Text",
+                                                "data": "Subscribe for 100",
+                                                "style": {
+                                                    "color": "#FFFFFFFF",
+                                                    "fontWeight": "w400",
+                                                    "fontSize": 13.0
+                                                }
+                                            }
+                                        }
+                                    }
+                                ]
+                            }
+                        },
+                        {
+                            "type": "Container",
+                            "padding": "10.0,15.0,10.0,15.0",
+                            "margin": "9.0,5.0,9.0,5.0",
+                            "decoration": {
+                                "borderRadius": "5.0,5.0,5.0,5.0",
+                                "color": "FFFFFFFF"
+                            },
+                            "width": 240.0,
+                            "child": {
+                                "type": "Column",
+                                "children": [
+                                    {
+                                        "type": "Row",
+                                        "children": [
+                                            {
+                                                "type": "Container",
+                                                "width": 40.0,
+                                                "height": 40.0,
+                                                "decoration": {
+                                                    "shape": "circle",
+                                                    "color": "#FFFFFFFF"
+                                                },
+                                                "child": {
+                                                    "type": "AssetImage",
+                                                    "name": "assets/default-channel-icon.jpg",
+                                                    "fit": "cover"
+                                                }
+                                            },
+                                            {
+                                                "type": "SizedBox",
+                                                "width": 2.0
+                                            },
+                                            {
+                                                "type": "AssetImage",
+                                                "name": "assets/icon/medal/master.png",
+                                                "width": 35.0,
+                                                "height": 35.0
+                                            },
+                                            {
+                                                "type": "Column",
+                                                "crossAxisAlignment": "start",
+                                                "children": [
+                                                    {
+                                                        "type": "Text",
+                                                        "data": "Nama Channel",
+                                                        "overflow": "ellipsis",
+                                                        "style": {
+                                                            "color": "#FF000000",
+                                                            "fontWeight": "w600",
+                                                            "fontSize": 14.0
+                                                        }
+                                                    },
+                                                    {
+                                                        "type": "SizedBox",
+                                                        "height": 3.0
+                                                    },
+                                                    {
+                                                        "type": "RichText",
+                                                        "textAlign": "left",
+                                                        "overflow": "ellipsis",
+                                                        "text": {
+                                                            "type": "textSpan",
+                                                            "style": {
+                                                                "color": "#FF929699"
+                                                            },
+                                                            "children": [
+                                                                {
+                                                                    "type": "textSpan",
+                                                                    "text": "Legends",
+                                                                    "style": {
+                                                                        "color": "#FF00B451",
+                                                                        "fontWeight": "w600",
+                                                                        "fontSize": 9.5
+                                                                    }
+                                                                },
+                                                                {
+                                                                    "type": "textSpan",
+                                                                    "text": "  |  123 Subscriber",
+                                                                    "style": {
+                                                                        "color": "#FF00B451",
+                                                                        "fontWeight": "w600",
+                                                                        "fontSize": 9.5
+                                                                    }
+                                                                }
+                                                            ]
+                                                        }
+                                                    }
+                                                ]
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "Padding",
+                                        "padding": "14.0,10.0,14.0,10.0",
+                                        "child": {
+                                            "type": "Row",
+                                            "children": [
+                                                {
+                                                    "type": "AssetImage",
+                                                    "name": "assets/icon/light/trending-up.png"
+                                                },
+                                                {
+                                                    "type": "SizedBox",
+                                                    "width": 8.0
+                                                },
+                                                {
+                                                    "type": "Text",
+                                                    "data": "+1 JT",
+                                                    "style": {
+                                                        "fontSize": 20.0,
+                                                        "fontWeight": "w600",
+                                                        "color": "#FF00B451"
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    },
+                                    {
+                                        "type": "Container",
+                                        "margin": "8.0,10.0,8.0,3.0",
+                                        "width": 9999999999,
+                                        "child": {
+                                            "type": "TextButton",
+                                            "backgroundColor": "#FF350699",
+                                            "tapTargetSize": "shrinkWrap",
+                                            "padding": "10.0,10.0,10.0,10.0",
+                                            "borderRadius": "4.0,4.0,4.0,4.0",
+                                            "child": {
+                                                "type": "Text",
+                                                "data": "Subscribe for 100",
+                                                "style": {
+                                                    "color": "#FFFFFFFF",
+                                                    "fontWeight": "w400",
+                                                    "fontSize": 13.0
+                                                }
+                                            }
+                                        }
+                                    }
+                                ]
+                            }
+                        },
+                        {
+                            "type": "Container",
+                            "padding": "10.0,15.0,10.0,15.0",
+                            "margin": "9.0,5.0,9.0,5.0",
+                            "decoration": {
+                                "borderRadius": "5.0,5.0,5.0,5.0",
+                                "color": "FFFFFFFF"
+                            },
+                            "width": 240.0,
+                            "child": {
+                                "type": "Column",
+                                "children": [
+                                    {
+                                        "type": "Row",
+                                        "children": [
+                                            {
+                                                "type": "Container",
+                                                "width": 40.0,
+                                                "height": 40.0,
+                                                "decoration": {
+                                                    "shape": "circle",
+                                                    "color": "#FFFFFFFF"
+                                                },
+                                                "child": {
+                                                    "type": "AssetImage",
+                                                    "name": "assets/default-channel-icon.jpg",
+                                                    "fit": "cover"
+                                                }
+                                            },
+                                            {
+                                                "type": "SizedBox",
+                                                "width": 2.0
+                                            },
+                                            {
+                                                "type": "AssetImage",
+                                                "name": "assets/icon/medal/master.png",
+                                                "width": 35.0,
+                                                "height": 35.0
+                                            },
+                                            {
+                                                "type": "Column",
+                                                "crossAxisAlignment": "start",
+                                                "children": [
+                                                    {
+                                                        "type": "Text",
+                                                        "data": "Nama Channel",
+                                                        "overflow": "ellipsis",
+                                                        "style": {
+                                                            "color": "#FF000000",
+                                                            "fontWeight": "w600",
+                                                            "fontSize": 14.0
+                                                        }
+                                                    },
+                                                    {
+                                                        "type": "SizedBox",
+                                                        "height": 3.0
+                                                    },
+                                                    {
+                                                        "type": "RichText",
+                                                        "textAlign": "left",
+                                                        "overflow": "ellipsis",
+                                                        "text": {
+                                                            "type": "textSpan",
+                                                            "style": {
+                                                                "color": "#FF929699"
+                                                            },
+                                                            "children": [
+                                                                {
+                                                                    "type": "textSpan",
+                                                                    "text": "Legends",
+                                                                    "style": {
+                                                                        "color": "#FF00B451",
+                                                                        "fontWeight": "w600",
+                                                                        "fontSize": 9.5
+                                                                    }
+                                                                },
+                                                                {
+                                                                    "type": "textSpan",
+                                                                    "text": "  |  123 Subscriber",
+                                                                    "style": {
+                                                                        "color": "#FF00B451",
+                                                                        "fontWeight": "w600",
+                                                                        "fontSize": 9.5
+                                                                    }
+                                                                }
+                                                            ]
+                                                        }
+                                                    }
+                                                ]
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "Padding",
+                                        "padding": "14.0,10.0,14.0,10.0",
+                                        "child": {
+                                            "type": "Row",
+                                            "children": [
+                                                {
+                                                    "type": "AssetImage",
+                                                    "name": "assets/icon/light/trending-up.png"
+                                                },
+                                                {
+                                                    "type": "SizedBox",
+                                                    "width": 8.0
+                                                },
+                                                {
+                                                    "type": "Text",
+                                                    "data": "+1 JT",
+                                                    "style": {
+                                                        "fontSize": 20.0,
+                                                        "fontWeight": "w600",
+                                                        "color": "#FF00B451"
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    },
+                                    {
+                                        "type": "Container",
+                                        "margin": "8.0,10.0,8.0,3.0",
+                                        "width": 9999999999.0,
+                                        "child": {
+                                            "type": "TextButton",
+                                            "backgroundColor": "#FF350699",
+                                            "tapTargetSize": "shrinkWrap",
+                                            "padding": "10.0,10.0,10.0,10.0",
+                                            "borderRadius": "4.0,4.0,4.0,4.0",
+                                            "child": {
+                                                "type": "Text",
+                                                "data": "Subscribe for 100",
+                                                "style": {
+                                                    "color": "#FFFFFFFF",
+                                                    "fontWeight": "w400",
+                                                    "fontSize": 13.0
+                                                }
+                                            }
+                                        }
+                                    }
+                                ]
+                            }
+                        }
+                    ]
+                }
+            },
+            {
+                "type": "SizedBox",
+                "height": 10.0
+            },
+            {
+                "type": "Padding",
+                "padding": "19.0,0.0,0.0,0.0",
+                "child": {
+                    "type": "Container",
+                    "click_event": "/channel-signal",
+                    "child": {
+                        "type": "Row",
+                        "crossAxisAlignment": "center",
+                        "children": [
+                            {
+                                "type": "Text",
+                                "data": "Lihat Semua",
+                                "style": {
+                                    "fontSize": 12.0,
+                                    "fontWeight": "w400",
+                                    "fontFamily": "Manrope"
+                                }
+                            },
+                            {
+                                "type": "SizedBox",
+                                "width": 3.0
+                            },
+                            {
+                                "type": "AssetImage",
+                                "name": "assets/icon/light/arrow-right.png",
+                                "width": 12.0,
+                                "height": 12.0
+                            }
+                        ]
+                    }
+                }
+            }, 
+            {
+                "type": "SizedBox",
+                "height": 20.0
+            }
+        ]
+    }
+}

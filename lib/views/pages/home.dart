@@ -2,10 +2,13 @@ import 'dart:convert';
 
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:intl/intl.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
+import 'package:saham_01_app/interface/clickListener.dart';
+import 'package:saham_01_app/library/dynamic_widgets/dynamic_widget.dart';
 import '../../controller/homeTabController.dart';
 
 import '../../constants/app_colors.dart';
@@ -15,6 +18,7 @@ import '../../controller/navChannelNew.dart';
 import '../../core/analytics.dart';
 import '../../core/string.dart';
 import '../../function/showAlert.dart';
+import '../../function/subscribeChannel.dart';
 import '../../models/entities/ois.dart';
 import '../../models/entities/user.dart';
 import '../../models/ois.dart';
@@ -31,17 +35,20 @@ class Home extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: NavMain(
-        currentPage: 'HomePage',
-        username: "Gopay Kai",
+    return Obx(
+      () => Scaffold(
+        appBar: NavMain(
+          currentPage: 'HomePage',
+          username: "Gopay Kai",
+        ),
+        body: prepareHome(context),
+        backgroundColor: AppColors.light,
       ),
-      body: Obx(() => prepareHome()),
-      backgroundColor: AppColors.light,
     );
   }
 
-  Widget prepareHome() {
+  Widget prepareHome(BuildContext context) {
+    final double screenHeight = MediaQuery.of(context).size.height;
     return SmartRefresher(
       enablePullDown: true,
       enablePullUp: true,
@@ -49,17 +56,35 @@ class Home extends StatelessWidget {
       onRefresh: homeTabController.onRefresh,
       onLoading: homeTabController.onLoad,
       child: ListView(
-        padding: const EdgeInsets.only(top: 20),
         physics: const BouncingScrollPhysics(),
         scrollDirection: Axis.vertical,
         children: <Widget>[
-          const TotalBalance(),
-          MostConsistentChannel(
-            futureList:
-                homeTabController.getMostConsistentChannels(clearCache: false),
-            medal: homeTabController.medal.value,
-          ),
+          // const TotalBalance(),
+          // MostConsistentChannel(
+          //   futureList:
+          //       homeTabController.getMostConsistentChannels(clearCache: false),
+          //   medal: homeTabController.medal.value,
+          // ),
           const SizedBox(height: 20),
+          FutureBuilder(
+            future: buildWidgetFromJson(context),
+            builder: (context, snapshot) {
+              var connectionState = snapshot.connectionState;
+              if (snapshot.hasError) {
+                return Center(
+                  child: Text('${snapshot.error}'),
+                );
+              } else if (connectionState == ConnectionState.active || connectionState == ConnectionState.waiting) {
+                return Center(
+                  child: MostConsistentChannelShimmer(sH: screenHeight,),
+                );
+              } else {
+                return Container(
+                  child: snapshot.data as Widget,
+                );
+              }
+            },
+          ),
           Container(
             margin: const EdgeInsets.only(top: 18),
             child: RecentProfitSignalWidgetNew(
@@ -74,6 +99,12 @@ class Home extends StatelessWidget {
         ],
       ),
     );
+  }
+
+  Future<Widget?> buildWidgetFromJson(BuildContext buildContext) async {
+    var response = await rootBundle.loadString('assets/json/coba.json');
+    await Future.delayed(Duration(seconds: 2));
+    return DynamicWidgetBuilder.build(response, buildContext, DefaultClickListener(buildContext));
   }
 }
 
@@ -472,7 +503,7 @@ class MostConsistentChannelThumbNew extends StatelessWidget {
                         Navigator.pushNamed(context, '/dsc/channels/',
                             arguments: tChannel.id);
                       } else {
-                        // subcribeChannel(tChannel, context, null);
+                        subcribeChannel(tChannel, context, null);
                       }
                     },
                     style: TextButton.styleFrom(

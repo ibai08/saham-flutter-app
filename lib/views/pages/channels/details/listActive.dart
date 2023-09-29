@@ -1,3 +1,5 @@
+// ignore_for_file: file_names
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
@@ -10,7 +12,7 @@ class ListActiveSignal extends StatelessWidget {
   final int channel;
   final bool subscribed;
 
-  ListActiveSignal(this.channel, this.subscribed);
+  ListActiveSignal(this.channel, this.subscribed, {Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

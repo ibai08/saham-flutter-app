@@ -1,10 +1,9 @@
-// ignore_for_file: avoid_print, empty_catches
+// ignore_for_file: avoid_print, empty_catches, prefer_typing_uninitialized_variables
 
 import 'dart:convert';
 import 'dart:io';
 
 import 'package:dio/dio.dart';
-import 'package:get/get.dart' as Get;
 import 'package:image/image.dart';
 import 'package:image_picker/image_picker.dart';
 import '../../controller/appStatesController.dart';
@@ -17,9 +16,9 @@ import '../../models/user.dart';
 import 'package:sprintf/sprintf.dart';
 
 class MrgModel {
-  final realAcc = "real";
-  final demoAcc = "demo";
-  final contestAcc = "contest";
+  static const realAcc = "real";
+  static const demoAcc = "demo";
+  static const contestAcc = "contest";
 
   Future<Map> getUserData() async {
     String? mData = await getCfgAsync("mrgdat");

@@ -13,13 +13,13 @@ class SummaryChannels extends StatelessWidget {
 
   final SummaryChannelsController summaryChannelsController = Get.find();
 
-  SummaryChannels(this.channel, this.createdTime);
+  SummaryChannels(this.channel, this.createdTime, {Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     // summaryChannelsController.updateChannelValue(channel);
     return Obx(
       () => Container(
-          padding: EdgeInsets.only(top: 15),
+          padding: const EdgeInsets.only(top: 15),
           color: Colors.grey[200],
           child: summaryChannelsController.hasLoad.value == true
               ? ListView(
@@ -35,7 +35,7 @@ class SummaryChannels extends StatelessWidget {
                           onLoading: summaryChannelsController.onLoading),
                     if (summaryChannelsController.summaryDetail != null)
                       Container(
-                        margin: EdgeInsets.only(top: 20),
+                        margin: const EdgeInsets.only(top: 20),
                         child: SignalFrequencyWidget(
                           data: summaryChannelsController.summaryDetail,
                           onLoading: summaryChannelsController.onLoading,
@@ -45,11 +45,11 @@ class SummaryChannels extends StatelessWidget {
                 )
               : summaryChannelsController.hasLoad.value == false &&
                       summaryChannelsController.hasError.value == ''
-                  ? Center(
+                  ? const Center(
                       child: Text("Tunggu ya"),
                     )
                   : Info(
-                      image: SizedBox(),
+                      image: const SizedBox(),
                       title: "Terjadi Kesalahan",
                       desc: translateFromPattern(
                           summaryChannelsController.hasError.value),

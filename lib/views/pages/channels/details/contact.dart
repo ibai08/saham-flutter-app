@@ -11,12 +11,12 @@ import '../../../../models/entities/ois.dart';
 
 class ContactChannel extends StatelessWidget {
   final ChannelCardSlim channelDetail;
-  ContactChannel(this.channelDetail);
+  const ContactChannel(this.channelDetail, {Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.only(bottom: 20),
-      padding: EdgeInsets.symmetric(horizontal: 15),
+      margin: const EdgeInsets.only(bottom: 20),
+      padding: const EdgeInsets.symmetric(horizontal: 15),
       child: Center(
         child: Column(
           mainAxisSize: MainAxisSize.min,
@@ -25,19 +25,19 @@ class ContactChannel extends StatelessWidget {
               textAlign: TextAlign.center,
               text: TextSpan(
                   text: "Channel ini merupakan channel private, hubungi ",
-                  style: TextStyle(
+                  style: const TextStyle(
                       fontSize: 16,
                       fontWeight: FontWeight.normal,
                       color: Colors.black),
                   children: <InlineSpan>[
                     TextSpan(
                       text: channelDetail.contactEmail,
-                      style: TextStyle(
+                      style: const TextStyle(
                         fontSize: 16,
                         fontWeight: FontWeight.w600,
                       ),
                     ),
-                    TextSpan(
+                    const TextSpan(
                       text: " untuk mendapatkan TOKEN channel ini.",
                       style: TextStyle(
                         fontSize: 16,
@@ -45,7 +45,7 @@ class ContactChannel extends StatelessWidget {
                     )
                   ]),
             ),
-            SizedBox(
+            const SizedBox(
               height: 10,
             ),
             ElevatedButton(
@@ -58,7 +58,7 @@ class ContactChannel extends StatelessWidget {
                     }).toString();
                 launchURL(contact);
               },
-              child: Text("Hubungi Sekarang"),
+              child: const Text("Hubungi Sekarang"),
             )
           ],
         ),

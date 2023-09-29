@@ -1,7 +1,7 @@
-// ignore_for_file: avoid_print, empty_catches
+// ignore_for_file: avoid_print, empty_catches, unnecessary_type_check
 
 import 'package:dio/dio.dart';
-import 'package:get/get.dart' as Get;
+
 import 'package:http_parser/http_parser.dart';
 import 'package:image/image.dart';
 import 'package:image_picker/image_picker.dart';

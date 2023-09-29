@@ -1,4 +1,4 @@
-// ignore_for_file: sized_box_for_whitespace
+// ignore_for_file: sized_box_for_whitespace, unnecessary_string_escapes, file_names
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -40,7 +40,7 @@ class SignalFrequencyWidget extends StatelessWidget {
         return ListView(
           children: <Widget>[
             Info(
-              image: SizedBox(),
+              image: const SizedBox(),
               title: "Tidak ada Summary",
               desc: "Signal terlalu sedikit",
               onTap: onLoading,
@@ -54,15 +54,15 @@ class SignalFrequencyWidget extends StatelessWidget {
             isAllTime
                 ? "Summary Channel Beta Version"
                 : "Summary Channel Official Version",
-            style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+            style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
             textAlign: TextAlign.center,
           ),
           Container(
             width: double.infinity,
             height: 80,
-            margin: EdgeInsets.only(bottom: 0, top: 10),
+            margin: const EdgeInsets.only(bottom: 0, top: 10),
             child: SingleChildScrollView(
-              padding: EdgeInsets.only(left: 15, right: 15),
+              padding: const EdgeInsets.only(left: 15, right: 15),
               scrollDirection: Axis.horizontal,
               child: Row(
                 children: <Widget>[
@@ -135,7 +135,7 @@ class SignalFrequencyWidget extends StatelessWidget {
                   Container(
                     width: 230,
                     child: TileBox(
-                      trailing: Text(""),
+                      trailing: const Text(""),
                       title: "Consecutive Loss",
                       subtitle:
                           "${sDetail.value!.consecutiveLossCount}x (\IDR ${NumberFormat("#,###.##", "ID").format(sDetail.value!.consecutiveLossSum! * 10000)})",

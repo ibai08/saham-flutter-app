@@ -1,4 +1,4 @@
-// ignore_for_file: avoid_print, empty_catches
+// ignore_for_file: avoid_print, empty_catches, library_prefixes
 
 import 'dart:io';
 

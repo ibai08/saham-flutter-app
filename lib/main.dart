@@ -5,6 +5,8 @@ import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:firebase_remote_config/firebase_remote_config.dart';
 import 'package:flutter/services.dart';
 import 'package:saham_01_app/remoteConfig.dart';
+import 'package:saham_01_app/views/pages/addNewSignal.dart';
+import 'package:saham_01_app/views/pages/channels/form/newChannels.dart';
 import 'package:saham_01_app/views/pages/form/register.dart';
 import 'package:saham_01_app/views/pages/more/profile/forms/editPassword.dart';
 import 'package:saham_01_app/views/pages/more/profile/profile.dart';
@@ -31,7 +33,6 @@ import '../../views/pages/channels/channelDetail.dart';
 import '../../views/pages/channels/searchChannels.dart';
 import '../../views/pages/form/editProfile.dart';
 import '../../views/pages/form/login.dart';
-import '../../views/pages/form/verifyEmail.dart';
 import '../../views/pages/market.dart';
 import '../../views/pages/search/searchChannelspop.dart';
 import '../../views/pages/setting.dart';
@@ -44,7 +45,6 @@ import '../../views/widgets/dialogLoading.dart';
 import 'controller/checkInternetController.dart';
 import 'controller/homeTabController.dart';
 import 'interface/scrollUpWidget.dart';
-import 'views/appbar/navChannelNew.dart';
 import 'views/pages/home.dart';
 
 void main() async {
@@ -163,10 +163,10 @@ class _MyAppState extends State<MyApp> {
           initialRoute: '/',
           getPages: [
             GetPage(name: '/home', page: () => const MyHomePage()),
-            GetPage(name: '/remote-config', page: () => RemoteConfigView()),
+            GetPage(name: '/remote-config', page: () => const RemoteConfigView()),
             GetPage(name: '/homepage', page: () => Home()),
             GetPage(name: '/channel-signal', page: () => SignalDashboard()),
-            GetPage(name: '/maintenance', page: () => MaintenanceView()),
+            GetPage(name: '/maintenance', page: () => const MaintenanceView()),
             // GetPage(name: '/update-app', page: () => UpdateVersionView()),
 
             GetPage(name: '/forms/login', page: () => const Login()),
@@ -181,7 +181,8 @@ class _MyAppState extends State<MyApp> {
             GetPage(name: '/search/domisili', page: () => SearchDomisili()),
 
             GetPage(name: '/dsc/search', page: () => SearchChannelsTab()),
-            GetPage(name: '/dsc/channels/', page: () => ChannelDetail())
+            GetPage(name: '/dsc/channels/', page: () => ChannelDetail()),
+            GetPage(name: '/dsc/channels/new', page: () => NewChannels())
           ],
           home: const SplashScreen(),
           debugShowCheckedModeBanner: false,
@@ -206,7 +207,8 @@ class _MyHomePageState extends State<MyHomePage>
   final _layoutPage = [
     Home(),
     SignalDashboard(),
-    MarketPage(),
+    AddNewSignal(),
+    const MarketPage(),
     Setting()
     // SignalDashboard(),
     // NewSignalsTab(),
@@ -218,8 +220,6 @@ class _MyHomePageState extends State<MyHomePage>
   final appStateController = Get.find<AppStateController>();
 
   void _onTapItem(int index) {
-    print("onTapItem");
-    print(index);
     final appStateController = Get.find<AppStateController>();
     final listChannelController = Get.find<ListChannelWidgetController>();
     if (appStateController.currentTab == HomeTab.values[index]) {
@@ -232,7 +232,7 @@ class _MyHomePageState extends State<MyHomePage>
       listChannelController.sort.value = 0;
       listChannelController.initializePageChannelAsync();
     }
-    // FirebaseCrashlytics.instance.log("Home Screen: ${HomeTab.values[index]}");
+    FirebaseCrashlytics.instance.log("Home Screen: ${HomeTab.values[index]}");
     appStateController.setHomeTab(HomeTab.values[index]);
   }
 

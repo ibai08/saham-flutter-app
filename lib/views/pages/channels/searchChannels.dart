@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_is_empty, must_be_immutable
+// ignore_for_file: prefer_is_empty, must_be_immutable, file_names
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -15,6 +15,8 @@ class SearchChannelsTab extends StatelessWidget {
       Get.put(SearchChannelsResultController());
   final SearchSignalResultController searchSignalResultController =
       Get.put(SearchSignalResultController());
+
+  SearchChannelsTab({Key? key}) : super(key: key);
   
 
   @override
@@ -35,7 +37,7 @@ class SearchChannelsTab extends StatelessWidget {
           FocusScope.of(context).requestFocus(FocusNode());
         },
         child: NestedScrollView(
-          physics: NeverScrollableScrollPhysics(),
+          physics: const NeverScrollableScrollPhysics(),
           controller: searchChannelsTabController.scrollController,
           headerSliverBuilder: (BuildContext context, bool boxIsScrolled) {
             return <Widget>[
@@ -54,26 +56,24 @@ class SearchChannelsTab extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.end,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
-                    Container(
-                      child: TabBar(
-                        isScrollable: true,
-                        labelColor: Colors.black,
-                        unselectedLabelStyle: const TextStyle(fontSize: 16),
-                        labelStyle: const TextStyle(
-                            fontWeight: FontWeight.w600, fontSize: 16),
-                        indicatorWeight: 3,
-                        indicatorSize: TabBarIndicatorSize.label,
-                        indicatorColor: AppColors.primaryGreen,
-                        tabs: const <Widget>[
-                          Tab(
-                            text: "Signal",
-                          ),
-                          Tab(
-                            text: "Channels",
-                          )
-                        ],
-                        controller: searchChannelsTabController.tabController,
-                      ),
+                    TabBar(
+                      isScrollable: true,
+                      labelColor: Colors.black,
+                      unselectedLabelStyle: const TextStyle(fontSize: 16),
+                      labelStyle: const TextStyle(
+                          fontWeight: FontWeight.w600, fontSize: 16),
+                      indicatorWeight: 3,
+                      indicatorSize: TabBarIndicatorSize.label,
+                      indicatorColor: AppColors.primaryGreen,
+                      tabs: const <Widget>[
+                        Tab(
+                          text: "Signal",
+                        ),
+                        Tab(
+                          text: "Channels",
+                        )
+                      ],
+                      controller: searchChannelsTabController.tabController,
                     ),
                   ],
                 ),
@@ -105,7 +105,7 @@ class SearchChannelsResult extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print("find text channelll: $findText");
+    // print("find text channelll: $findText");
     
     return Obx(() {
       // print("testststst datat: ${searchChannelsResultController?.channelSearchResult}");
@@ -176,11 +176,12 @@ class SearchSignalResult extends StatelessWidget {
 
   SearchSignalResult({Key? key, this.findText}) : super(key: key);
 
+  @override
   Widget build(BuildContext context) {
-    print("find text signall: $findText");
+    // print("find text signall: $findText");
     // searchSignalResultController.setFindTxt(findText!);
       return Obx( () {
-        print("length.: ${searchSignalResultController.signalSearchResult?.length == 0 && searchSignalResultController.signalSearchResult!.isEmpty}");
+        // print("length.: ${searchSignalResultController.signalSearchResult?.length == 0 && searchSignalResultController.signalSearchResult!.isEmpty}");
         if (searchSignalResultController.signalSearchResult!.isEmpty && searchSignalResultController.hasError.value == false) {
           return const Center(
             child: Text(

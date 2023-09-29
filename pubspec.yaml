@@ -107,6 +107,7 @@ dependencies:
   flutter_local_notifications: ^12.0.4
   firebase_core_platform_interface: 4.5.1
   json_dynamic_widget: ^3.6.0
+  dynamic_widget: ^4.0.5
   # zendesk:
   #   git:
   #     url: https://gitlab+deploy-token-fltuter-zendesk:zyRmg7-U1BaKgb1sxy6G@gitlab.com/tf-developer/tf-bibit/flutter-zendesk

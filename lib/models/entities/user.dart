@@ -1,3 +1,5 @@
+// ignore_for_file: empty_catches
+
 class UserInfo {
   int id = 0;
   String? email;

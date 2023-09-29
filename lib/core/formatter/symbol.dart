@@ -12,7 +12,6 @@ List<double> extDecimalArray = [
   10000000.0,
   100000000.0
 ];
-
 List<String> extNumberFormat = [
   "#",
   "#.#",
@@ -27,9 +26,8 @@ List<String> extNumberFormat = [
 
 class SymbolInputFormatter extends TextInputFormatter {
   late int digit;
-  Function fnSymbol;
+  late Function fnSymbol;
   SymbolInputFormatter(this.fnSymbol);
-  @override
   TextEditingValue formatEditUpdate(
       TextEditingValue oldValue, TextEditingValue newValue) {
     TradeSymbol symbol = fnSymbol();
@@ -77,46 +75,48 @@ class SymbolInputFormatter extends TextInputFormatter {
           firstDecimal = "1";
           return newValue.copyWith(
               text: double.parse(firstDecimal + "." + lastDecimal)
-                  .toStringAsFixed(digit),
-              selection: const TextSelection.collapsed(offset: 1));
+                  .toStringAsFixed(this.digit),
+              selection: new TextSelection.collapsed(offset: 1));
         }
       }
 
       // jika firstDecimal itu sudah kosong karena dihapus maka ganti dengan 0
-      if (firstDecimal.isEmpty) {
+      if (firstDecimal.length == 0) {
         firstDecimal = "0";
         return newValue.copyWith(
             text: double.parse(firstDecimal + "." + lastDecimal)
-                .toStringAsFixed(digit),
-            selection: const TextSelection.collapsed(offset: 0));
+                .toStringAsFixed(this.digit),
+            selection: new TextSelection.collapsed(offset: 0));
       }
 
       if (firstDecimal.length > 10) {
         return oldValue;
       }
 
-      if (lastDecimal.length > digit) {
-        String newText =
-            double.parse(firstDecimal + "." + lastDecimal.substring(0, digit))
-                .toStringAsFixed(digit);
+      if (lastDecimal.length > this.digit) {
+        String newText = double.parse(
+                firstDecimal + "." + lastDecimal.substring(0, this.digit))
+            .toStringAsFixed(this.digit);
         if (newText.length < offset) {
           offset--;
         }
         return newValue.copyWith(
-            text: newText, selection: TextSelection.collapsed(offset: offset));
+            text: newText,
+            selection: new TextSelection.collapsed(offset: offset));
       }
     }
     if (newValue.selection.baseOffset == 0) {
       return newValue;
     }
-    if (digit > extDecimalArray.length || digit > extNumberFormat.length) {
+    if (this.digit > extDecimalArray.length ||
+        this.digit > extNumberFormat.length) {
       return newValue;
     }
-    if (newValue.text.contains(".") && newValue.text.length > 1) {
-      value = value / extDecimalArray[digit];
+    if (!newValue.text.contains(".") && newValue.text.length > 1) {
+      value = value / extDecimalArray[this.digit];
     }
-    String newText = value.toStringAsFixed(digit);
+    String newText = value.toStringAsFixed(this.digit);
     return newValue.copyWith(
-        text: newText, selection: TextSelection.collapsed(offset: offset));
+        text: newText, selection: new TextSelection.collapsed(offset: offset));
   }
 }

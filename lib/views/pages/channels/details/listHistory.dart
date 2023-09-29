@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_is_empty
+// ignore_for_file: prefer_is_empty, file_names
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -9,7 +9,7 @@ import '../../../../views/widgets/info.dart';
 class ListHistorySignal extends StatelessWidget {
   final int channel;
   final bool subscribed;
-  ListHistorySignal(this.channel, this.subscribed);
+  ListHistorySignal(this.channel, this.subscribed, {Key? key}) : super(key: key);
 
   final ListHistoryController controller = ListHistoryController();
 
@@ -30,7 +30,7 @@ class ListHistorySignal extends StatelessWidget {
         if (controller.signalInfo?.length == 0 &&
             !controller.hasError.value == true) {
           return Info(
-            image: SizedBox(),
+            image: const SizedBox(),
             title: "Tidak ada riwayat signal",
             onTap: controller.onRefresh,
             desc:
@@ -40,7 +40,7 @@ class ListHistorySignal extends StatelessWidget {
         if (controller.hasError.value == true) {
           return ListView(
             children: <Widget>[
-              Info(image: SizedBox(), onTap: controller.onLoading),
+              Info(image: const SizedBox(), onTap: controller.onLoading),
             ],
           );
         }

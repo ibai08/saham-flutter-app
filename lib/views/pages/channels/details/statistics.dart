@@ -1,7 +1,6 @@
-// ignore_for_file: prefer_is_empty
+// ignore_for_file: prefer_is_empty, use_key_in_widget_constructors
 
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import '../../../../controller/statisticsController.dart';
@@ -14,7 +13,7 @@ class StatisticsChannel extends StatelessWidget {
   final StatisticsChannelController controller =
       Get.put(StatisticsChannelController());
   final int channel;
-  StatisticsChannel(this.channel);
+  StatisticsChannel(this.channel, {Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -24,7 +23,7 @@ class StatisticsChannel extends StatelessWidget {
     double plHeight;
 
     return Container(
-      padding: EdgeInsets.only(top: 15),
+      padding: const EdgeInsets.only(top: 15),
       color: Colors.grey[200],
       child: Obx(() {
         if (controller.statChannelObs == null &&
@@ -50,7 +49,7 @@ class StatisticsChannel extends StatelessWidget {
             children: <Widget>[
               Info(
                 onTap: controller.onLoading,
-                image: SizedBox(),
+                image: const SizedBox(),
               )
             ],
           );
@@ -74,7 +73,7 @@ class StatisticsChannel extends StatelessWidget {
               padding: const EdgeInsets.only(top: 25, bottom: 10),
               child: Column(
                 children: <Widget>[
-                  Text(
+                  const Text(
                     'Symbol Frequency',
                     style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
                     textAlign: TextAlign.center,
@@ -82,7 +81,7 @@ class StatisticsChannel extends StatelessWidget {
                   Container(
                     width: double.infinity,
                     height: symbolFreqHeight,
-                    padding: EdgeInsets.symmetric(horizontal: 5),
+                    padding: const EdgeInsets.symmetric(horizontal: 5),
                     child: SymbolFrequence(controller.statChannelObs!.value!),
                   ),
                 ],
@@ -90,26 +89,26 @@ class StatisticsChannel extends StatelessWidget {
             ),
             Container(
               color: Colors.white,
-              margin: EdgeInsets.only(bottom: 15),
-              padding: EdgeInsets.only(bottom: 10, top: 25),
+              margin: const EdgeInsets.only(bottom: 15),
+              padding: const EdgeInsets.only(bottom: 10, top: 25),
               child: Column(
                 children: <Widget>[
-                  Text(
+                  const Text(
                     'Profit / Loss (IDR)',
                     style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
                     textAlign: TextAlign.center,
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 10,
                   ),
-                  LabelCharts(
+                  const LabelCharts(
                     text1: "Profit",
                     text2: "Loss",
                   ),
                   Container(
                     width: double.infinity,
                     height: plHeight,
-                    padding: EdgeInsets.symmetric(horizontal: 5),
+                    padding: const EdgeInsets.symmetric(horizontal: 5),
                     child:
                         ProfitLossFrequence(controller.statChannelObs!.value!),
                   )
@@ -125,7 +124,7 @@ class StatisticsChannel extends StatelessWidget {
 
 class SymbolFrequence extends StatelessWidget {
   final ChannelStat channelStat;
-  SymbolFrequence(this.channelStat);
+  const SymbolFrequence(this.channelStat, {Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -152,15 +151,15 @@ class SymbolFrequence extends StatelessWidget {
       vertical: false,
       barRendererDecorator: charts.BarLabelDecorator<String>(),
       primaryMeasureAxis:
-          charts.NumericAxisSpec(renderSpec: charts.NoneRenderSpec()),
-      domainAxis: charts.OrdinalAxisSpec(renderSpec: charts.NoneRenderSpec()),
+          const charts.NumericAxisSpec(renderSpec: charts.NoneRenderSpec()),
+      domainAxis: const charts.OrdinalAxisSpec(renderSpec: charts.NoneRenderSpec()),
     );
   }
 }
 
 class ProfitLossFrequence extends StatelessWidget {
   final ChannelStat channelStat;
-  ProfitLossFrequence(this.channelStat);
+  const ProfitLossFrequence(this.channelStat);
 
   @override
   Widget build(BuildContext context) {
@@ -188,8 +187,8 @@ class ProfitLossFrequence extends StatelessWidget {
       vertical: false,
       barRendererDecorator: charts.BarLabelDecorator<String>(),
       primaryMeasureAxis:
-          charts.NumericAxisSpec(renderSpec: charts.NoneRenderSpec()),
-      domainAxis: charts.OrdinalAxisSpec(
+          const charts.NumericAxisSpec(renderSpec: charts.NoneRenderSpec()),
+      domainAxis: const charts.OrdinalAxisSpec(
           renderSpec: charts.NoneRenderSpec(), showAxisLine: false),
     );
   }

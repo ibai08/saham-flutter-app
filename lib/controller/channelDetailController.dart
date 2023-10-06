@@ -16,6 +16,10 @@ class ChannelDetailController extends GetxController
   final RxString? titleObs = ''.obs;
   final Rx<ChannelCardSlim?>? channelObs = Rx<ChannelCardSlim?>(null);
   final RxBool hasError = RxBool(false);
+  RxBool isInit = false.obs;
+  RxBool isLoad = false.obs;
+
+  RxInt tabIndex = 0.obs;
 
   void setTitle(String newTitle) {
     titleObs?.value = newTitle;
@@ -49,6 +53,7 @@ class ChannelDetailController extends GetxController
       //   });
       // }
     });
+    isInit.value = true;
   }
 
   Future<void> getChannel({bool forceRequest = false}) async {
@@ -64,6 +69,8 @@ class ChannelDetailController extends GetxController
           .getDetail(channel, clearCache: forceRequest);
       setTitle(channelDetail.name!);
       setChannel(channelDetail);
+      isLoad.value = true;
+      print("9829342837823");
     } catch (xerr) {
       print(xerr);
       titleObs?.addError(xerr);
@@ -75,5 +82,12 @@ class ChannelDetailController extends GetxController
   Future<void> refreshChannel() async {
     await getChannel(forceRequest: true);
     refreshController.refreshCompleted();
+  }
+
+  @override
+  void onReady() {
+    super.onReady();
+    getChannel();
+    print("lagi on ready");
   }
 }

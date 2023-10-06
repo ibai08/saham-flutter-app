@@ -6,7 +6,9 @@ import 'package:firebase_remote_config/firebase_remote_config.dart';
 import 'package:flutter/services.dart';
 import 'package:saham_01_app/remoteConfig.dart';
 import 'package:saham_01_app/views/pages/addNewSignal.dart';
+import 'package:saham_01_app/views/pages/channels/channelDetailNew.dart';
 import 'package:saham_01_app/views/pages/channels/form/newChannels.dart';
+import 'package:saham_01_app/views/pages/channels/signalDetail.dart';
 import 'package:saham_01_app/views/pages/form/register.dart';
 import 'package:saham_01_app/views/pages/more/profile/forms/editPassword.dart';
 import 'package:saham_01_app/views/pages/more/profile/profile.dart';
@@ -181,8 +183,9 @@ class _MyAppState extends State<MyApp> {
             GetPage(name: '/search/domisili', page: () => SearchDomisili()),
 
             GetPage(name: '/dsc/search', page: () => SearchChannelsTab()),
-            GetPage(name: '/dsc/channels/', page: () => ChannelDetail()),
-            GetPage(name: '/dsc/channels/new', page: () => NewChannels())
+            GetPage(name: '/dsc/channels/', page: () => ChannelDetailNew()),
+            GetPage(name: '/dsc/channels/new', page: () => NewChannels()),
+            GetPage(name: '/dsc/signal/', page: () => SignalDetail())
           ],
           home: const SplashScreen(),
           debugShowCheckedModeBanner: false,

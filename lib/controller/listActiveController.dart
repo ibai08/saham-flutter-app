@@ -11,6 +11,7 @@ class ListActiveController extends GetxController {
   final RxList<SignalInfo>? signalInfo = RxList<SignalInfo>([]);
   List<SignalInfo> listSignal = [];
   RxInt channels = 0.obs;
+  RxBool isInit = false.obs;
 
   RxBool hasError = false.obs;
 
@@ -18,55 +19,11 @@ class ListActiveController extends GetxController {
     channels.value = channel;
   }
 
-  List<SignalDetailWidget> getSignals(List<SignalInfo> cc) {
-    List<SignalDetailWidget> results = [];
-    cc.forEach((signal) {
-      // print(signal.createdAt);
-      // print("signal.createdAt");
-      // print(signal.openTime);
-      // print("signal.openTime");
-      // print(signal.expired);
-      // print("signal.expired");
-      DateTime expir = DateTime.parse(signal.createdAt!)
-          .add(Duration(hours: 7, seconds: signal.expired!));
-      DateTime created =
-          DateTime.parse(signal.createdAt!).add(Duration(hours: 7));
-      String expiredDate =
-          DateFormat('dd MMM yyyy HH:mm').format(expir) + " WIB";
-      String createdAt =
-          DateFormat('dd MMM yyyy HH:mm').format(created) + " WIB";
-      var dateFormat = DateFormat("yyyy-MM-dd HH:mm:ss")
-          .format(DateTime.parse(DateTime.now().toString()).toLocal());
-      var validOpenTime = signal.openTime ?? dateFormat;
-      String openTime = DateFormat('dd MMM yyyy HH:mm')
-              .format(DateTime.parse(validOpenTime).add(Duration(hours: 7))) +
-          " WIB";
-      if (signal.expired == 0) {
-        expiredDate = "Tidak ada expired";
-      }
-      int status = signal.active!;
-      if (signal.op == 1 || signal.op == 0) {
-        status = 2;
-      }
-      results.add(SignalDetailWidget(
-        openTime: openTime,
-        createdAt: createdAt,
-        expired: expiredDate,
-        price: signal.price,
-        sl: signal.sl,
-        tp: signal.tp,
-        symbol: signal.symbol,
-        status: status,
-        pips: signal.pips,
-        type: getTradeCommandString(signal.op!),
-        id: signal.id,
-      ));
-    });
-    return results;
-  }
+  
 
   void onLoading() async {
     int offset = 0;
+    print("channsasj: ${channels.value}");
     try {
       offset = listSignal.length;
       List<SignalInfo> activeSignal = await SignalModel.instance
@@ -79,7 +36,10 @@ class ListActiveController extends GetxController {
         signalInfo?.addAll(listSignal);
         refreshController.loadNoData();
       }
-    } catch (xerr) {
+      hasError.value = false;
+    } catch (xerr, stack) {
+      print("xerrrrr: $xerr");
+      print("stack: $stack");
       if (offset == 0) {
         hasError.value = true;
       }
@@ -89,6 +49,7 @@ class ListActiveController extends GetxController {
 
   void onRefresh() async {
     listSignal.clear();
+    onLoading();
     try {
       List<SignalInfo> activeSignal =
           await SignalModel.instance.getChannelSignals(channels.value, 1, 0);
@@ -98,8 +59,10 @@ class ListActiveController extends GetxController {
       } else {
         signalInfo?.addAll(listSignal);
       }
+      hasError.value = false;
       refreshController.refreshCompleted();
     } catch (xerr) {
+      print("erorororor: $xerr");
       refreshController.refreshCompleted();
     }
   }
@@ -107,6 +70,13 @@ class ListActiveController extends GetxController {
   @override
   void onInit() {
     super.onInit();
-    onLoading;
+    print("lagi on jsdfjsdhfjhsdjfhsdjfh");
+    isInit.value = true;
+  }
+
+  @override
+  void onReady() {
+    super.onReady();
+    onLoading();
   }
 }

@@ -16,6 +16,8 @@ class ChannelProfileController extends GetxController {
     channel?.value = channels;
   }
 
+  RxBool isInit = false.obs;
+
   RxString price = "0".obs;
 
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
@@ -85,6 +87,7 @@ class ChannelProfileController extends GetxController {
   // void onUpdate() {
   //   super.on
   // }
+  var penyimpanan;
 
   @override
   void onInit() {
@@ -93,5 +96,16 @@ class ChannelProfileController extends GetxController {
       var result = await getMedal();
       medal.value = result;
     });
+    
+    print(channel?.value?.medals);
+    print("udah init");
   }
+
+  @override
+  void onReady() {
+    isInit.value = true;
+    print("---232 ${channel?.value?.medals}");
+    print("udah ready kuy");
+  }
+
 }

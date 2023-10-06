@@ -5,7 +5,7 @@ import '../../constants/app_colors.dart';
 import '../../models/entities/symbols.dart';
 import '../../models/symbols.dart';
 
-class SignalDetailWidget extends GetxController {
+class SignalDetailWidget extends StatelessWidget {
   final String? symbol;
   final String? type;
   final String? expired;
@@ -36,17 +36,13 @@ class SignalDetailWidget extends GetxController {
       this.price,
       this.status,
       this.profit,
-      this.id});
+      this.id}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final TradeSymbol? tradeSymbol = tradeSymbols.firstWhere((element) {
-      String? name = element.name ?? '';
-      String? symbols = symbol ?? '';
-      return name.toLowerCase() == symbols.toLowerCase();
-    });
 
-    final digit = tradeSymbol == null ? -1 : tradeSymbol.digit;
+
+    final digit = -1;
 
     var btnTxt = "Expired";
     Color? btnColor = Colors.grey[300];
@@ -224,7 +220,7 @@ class SignalDetailWidget extends GetxController {
                     Expanded(
                       child: Text(
                         price! > 0
-                            ? (digit! > -1
+                            ? (digit > -1
                                 ? price!.toStringAsFixed(digit)
                                 : price.toString())
                             : ' ',
@@ -253,7 +249,7 @@ class SignalDetailWidget extends GetxController {
                           Expanded(
                             child: Text(
                               tp! > 0
-                                  ? (digit! > -1
+                                  ? (digit > -1
                                       ? tp!.toStringAsFixed(digit)
                                       : tp.toString())
                                   : ' ',
@@ -282,7 +278,7 @@ class SignalDetailWidget extends GetxController {
                         Expanded(
                           child: Text(
                             sl! > 0
-                                ? (digit! > -1
+                                ? (digit > -1
                                     ? sl!.toStringAsFixed(digit)
                                     : sl.toString())
                                 : ' ',

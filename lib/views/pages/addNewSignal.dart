@@ -227,15 +227,12 @@ class AddNewSignal extends StatelessWidget {
           appStateController.setAppState(Operation.bringToHome, HomeTab.home);
           Get.offNamed("/home");
           controlle.onClose();
-          // Navigator.popUntil(context, ModalRoute.withName("/home"));
-          // Get.toNamed('/home');
-          // print("kalau keprint harusnya udah balik home");
           if (signalid > 0) {
-            // print("signalid: $signalid");
-            
             try {
               //  Navigator.popUntil(context, ModalRoute.withName("/home"));
-              Get.toNamed('/dsc/signal/', arguments: signalid);
+              Get.toNamed('/dsc/signal/', arguments: {
+                "signalId": signalid
+              });
               print("harusnya udah navigate");
             } catch(e, stack) {
               print("erorr: $e");

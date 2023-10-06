@@ -21,17 +21,13 @@ class SignalModel {
 
   RxMap<int, SignalInfo> signalCache = <int, SignalInfo>{}.obs;
 
-  Future<String> subsribeSignalAsync({int? signalid, bool? clearCache}) async {
+  Future<Rx<String?>?> subsribeSignalAsync({int? signalid, bool? clearCache}) async {
     SignalInfo? tmpSignal;
     if (_signalBox == null) {
       _signalBox = SharedHelper.instance.getBox(BoxName.signal);
     }
-    if (clearCache!) {
+    if (clearCache == true) {
       _signalBox?.delete(signalid.toString());
-    }
-
-    if (_signalBox == null) {
-      _signalBox = SharedHelper.instance.getBox(BoxName.signal);
     }
 
     int tryCount = 0;
@@ -45,7 +41,7 @@ class SignalModel {
       } else {
         tmpSignal = await getSignalDetailAsync(signalid!);
       }
-
+      
       if (tmpSignal != null) {
         break;
       }
@@ -53,17 +49,18 @@ class SignalModel {
 
     if (tmpSignal != null) {
       ChannelCardSlim? channel =
-          await ChannelModel.instance.getDetail(tmpSignal.channel!.id!);
+          await ChannelModel.instance.getDetail(tmpSignal.channel?.id);
       if (channel == null) {
-        return "CHANNEL_NOT_FOUND";
+        throw "CHANNEL_NOT_FOUND";
       } else if (channel.subscribed! &&
           channel.username != appStateController.users.value.username) {
-        return "CHANNEL_NOT_SUBSCRIBED";
+        throw "CHANNEL_NOT_SUBSCRIBED";
       } else {
         signalCache[signalid!] = tmpSignal;
+        return _signalBox?.watch(signalid.toString());
       }
     }
-    return "null";
+    return null;
   }
 
   void removeSignalCache(String identifier) {
@@ -218,11 +215,13 @@ class SignalModel {
         closePrice:
             double.tryParse(signalMap["close_price"].toString()) ?? 0.00,
         closeTime: signalMap["close_time"],
+        openTime: signalMap["open_time"],
         createdAt: signalMap["created_at"],
         expired: int.tryParse(signalMap["expired"].toString()) ?? 0,
         id: int.tryParse(signalMap["id"].toString()) ?? 0,
         notified: int.tryParse(signalMap["notified"].toString()) ?? 0,
         op: int.tryParse(signalMap["op"].toString()) ?? 0,
+        pips: int.tryParse(signalMap["pips"].toString()) ?? 0,
         price: double.tryParse(signalMap["price"].toString()) ?? 0.00,
         profit: double.tryParse(signalMap["pips"].toString()) ?? 0.00,
         sl: double.tryParse(signalMap["sl"].toString()) ?? 0.00,
@@ -232,9 +231,9 @@ class SignalModel {
         title: signalMap["title"],
         userid: int.tryParse(signalMap["userid"].toString()) ?? 0,
         username: signalMap["username"],
-        channelAvatar: signalMap["avatar"],
-        medals: int.tryParse(signalMap["medals"].toString()) ?? 0,
-        point: double.tryParse(signalMap["point"].toString()) ?? 0.00,
+        // channelAvatar: signalMap["avatar"],
+        // medals: int.tryParse(signalMap["medals"].toString()) ?? 0,
+        // point: double.tryParse(signalMap["point"].toString()) ?? 0.00,
       ));
     }
 
@@ -288,12 +287,18 @@ class SignalModel {
       {bool clearCache = false}) async {
     try {
       dynamic data = await _signalBox?.get(signalid.toString());
+      print("=======signalid: $signalid");
+      print("=====data :$data");
       SignalInfo _signalData;
-      if (data == null || data == "" || clearCache) {
+      if (data == null || data == "" || clearCache == false) {
+        print("=====progress111");
         Map fetchData = await TF2Request.authorizeRequest(
             url: getHostName() + "/ois/api/v2/signal/detail/",
             postParam: {"signalid": signalid});
+            print("=====progress2324");
+        print("=====fetchData: $fetchData");
         Map signalMap = fetchData["message"];
+        print("=====progress1123231");
         _signalData = SignalInfo.createObject(
           active: int.tryParse(signalMap["active"].toString()) ?? 0,
           caption: signalMap["caption"],
@@ -324,16 +329,20 @@ class SignalModel {
           medals: int.tryParse(signalMap["medals"].toString()) ?? 0,
           point: double.tryParse(signalMap["point"].toString()) ?? 0.00,
         );
-
+        print("=====progress11wewef1");
         await _signalBox?.putMap(
             _signalData.id.toString(), _signalData.toMap()!);
+            print("=====progressqweqwe");
       } else {
+        print("=====progressfjsdjfj");
         Map mapData = jsonDecode(data);
         _signalData = SignalInfo.fromMap(mapData);
       }
       return _signalData;
-    } catch (xerr) {
+    } catch (xerr, stack) {
       print(xerr);
+      print("----------------------");
+      print("stackk: $stack");
     }
 
     return null;

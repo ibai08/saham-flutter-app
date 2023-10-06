@@ -104,8 +104,9 @@ class SignalDetailWithHeaderNew extends StatelessWidget {
                           locationId: "Recently_profit",
                         )
                       ]).then((_) {}, onError: (err) {});
-                      Navigator.pushNamed(context, '/dsc/channels/',
-                          arguments: channelId);
+                      Get.toNamed('/dsc/channels/', arguments: {
+                        "channelId": channelId
+                      });
                     } else {
                       // showAlert(context, LoadingState.warning, "Anda harus login terlebih dahulu untuk melihat channel", then: (x) {Navigator.pushNamed(context, '/forms/login');});
                     }
@@ -131,8 +132,9 @@ class SignalDetailWithHeaderNew extends StatelessWidget {
                                     stateName: "recently_profit")
                                 .then((x) {})
                                 .catchError((err) {});
-                            Navigator.pushNamed(context, '/dsc/channels/',
-                                arguments: channelId);
+                            Get.toNamed('/dsc/channels/', arguments: {
+                              "channelId": channelId
+                            });
                           } else {
                             // showAlert(context, LoadingState.warning, "Anda harus login terlebih dahulu untuk melihat channel", then: (x) {
                             //   Navigator.pushNamed(context, '/forms/login');

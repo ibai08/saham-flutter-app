@@ -393,8 +393,9 @@ class MostConsistentChannelThumbNew extends StatelessWidget {
                     channelId: channel?.id, actionName: "view", stateName: from)
                 .then((x) {})
                 .catchError((err) {});
-            Navigator.pushNamed(context, '/dsc/channels/',
-                arguments: channel?.id);
+            Get.toNamed('/dsc/channels/',arguments: {
+              "channelId": channel?.id
+            });
           } else {
             showAlert(context, LoadingState.warning,
                 "Anda harus login terlebih dahulu untuk melihat channel",
@@ -500,8 +501,9 @@ class MostConsistentChannelThumbNew extends StatelessWidget {
                                 stateName: from)
                             .then((x) {})
                             .catchError((err) {});
-                        Navigator.pushNamed(context, '/dsc/channels/',
-                            arguments: tChannel.id);
+                        Get.toNamed('/dsc/channels/',arguments: {
+                          "channelId": channel?.id
+                        });
                       } else {
                         subcribeChannel(tChannel, context, null);
                       }

@@ -162,7 +162,9 @@ class ChannelThumb extends StatelessWidget {
                     )
                     .then((x) {})
                     .catchError((err) {});
-                Get.toNamed('/dsc/channels/', arguments: tChannel.id);
+                Get.toNamed('/dsc/channels/', arguments: {
+                  "channelId": tChannel.id
+                });
               },
               isMedium: false,
               avatar: avatar,
@@ -221,8 +223,9 @@ class ChannelThumb extends StatelessWidget {
                               )
                               .then((x) {})
                               .catchError((err) {});
-                          Navigator.pushNamed(context, '/dsc/channels/',
-                              arguments: tChannel.id);
+                          Get.toNamed('/dsc/channels/', arguments: {
+                            "channelId": tChannel.id
+                          });
                         } else {
                           subcribeChannel(tChannel, context, controller.refreshController);
                         }

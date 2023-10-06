@@ -13,6 +13,7 @@ class ListHistoryController extends GetxController {
   RxInt channels = 0.obs;
   RxBool subscribed = false.obs;
   RxBool hasError = false.obs;
+  RxBool isInit = false.obs;
 
   void setChannels(int channel) {
     channels.value = channel;
@@ -22,45 +23,7 @@ class ListHistoryController extends GetxController {
     subscribed.value = subs;
   }
 
-  List<SignalDetailWidget> getSignals(List<SignalInfo> cc) {
-    List<SignalDetailWidget> result = [];
-    cc.forEach((signal) {
-      DateTime expir = DateTime.parse(signal.openTime!)
-          .add(Duration(hours: 7, seconds: signal.expired!));
-      DateTime dtCloseTime =
-          DateTime.parse(signal.closeTime!).add(Duration(hours: 7));
-      String expiredDate = DateFormat('dd MMM yyyy HH:mm').format(expir);
-      String closeTimed = DateFormat('dd MMM yyyy HH:mm').format(dtCloseTime);
-      String createdAt = DateFormat('dd MMM yyyy HH:mm')
-          .format(DateTime.parse(signal.createdAt!).add(Duration(hours: 7)));
-      String openTimed = DateFormat('dd MMM yyyy HH:mm')
-          .format(DateTime.parse(signal.openTime!).add(Duration(hours: 7)));
-      int status = signal.active!;
-      if (signal.expired == 0) {
-        expiredDate = "Tidak ada expired";
-      }
-      if (expir.isAfter(dtCloseTime) && signal.pips == 0) {
-        status = 3;
-      }
-      try {
-        result.add(SignalDetailWidget(
-          expired: expiredDate + " WIB",
-          closeTime: closeTimed + " WIB",
-          openTime: openTimed + " WIB",
-          createdAt: createdAt + " WIB",
-          price: signal.price,
-          sl: subscribed.value ? signal.sl : 0,
-          tp: subscribed.value ? signal.tp : 0,
-          symbol: signal.symbol,
-          status: status,
-          pips: signal.pips,
-          profit: signal.profit,
-          type: getTradeCommandString(signal.op!),
-        ));
-      } catch (e) {}
-    });
-    return result;
-  }
+  
 
   void onLoading() async {
     int offset = 0;
@@ -104,6 +67,11 @@ class ListHistoryController extends GetxController {
   @override
   void onInit() {
     super.onInit();
+    isInit.value = true;
+  }
+
+  @override
+  void onReady() {
     onLoading;
   }
 }

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:intl/intl.dart';
+import 'package:saham_01_app/views/widgets/HeadingChannelInfoNew.dart';
 import '../../constants/app_colors.dart';
 import '../../models/entities/ois.dart';
 import '../../models/ois.dart';
@@ -144,7 +146,7 @@ class SignalThumbNew extends StatelessWidget {
             color: Colors.white),
         child: Column(
           children: <Widget>[
-            HeadingChannelInfo(
+            HeadingChannelInfoNew(
               avatar: avatar,
               level: level,
               medals: medals,
@@ -159,8 +161,9 @@ class SignalThumbNew extends StatelessWidget {
                         stateName: "signal")
                     .then((x) {})
                     .catchError((err) {});
-                Navigator.pushNamed(context, '/dsc/channels/',
-                    arguments: channelId);
+                Get.toNamed('/dsc/channels/', arguments: {
+                  "channelId": channelId
+                });
               },
             ),
             const Padding(

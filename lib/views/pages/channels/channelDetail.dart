@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
+import 'package:saham_01_app/controller/listActiveController.dart';
+import 'package:saham_01_app/controller/listHistoryController.dart';
+import 'package:saham_01_app/controller/statisticsController.dart';
 import '../../../constants/app_colors.dart';
 import '../../../controller/appStatesController.dart';
 import '../../../controller/channelDetailController.dart';
@@ -25,13 +28,14 @@ import '../../../views/widgets/info.dart';
 
 class ChannelDetail extends StatelessWidget {
   final ChannelDetailController controller = Get.put(ChannelDetailController());
-  final ChannelProfileController channelProfilecontroller =
-      Get.put(ChannelProfileController());
+  final ChannelProfileController channelProfilecontroller = Get.put(ChannelProfileController());
+  
 
   final AppStateController appStateController = Get.find();
 
   @override
   Widget build(BuildContext context) {
+    
     // print("Ini controller.channel: ${controller.channel}");
     // print("ini channel detail: ${controller.channelDetail}");
     // print("ini yang summary: ${summaryChannelsController.channel}");
@@ -41,23 +45,41 @@ class ChannelDetail extends StatelessWidget {
           "ini error 2: ${ModalRoute.of(context)?.settings.arguments as int}");
       controller.channel = ModalRoute.of(context)?.settings.arguments as int;
       print("Ini controller.channel: ${controller.channel}");
+      
       SummaryChannelsController summaryChannelsController =
           Get.put(SummaryChannelsController());
       summaryChannelsController.updateChannelValue(controller.channel);
+      // ListActiveController listActiveController = Get.put(ListActiveController());
+      // ListHistoryController listHistoryController = Get.put(ListHistoryController());
+      // StatisticsChannelController statisticsChannelController = Get.put(StatisticsChannelController());
       controller.getChannel();
+      // if (controller.isInit.value) {
+      //   ChannelProfileController channelProfilecontroller =
+      //   Get.put(ChannelProfileController());
+      //   channelProfilecontroller.channel?.value = controller.channelDetail;
+      //   print("ini turasdasdasda: ${controller.channelDetail.name}");
+      // }
+      // listActiveController.channels.value = controller.channel;
       print("jalan disini");
+      print("medal harus jalan: ${controller}");
     }
+    List<Widget> tabsView = [
+      SummaryChannels(controller.channel,
+          controller.channelObs?.value?.createdTime ?? DateTime(0)),
+    ];
+
+    controller.tabController =
+    TabController(length: 4, vsync: controller);
 
     SummaryChannelsController summaryController = Get.find();
-    return Scaffold(
-        appBar: NavTxt.getx(
-          title: controller.titleObs,
-        ),
-        body: Obx(() {
-          if (channelProfilecontroller.channel == null) {
+
+    print(channelProfilecontroller.channel == null);
+          print("---------${channelProfilecontroller.channel?.value?.toString()}");
+          if (channelProfilecontroller.channel == null || controller.isLoad.value) {
             // print(controller.channelObs == null || summaryController.hasLoad.value == false);
-            // print("kena tunggu");
-            return const Center(
+            print("kena tunggu shdfhjsdjhsdgfjsh");
+            print("---------${channelProfilecontroller.channel?.value?.name}");
+            return Center(
               child: Text(
                 "Tunggu ya..!!",
                 style: TextStyle(fontWeight: FontWeight.w600, fontSize: 18),
@@ -79,12 +101,10 @@ class ChannelDetail extends StatelessWidget {
             return Info(onTap: controller.refreshChannel);
           }
 
-          print(controller.channelObs == null ||
-              summaryController.hasLoad.value == false);
-
           // print("selesai 1");
-          controller.tabController =
-              TabController(length: 4, vsync: controller);
+          print("---------${channelProfilecontroller.channel?.value?.name}");
+          
+          print("tabController: ${controller.tabController.index}");
           List<Widget> tabs = const [
             Tab(
               text: "SUMMARY",
@@ -113,21 +133,8 @@ class ChannelDetail extends StatelessWidget {
             ];
           }
           print("selesai 3");
-          List<Widget> tabsView = [
-            SummaryChannels(controller.channel,
-                controller.channelObs?.value?.createdTime ?? DateTime(0)),
-            ListActiveSignal(
-                controller.channel,
-                controller.channelObs?.value?.subscribed != null ||
-                    controller.channelObs?.value?.username ==
-                        appStateController.users.value.username),
-            ListHistorySignal(
-                controller.channel,
-                controller.channelObs?.value?.subscribed != null ||
-                    controller.channelObs?.value?.username ==
-                        appStateController.users.value.username),
-            StatisticsChannel(controller.channel)
-          ];
+          print("---------${channelProfilecontroller.channel?.value?.name}");
+          
           print("selesai 4");
           if (controller.channelDetail.username !=
                   appStateController.users.value.username &&
@@ -137,66 +144,111 @@ class ChannelDetail extends StatelessWidget {
           }
           print("selesai 5");
 
-          return Container(
-            child: NestedScrollView(
-              controller: controller.scrollController,
-              headerSliverBuilder: (BuildContext context, bool boxIsScrolled) {
-                return <Widget>[
-                  SliverAppBar(
-                    leading: const IconButton(
-                      color: Colors.transparent,
-                      onPressed: null,
-                      icon: SizedBox(),
-                    ),
-                    backgroundColor: Colors.white,
-                    pinned: true,
-                    floating: true,
-                    snap: true,
-                    iconTheme: const IconThemeData(color: Colors.black),
-                    forceElevated: boxIsScrolled,
-                    expandedHeight:
-                        780 < MediaQuery.of(context).size.width ? 220 : 285,
-                    flexibleSpace: FlexibleSpaceBar(
-                      collapseMode: CollapseMode.pin,
-                      background: SmartRefresher(
-                        controller: controller.refreshController,
-                        enablePullDown: true,
-                        enablePullUp: false,
-                        onRefresh: controller.refreshChannel,
-                        child: Container(
-                          padding: const EdgeInsets.all(0),
-                          decoration: const BoxDecoration(color: Colors.white),
-                          child: ChannelProfile(
-                            channel: controller.channelDetail,
-                            refreshController: controller.refreshController,
+print("---------${channelProfilecontroller.channel?.value?.name}");
+          void onTapItem(int index) {
+            print("ketap oi");
+            print("index: $index");
+            controller.tabIndex.value = index;
+            controller.tabController.index = index;
+            if (controller.tabController.index == 1) {
+              ListActiveController listActiveController = Get.put(ListActiveController());
+              print("ui prosess");
+              listActiveController.channels.value = controller.channel;
+              if (listActiveController.isInit.value) {
+                tabsView.add(
+                ListActiveSignal(
+                controller.channel,
+                controller.channelObs?.value?.subscribed != null ||
+                    controller.channelObs?.value?.username ==
+                        appStateController.users.value.username),
+              );
+              }
+            }
+            if (controller.tabController.index == 2) {
+              ListHistoryController listHistoryController = Get.put(ListHistoryController());
+              listHistoryController.channels.value = controller.channel;
+              if (listHistoryController.isInit.value) {
+                tabsView.add(
+                ListHistorySignal(
+                controller.channel,
+                controller.channelObs?.value?.subscribed != null ||
+                    controller.channelObs?.value?.username ==
+                        appStateController.users.value.username),
+              );
+              }
+            } 
+            if (controller.tabController.index == 3) {
+              tabsView.add(
+                StatisticsChannel(controller.channel)
+              );
+            } 
+          }
+          print("---------${channelProfilecontroller.channel?.value?.name}");
+    
+    return Obx(
+      () => Scaffold(
+          appBar: NavTxt.getx(
+            title: controller.titleObs,
+          ),
+          body:  Container(
+              child: NestedScrollView(
+                controller: controller.scrollController,
+                headerSliverBuilder: (BuildContext context, bool boxIsScrolled) {
+                  return <Widget>[
+                    SliverAppBar(
+                      leading: const IconButton(
+                        color: Colors.transparent,
+                        onPressed: null,
+                        icon: SizedBox(),
+                      ),
+                      backgroundColor: Colors.white,
+                      pinned: true,
+                      floating: true,
+                      snap: true,
+                      iconTheme: const IconThemeData(color: Colors.black),
+                      forceElevated: boxIsScrolled,
+                      expandedHeight:
+                          780 < MediaQuery.of(context).size.width ? 220 : 285,
+                      flexibleSpace: FlexibleSpaceBar(
+                        collapseMode: CollapseMode.pin,
+                        background: SmartRefresher(
+                          controller: controller.refreshController,
+                          enablePullDown: true,
+                          enablePullUp: false,
+                          onRefresh: controller.refreshChannel,
+                          child: Container(
+                            padding: const EdgeInsets.all(0),
+                            decoration: const BoxDecoration(color: Colors.white),
+                            child: ChannelProfile(
+                              channel: controller.channelDetail,
+                              refreshController: controller.refreshController,
+                            ),
                           ),
                         ),
                       ),
-                    ),
-                    bottom: TabBar(
-                      isScrollable: true,
-                      labelColor: AppColors.primaryGreen,
-                      labelStyle: const TextStyle(
-                          fontSize: 14, fontWeight: FontWeight.w600),
-                      unselectedLabelColor: AppColors.darkGrey,
-                      unselectedLabelStyle: const TextStyle(
-                          fontSize: 14, fontWeight: FontWeight.w600),
-                      indicatorColor: AppColors.primaryGreen,
-                      indicatorSize: TabBarIndicatorSize.tab,
-                      indicatorWeight: 3,
-                      tabs: tabs,
-                      controller: controller.tabController,
-                    ),
-                  )
-                ];
-              },
-              body: TabBarView(
-                children: tabsView,
-                controller: controller.tabController,
+                      bottom: TabBar(
+                        isScrollable: true,
+                        labelColor: AppColors.primaryGreen,
+                        labelStyle: const TextStyle(
+                            fontSize: 14, fontWeight: FontWeight.w600),
+                        unselectedLabelColor: AppColors.darkGrey,
+                        unselectedLabelStyle: const TextStyle(
+                            fontSize: 14, fontWeight: FontWeight.w600),
+                        indicatorColor: AppColors.primaryGreen,
+                        indicatorSize: TabBarIndicatorSize.tab,
+                        indicatorWeight: 3,
+                        tabs: tabs,
+                        controller: controller.tabController,
+                        onTap: onTapItem,
+                      ),
+                    )
+                  ];
+                },
+                body: tabsView.elementAt(controller.tabIndex.value)
               ),
-            ),
-          );
-        }));
+            )
+          ),
+    );
   }
 }
 
@@ -220,7 +272,9 @@ class ChannelProfile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     controller.setChannel(channel);
+    print("medalist: ${channel.medals}");
     // print(controller.channel?.value?.price);
+    
     if (channel.price != null) {
       if (channel.price! > 1) {
         price.value = numberShortener(channel.price!.floor());
@@ -376,88 +430,99 @@ class ChannelProfile extends StatelessWidget {
       ),
     );
 
-    return Container(
-      child: Column(
-        children: <Widget>[
-          const SizedBox(
-            height: 10,
-          ),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 10),
-            child: HeadingChannelInfo(
-                trailing: Container(
-                  margin: const EdgeInsets.only(top: 10),
-                  child: Row(
-                    children: [
-                      if (channel.username !=
-                          appStateController.users.value.username)
-                        if (channel.subscribed == true)
-                          IconButton(
-                            onPressed: () async {
-                              String txtAlert = "";
-                              showDialog(
-                                  context: context,
-                                  barrierDismissible: false,
-                                  builder: (context) {
-                                    return DialogLoading();
-                                  });
-                              if (!channel.mute!) {
-                                txtAlert = "tidak ";
-                              }
-                              await ChannelModel.instance.muteChannel(
-                                  channelid: channel.id, mute: channel.mute);
-                              refreshController?.requestRefresh(
-                                  needMove: false);
-                              Navigator.pop(context);
-                              showAlert(context, LoadingState.success,
-                                  "Anda ${txtAlert}akan menerima notifikasi signal dari channel ini");
-                            },
-                            icon: Icon(
-                              channel.mute!
-                                  ? Icons.notifications_off
-                                  : Icons.notifications_active,
-                              color: channel.mute!
-                                  ? Colors.grey[600]
-                                  : AppColors.primaryGreen,
-                              size: 28,
-                            ),
-                          ),
-                      if (isTab) btnChannel,
-                    ],
-                  ),
-                ),
-                isLarge: true,
-                avatar: channel.avatar,
-                level: controller.medal.value,
-                medals: channel.medals,
-                title: channel.name,
-                subscriber: channel.subscriber),
-          ),
-          const SizedBox(
-            height: 10,
-          ),
-          if (!isTab) btnChannel,
-          if (!isTab)
-            const SizedBox(
-              height: 20,
-            ),
-          Row(
+    return Obx(() {
+      if (controller.isInit.value == false || channel.medals == null) {
+      return const Center(
+        child: CircularProgressIndicator(),
+      );
+    }
+
+      print("isinistsgsgg: ${controller.isInit.value}");
+      print("medalist: ${channel.medals}");
+        return Container(
+          child: Column(
             children: <Widget>[
-              Expanded(
-                child: ChannelPower(
-                    title: numberShortener(channelProfit.value.floor() * 10000),
-                    subtitle: "Profit"),
+              const SizedBox(
+                height: 10,
               ),
-              Expanded(
-                child: ChannelPower(
-                  title: "${channel.weekAge}",
-                  subtitle: "Minggu",
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 10),
+                child: HeadingChannelInfo(
+                    trailing: Container(
+                      margin: const EdgeInsets.only(top: 10),
+                      child: Row(
+                        children: [
+                          if (controller.channel?.value?.username !=
+                              appStateController.users.value.username)
+                            if (channel.subscribed == true)
+                              IconButton(
+                                onPressed: () async {
+                                  String txtAlert = "";
+                                  showDialog(
+                                      context: context,
+                                      barrierDismissible: false,
+                                      builder: (context) {
+                                        return DialogLoading();
+                                      });
+                                  if (channel.mute == false) {
+                                    txtAlert = "tidak ";
+                                  }
+                                  await ChannelModel.instance.muteChannel(
+                                      channelid: channel.id, mute: channel.mute);
+                                  refreshController?.requestRefresh(
+                                      needMove: false);
+                                  Navigator.pop(context);
+                                  showAlert(context, LoadingState.success,
+                                      "Anda ${txtAlert}akan menerima notifikasi signal dari channel ini");
+                                },
+                                icon: Icon(
+                                  channel.mute == true
+                                      ? Icons.notifications_off
+                                      : Icons.notifications_active,
+                                  color: channel.mute == true
+                                      ? Colors.grey[600]
+                                      : AppColors.primaryGreen,
+                                  size: 28,
+                                ),
+                              ),
+                          if (isTab) btnChannel,
+                        ],
+                      ),
+                    ),
+                    isLarge: true,
+                    avatar: channel.avatar,
+                    level: controller.medal.value,
+                    medals: channel.medals,
+                    title: channel.name,
+                    subscriber: channel.subscriber),
+              ),
+              const SizedBox(
+                height: 10,
+              ),
+              if (!isTab) btnChannel,
+              if (!isTab)
+                const SizedBox(
+                  height: 20,
                 ),
-              ),
+              Row(
+                children: <Widget>[
+                  Expanded(
+                    child: ChannelPower(
+                        title: numberShortener(channelProfit.value.floor() * 10000),
+                        subtitle: "Profit"),
+                  ),
+                  Expanded(
+                    child: ChannelPower(
+                      title: "${channel.weekAge}",
+                      subtitle: "Minggu",
+                    ),
+                  ),
+                ],
+              )
             ],
-          )
-        ],
-      ),
+          ),
+        );
+      }
     );
   }
 }

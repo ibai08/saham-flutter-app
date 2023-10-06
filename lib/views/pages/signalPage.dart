@@ -210,10 +210,8 @@ class ListSignalWidget extends StatelessWidget implements ScrollUpWidget {
                         } else {
                           body = const Text("No more data");
                         }
-                        return Container(
-                          child: Center(
-                            child: body,
-                          ),
+                        return Center(
+                          child: body,
                         );
                       }),
                     ),
@@ -247,12 +245,12 @@ class ListSignalWidget extends StatelessWidget implements ScrollUpWidget {
 }
 
 class ListChannelWidget extends StatelessWidget {
-  @override
   final ListChannelWidgetController controller =
       Get.put(ListChannelWidgetController());
   // @override
   // final RefreshController refreshController = RefreshController(initialRefresh: false);
-  bool wantKeepAlive = true;
+
+  ListChannelWidget({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

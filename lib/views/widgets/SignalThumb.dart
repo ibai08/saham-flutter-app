@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import '../../constants/app_colors.dart';
 import '../../models/entities/ois.dart';
@@ -82,8 +83,9 @@ class SignalThumb extends StatelessWidget {
                         stateName: "signal")
                     .then((x) {})
                     .catchError((err) {});
-                Navigator.pushNamed(context, '/dsc/channels/',
-                    arguments: channelId);
+                Get.toNamed('/dsc/channels/', arguments: {
+                  "channelId": channelId
+                });
               },
             ),
             Container(

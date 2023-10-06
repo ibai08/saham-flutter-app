@@ -32,7 +32,7 @@ class NewChannelsFormController extends GetxController {
   RxMap<dynamic, dynamic> streamAcc = {}.obs;
   Rx<List?> listBankStream = Rx<List?>(null);
   Rx<ChannelCardSlim?> channels = Rx<ChannelCardSlim?>(null);
-  RxString? signalConError;
+  
 
   late BuildContext context;
 

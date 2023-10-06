@@ -2,16 +2,59 @@
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import '../../../../controller/listHistoryController.dart';
+import '../../../../models/entities/ois.dart';
 import '../../../../views/widgets/info.dart';
+import '../../../widgets/signalDetail.dart';
 
 class ListHistorySignal extends StatelessWidget {
   final int channel;
   final bool subscribed;
   ListHistorySignal(this.channel, this.subscribed, {Key? key}) : super(key: key);
 
-  final ListHistoryController controller = ListHistoryController();
+  final ListHistoryController controller = Get.find();
+
+  List<Widget> getSignals(List<SignalInfo> cc) {
+    List<Widget> result = [];
+    cc.forEach((signal) {
+      DateTime expir = DateTime.parse(signal.openTime!)
+          .add(Duration(hours: 7, seconds: signal.expired!));
+      DateTime dtCloseTime =
+          DateTime.parse(signal.closeTime!).add(Duration(hours: 7));
+      String expiredDate = DateFormat('dd MMM yyyy HH:mm').format(expir);
+      String closeTimed = DateFormat('dd MMM yyyy HH:mm').format(dtCloseTime);
+      String createdAt = DateFormat('dd MMM yyyy HH:mm')
+          .format(DateTime.parse(signal.createdAt!).add(Duration(hours: 7)));
+      String openTimed = DateFormat('dd MMM yyyy HH:mm')
+          .format(DateTime.parse(signal.openTime!).add(Duration(hours: 7)));
+      int status = signal.active!;
+      if (signal.expired == 0) {
+        expiredDate = "Tidak ada expired";
+      }
+      if (expir.isAfter(dtCloseTime) && signal.pips == 0) {
+        status = 3;
+      }
+      try {
+        result.add(SignalDetailWidget(
+          expired: expiredDate + " WIB",
+          closeTime: closeTimed + " WIB",
+          openTime: openTimed + " WIB",
+          createdAt: createdAt + " WIB",
+          price: signal.price,
+          sl: subscribed ? signal.sl : 0,
+          tp: subscribed ? signal.tp : 0,
+          symbol: signal.symbol,
+          status: status,
+          pips: signal.pips,
+          profit: signal.profit,
+          type: getTradeCommandString(signal.op!),
+        ));
+      } catch (e) {}
+    });
+    return result;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -51,10 +94,7 @@ class ListHistorySignal extends StatelessWidget {
           onLoading: controller.onLoading,
           onRefresh: controller.onRefresh,
           child: ListView(
-            children: controller
-                .getSignals(controller.signalInfo!)
-                .map<Widget>((signalWidget) => signalWidget as Widget)
-                .toList(),
+            children: getSignals(controller.signalInfo!).map<Widget>((e) => e as Widget).toList(),
           ),
         );
       }),

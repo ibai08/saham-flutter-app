@@ -44,7 +44,7 @@ class SearchFormController extends GetxController {
   }
 }
 
-class SearchForm extends GetView<SearchFormController> {
+class SearchForm extends StatelessWidget {
   final String? text;
   final String? popTo;
   final bool? tryInput;

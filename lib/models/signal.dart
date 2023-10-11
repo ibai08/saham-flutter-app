@@ -166,6 +166,7 @@ class SignalModel {
                   notified:
                       int?.tryParse(signalMap["notified"].toString()) ?? 0,
                   op: int?.tryParse(signalMap["op"].toString()) ?? 0,
+                   pips: int.tryParse(signalMap["pips"].toString()) ?? 0,
                   price:
                       double?.tryParse(signalMap["price"].toString()) ?? 0.00,
                   profit:

@@ -92,7 +92,7 @@ class StorageController {
       GetStorage(BoxName.inbox);
       GetStorage(BoxName.signal);
       _init = true;
-      print("berhasil");
+      print("berhasil ssswwewqe");
     } catch (xerr) {
       print("StorageController.init: $xerr");
     }

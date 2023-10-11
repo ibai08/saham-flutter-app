@@ -2,6 +2,9 @@
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:saham_01_app/controller/homeTabController.dart';
+import 'package:saham_01_app/controller/signalTabController.dart';
+import 'package:saham_01_app/views/widgets/getAlert.dart';
 import '../../../constants/app_colors.dart';
 import '../../../controller/appStatesController.dart';
 import '../../../function/changeFocus.dart';
@@ -14,7 +17,6 @@ import '../../../views/pages/form/verifyEmail.dart';
 import '../../../views/widgets/btnBlock.dart';
 import '../../../views/widgets/dialogCabang.dart';
 import '../../../views/widgets/dialogConfirmation.dart';
-import '../../../views/widgets/dialogLoading.dart';
 import '../../../views/widgets/line.dart';
 import '../../../views/widgets/passwordIcon.dart';
 import '../../../views/widgets/registerHint.dart';
@@ -34,6 +36,7 @@ class _LoginState extends State<Login> {
   }
 
   final AppStateController appStateController = Get.put(AppStateController());
+  final DialogController dialogController = Get.put(DialogController());
 
   @override
   Widget build(BuildContext context) {
@@ -79,6 +82,9 @@ class _LoginForm extends State<LoginForm> {
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
 
+  DialogController dialogController = Get.find();
+  HomeTabController homeTabController = Get.find();
+
   final FocusNode _emailFocus = FocusNode();
   final FocusNode _passwordFocus = FocusNode();
 
@@ -93,25 +99,31 @@ class _LoginForm extends State<LoginForm> {
   Future<void> performLogin(BuildContext ctx) async {
     print("keklikk");
     removeFocus(ctx);
-    DialogLoading dlg = DialogLoading();
-    showDialog(
-        barrierDismissible: false,
-        context: ctx,
-        builder: (ctx) {
-          return dlg;
-        });
+    // DialogLoading dlg = DialogLoading();
+    // showDialog(
+    //     barrierDismissible: false,
+    //     context: ctx,
+    //     builder: (ctx) {
+    //       return dlg;
+    //     });
+    dialogController.setProgress(LoadingState.progress, "Mohon Tunggu");
+        print("sebleum");
     try {
       String email = _emailController.text;
       String password = _passwordController.text;
       print("email: $email");
       if (email == "" && password == "") {
+        print("kenas");
         showToast(ctx, "Email dan password tidak boleh kosong", "TUTUP");
         await Future.delayed(const Duration(milliseconds: 0));
         Navigator.pop(ctx);
         return;
       }
+      print("sebelum resi");
+      print("atas ansj: ${ModalRoute.of(context)?.settings.arguments}");
       Map res = await UserModel.instance.login(email, password,
           arguments: ModalRoute.of(context)?.settings.arguments);
+          print("ressss: $res");
       if (res.containsKey("error")) {
         showToast(ctx, res["error"], "TUTUP");
       } else {
@@ -131,19 +143,27 @@ class _LoginForm extends State<LoginForm> {
           dc?.cekLogin();
           if (dc!.login! && dc!.error == null) {
             // Navigator.pop(context);
+            print("CSDFFS");
             // Navigator.popUntil(context, ModalRoute.withName("/home"));
           } else if (dc!.error != null) {
             // Navigator.pop(context);
+            print("CLOSTE");
             showToast(context, dc!.error!, "CLOSE_TOAST");
           } else {
             // Navigator.pop(context);
+            print("TRY AGAIN");
             showToast(context, "PLEASE_TRY_AGAIN", "CLOSE_TOAST");
           }
         } else {
           // Navigator.popUntil(context, ModalRoute.withName("/home"));
+          // print("kennaksdjsdjhsdjfh");
+          // showAlert(context, LoadingState.success, "LOGIN SUCCESS");
+          print("LOGIN SUCCESS");
+          dialogController.setProgress(LoadingState.success, "Login Berhasil");
         }
       }
     } catch (x) {
+      print("kena sinsis");
       Navigator.pop(ctx);
       if (x.toString().contains("PLEASE_VERIFY_YOUR_EMAIL")) {
         if (await showDialog(
@@ -158,8 +178,11 @@ class _LoginForm extends State<LoginForm> {
               arguments: _emailController.text);
         }
       } else {
-        showAlert(
-            context, LoadingState.error, translateFromPattern(x.toString()));
+        print("kennnsjsnjd");
+        // showAlert(
+        //     context, LoadingState.error, translateFromPattern(x.toString()));
+        dialogController.setProgress(LoadingState.error, translateFromPattern(x.toString()));
+        
       }
     }
   }

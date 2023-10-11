@@ -26,7 +26,7 @@ class SignalShimmer extends StatelessWidget {
                   child: Column(
                     children: [
                       Text(
-                        title!,
+                        title ?? "",
                         textAlign: TextAlign.center,
                         style: const TextStyle(
                           fontSize: 17,

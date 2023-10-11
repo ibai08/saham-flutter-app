@@ -122,6 +122,7 @@ class HomeTabController extends GetxController {
   @override
   void onInit() {
     super.onInit();
+    print("cek init");
     Future.delayed(const Duration(microseconds: 0)).then((_) async {
       await initializePageAsync();
       await getEventPage();

@@ -37,13 +37,13 @@ class Profile extends StatelessWidget {
           child: ListView(
             shrinkWrap: false,
             children: <Widget>[
-              SizedBox(
+              const SizedBox(
                 height: 10,
               ),
               Container(
-                margin: EdgeInsets.symmetric(vertical: 10, horizontal: 10),
-                padding: EdgeInsets.only(bottom: 20, top: 5),
-                decoration: BoxDecoration(
+                margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
+                padding: const EdgeInsets.only(bottom: 20, top: 5),
+                decoration: const BoxDecoration(
                   color: Colors.white,
                   borderRadius: BorderRadius.all(Radius.circular(4.0)),
                   gradient: LinearGradient(
@@ -54,12 +54,12 @@ class Profile extends StatelessWidget {
                   )
                 ),
                 child: ListView(
-                  padding: EdgeInsets.only(top: 20),
+                  padding:const EdgeInsets.only(top: 20),
                   shrinkWrap: true,
-                  physics: NeverScrollableScrollPhysics(),
+                  physics: const NeverScrollableScrollPhysics(),
                   children: <Widget>[
                     Padding(
-                      padding: EdgeInsets.only(left: 30),
+                      padding: const EdgeInsets.only(left: 30),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         crossAxisAlignment: CrossAxisAlignment.end,

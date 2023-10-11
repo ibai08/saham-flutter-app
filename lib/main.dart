@@ -87,12 +87,12 @@ void main() async {
     await UserModel.instance.refreshController();
     // await InboxModel.instance.updateInboxCountAsync();
     // // fetch and dispatch redux on background for mrg and askap
-    MrgModel.fetchUserData().catchError((onError) {
-      print("MrgModel.fetchUserData: $onError");
-    });
-    AskapModel.fetchUserData().catchError((onError) {
-      print("AskapModel.fetchUserData: $onError");
-    });
+    // MrgModel.fetchUserData().catchError((onError) {
+    //   print("MrgModel.fetchUserData: $onError");
+    // });
+    // AskapModel.fetchUserData().catchError((onError) {
+    //   print("AskapModel.fetchUserData: $onError");
+    // });
   } catch (x) {
     print("Main error di: $x");
   }
@@ -111,7 +111,7 @@ void main() async {
   firebaseAnalytics.logAppOpen();
 
   Get.put(CheckInternetController());
-  Get.put(DialogLoadingController());
+  // Get.put(DialogLoadingController());
   Get.put(GrowthChartController());
   Get.put(HomeTabController());
 
@@ -139,61 +139,53 @@ class _MyAppState extends State<MyApp> {
   void initState() {
     super.initState();
     FCM.instance.initializeFcmNotification();
-    print("berhasil");
+    print("berhasil shdfhs");
   }
 
   @override
   Widget build(BuildContext context) {
-    Get.put(HomeTabController());
-    return Builder(
-      builder: (context) {
-        return GetMaterialApp(
-          title: 'Saham XYZ App',
-          theme: ThemeData(
-            inputDecorationTheme: InputDecorationTheme(
-              labelStyle: TextStyle(color: AppColors.black),
-              contentPadding: const EdgeInsets.only(bottom: 5, top: 20),
-              enabledBorder: UnderlineInputBorder(
-                borderSide: BorderSide(
-                  width: 0.2,
-                  color: AppColors.darkGrey4,
-                ),
-              ),
+    return GetMaterialApp(
+      title: 'Saham XYZ App',
+      theme: ThemeData(
+        inputDecorationTheme: InputDecorationTheme(
+          labelStyle: TextStyle(color: AppColors.black),
+          contentPadding: const EdgeInsets.only(bottom: 5, top: 20),
+          enabledBorder: UnderlineInputBorder(
+            borderSide: BorderSide(
+              width: 0.2,
+              color: AppColors.darkGrey4,
             ),
-            fontFamily: 'Manrope',
           ),
-          initialRoute: '/',
-          getPages: [
-            GetPage(name: '/home', page: () => const MyHomePage()),
-            GetPage(name: '/remote-config', page: () => const RemoteConfigView()),
-            GetPage(name: '/homepage', page: () => Home()),
-            GetPage(name: '/channel-signal', page: () => SignalDashboard()),
-            GetPage(name: '/maintenance', page: () => const MaintenanceView()),
-            // GetPage(name: '/update-app', page: () => UpdateVersionView()),
+        ),
+        fontFamily: 'Manrope',
+      ),
+      initialRoute: '/',
+      getPages: [
+        GetPage(name: '/home', page: () => const MyHomePage()),
+        GetPage(name: '/remote-config', page: () => const RemoteConfigView()),
+        GetPage(name: '/homepage', page: () => Home()),
+        GetPage(name: '/channel-signal', page: () => SignalDashboard()),
+        GetPage(name: '/maintenance', page: () => const MaintenanceView()),
+        // GetPage(name: '/update-app', page: () => UpdateVersionView()),
 
-            GetPage(name: '/forms/login', page: () => const Login()),
-            GetPage(name: '/forms/register', page: () => Register()),
-            GetPage(
-                name: '/forms/editprofile', page: () => const EditProfile()),
-            GetPage(name: '/forms/editpassword', page: () => EditPassword()),
-            GetPage(name: '/more/profile', page: () => Profile()),
+        GetPage(name: '/forms/login', page: () => const Login()),
+        GetPage(name: '/forms/register', page: () => Register()),
+        GetPage(
+            name: '/forms/editprofile', page: () => const EditProfile()),
+        GetPage(name: '/forms/editpassword', page: () => EditPassword()),
+        GetPage(name: '/more/profile', page: () => Profile()),
 
-            GetPage(
-                name: '/search/channels/pop', page: () => SearchChannelsPop()),
-            GetPage(name: '/search/domisili', page: () => SearchDomisili()),
+        GetPage(
+            name: '/search/channels/pop', page: () => SearchChannelsPop()),
+        GetPage(name: '/search/domisili', page: () => SearchDomisili()),
 
-            GetPage(name: '/dsc/search', page: () => SearchChannelsTab()),
-            GetPage(name: '/dsc/channels/', page: () => ChannelDetailNew()),
-            GetPage(name: '/dsc/channels/new', page: () => NewChannels()),
-            GetPage(name: '/dsc/signal/', page: () => SignalDetail())
-          ],
-          home: const SplashScreen(),
-          debugShowCheckedModeBanner: false,
-          initialBinding: BindingsBuilder(() {
-            Get.put<AppStateController>(AppStateController());
-          }),
-        );
-      },
+        GetPage(name: '/dsc/search', page: () => SearchChannelsTab()),
+        GetPage(name: '/dsc/channels/', page: () => ChannelDetailNew()),
+        GetPage(name: '/dsc/channels/new', page: () => NewChannels()),
+        GetPage(name: '/dsc/signal/', page: () => SignalDetail())
+      ],
+      home: const SplashScreen(),
+      debugShowCheckedModeBanner: false,
     );
   }
 }
@@ -224,16 +216,11 @@ class _MyHomePageState extends State<MyHomePage>
 
   void _onTapItem(int index) {
     final appStateController = Get.find<AppStateController>();
-    final listChannelController = Get.find<ListChannelWidgetController>();
     if (appStateController.currentTab == HomeTab.values[index]) {
       Widget temp = _layoutPage[index];
       if (temp is ScrollUpWidget) {
         (temp as ScrollUpWidget).onResetTab();
       }
-    }
-    if (index != 2) {
-      listChannelController.sort.value = 0;
-      listChannelController.initializePageChannelAsync();
     }
     FirebaseCrashlytics.instance.log("Home Screen: ${HomeTab.values[index]}");
     appStateController.setHomeTab(HomeTab.values[index]);
@@ -258,6 +245,7 @@ class _MyHomePageState extends State<MyHomePage>
   @override
   void initState() {
     super.initState();
+    print("kenini");
     // _homeTabController = Get.put(HomeTabController());
     _tabController = TabController(length: tabViews.length, vsync: this);
   }
@@ -272,6 +260,7 @@ class _MyHomePageState extends State<MyHomePage>
 
   @override
   Widget build(BuildContext context) {
+    print("lebuild ulang");
     return GetX<AppStateController>(builder: (controller) {
       final tab = controller.homeTab.value;
       _tabController.animateTo(tab.index);

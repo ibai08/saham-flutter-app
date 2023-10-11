@@ -32,6 +32,7 @@ Future<bool> cekPermission() async {
 
 Future<bool> cekPermissionNotif() async {
   if (!Platform.isIOS) {
+
     try {
       if (await Permission.notification.request().isGranted) {
         return true;

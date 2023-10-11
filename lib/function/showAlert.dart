@@ -11,15 +11,15 @@ showAlert(BuildContext context, LoadingState? state, String caps,
   // DialogLoading load = DialogLoading();
   state ??= LoadingState.success;
   thens ??= (x) => Future.value(null);
-  final DialogLoadingController dialogLoadingController =
-      Get.find<DialogLoadingController>();
-  dialogLoadingController.setProgress(state, caps);
-  print("state: $state");
-  print("capse: $caps");
+
+  DialogLoading load = DialogLoading();
+  load.loadingController.setProgress(state, caps);
   showDialog(
       barrierDismissible: true,
       context: context,
       builder: (context) {
-        return DialogLoading();
-      }).then(thens);
+        return load;
+      }).then((result) {
+        thens;
+      });
 }

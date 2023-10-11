@@ -18,13 +18,14 @@ import '../models/signal.dart';
 import '../views/pages/search/searchMultipleSymbols.dart';
 
 class NewSignalController extends GetxController {
-  RxList<ChannelCardSlim>? channelStreamCtrl = RxList<ChannelCardSlim>();
+  Rx<List<ChannelCardSlim>?> channelStreamCtrl = Rx<List<ChannelCardSlim>?>(null);
   RxBool hasError = false.obs;
   RxString errorMessage = ''.obs;
   Rx<Level?> medal = Rx<Level?>(null);
   Rx<TradeSymbol?> symbol = Rx<TradeSymbol?>(null);
   RxBool trySubmit = false.obs;
   RxString errorFormMessage = ''.obs;
+  RxBool alreadyBuild = false.obs;
 
   RxBool isSelected = false.obs;
 
@@ -89,7 +90,7 @@ class NewSignalController extends GetxController {
   Future<void> initializePageChannelAsync({bool clearCache = false}) async {
     try {
       List<ChannelCardSlim> myChannel = await OisModel.instance.getMyChannel(clearCache: true);
-      channelStreamCtrl?.addAll(myChannel);
+      channelStreamCtrl.value = myChannel;
 
       Future<Level> getMedal({bool clearCache = false}) async {
         return ChannelModel.instance.getMedalList(clearCache: clearCache);
@@ -97,7 +98,8 @@ class NewSignalController extends GetxController {
 
       var result = await getMedal();
       medal.value = result;
-      print("-----------------------OKKK__________________OKKK-------------------");
+      hasError.value = false;
+      errorMessage.value = "";
     } catch (e) {
       hasError.value = true;
       errorMessage.value = e.toString();
@@ -351,6 +353,12 @@ class NewSignalController extends GetxController {
     Future.delayed(Duration(microseconds: 0)).then((_) async {
       await getTradeSymbols();
     });
+  }
+
+  @override
+  void onReady() {
+    super.onReady();
+    print("Udah ready");
   }
 
   @override

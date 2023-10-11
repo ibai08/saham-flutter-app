@@ -5,7 +5,10 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
+import 'package:saham_01_app/controller/homeTabController.dart';
+import 'package:saham_01_app/controller/newSignalController.dart';
 import '../../../controller/appStatesController.dart';
+import '../../../controller/signalTabController.dart';
 import '../../../function/helper.dart';
 import '../../../function/removeFocus.dart';
 import '../../../function/showAlert.dart';
@@ -43,16 +46,20 @@ class VerifyEmailController extends GetxController {
           return dlg;
         });
     try {
+      print("satusssssssss5");
       if (await UserModel.instance.resendVerifyEmailAuthorized()) {
         Navigator.pop(ctx);
+        print("satusssssssss6");
         showAlert(ctx, LoadingState.success,
             translateFromPattern("RESEND_VERIFY_EMAIL_SUCCESS"));
       } else {
+        print("satusssssssss7");
         throw Exception("RESEND_VERIFY_EMAIL_FAILED");
       }
       performTime();
     } catch (ex) {
       Navigator.pop(ctx);
+      print("satusssssssss8");
       showAlert(ctx, LoadingState.error, translateFromPattern(ex.toString()));
     }
   }
@@ -78,6 +85,7 @@ class VerifyEmailController extends GetxController {
     await UserModel.instance.refreshUserData();
     refreshController.refreshCompleted();
     if (appStateController.users.value.verify!) {
+      print("satusssssssss10");
       appStateController.setAppState(Operation.bringToHome, HomeTab.home);
       return;
     } else if (appStateController.users.value.verify == null) {
@@ -91,6 +99,7 @@ class VerifyEmailController extends GetxController {
     Future.delayed(const Duration(seconds: 0)).then((value) async {
       if (appStateController.users.value.verify!) {
         appStateController.setAppState(Operation.bringToHome, HomeTab.home);
+        
         return;
       }
 
@@ -106,15 +115,19 @@ class VerifyEmailController extends GetxController {
             });
         try {
           if (await UserModel.instance.verifyEmail(token: token!)) {
+            print("satusssssssss");
             Get.back();
+            print("satusssssssss2");
             showAlert(Get.context!, LoadingState.success,
                 translateFromPattern("VERIFY_EMAIL_SUCCESS"), thens: (x) {
               Get.toNamed("/forms/afterverify");
             });
           } else {
+            print("satusssssssss3");
             Get.back();
           }
         } catch (ex) {
+          print("satusssssssss4");
           Get.back();
           showAlert(Get.context!, LoadingState.error,
               translateFromPattern(ex.toString()));

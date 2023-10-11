@@ -33,37 +33,43 @@ class ProfileController extends GetxController {
 
   Future<void> optionsDialogBox() async {
     bool cek = await cekPermission();
+    print("ceksss");
+    print(" ---------n: ${await cekPermission()}");
     if (cek == false) {
       showAlert(Get.context!, LoadingState.warning, "Izinkan untuk mulai mengupload foto");
     }
-    return showDialog(
-      context: Get.context!,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          contentPadding: EdgeInsets.all(0),
-          titlePadding: EdgeInsets.all(0),
-          content: SingleChildScrollView(
-            child: ListBody(
-              children: <Widget>[
-                InkWell(
-                  child: Container(
-                    padding: EdgeInsets.all(15),
-                    child: Text('Take a picture'),
+    if (cek == true) {
+      showDialog(
+        context: Get.context!,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            contentPadding: const EdgeInsets.all(0),
+            titlePadding: const EdgeInsets.all(0),
+            content: SingleChildScrollView(
+              child: ListBody(
+                children: <Widget>[
+                  InkWell(
+                    child: Container(
+                      padding: const EdgeInsets.all(15),
+                      child: const Text('Take a picture'),
+                    ),
+                    onTap: openCamera,
                   ),
-                  onTap: openCamera,
-                ),
-                InkWell(
-                  child: Container(
-                    padding: EdgeInsets.all(15),
-                    child: Text('Select from gallery'),
+                  InkWell(
+                    child: Container(
+                      padding: const EdgeInsets.all(15),
+                      child: const Text('Select from gallery'),
+                    ),
+                    onTap: openFile,
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
-          ),
-        );
-      }
-    );
+          );
+        }
+      );
+    }
+    
   }
 
   void onRefresh() async {

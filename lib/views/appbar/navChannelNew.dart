@@ -16,9 +16,9 @@ class SearchFormNewController extends GetxController {
   
 
   Function popToFn = () {};
-  bool readyonly = false;
+  RxBool readyonly = false.obs;
   int tryInput = 0;
-  bool autoFocus = false;
+  RxBool autoFocus = false.obs;
   FocusNode searchFocus = FocusNode();
 
   @override
@@ -29,16 +29,14 @@ class SearchFormNewController extends GetxController {
       popToFn = () {
         Get.toNamed(Get.arguments['popTo'],
             arguments: {"text": searchCon.text});
-        readyonly = true;
+        readyonly.value = true;
       };
-    } else {
-      autoFocus = true;
     }
     // print("teststsst: ${Get.arguments['popTo']}");
   }
 }
 
-class SearchForm extends GetView<SearchFormNewController> {
+class SearchForm extends StatelessWidget {
   final String? text;
   final String? popTo;
   final bool? tryInput;
@@ -65,7 +63,7 @@ class SearchForm extends GetView<SearchFormNewController> {
     return Form(
       key: controller.formKey.value,
       child: TextFormField(
-        autofocus: controller.autoFocus,
+        autofocus: false,
         autocorrect: false,
         controller: controller.searchCon,
         focusNode: controller.searchFocus,
@@ -95,7 +93,7 @@ class SearchForm extends GetView<SearchFormNewController> {
             borderRadius: BorderRadius.circular(4),
           ),
         ),
-        readOnly: controller.readyonly,
+        readOnly: controller.readyonly.value,
         onTap: () {
           print("ketap");
           // Get.toNamed(popTo.toString(), arguments:{"text": controller.searchCon.text});
@@ -115,7 +113,9 @@ class SearchForm extends GetView<SearchFormNewController> {
               Get.back();
             }
             OisModel.instance.updateLocalSearchHistory(searchText);
-            Get.toNamed('/dsc/search', arguments: searchText);
+            Get.toNamed('/dsc/search', arguments: {
+              "popTo": searchText
+            });
           }
         },
       ),

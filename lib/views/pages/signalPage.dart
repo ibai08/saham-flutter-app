@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_is_empty
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
@@ -27,10 +29,12 @@ class SignalDashboard extends StatelessWidget implements ScrollUpWidget {
 
   @override
   Widget build(BuildContext context) {
+    print("kebuild");
     if (appStateController.users.value.id < 1 &&
         !appStateController.users.value.verify!) {
       return const Login();
-    } else if (appStateController.users.value.id > 0 &&
+    } 
+    if (appStateController.users.value.id > 0 &&
         !appStateController.users.value.isProfileComplete()) {
       return Scaffold(
         appBar: NavMain(
@@ -133,7 +137,7 @@ class SignalDashboard extends StatelessWidget implements ScrollUpWidget {
   RefreshController get refreshController => throw UnimplementedError();
 }
 
-class ListSignalWidget extends StatelessWidget implements ScrollUpWidget {
+class ListSignalWidget extends StatelessWidget {
   ListSignalWidget({Key? key}) : super(key: key);
 
   @override
@@ -233,72 +237,46 @@ class ListSignalWidget extends StatelessWidget implements ScrollUpWidget {
     );
   }
 
-  @override
-  onResetTab() {
-    refreshController.position
-        ?.moveTo(0, duration: const Duration(milliseconds: 600));
-  }
-
-  @override
-  final RefreshController refreshController =
-      RefreshController(initialRefresh: false);
 }
 
-class ListChannelWidget extends StatelessWidget {
+class ListChannelWidget extends StatelessWidget implements ScrollUpWidget {
   final ListChannelWidgetController controller =
       Get.put(ListChannelWidgetController());
   // @override
   // final RefreshController refreshController = RefreshController(initialRefresh: false);
 
   ListChannelWidget({Key? key}) : super(key: key);
+  bool wantKeepAlive = true;
 
   @override
   Widget build(BuildContext context) {
-    // print("channel: ${controller.dataChannel}");
     print("index: ${controller.sort.value}");
     return Obx(() {
-      if (controller.dataChannel == null && controller.hasError.value == true) {
-        return SignalShimmer(
-          title: "Recommended Channels",
-          onLoad: "1",
-        );
-      }
-      if (controller.hasError.value) {
-        return Info(onTap: controller.onRefreshChannel);
-      }
-      // if (controller.dataChannel!.length < 1) {
-      //   // return Info(
-      //   //   title: "Oops...",
-      //   //   desc: "Signal tidak ditemukan",
-      //   //   caption: "Coba Lagi",
-      //   //   onTap: () {
-      //   //     controller.onRefreshChannel;
-      //   // });
-      //   return Center(
-      //     child: SizedBox(
-      //       width: 50,
-      //       height: 50,
-      //       child: CircularProgressIndicator(),
-      //     ),
-      //   );
-      // }
+      
       return Stack(
         children: [
           Container(
-            margin: EdgeInsets.only(top: 14, bottom: 14, left: 22.5, right: 18),
+            margin: const EdgeInsets.only(top: 14, bottom: 14, left: 22.5, right: 18),
             // padding: const EdgeInsets.only(left: 20),
             child: SortButtonsWidget(
               onSortChanged: (index) {
                 print("berubah: ${controller.sort}");
                 controller.sort.value = index;
                 print("berubah2: ${controller.sort}");
-                controller.initializePageChannelAsync;
+                controller.onRefreshChannel();
                 controller.refreshController.requestRefresh(needMove: false);
               },
               activeSortIndex: controller.sort,
             ),
           ),
-          Column(
+          (controller.channelStream.value?.length == 0 && controller.dataChannel.value.length == 0 && controller.hasLoad.value == false) || controller.hasLoad.value == false ? SignalShimmer(
+            onLoad: "1",
+          ) : controller.channelStream.value!.length < 1 && controller.hasLoad.value == true ? Info(
+            title: "Oops...",
+            desc: "Channel tidak ditemukan",
+            caption: "Coba Lagi",
+            onTap: controller.onRefreshChannel,
+          ) : controller.hasError.value == true ? Info(onTap: controller.onRefreshChannel) :  Column(
             children: [
               const SizedBox(
                 height: 50,
@@ -315,10 +293,8 @@ class ListChannelWidget extends StatelessWidget {
                       builder: ((context, mode) {
                         Widget body;
                         if (mode == LoadStatus.idle) {
-                          print("kena idle");
                           body = const Text("");
                         } else if (mode == LoadStatus.loading) {
-                          print("kena loading");
                           body = SignalShimmer(
                             title: "",
                             onLoad: "0",
@@ -326,30 +302,32 @@ class ListChannelWidget extends StatelessWidget {
                         } else if (mode == LoadStatus.failed) {
                           body = const Text("Load Failed! Click retry!");
                         } else if (mode == LoadStatus.canLoading) {
-                          print("kena can loading");
                           body = const Text("Release to load more");
                         } else {
                           body = const Text("No more data");
                         }
-                        print("mode: $mode");
                         return Container(
                           child: Center(child: body),
                         );
                       }),
                     ),
-                    child: ListView(
-                      padding:
-                          const EdgeInsets.only(top: 10, left: 13, right: 13),
-                      children: <Widget>[
-                        ChannelListWidget(
-                            controller.dataChannel
-                                !.map((i) => ChannelModel.instance
-                                    .getDetail(i, clearCache: true))
+                    child: SingleChildScrollView(
+                      child: Column(
+                        children: <Widget>[
+                          Padding(
+                            padding: const EdgeInsets.only(top: 10, left: 13, right: 13),
+                            child: ChannelListWidget(
+                              controller.channelStream.value!
+                                .map((i) => ChannelModel.instance.getDetail(i, clearCache: true))
                                 .toList(),
-                            controller.refreshController,
-                            controller.medal.value)
-                      ],
+                              controller.refreshController,
+                              controller.medal.value,
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
+
                   ),
                 ),
               )
@@ -359,4 +337,14 @@ class ListChannelWidget extends StatelessWidget {
       );
     });
   }
+
+  @override
+  onResetTab() {
+    refreshController.position
+        ?.moveTo(0, duration: const Duration(milliseconds: 600));
+  }
+
+  @override
+  final RefreshController refreshController =
+      RefreshController(initialRefresh: false);
 }

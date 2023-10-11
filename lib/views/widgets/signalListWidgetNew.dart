@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import '../../models/entities/ois.dart';
 import '../../views/widgets/signalThumbNew.dart';
 

@@ -70,9 +70,7 @@ class ChannelDetailController extends GetxController
       setTitle(channelDetail.name!);
       setChannel(channelDetail);
       isLoad.value = true;
-      print("9829342837823");
     } catch (xerr) {
-      print(xerr);
       titleObs?.addError(xerr);
       channelObs?.addError(xerr);
       hasError.value = true;
@@ -88,6 +86,5 @@ class ChannelDetailController extends GetxController
   void onReady() {
     super.onReady();
     getChannel();
-    print("lagi on ready");
   }
 }

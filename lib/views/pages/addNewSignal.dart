@@ -10,6 +10,7 @@ import 'package:saham_01_app/function/removeFocus.dart';
 import 'package:saham_01_app/models/channel.dart';
 import 'package:saham_01_app/views/appbar/navmain.dart';
 import 'package:saham_01_app/views/widgets/searchIconFormWidget.dart';
+import 'package:shimmer/shimmer.dart';
 
 import '../../core/config.dart';
 import '../../core/formatter/symbol.dart';
@@ -20,6 +21,9 @@ import '../../models/entities/ois.dart';
 import '../../models/signal.dart';
 import '../widgets/dialogLoading.dart';
 import '../widgets/headChannelRow.dart';
+import '../widgets/homeTopRankShimmer.dart';
+import '../widgets/info.dart';
+import 'form/login.dart';
 
 class AddNewSignal extends StatelessWidget {
   AddNewSignal({Key? key}) : super(key: key);
@@ -79,9 +83,9 @@ class AddNewSignal extends StatelessWidget {
 
         double rr = risk / reward;
 
-        // if (checkrr && rr > rratio) {
-        //   throw Exception("R:R ratio must be $rratio:1 must be equal or better");
-        // }
+        if (checkrr && rr > rratio) {
+          throw Exception("R:R ratio must be $rratio:1 must be equal or better");
+        }
 
         removeFocus(context);
         bool confirm = await showDialog(
@@ -233,7 +237,6 @@ class AddNewSignal extends StatelessWidget {
               Get.toNamed('/dsc/signal/', arguments: {
                 "signalId": signalid
               });
-              print("harusnya udah navigate");
             } catch(e, stack) {
               print("erorr: $e");
               print("stack: $stack");
@@ -261,6 +264,32 @@ class AddNewSignal extends StatelessWidget {
   
   @override
   Widget build(BuildContext context) {
+    if (appStateController.users.value.id < 1 &&
+        !appStateController.users.value.verify!) {
+      return const Login();
+    } 
+    if (appStateController.users.value.id > 0 &&
+        !appStateController.users.value.isProfileComplete()) {
+      return Scaffold(
+        appBar: NavMain(
+          currentPage: "Jelajahi",
+        ),
+        body: GestureDetector(
+          onTap: () {
+            FocusScope.of(context).requestFocus(FocusNode());
+          },
+          child: Info(
+            caption: "Lengkapi Profil",
+            title: "Oops...",
+            desc: "Mohon lengkapi profil anda terlebih dahulu",
+            onTap: () {
+              // Navigator.pushNamed(context, "/forms/editprofile");
+              Get.toNamed('/forms/editprofile');
+            },
+          ),
+        ),
+      );
+    }
     return Scaffold(
       appBar: NavMain(
         currentPage: 'Buat Signal',
@@ -281,16 +310,20 @@ class AddNewSignal extends StatelessWidget {
                 children: <Widget>[
                   const SizedBox(height: 10),
                   Obx(() {
-                    if (controlle.channelStreamCtrl == null && !controlle.hasError.value) {
-                      return const Center(
-                        child: Text(
-                          "Loading",
-                          style: TextStyle(fontWeight: FontWeight.w600, fontSize: 18
-                        ))
-                      );
-                    } else if (controlle.hasError.value) {
-                      return Text(
-                        'Error: ${controlle.errorMessage}'
+                    // if (controlle.channelStreamCtrl.value == null && !controlle.hasError.value) {
+                    //   return const Center(
+                    //     child: Text(
+                    //       "Loading",
+                    //       style: TextStyle(fontWeight: FontWeight.w600, fontSize: 18
+                    //     ))
+                    //   );
+                    // } 
+                    if (controlle.hasError.value) {
+                      return Info(
+                        title: "Terjadi Error",
+                        caption: "Coba Lagi",
+                        onTap: controlle.initializePageChannelAsync,
+                        desc: controlle.errorMessage.value,
                       );
                     }
                     return Column(
@@ -312,7 +345,7 @@ class AddNewSignal extends StatelessWidget {
                           shrinkWrap: true,
                           physics: const NeverScrollableScrollPhysics(),
                           children: <Widget>[
-                            ChannelListWidgetCopy(listChannel: controlle.channelStreamCtrl?.map((i) => ChannelModel.instance.getDetail(i.id, clearCache: true)).toList(), onSelected: controlle.handleSelected, medal: controlle.medal.value,)
+                            ChannelListWidgetCopy(listChannel: controlle.channelStreamCtrl.value?.map((i) => ChannelModel.instance.getDetail(i.id, clearCache: true)).toList(), onSelected: controlle.handleSelected, medal: controlle.medal.value,)
                           ],
                         )
                       ],
@@ -579,7 +612,6 @@ class ChannelListWidgetCopy extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print("kebuild ulang");
     return SingleChildScrollView(
       scrollDirection: Axis.horizontal,
       child: Container(
@@ -592,13 +624,78 @@ class ChannelListWidgetCopy extends StatelessWidget {
               future: channel,
               builder: (context, snapshot) {
                 if (!snapshot.hasData) {
-                  return Container();
+                  return Shimmer.fromColors(
+                    highlightColor: Colors.grey[400]!,
+                    baseColor: Colors.grey[300]!,
+                    child: Container(
+                      margin: const EdgeInsets.only(right: 10),
+                      width: 185,
+                      height: 110,
+                      decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: const BorderRadius.all(Radius.circular(5)),
+                          border: snapshot.data?.id == activeId.value ? Border.all(
+                            color: const Color.fromRGBO(53, 6, 153, 1)
+                          ) : null
+                        ),
+                        child: Row(
+                          children: [
+                            Row(
+                              children: [
+                                Container(
+                                  margin: const EdgeInsets.only(
+                                      left: 10, right: 10, bottom: 10, top: 10),
+                                  width: 55,
+                                  height: 55,
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(100),
+                                    color: Colors.grey[350],
+                                  ),
+                                ),
+                                // Container(
+                                //   margin: const EdgeInsets.only(
+                                //       left: 10, right: 10, bottom: 10, top: 10),
+                                //   width: 25,
+                                //   height: 50,
+                                //   decoration: BoxDecoration(
+                                //     borderRadius: BorderRadius.circular(10),
+                                //     color: Colors.grey[350],
+                                //   ),
+                                // ),
+                                // Column(
+                                //   crossAxisAlignment: CrossAxisAlignment.start,
+                                //   children: [
+                                //     Container(
+                                //       margin: const EdgeInsets.only(top: 20, bottom: 10),
+                                //       width: 200,
+                                //       height: 15,
+                                //       decoration: BoxDecoration(
+                                //         borderRadius: BorderRadius.circular(10),
+                                //         color: Colors.grey[350],
+                                //       ),
+                                //     ),
+                                //     Container(
+                                //       margin: const EdgeInsets.only(bottom: 20),
+                                //       width: 130,
+                                //       height: 10,
+                                //       decoration: BoxDecoration(
+                                //         borderRadius: BorderRadius.circular(10),
+                                //         color: Colors.grey[350],
+                                //       ),
+                                //     ),
+                                //   ],
+                                // ),
+                              ],
+                            ),
+                          ],
+                        ),
+                    ),
+                  );
                 }
 
                 final channelData = snapshot.data;
 
                 return Obx(() {
-                  print("kerender ulang");
                     return GestureDetector(
                       onTap: () {
                         // print("ketap");

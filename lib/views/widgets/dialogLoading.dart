@@ -1,4 +1,4 @@
-// ignore_for_file: sized_box_for_whitespace
+// ignore_for_file: sized_box_for_whitespace, prefer_if_null_operators
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -222,42 +222,42 @@ class _LoadingStateData {
 //   }
 // }
 
-class DialogLoadingController extends GetxController {
-  final Rx<_LoadingStateData>? _caption = _LoadingStateData().obs;
+class  DialogLoadingController extends GetxController {
+  final Rx<_LoadingStateData?> _caption = Rx<_LoadingStateData?>(null);
 
   void setProgress(LoadingState status, String caps) {
-    Image? iconSt;
+    Rx<Image?> iconSt = Rx<Image?>(null);
     switch (status) {
       case LoadingState.success:
-        iconSt = Image.asset(
+        iconSt.value = Image.asset(
           "assets/icon-alert-success.png",
           width: 50,
         );
         break;
       case LoadingState.warning:
-        iconSt = Image.asset(
+        iconSt.value = Image.asset(
           "assets/icon-alert-warning.png",
           width: 50,
         );
         break;
       case LoadingState.error:
-        iconSt = Image.asset(
+        iconSt.value = Image.asset(
           "assets/icon-alert-error.png",
           width: 50,
         );
         break;
       case LoadingState.info:
-        iconSt = Image.asset(
+        iconSt.value = Image.asset(
           "assets/icon-alert-warning.png",
           width: 50,
         );
         break;
       default:
     }
-    _caption?.value = _LoadingStateData(
+    _caption.value = _LoadingStateData(
       status: status,
       state: LoadingState.progress,
-      iconSt: iconSt,
+      iconSt: iconSt.value,
       backgroundColor: Colors.white,
       fontColor: Colors.black,
       caption: caps,
@@ -265,7 +265,7 @@ class DialogLoadingController extends GetxController {
   }
 
   void setSuccess(String caps) {
-    _caption?.value = _LoadingStateData(
+    _caption.value = _LoadingStateData(
       state: LoadingState.progress,
       iconSt: Image.asset(
         "assets/icon-success.png",
@@ -279,7 +279,7 @@ class DialogLoadingController extends GetxController {
   }
 
   void setError(Object error) {
-    _caption?.value = _LoadingStateData(
+    _caption.value = _LoadingStateData(
       iconSt: Image.asset(
         "assets/icon-error.png",
         width: 50,
@@ -294,8 +294,9 @@ class DialogLoadingController extends GetxController {
 
   @override
   void onClose() {
-    _caption?.close();
+    _caption.close();
     super.onClose();
+    print("ke close");
   }
 }
 
@@ -376,10 +377,13 @@ class DialogLoading extends StatelessWidget {
           //   fontColor: Colors.black,
           //   caption: "Mohon tunggu..."
           // );
-          _LoadingStateData? loading = loadingController._caption?.value;
-          loading?.caption != null
-              ? loading
-              : loading = _LoadingStateData(
+          // _LoadingStateData? loading = loadingController._caption.value;
+          print("-------------------${loadingController._caption.value?.state}");
+          print("---0-0-0-0-0-0-0-0-0${loadingController._caption.value?.caption}");
+          print("---0-0-0-0-0-0-0-0-0${loadingController._caption.value?.iconSt}");
+          loadingController._caption.value != null
+              ? loadingController._caption.value
+              : loadingController._caption.value = _LoadingStateData(
                   state: LoadingState.progress,
                   backgroundColor: Colors.white,
                   fontColor: Colors.black,
@@ -391,11 +395,11 @@ class DialogLoading extends StatelessWidget {
                     const EdgeInsets.symmetric(vertical: 15, horizontal: 15),
                 margin: const EdgeInsets.only(top: 30),
                 decoration: BoxDecoration(
-                  color: loading?.backgroundColor,
+                  color: loadingController._caption.value?.backgroundColor,
                   shape: BoxShape.rectangle,
                   borderRadius: BorderRadius.circular(4),
                 ),
-                child: getDialogWidget(context, loading!),
+                child: getDialogWidget(context, loadingController._caption.value!),
               ),
             ],
           );

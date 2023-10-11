@@ -96,16 +96,11 @@ class ChannelProfileController extends GetxController {
       var result = await getMedal();
       medal.value = result;
     });
-    
-    print(channel?.value?.medals);
-    print("udah init");
   }
 
   @override
   void onReady() {
     isInit.value = true;
-    print("---232 ${channel?.value?.medals}");
-    print("udah ready kuy");
   }
 
 }

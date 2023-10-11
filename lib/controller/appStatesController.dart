@@ -46,7 +46,9 @@ class AppStateController extends GetxController {
 
   HomeTab get currentTab => homeTab.value;
 
-  void initState() {
+  @override
+  void onInit() {
+    super.onInit();
     FCM.instance.initializeFcmNotification();
   }
 
@@ -199,7 +201,9 @@ class AppStateController extends GetxController {
     }
   }
 
-  void clearState() {
+  @override
+  void onClose() {
+    super.onClose();
     AppKeys.navKey.currentState?.popUntil((route) => route.isFirst);
     setUser(UserInfo.init());
     setUserEdit(UserInfo.init());

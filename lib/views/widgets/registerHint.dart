@@ -21,7 +21,7 @@ class _RegisterHintState extends State<RegisterHint> {
         children: <TextSpan>[
           TextSpan(
               recognizer: TapGestureRecognizer()
-                ..onTap = () => Navigator.pushNamed(context, '/forms/register',
+                ..onTap = () => Navigator.pushNamed(context, '/forms/forgots',
                     arguments: ModalRoute.of(context)?.settings.arguments),
               text: "Daftar Sekarang",
               style: TextStyle(

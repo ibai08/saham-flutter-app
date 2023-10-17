@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import 'package:saham_01_app/controller/homeTabController.dart';
 import 'package:saham_01_app/controller/newSignalController.dart';
 import 'package:saham_01_app/controller/signalTabController.dart';
+import 'package:saham_01_app/views/pages/form/forgot.dart';
 import 'package:saham_01_app/views/widgets/getAlert.dart';
 import '../../../constants/app_colors.dart';
 import '../../../controller/appStatesController.dart';
@@ -263,7 +264,7 @@ class LoginForm extends StatelessWidget {
                 child: GestureDetector(
                   onTap: () {
                     try {
-                      Get.toNamed('/forgot');
+                      Get.toNamed('/forms/forgot');
                     } catch (e, stack) {
                       print("errror: $e");
                       print(stack);

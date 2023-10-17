@@ -7,10 +7,10 @@ import '../../appbar/navtxt.dart';
 import '../../widgets/btnBlock.dart';
 import '../../widgets/logo.dart';
 
-class Forgot extends StatelessWidget {
+class ForgotPassWord extends StatelessWidget {
   final ForgotPassController controller = Get.put(ForgotPassController());
 
-  Forgot({Key? key}) : super(key: key);
+  ForgotPassWord({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

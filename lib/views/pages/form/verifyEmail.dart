@@ -7,6 +7,7 @@ import 'package:get/get.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:saham_01_app/controller/homeTabController.dart';
 import 'package:saham_01_app/controller/newSignalController.dart';
+import 'package:saham_01_app/views/widgets/getAlert.dart' as alert;
 import '../../../controller/appStatesController.dart';
 import '../../../controller/signalTabController.dart';
 import '../../../function/helper.dart';
@@ -20,7 +21,13 @@ class VerifyEmailController extends GetxController {
   RxInt? time = 0.obs;
   Timer? timer;
 
-  final AppStateController appStateController = Get.put(AppStateController());
+  final AppStateController appStateController = Get.find();
+  final NewHomeTabController newHomeTabController = Get.find();
+  final alert.DialogController dialogController = Get.find();
+  ListChannelWidgetController listChannelWidgetController = Get.find();
+  ListSignalWidgetController listSignalWidgetController = Get.find();
+  NewSignalController newSignalController = Get.find();
+  HomeTabController homeTabController = Get.find();
 
   final RefreshController refreshController =
       RefreshController(initialRefresh: false);
@@ -50,8 +57,9 @@ class VerifyEmailController extends GetxController {
       if (await UserModel.instance.resendVerifyEmailAuthorized()) {
         Navigator.pop(ctx);
         print("satusssssssss6");
-        showAlert(ctx, LoadingState.success,
-            translateFromPattern("RESEND_VERIFY_EMAIL_SUCCESS"));
+        // showAlert(ctx, LoadingState.success,
+        //     translateFromPattern("RESEND_VERIFY_EMAIL_SUCCESS"));
+        dialogController.setProgress(alert.LoadingState.success, translateFromPattern("RESEND_VERIFY_EMAIL_SUCCESS"));
       } else {
         print("satusssssssss7");
         throw Exception("RESEND_VERIFY_EMAIL_FAILED");
@@ -61,6 +69,7 @@ class VerifyEmailController extends GetxController {
       Navigator.pop(ctx);
       print("satusssssssss8");
       showAlert(ctx, LoadingState.error, translateFromPattern(ex.toString()));
+      dialogController.setProgress(alert.LoadingState.error, translateFromPattern(ex.toString()));
     }
   }
 
@@ -98,8 +107,21 @@ class VerifyEmailController extends GetxController {
     performTime();
     Future.delayed(const Duration(seconds: 0)).then((value) async {
       if (appStateController.users.value.verify!) {
+        // Get.delete<HomeTabController>().then((value) => Get.put(HomeTabController()));
+        // Get.delete<SignalDashboardController>().then((value) => Get.put(SignalDashboardController()));
+        // Get.delete<ListChannelWidgetController>().then((value) => Get.put(ListChannelWidgetController()));
+        // Get.delete<ListSignalWidgetController>().then((value) => Get.put(ListSignalWidgetController()));
+        // Get.delete<NewSignalController>().then((value) => Get.put(NewSignalController()));
+        print("route sekarang: ${ModalRoute.of(Get.context!)?.settings.name}");
         appStateController.setAppState(Operation.bringToHome, HomeTab.home);
-        
+        // Get.back();
+        listChannelWidgetController.initializePageChannelAsync();
+        listSignalWidgetController.initializePageSignalAsync();
+        newSignalController.initializePageChannelAsync();
+        homeTabController.onRefresh();
+        newHomeTabController.tab.value = HomeTab.home;
+        newHomeTabController.tabController.animateTo(0,duration: Duration(milliseconds: 200),curve:Curves.easeIn);
+        dialogController.setProgress(alert.LoadingState.success, "Login Berhasil");
         return;
       }
 

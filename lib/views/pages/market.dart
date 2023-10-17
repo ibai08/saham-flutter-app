@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:saham_01_app/controller/homeTabController.dart';
 import '../../constants/app_colors.dart';
 import '../../controller/appStatesController.dart';
 import '../../core/getStorage.dart';
@@ -24,7 +25,9 @@ class MarketPage extends StatefulWidget {
 }
 
 class _MarketPageState extends State<MarketPage> {
-  final AppStateController appStateController = Get.put(AppStateController());
+  // final AppStateController appStateController = Get.put(AppStateController());
+  final NewHomeTabController newHomeTabController = Get.find();
+
   // late TabController _tabController;
 
   // @override
@@ -61,7 +64,9 @@ class _MarketPageState extends State<MarketPage> {
         // },
         backPage: () async {
           // Get.until(ModalRoute.withName("/home"));
-          appStateController.setAppState(Operation.bringToHome, HomeTab.home);
+          // appStateController.setAppState(Operation.bringToHome, HomeTab.home);
+          newHomeTabController.tab.value = HomeTab.home;
+          newHomeTabController.tabController.animateTo(0,duration: Duration(milliseconds: 200),curve:Curves.easeIn);
           // _tabController.index = homeTabController.homeTab.value.index;
           print("berhasil");
         },

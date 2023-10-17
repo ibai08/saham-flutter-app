@@ -177,9 +177,9 @@ class AppStateController extends GetxController {
       //Hometab and navigation controller
       case Operation.bringToHome:
         Get.until((route) => route.isFirst); // Kembali ke halaman beranda
-        if (payload is HomeTab) {
-          setHomeTab(payload);
-        }
+        // if (payload is HomeTab) {
+        //   setHomeTab(payload);
+        // }
         break;
 
       case Operation.pushNamed:

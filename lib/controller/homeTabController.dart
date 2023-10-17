@@ -1,8 +1,18 @@
+import 'package:firebase_crashlytics/firebase_crashlytics.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
+import 'package:saham_01_app/config/tab_list.dart';
+import 'package:saham_01_app/controller/appStatesController.dart';
+import 'package:saham_01_app/views/pages/addNewSignal.dart';
+import 'package:saham_01_app/views/pages/home.dart';
+import 'package:saham_01_app/views/pages/market.dart';
+import 'package:saham_01_app/views/pages/setting.dart';
+import 'package:saham_01_app/views/pages/signalPage.dart';
 
 import '../core/config.dart';
+import '../interface/scrollUpWidget.dart';
 import '../models/channel.dart';
 import '../models/entities/ois.dart';
 import '../models/entities/post.dart';
@@ -107,6 +117,12 @@ class HomeTabController extends GetxController {
         var ids = closedSignal.map((sig) => sig.id).toList();
         closedSignal
             .addAll(newSignal.where((newSig) => !ids.contains(newSig.id)));
+            SignalInfo ladonna;
+            closedSignal.forEach((element) {
+              print("ladasssoa");
+              print(element.toMap().toString());
+              ladonna = element;
+            });
         loadedPage.value++;
 
         refreshController.loadComplete();
@@ -124,8 +140,33 @@ class HomeTabController extends GetxController {
     super.onInit();
     print("cek init");
     Future.delayed(const Duration(microseconds: 0)).then((_) async {
-      await initializePageAsync();
+      await initializePageAsync(clearCache: true);
       await getEventPage();
     });
+  }
+
+  @override
+  void onClose() {
+    super.onClose();
+    print("ke close---------------------------------");
+  }
+}
+
+class NewHomeTabController extends GetxController with GetTickerProviderStateMixin {
+  late TabController tabController;
+  final AppStateController appStateController = Get.find();
+  
+
+  Rx<HomeTab> tab = Rx<HomeTab>(HomeTab.home);
+  // final tab = appStateController.homeTab.value;
+
+  
+
+  @override
+  void onInit() {
+    super.onInit();
+    tab.value = appStateController.homeTab.value;
+    tabController = TabController(length: tabViews.length, vsync: this);
+    tabController.animateTo(tab.value.index);
   }
 }

@@ -13,21 +13,23 @@ class RecentProfitSignalWidgetNew extends StatelessWidget {
   RecentProfitSignalWidgetNew({Key? key, this.data, this.medal})
       : super(key: key);
 
-  final HomeTabController homeTabController = Get.put(HomeTabController());
+  final HomeTabController homeTabController = Get.find();
 
   @override
   Widget build(BuildContext context) {
     homeTabController.setSignals(data!);
-
-    return GetX<HomeTabController>(
-      builder: (controller) {
-        if (controller.signalList.isEmpty || medal == null) {
-          return const HomeSignalJustMadeProfitShimmer();
+    return Obx(() {
+      // print("homesignal: ${homeTabController.signalList}");
+      // print("medalos: $medal");
+      print("Build ulang");
+      print("signallist: ${homeTabController.signalList.length}");
+        if (homeTabController.signalList.isEmpty || medal == null) {
+          return HomeSignalJustMadeProfitShimmer();
         }
         return Container(
-          child: controller.signalList.isNotEmpty
+          child: homeTabController.signalList.isNotEmpty
               ? RecommendedSignal(
-                  listSignalData: controller.signalList,
+                  listSignalData: homeTabController.signalList,
                   medal: medal!,
                 )
               : const SizedBox(),

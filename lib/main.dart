@@ -46,8 +46,10 @@ import '../../views/widgets/dialogLoading.dart';
 // import '../../updateVersion.dart';
 import 'controller/checkInternetController.dart';
 import 'controller/homeTabController.dart';
+import 'controller/newSignalController.dart';
 import 'interface/scrollUpWidget.dart';
 import 'views/pages/home.dart';
+import 'views/widgets/getAlert.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -56,6 +58,13 @@ void main() async {
     name: 'traders-family-app',
     options: DefaultFirebaseOptions.currentPlatform,
   );
+   Get.put(AppStateController());
+   Get.put(NewHomeTabController());
+   Get.put(CheckInternetController());
+  // Get.put(DialogLoadingController());
+  Get.put(GrowthChartController());
+  Get.put(HomeTabController());
+  Get.put(DialogController());
 
   FirebaseCrashlytics.instance.setCrashlyticsCollectionEnabled(true);
 
@@ -110,12 +119,7 @@ void main() async {
   firebaseAnalytics.setAnalyticsCollectionEnabled(true);
   firebaseAnalytics.logAppOpen();
 
-  Get.put(CheckInternetController());
-  // Get.put(DialogLoadingController());
-  Get.put(GrowthChartController());
-  Get.put(HomeTabController());
-
-  runApp(const MyApp());
+  runApp(const NewMyApp());
 }
 
 // class AppStateController extends GetxController {
@@ -126,6 +130,57 @@ void main() async {
 //     homeTab: HomeTab.home
 //   ).obs;
 // }
+
+class NewMyApp extends StatelessWidget {
+  const NewMyApp({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return GetMaterialApp(
+      title: 'Saham XYZ App',
+      theme: ThemeData(
+        inputDecorationTheme: InputDecorationTheme(
+          labelStyle: TextStyle(color: AppColors.black),
+          contentPadding: const EdgeInsets.only(bottom: 5, top: 20),
+          enabledBorder: UnderlineInputBorder(
+            borderSide: BorderSide(
+              width: 0.2,
+              color: AppColors.darkGrey4,
+            ),
+          ),
+        ),
+        fontFamily: 'Manrope',
+      ),
+      initialRoute: '/',
+      getPages: [
+        GetPage(name: '/home', page: () =>  NewHomePage()),
+        GetPage(name: '/remote-config', page: () => const RemoteConfigView()),
+        GetPage(name: '/homepage', page: () => Home()),
+        GetPage(name: '/channel-signal', page: () => SignalDashboard()),
+        GetPage(name: '/maintenance', page: () => const MaintenanceView()),
+        // GetPage(name: '/update-app', page: () => UpdateVersionView()),
+
+        GetPage(name: '/forms/login', page: () => Login()),
+        GetPage(name: '/forms/register', page: () => Register()),
+        GetPage(
+            name: '/forms/editprofile', page: () => const EditProfile()),
+        GetPage(name: '/forms/editpassword', page: () => EditPassword()),
+        GetPage(name: '/more/profile', page: () => Profile()),
+
+        GetPage(
+            name: '/search/channels/pop', page: () => SearchChannelsPop()),
+        GetPage(name: '/search/domisili', page: () => SearchDomisili()),
+
+        GetPage(name: '/dsc/search', page: () => SearchChannelsTab()),
+        GetPage(name: '/dsc/channels/', page: () => ChannelDetailNew()),
+        GetPage(name: '/dsc/channels/new', page: () => NewChannels()),
+        GetPage(name: '/dsc/signal/', page: () => SignalDetail())
+      ],
+      home: const SplashScreen(),
+      debugShowCheckedModeBanner: false,
+    );
+  }
+}
 
 class MyApp extends StatefulWidget {
   const MyApp({Key? key}) : super(key: key);
@@ -161,14 +216,14 @@ class _MyAppState extends State<MyApp> {
       ),
       initialRoute: '/',
       getPages: [
-        GetPage(name: '/home', page: () => const MyHomePage()),
+        GetPage(name: '/home', page: () =>  NewHomePage()),
         GetPage(name: '/remote-config', page: () => const RemoteConfigView()),
         GetPage(name: '/homepage', page: () => Home()),
         GetPage(name: '/channel-signal', page: () => SignalDashboard()),
         GetPage(name: '/maintenance', page: () => const MaintenanceView()),
         // GetPage(name: '/update-app', page: () => UpdateVersionView()),
 
-        GetPage(name: '/forms/login', page: () => const Login()),
+        GetPage(name: '/forms/login', page: () => Login()),
         GetPage(name: '/forms/register', page: () => Register()),
         GetPage(
             name: '/forms/editprofile', page: () => const EditProfile()),
@@ -216,6 +271,7 @@ class _MyHomePageState extends State<MyHomePage>
 
   void _onTapItem(int index) {
     final appStateController = Get.find<AppStateController>();
+    print("indexxxx: $index");
     if (appStateController.currentTab == HomeTab.values[index]) {
       Widget temp = _layoutPage[index];
       if (temp is ScrollUpWidget) {
@@ -264,6 +320,16 @@ class _MyHomePageState extends State<MyHomePage>
     return GetX<AppStateController>(builder: (controller) {
       final tab = controller.homeTab.value;
       _tabController.animateTo(tab.index);
+
+      print("${tab.index}");
+      // if (tab.index == 1) {
+      //   Get.lazyPut(() => SignalDashboardController());
+      //   Get.lazyPut(() => ListSignalWidgetController());
+      //   Get.lazyPut(() => ListChannelWidgetController());
+      // }
+      // if (tab.index == 2) {
+      //   Get.lazyPut(() => NewSignalController());
+      // }
       return WillPopScope(
           onWillPop: () async {
             if (tab != HomeTab.home) {
@@ -326,5 +392,106 @@ class _MyHomePageState extends State<MyHomePage>
             ),
           ));
     });
+  }
+}
+
+class NewHomePage extends StatelessWidget {
+  final NewHomeTabController newHomeTabController = Get.find();
+  final AppStateController appStateController = Get.find();
+
+  final layoutPage = [
+    Home(),
+    SignalDashboard(),
+    AddNewSignal(),
+    const MarketPage(),
+    Setting(),
+  ];
+
+  void onTapItem(int index) {
+    print("ketap");
+    print("indexxxx: $index");
+    print("appstatetab: ${appStateController.homeTab.value}");
+    // if(appStateController.homeTab.value == HomeTab.values[index]) {
+    //   Widget temp = newHomeTabController.layoutPage[index];
+    //   if (temp is ScrollUpWidget) {
+    //     (temp as ScrollUpWidget).onResetTab();
+    //   }
+    // print("udah if");
+    // print("udah firebase");
+    // print("udah setstate");
+    // }
+    print("Home Screen: ${HomeTab.values[index]}");
+    FirebaseCrashlytics.instance.log("Home Screen: ${HomeTab.values[index]}");
+    newHomeTabController.tab.value = HomeTab.values[index];
+    // appStateController.setAppState(Operation.bringToHome, HomeTab.values[index]);
+  }
+
+
+  @override
+  Widget build(BuildContext context) {
+      return Obx(() {
+        print("render ulang");
+        print("tabcontroller: ${newHomeTabController.tabController.index}");
+          return WillPopScope(
+            onWillPop: () async {
+              if (newHomeTabController.tab.value == HomeTab.home) {
+                appStateController.setAppState(Operation.bringToHome, HomeTab.home);
+                return false;
+              } else {
+                bool result = await showDialog(
+                  context: context,
+                  builder: (ctx) {
+                    return const DialogConfirmation(
+                      title: 'Peringatan',
+                      desc: 'Anda yakin ingin keluar dari aplikasi',
+                      caps: 'KELUAR',
+                    );
+                  });
+                return result;
+              }
+            },
+            child: Scaffold(
+              body: layoutPage.elementAt(newHomeTabController.tab.value.index),
+              bottomNavigationBar: Container(
+                height: 90,
+                padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                decoration: const BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(30.0),
+                    topRight: Radius.circular(30.0)
+                  ),
+                ),
+                child: Container(
+                  padding: const EdgeInsets.symmetric(horizontal: 9),
+                  child: TabBar(
+                    controller: newHomeTabController.tabController,
+                    labelColor: Colors.black,
+                    unselectedLabelColor: Colors.black,
+                    indicatorSize: TabBarIndicatorSize.tab,
+                    indicator: BoxDecoration(
+                      border: const Border(
+                        top: BorderSide(color: Color(0xFF350699), width: 3.0),
+                      ),
+                      gradient: LinearGradient(
+                        colors: [
+                          const Color(0xFF2E2AFF).withOpacity(0.1),
+                          const Color(0xFF2E2AFF).withOpacity(0),
+                        ],
+                        begin: Alignment.topCenter,
+                        end: Alignment.bottomCenter,
+                        stops: const [0.0, 1.0],
+                        tileMode: TileMode.clamp,
+                      ),
+                    ),
+                    tabs: tabViews,
+                    onTap: onTapItem,
+                  ),
+                ),
+              ),
+            ),
+          );
+        }
+      );
   }
 }

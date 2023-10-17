@@ -92,7 +92,7 @@ class SignalDetailWidget extends StatelessWidget {
             style: TextButton.styleFrom(
                 padding: const EdgeInsets.symmetric(vertical: 0)),
             onPressed: () {
-              Get.toNamed('/dsc/signal/', arguments: id);
+              Get.toNamed('/dsc/signal/', arguments: {"signalId": id});
             },
             child: Text(
               btnTxt,
@@ -115,7 +115,7 @@ class SignalDetailWidget extends StatelessWidget {
             style: TextButton.styleFrom(
                 padding: const EdgeInsets.symmetric(vertical: 0)),
             onPressed: () {
-              Get.toNamed('/dsc/signal/', arguments: id);
+              Get.toNamed('/dsc/signal/', arguments: {"signalId": id});
             },
             child: Text(
               btnTxt,

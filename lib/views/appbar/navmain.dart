@@ -31,7 +31,7 @@ import '../../views/widgets/imageFromNetwork.dart';
 //             shadowColor: AppColors.white);
 // }
 
-final AppStateController appStateController = Get.put(AppStateController());
+final AppStateController appStateController = Get.find();
 
 class NavMain extends AppBar {
   NavMain(

@@ -13,8 +13,8 @@ import '../../models/entities/ois.dart';
 import '../../models/signal.dart';
 import '../../views/pages/signalPage.dart';
 
-class SignalDashboardController extends GetxController
-    with GetSingleTickerProviderStateMixin {
+class SignalDashboardController extends SuperController
+    with GetSingleTickerProviderStateMixin, FullLifeCycleMixin {
   late RefreshController refreshController;
   late TabController tabController;
   ScrollController scrollController = ScrollController();
@@ -50,23 +50,50 @@ class SignalDashboardController extends GetxController
   Function onResetTabChild = () {};
 
   @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    super.didChangeAppLifecycleState(state);
+    print("state beruabah: $state");
+    switch (state) {
+      case AppLifecycleState.resumed:
+        onResumed();
+        break;
+      case AppLifecycleState.inactive:
+        onInactive();
+        break;
+      case AppLifecycleState.paused:
+        onPaused();
+        break;
+      case AppLifecycleState.detached:
+        onDetached();
+        break;
+    }
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+  }
+
+  @override
   void onInit() {
     super.onInit();
     checkInternet();
-    Future.delayed(const Duration(microseconds: 0)).then((_) async {
-      if (appStateController.users.value.id < 1 ||
-          appStateController.users.value.verify!) {
-        return;
-      } else if (appStateController.users.value.id > 0 &&
-          appStateController.users.value.isProfileComplete()) {
-        Get.toNamed("/forms/editprofile");
-      }
-    });
+    // SignalDashboardController signalDashboardController.
+    print("APpLifecycle: ${AppLifecycleState}");
+    // Future.delayed(const Duration(microseconds: 0)).then((_) async {
+    //   if (appStateController.users.value.id < 1 ||
+    //       appStateController.users.value.verify!) {
+    //     return;
+    //   } else if (appStateController.users.value.id > 0 &&
+    //       appStateController.users.value.isProfileComplete()) {
+    //     Get.toNamed("/forms/editprofile");
+    //   }
+    // });
     tabController = TabController(length: 2, vsync: this);
     tabController.addListener(onTabChanged);
     scrollController = ScrollController();
 
-    print("hello: ${onResetTabChild}");
+
 
     tabBodies = <Widget>[
       ListChannelWidget(),
@@ -96,10 +123,40 @@ class SignalDashboardController extends GetxController
     ];
   }
 
+  @override
+  void onReady() {
+    print("READYDYDYDYDYDDYDYDYDY");
+    super.onReady();
+  }
+
   void onCLose() {
     tabController.removeListener(onTabChanged);
     tabController.dispose();
     super.onClose();
+  }
+
+  @override
+  void onDetached() {
+    // TODO: implement onDetached
+    print("DETACTSGDGGSSGGS");
+  }
+
+  @override
+  void onInactive() {
+    // TODO: implement onInactive
+    print("ACKTIFISFFHSHFHSGHFGHSGH");
+  }
+
+  @override
+  void onPaused() {
+    // TODO: implement onPaused
+    print("PAUSESSSSSSSSSS");
+  }
+
+  @override
+  void onResumed() {
+    // TODO: implement onResumed
+    print("RESUMESSSSSSSSSS");
   }
 }
 
@@ -198,6 +255,7 @@ class ListSignalWidgetController extends GetxController {
   @override
   void onReady() {
     super.onReady();
+    checkInternet();
     Future.delayed(Duration(microseconds: 0)).then((_) async {
       if (appStateController.users.value.id > 0 &&
         appStateController.users.value.verify!) {
@@ -322,10 +380,11 @@ class ListChannelWidgetController extends GetxController {
   final AppStateController appStateController = Get.find();
 
   Future<void> initializePageChannelAsync({bool clearCache = false}) async {
+    print("INIT GUYSSS");
     try {
       dataChannel.value.clear();
       dataChannel.value.addAll(await ChannelModel.instance.getRecommendedManualChannel(clearCache: clearCache, offset: 0, sort: sort.value));
-      channelStream.value = dataChannel.value;
+      channelStream.value = dataChannel.value.toSet().toList();
       page.value = 0;
 
       Level result = await getMedal();
@@ -392,8 +451,15 @@ class ListChannelWidgetController extends GetxController {
     super.onReady();
     print("readyyyyyyyyyyyyy");
     Future.delayed(Duration(microseconds: 0)).then((_) async {
-          print("kena???");
-        await initializePageChannelAsync();
+        if (appStateController.users.value.id > 0) {
+          await initializePageChannelAsync();
+        }
     });
+  }
+
+  @override
+  void dispose() {
+    print("disposessssssssssss");
+    super.dispose();
   }
 }

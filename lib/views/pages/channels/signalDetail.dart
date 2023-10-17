@@ -32,6 +32,7 @@ class SignalDetail extends StatelessWidget {
   @override
   Widget build (BuildContext context) {
     return Obx(() {
+      // print("arguments: ${argument['signalId']}");
       if (argument != null) {
         controller.arguments = argument['signalId'];
       }
@@ -448,7 +449,7 @@ class SignalDetail extends StatelessWidget {
                                 ),
                                 Expanded(
                                   child: Text(
-                                    controller.digit > -1 ? controller.signalCon.value!.price!.toStringAsFixed(controller.digit) :  controller.signalCon.value.toString(),
+                                    controller.digit > -1 ? controller.signalCon.value!.price!.toStringAsFixed(controller.digit) :  controller.signalCon.value!.price.toString(),
                                     textAlign: TextAlign.right,
                                     style: const TextStyle(fontSize: 16),
                                   ),
@@ -466,7 +467,9 @@ class SignalDetail extends StatelessWidget {
                                 ),
                                 Expanded(
                                   child: Text(
-                                    controller.digit > -1 ? controller.signalCon.value!.tp!.toStringAsFixed(controller.digit) : controller.signalCon.value!.tp.toString()
+                                    controller.digit > -1 ? controller.signalCon.value!.tp!.toStringAsFixed(controller.digit) : controller.signalCon.value!.tp.toString(),
+                                    textAlign: TextAlign.right,
+                                    style: const TextStyle(fontSize: 16),
                                   ),
                                 )
                               ],
@@ -482,7 +485,9 @@ class SignalDetail extends StatelessWidget {
                                 ),
                                 Expanded(
                                   child: Text(
-                                    controller.digit > -1 ? controller.signalCon.value!.sl!.toStringAsFixed(controller.digit) : controller.signalCon.value!.sl.toString()
+                                    controller.digit > -1 ? controller.signalCon.value!.sl!.toStringAsFixed(controller.digit) : controller.signalCon.value!.sl.toString(),
+                                    textAlign: TextAlign.right,
+                                    style: const TextStyle(fontSize: 16),
                                   ),
                                 )
                               ],

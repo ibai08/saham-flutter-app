@@ -169,8 +169,9 @@ class SearchMultipleSymbolsController extends GetxController {
   Future<void> getSymbols() async {
     try {
       listSymbols.value = [];
-      List<TradeSymbol> dp = await SignalModel.instance.getSymbols();
+      List<TradeSymbol> dp = await SignalModel.instance.getSymbols() as List<TradeSymbol>;
       for (int i = 0; i < dp.length; i++) {
+        print("name: ${dp[i].name}");
         var cek = false;
         if (temp.length != dp.length) {
           tempSymbols.add(dp[i].name!);

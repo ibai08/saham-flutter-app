@@ -17,7 +17,7 @@ class SignalModel {
   static final SignalModel instance = SignalModel._privateConstructor();
   SignalModel._privateConstructor();
   SharedBoxHelper? _signalBox;
-  final AppStateController appStateController = Get.put(AppStateController());
+  final AppStateController appStateController = Get.find();
 
   RxMap<int, SignalInfo> signalCache = <int, SignalInfo>{}.obs;
 
@@ -67,11 +67,12 @@ class SignalModel {
     signalCache.remove(identifier);
   }
 
-  Future<List<TradeSymbol>> getSymbols() async {
+  Future<List> getSymbols() async {
     List<TradeSymbol> listTradeSymbol = [];
     Map fetchData = await TF2Request.authorizeRequest(
         url: getHostName() + "/ois/api/v1/symbols/", method: 'GET');
     List symbolList = fetchData["message"];
+    print("symbollist: $symbolList");
 
     symbolList.forEach((v1) {
       listTradeSymbol.add(TradeSymbol.fromTF2v1API(v1));

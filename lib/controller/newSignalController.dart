@@ -3,6 +3,7 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:saham_01_app/controller/appStatesController.dart';
+import 'package:saham_01_app/controller/homeTabController.dart';
 import 'package:saham_01_app/core/config.dart';
 import 'package:saham_01_app/core/string.dart';
 import 'package:saham_01_app/function/removeFocus.dart';
@@ -26,6 +27,8 @@ class NewSignalController extends GetxController {
   RxBool trySubmit = false.obs;
   RxString errorFormMessage = ''.obs;
   RxBool alreadyBuild = false.obs;
+  AppStateController appStateController = Get.find();
+  NewHomeTabController newHomeTabController = Get.find();
 
   RxBool isSelected = false.obs;
 
@@ -306,6 +309,8 @@ class NewSignalController extends GetxController {
         );
 
         Get.back();
+            newHomeTabController.tab.value = HomeTab.home;
+            newHomeTabController.tabController.animateTo(0,duration: Duration(milliseconds: 200),curve:Curves.easeIn);
         showAlert(context, LoadingState.success, "Signal berhasil dibuat", thens: (x) {
           // Get.until((route) => route.settings.name == '/home');
           // Navigator.popUntil(context, ModalRoute.withName("/home"));
@@ -319,8 +324,6 @@ class NewSignalController extends GetxController {
           print("context: $context");
           Future.delayed(Duration.zero, () {
             // Navigator.popUntil(context, ModalRoute.withName("/home"));
-            appStateController?.setAppState(Operation.bringToHome, HomeTab.home);
-            print("kalau keprint harusnya udah balik home");
           });
         });
       }
@@ -348,11 +351,13 @@ class NewSignalController extends GetxController {
   void onInit() {
     super.onInit();
     Future.delayed(Duration(microseconds: 0)).then((_) async {
-      await initializePageChannelAsync();
+      if (appStateController.users.value.id > 0) {
+        await initializePageChannelAsync();
+      }
     });
-    Future.delayed(Duration(microseconds: 0)).then((_) async {
-      await getTradeSymbols();
-    });
+    // Future.delayed(Duration(microseconds: 0)).then((_) async {
+    //   await getTradeSymbols();
+    // });
   }
 
   @override

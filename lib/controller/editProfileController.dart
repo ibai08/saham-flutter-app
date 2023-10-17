@@ -29,7 +29,7 @@ class EditProfileFormController extends GetxController {
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
   late bool editOnlyUsername;
 
-  final AppStateController appStateController = Get.put(AppStateController());
+  final AppStateController appStateController = Get.find();
 
   @override
   void onInit() {

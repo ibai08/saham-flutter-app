@@ -14,7 +14,7 @@ import '../../models/user.dart';
 class OisModel {
   OisModel._privateConstructor();
   final AppStateController appStateController =
-      Get.Get.put(AppStateController());
+      Get.Get.find();
   static final OisModel instance = OisModel._privateConstructor();
 
   Future<OisDashboardPageData> synchronizeDashboard(

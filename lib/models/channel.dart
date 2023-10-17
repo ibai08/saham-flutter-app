@@ -22,7 +22,7 @@ class ChannelModel {
   static final ChannelModel instance = ChannelModel._privateConstructor();
 
   final AppStateController appStateController =
-      Get.Get.put(AppStateController());
+      Get.Get.find();
 
   Future<void> createChannel(
       {String? name,

@@ -35,7 +35,7 @@ class SignalDetailWithHeaderNew extends StatelessWidget {
   final int? subscriber;
   final Level? level;
 
-  final AppStateController appStateController = Get.put(AppStateController());
+  final AppStateController appStateController = Get.find();
 
   SignalDetailWithHeaderNew(
       {Key? key,

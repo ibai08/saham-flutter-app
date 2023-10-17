@@ -36,7 +36,7 @@ class ChannelThumb extends StatelessWidget {
   final Level? level;
   final int? medals;
 
-  final AppStateController appStateController = Get.put(AppStateController());
+  final AppStateController appStateController = Get.find();
   final ListChannelWidgetController controller = Get.find();
 
   ChannelThumb({

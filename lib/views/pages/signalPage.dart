@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
+import 'package:saham_01_app/controller/homeTabController.dart';
 import '../../constants/app_colors.dart';
 import '../../controller/appStatesController.dart';
 import '../../controller/signalTabController.dart';
@@ -20,19 +21,18 @@ import '../../views/widgets/signalListWidgetNew.dart';
 import '../../views/widgets/signalShimmer.dart';
 
 class SignalDashboard extends StatelessWidget implements ScrollUpWidget {
-  final SignalDashboardController signalDashboardController =
-      Get.put(SignalDashboardController());
+  final SignalDashboardController signalDashboardController = Get.put(SignalDashboardController());
 
-  final AppStateController appStateController = Get.put(AppStateController());
+  final AppStateController appStateController = Get.find();
+  final NewHomeTabController newHomeTabController = Get.find();
 
   SignalDashboard({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    print("kebuild");
     if (appStateController.users.value.id < 1 &&
         !appStateController.users.value.verify!) {
-      return const Login();
+      return Login();
     } 
     if (appStateController.users.value.id > 0 &&
         !appStateController.users.value.isProfileComplete()) {
@@ -60,7 +60,8 @@ class SignalDashboard extends StatelessWidget implements ScrollUpWidget {
       appBar: NavMain(
         currentPage: "Jelajahi",
         backPage: () async {
-          appStateController.setAppState(Operation.bringToHome, HomeTab.home);
+          newHomeTabController.tab.value = HomeTab.home;
+          newHomeTabController.tabController.animateTo(0,duration: Duration(milliseconds: 200),curve:Curves.easeIn);
         },
       ),
       backgroundColor: AppColors.light,

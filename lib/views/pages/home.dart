@@ -29,22 +29,23 @@ import '../widgets/recentProfitSignalNew.dart';
 
 class Home extends StatelessWidget {
   Home({Key? key}) : super(key: key);
-  final HomeTabController homeTabController = Get.put(HomeTabController());
-  final CheckInternetController checkInet = Get.put(CheckInternetController());
-  final AppStateController appStateController = Get.put(AppStateController());
+  final HomeTabController homeTabController = Get.find();
+  final CheckInternetController checkInet = Get.find();
+  final AppStateController appStateController = Get.find();
+  final NewHomeTabController newHomeTabController = Get.find();
 
   @override
   Widget build(BuildContext context) {
     return Obx(
-      () => Scaffold(
+      () { return Scaffold(
         appBar: NavMain(
           currentPage: 'HomePage',
           username: "Gopay Kai",
         ),
         body: prepareHome(context),
         backgroundColor: AppColors.light,
-      ),
-    );
+      );
+   });
   }
 
   Widget prepareHome(BuildContext context) {
@@ -320,7 +321,7 @@ class MostConsistentChannelThumbNew extends StatelessWidget {
   MostConsistentChannelThumbNew({Key? key, this.medal, this.channel, this.from})
       : super(key: key);
 
-  final AppStateController appStateController = Get.put(AppStateController());
+  final AppStateController appStateController = Get.find();
 
   final ChannelCardSlim? channel;
   final Level? medal;

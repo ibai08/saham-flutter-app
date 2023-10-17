@@ -2,12 +2,14 @@
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:saham_01_app/controller/homeTabController.dart';
+import 'package:saham_01_app/views/widgets/getAlert.dart';
 import '../../controller/appStatesController.dart';
-import '../../function/showAlert.dart';
+// import '../../function/showAlert.dart';
 import '../../models/entities/user.dart';
 import '../../models/user.dart';
 import '../../views/appbar/navmain.dart';
-import '../../views/widgets/dialogLoading.dart';
+// import '../../views/widgets/dialogLoading.dart';
 import '../../views/widgets/listItemProfile.dart';
 
 // class Setting extends StatefulWidget {
@@ -16,7 +18,9 @@ import '../../views/widgets/listItemProfile.dart';
 // }
 
 class Setting extends GetView<AppStateController> {
-  final AppStateController appStateController = Get.put(AppStateController());
+  final AppStateController appStateController = Get.find();
+  final NewHomeTabController newHomeTabController = Get.find();
+  final DialogController dialogController = Get.find();
 
   List<Widget> prepareWidget(UserInfo user) {
     List<Widget> silverlist = [];
@@ -57,7 +61,8 @@ class Setting extends GetView<AppStateController> {
           context: Get.context,
           onTap: () {
             // Navigator.pushNamed(context, '/more/mrg');
-            showAlert(Get.context!, LoadingState.warning, "Coming Soon");
+            // showAlert(Get.context!, LoadingState.warning, "Coming Soon");
+            dialogController.setProgress(LoadingState.warning, "Coming Soon");
           },
           icon: Image.asset(
             // "assets/icon/brands/mrg.png",
@@ -175,9 +180,10 @@ class Setting extends GetView<AppStateController> {
             // );
             // await Future.delayed(Duration(milliseconds: 600));
             // await UserModel.instance.clearUserToken();
-            await UserModel.instance.logout();
+            // await UserModel.instance.logout();
+            dialogController.logoutConfirm();
           },
-          text: "Keluar",
+          text: "Logout",
         ),
       ];
     } else {
@@ -225,7 +231,8 @@ class Setting extends GetView<AppStateController> {
         appBar: NavMain(
           currentPage: "Settings",
           backPage: () async {
-            appStateController.setAppState(Operation.bringToHome, HomeTab.home);
+            newHomeTabController.tab.value = HomeTab.home;
+          newHomeTabController.tabController.animateTo(0,duration: Duration(milliseconds: 200),curve:Curves.easeIn);
           },
         ),
         body: GetX<AppStateController>(builder: (controller) {

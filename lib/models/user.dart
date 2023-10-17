@@ -5,6 +5,7 @@ import 'dart:io';
 
 import 'package:dio/dio.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart' as Get;
 import 'package:http_parser/http_parser.dart';
 import 'package:image/image.dart';
@@ -18,13 +19,20 @@ import '../../core/getStorage.dart';
 import '../../core/http.dart';
 import '../../core/string.dart';
 import '../../models/entities/user.dart';
+import '../controller/homeTabController.dart';
+import '../controller/newSignalController.dart';
+import '../controller/signalTabController.dart';
 
 class UserModel {
   UserModel._privateConstructor();
   static UserModel instance = UserModel._privateConstructor();
 
   final AppStateController appStateController =
-      Get.Get.put(AppStateController());
+      Get.Get.find();
+
+  final HomeTabController homeTabController = Get.Get.find();
+
+  final NewHomeTabController newHomeTabController = Get.Get.find();
 
   Future<void> refreshController() async {
     Map? user = await getUserData();
@@ -194,6 +202,9 @@ class UserModel {
       bool result = await updateCfgAsync("token", token);
       bool crd = await updateCfgAsync("crd", credential);
       bool upduser = await updateCfgAsync("usrdat", userJson);
+      print("resultss: $result");
+      print("CRDSSSSS: $crd");
+      print("upduserrrrr: $upduser");
       if (!result || !crd || !upduser) {
         throw Exception("UNABLE_SAVE_TO_DATA");
       }
@@ -207,7 +218,10 @@ class UserModel {
 
       await refreshController();
       afterLogin().then((value) => null);
-      appStateController.setAppState(Operation.bringToHome, HomeTab.home);
+      // appStateController.setAppState(Operation.bringToHome, HomeTab.home);
+      // appStateController.setAppState(Operation.clearState, null);
+      // newHomeTabController.tab.value = HomeTab.home;
+      // newHomeTabController.tabController.animateTo(0,duration: Duration(milliseconds: 200),curve:Curves.easeIn);
 
       if (arguments != null) {
         if (arguments is Map &&
@@ -254,6 +268,7 @@ class UserModel {
       // MainZendesk().removeTag(ZendeskTag.login).then((value) => null).catchError((e) => print(e));
       return true;
     } catch (xerr) {
+      print("erorrooorororo set login: $xerr");
       await SharedHelper.instance.clearAll();
       rethrow;
     }
@@ -385,7 +400,15 @@ class UserModel {
       }).then((x) {});
       await SharedHelper.instance.clearAll();
       appStateController.setAppState(Operation.clearState, null);
+      homeTabController.onRefresh();
+      newHomeTabController.tab.value = HomeTab.home;
+      newHomeTabController.tabController.animateTo(0,duration: Duration(milliseconds: 200),curve:Curves.easeIn);
       await FCM.instance.deleteInstanceID();
+      // Get.Get.delete<HomeTabController>().then((value) => Get.Get.put(HomeTabController()));
+      // Get.Get.delete<SignalDashboardController>().then((value) => Get.Get.put(SignalDashboardController()));
+      // Get.Get.delete<ListChannelWidgetController>().then((value) => Get.Get.put(ListChannelWidgetController()));
+      // Get.Get.delete<ListSignalWidgetController>().then((value) => Get.Get.put(ListSignalWidgetController()));
+      // Get.Get.delete<NewSignalController>().then((value) => Get.Get.put(NewSignalController()));
       CacheFactory.releaseAllMutex();
     } catch (xerr) {
       print("UserModel.logout: $xerr");

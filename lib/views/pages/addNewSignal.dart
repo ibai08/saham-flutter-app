@@ -5,10 +5,12 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:saham_01_app/constants/app_colors.dart';
 import 'package:saham_01_app/controller/appStatesController.dart';
+import 'package:saham_01_app/controller/homeTabController.dart';
 import 'package:saham_01_app/controller/newSignalController.dart';
 import 'package:saham_01_app/function/removeFocus.dart';
 import 'package:saham_01_app/models/channel.dart';
 import 'package:saham_01_app/views/appbar/navmain.dart';
+import 'package:saham_01_app/views/widgets/getAlert.dart';
 import 'package:saham_01_app/views/widgets/searchIconFormWidget.dart';
 import 'package:shimmer/shimmer.dart';
 
@@ -16,10 +18,10 @@ import '../../core/config.dart';
 import '../../core/formatter/symbol.dart';
 import '../../core/string.dart';
 import '../../function/changeFocus.dart';
-import '../../function/showAlert.dart';
+import '../../function/showAlert.dart' as showAlert;
 import '../../models/entities/ois.dart';
 import '../../models/signal.dart';
-import '../widgets/dialogLoading.dart';
+import '../widgets/dialogLoading.dart' as dl;
 import '../widgets/headChannelRow.dart';
 import '../widgets/homeTopRankShimmer.dart';
 import '../widgets/info.dart';
@@ -32,6 +34,8 @@ class AddNewSignal extends StatelessWidget {
 
   final appStateController = Get.find<AppStateController>();
   final controlle = Get.put(NewSignalController());
+  final NewHomeTabController newHomeTabController = Get.find();
+  final DialogController dialogController = Get.find();
 
   Future<void> performBuatSignal(BuildContext context, GlobalKey<FormState> formKey) async {
     bool dialog = false;
@@ -212,25 +216,24 @@ class AddNewSignal extends StatelessWidget {
 
         dialog = true;
 
-        DialogLoading dlg = DialogLoading();
+        // DialogLoading dlg = DialogLoading();
+        dialogController.setProgress(LoadingState.progress, "Mohon Tunggu");
         int signalid = 0;
         removeFocus(context);
-        showDialog(
-          barrierDismissible: false,
-          context: context,
-          builder: (context) {
-            return dlg;
-          }
-        );
+        // showDialog(
+        //   barrierDismissible: false,
+        //   context: context,
+        //   builder: (context) {
+        //     return dlg;
+        //   }
+        // );
         signalid = await SignalModel.instance.createSignal(
           channelid: controlle.data["isSelected"], cmd: cmd, price: price, sl: sl, tp: tp, symbol: controlle.data["pair"], hour: int.parse("10")
         );
 
         Get.back();
-        showAlert(context, LoadingState.success, "Signal berhasil dibuat", thens: (x) {
-          appStateController.setAppState(Operation.bringToHome, HomeTab.home);
-          Get.offNamed("/home");
-          controlle.onClose();
+        await dialogController.setProgress(LoadingState.success, "Signal Berhasil Dibuat");
+        await Future.delayed(Duration(seconds: 0)).then((_) {
           if (signalid > 0) {
             try {
               //  Navigator.popUntil(context, ModalRoute.withName("/home"));
@@ -244,13 +247,40 @@ class AddNewSignal extends StatelessWidget {
             // appStateController.setAppState(Operation.bringToHome, HomeTab.home);
             // Get.toNamed('/dsc/signal/', arguments: signalid);
           }
-          // print("context: $context");
-          // Future.delayed(Duration.zero, () {
-          //   // Navigator.popUntil(context, ModalRoute.withName("/home"));
-          //   appStateController.setAppState(Operation.bringToHome, HomeTab.home);
-          //   print("kalau keprint harusnya udah balik home");
-          // });
         });
+        await Future.delayed(Duration(seconds: 0)).then((value) {
+          controlle.symbolsCon.clear();
+          controlle.priceCon.clear();
+          controlle.slCon.clear();
+          controlle.tpCon.clear();
+          newHomeTabController.tab.value = HomeTab.home;
+          newHomeTabController.tabController.animateTo(0,duration: Duration(milliseconds: 200),curve:Curves.easeIn);
+        } );
+        
+        // showAlert(context, LoadingState.success, "Signal berhasil dibuat", thens: (x) {
+        //   appStateController.setAppState(Operation.bringToHome, HomeTab.home);
+        //   Get.offNamed("/home");
+        //   controlle.onClose();
+        //   if (signalid > 0) {
+        //     try {
+        //       //  Navigator.popUntil(context, ModalRoute.withName("/home"));
+        //       Get.toNamed('/dsc/signal/', arguments: {
+        //         "signalId": signalid
+        //       });
+        //     } catch(e, stack) {
+        //       print("erorr: $e");
+        //       print("stack: $stack");
+        //     }
+        //     // appStateController.setAppState(Operation.bringToHome, HomeTab.home);
+        //     // Get.toNamed('/dsc/signal/', arguments: signalid);
+        //   }
+        //   // print("context: $context");
+        //   // Future.delayed(Duration.zero, () {
+        //   //   // Navigator.popUntil(context, ModalRoute.withName("/home"));
+        //   //   appStateController.setAppState(Operation.bringToHome, HomeTab.home);
+        //   //   print("kalau keprint harusnya udah balik home");
+        //   // });
+        // });
       }
     } catch (e, stack) {
       print("error: $e");
@@ -258,7 +288,8 @@ class AddNewSignal extends StatelessWidget {
       if (dialog) {
         Get.back();
       }
-      showAlert(context, LoadingState.error, e.toString());
+      // showAlert(context, LoadingState.error, e.toString());
+      dialogController.setProgress(LoadingState.error, e.toString());
     }
   }
   
@@ -266,7 +297,7 @@ class AddNewSignal extends StatelessWidget {
   Widget build(BuildContext context) {
     if (appStateController.users.value.id < 1 &&
         !appStateController.users.value.verify!) {
-      return const Login();
+      return Login();
     } 
     if (appStateController.users.value.id > 0 &&
         !appStateController.users.value.isProfileComplete()) {
@@ -294,7 +325,8 @@ class AddNewSignal extends StatelessWidget {
       appBar: NavMain(
         currentPage: 'Buat Signal',
         backPage: () {
-          appStateController.setAppState(Operation.bringToHome, HomeTab.home);
+          newHomeTabController.tab.value = HomeTab.home;
+          newHomeTabController.tabController.animateTo(0,duration: Duration(milliseconds: 200),curve:Curves.easeIn);
         },
       ),
       backgroundColor: AppColors.light,
@@ -310,14 +342,14 @@ class AddNewSignal extends StatelessWidget {
                 children: <Widget>[
                   const SizedBox(height: 10),
                   Obx(() {
-                    // if (controlle.channelStreamCtrl.value == null && !controlle.hasError.value) {
-                    //   return const Center(
-                    //     child: Text(
-                    //       "Loading",
-                    //       style: TextStyle(fontWeight: FontWeight.w600, fontSize: 18
-                    //     ))
-                    //   );
-                    // } 
+                    if (controlle.channelStreamCtrl.value == null && controlle.hasError.value == false) {
+                      return const Center(
+                        child: Text(
+                          "Loading",
+                          style: TextStyle(fontWeight: FontWeight.w600, fontSize: 18
+                        ))
+                      );
+                    } 
                     if (controlle.hasError.value) {
                       return Info(
                         title: "Terjadi Error",

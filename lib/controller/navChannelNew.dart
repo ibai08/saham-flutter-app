@@ -34,19 +34,25 @@ class NavMain extends AppBar {
                                 alignment: Alignment.center,
                                 padding: const EdgeInsets.only(left: 1.5),
                                 height: 50,
-                                child: RichText(
+                                child: controller.users.value.username != null && controller.users.value.username != 'null' ? RichText(
                                   text: TextSpan(
                                     text: 'Hai, ',
                                     style: TextStyle(
                                         color: AppColors.lightBlack2, fontSize: 20, fontFamily: 'Manrope', fontWeight: FontWeight.w400),
                                     children: <TextSpan>[
                                       TextSpan(
-                                        text:  controller.users.value.username != null && controller.users.value.username != 'null' ? controller.users.value.username : username,
+                                        text: controller.users.value.username,
                                         style: const TextStyle(
                                             fontWeight: FontWeight.bold,
                                             fontSize: 20),
                                       ),
                                     ],
+                                  ),
+                                ) : RichText(
+                                  text: TextSpan(
+                                    text: 'Selamat Datang',
+                                    style: TextStyle(
+                                        color: AppColors.lightBlack2, fontSize: 20, fontFamily: 'Manrope', fontWeight: FontWeight.w400),
                                   ),
                                 ),
                               ),

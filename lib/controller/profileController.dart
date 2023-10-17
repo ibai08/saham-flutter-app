@@ -12,13 +12,13 @@ import '../models/user.dart';
 
 class ProfileController extends GetxController {
   RefreshController refreshController = RefreshController();
-  File? image;
+  Rx<File?> image = Rx<File?>(null);
   final picker = ImagePicker();
 
   Future openCamera() async {
     final XFile? pickedFile = await picker.pickImage(source: ImageSource.camera);
     if (pickedFile != null) {
-      image = File(pickedFile.path);
+      image.value = File(pickedFile.path);
       Get.back();
     }
   }
@@ -26,7 +26,14 @@ class ProfileController extends GetxController {
   Future openFile() async {
     final XFile? pickedFile = await picker.pickImage(source: ImageSource.gallery, imageQuality: 10);
     if (pickedFile != null) {
-      image = File(pickedFile.path);
+      try {
+        image.value = File(pickedFile.path);
+        print("imageee: ${image.value}");
+      } catch(ex) {
+        print("error: ${ex.toString()}");
+      }
+      print("pickfile: ${pickedFile.path}");
+      print("fileee: ${File(pickedFile.path)}");
       Get.back();
     }
   }

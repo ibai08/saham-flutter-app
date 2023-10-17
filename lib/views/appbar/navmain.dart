@@ -61,7 +61,7 @@ class NavMain extends AppBar {
                                 height: 50,
                                 child: RichText(
                                   text: TextSpan(
-                                    text: 'Haiss, ',
+                                    text: 'Hai, ',
                                     style: const TextStyle(
                                         color: Colors.black, fontSize: 20),
                                     children: <TextSpan>[

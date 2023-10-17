@@ -126,7 +126,7 @@
                                                         },
                                                         {
                                                             "type": "Text",
-                                                            "data": "Deposite",
+                                                            "data": "Deposit",
                                                             "style": {
                                                                 "color": "#FF000000",
                                                                 "fontSize": 14.0,

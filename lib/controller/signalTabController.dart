@@ -71,7 +71,7 @@ class SignalDashboardController extends SuperController
 
   @override
   void dispose() {
-    super.dispose();
+    super.onClose();
   }
 
   @override

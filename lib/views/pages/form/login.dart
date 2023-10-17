@@ -83,6 +83,10 @@ class LoginFormController extends GetxController {
 
   RxBool seePass = true.obs;
 
+  void forgot() {
+    Get.toNamed('/forms/forgot');
+  }
+
   void toggle() {
     seePass.value = false;
   }
@@ -258,8 +262,12 @@ class LoginForm extends StatelessWidget {
                 width: double.infinity,
                 child: GestureDetector(
                   onTap: () {
-                    // Navigator.pushNamed(context, '/forms/forgot');
-                    Get.toNamed("/forms/forgot");
+                    try {
+                      Get.toNamed('/forgot');
+                    } catch (e, stack) {
+                      print("errror: $e");
+                      print(stack);
+                    }
                   },
                   child: Text(
                     "Lupa Password?",

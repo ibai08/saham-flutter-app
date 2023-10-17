@@ -105,18 +105,18 @@ class ChannelThumb extends StatelessWidget {
       ChannelCardSlim? tChannel = channel;
 
       RxString btnLabel = 'Subcsribe for FREE'.obs;
-      Color? btnColor = AppColors.blueGem;
-      Color? txtcolor = Colors.white;
+      Rx<Color> btnColor = AppColors.blueGem.obs;
+      Rx<Color> txtcolor = Colors.white.obs;
 
       if (tChannel.username == appStateController.users.value.username) {
         btnLabel.value = "LIHAT CHANNEL";
-        btnColor = Colors.grey[300];
-        txtcolor = Colors.grey[800];
+        btnColor.value = Colors.grey[300]!;
+        txtcolor.value = Colors.grey[800]!;
         // print("1");
       } else if (tChannel.subscribed != null && tChannel.subscribed == true) {
         btnLabel.value = "Subscribed";
-        btnColor = Colors.grey[300];
-        txtcolor = Colors.grey[800];
+        btnColor.value = Colors.grey[300]!;
+        txtcolor.value = Colors.grey[800]!;
         // print("2");
       } else if (tChannel.isPrivate == true) {
         btnLabel.value = "Subscribe with TOKEN";
@@ -231,7 +231,7 @@ class ChannelThumb extends StatelessWidget {
                         }
                       },
                       style: TextButton.styleFrom(
-                        backgroundColor: btnColor,
+                        backgroundColor: btnColor.value,
                         tapTargetSize: MaterialTapTargetSize.shrinkWrap,
                         padding: const EdgeInsets.all(12),
                         shape: const RoundedRectangleBorder(
@@ -246,7 +246,7 @@ class ChannelThumb extends StatelessWidget {
                       child: Text(
                         btnLabel.value,
                         style: TextStyle(
-                          color: txtcolor,
+                          color: txtcolor.value,
                           fontWeight: FontWeight.w400,
                           fontSize: 12,
                           fontFamily: 'Manrope'

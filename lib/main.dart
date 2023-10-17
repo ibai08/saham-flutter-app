@@ -4,11 +4,14 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:firebase_remote_config/firebase_remote_config.dart';
 import 'package:flutter/services.dart';
+import 'package:saham_01_app/beta/binding/home_binding.dart';
 import 'package:saham_01_app/remoteConfig.dart';
+import 'package:saham_01_app/testWidget.dart';
 import 'package:saham_01_app/views/pages/addNewSignal.dart';
 import 'package:saham_01_app/views/pages/channels/channelDetailNew.dart';
 import 'package:saham_01_app/views/pages/channels/form/newChannels.dart';
 import 'package:saham_01_app/views/pages/channels/signalDetail.dart';
+import 'package:saham_01_app/views/pages/form/forgot.dart';
 import 'package:saham_01_app/views/pages/form/register.dart';
 import 'package:saham_01_app/views/pages/more/profile/forms/editPassword.dart';
 import 'package:saham_01_app/views/pages/more/profile/profile.dart';
@@ -154,6 +157,7 @@ class NewMyApp extends StatelessWidget {
       initialRoute: '/',
       getPages: [
         GetPage(name: '/home', page: () =>  NewHomePage()),
+        GetPage(name: '/homes', page: () => HomePage(), binding: HomeBinding()),
         GetPage(name: '/remote-config', page: () => const RemoteConfigView()),
         GetPage(name: '/homepage', page: () => Home()),
         GetPage(name: '/channel-signal', page: () => SignalDashboard()),
@@ -225,8 +229,7 @@ class _MyAppState extends State<MyApp> {
 
         GetPage(name: '/forms/login', page: () => Login()),
         GetPage(name: '/forms/register', page: () => Register()),
-        GetPage(
-            name: '/forms/editprofile', page: () => const EditProfile()),
+        GetPage(name: '/forms/editprofile', page: () => const EditProfile()),
         GetPage(name: '/forms/editpassword', page: () => EditPassword()),
         GetPage(name: '/more/profile', page: () => Profile()),
 
@@ -237,7 +240,8 @@ class _MyAppState extends State<MyApp> {
         GetPage(name: '/dsc/search', page: () => SearchChannelsTab()),
         GetPage(name: '/dsc/channels/', page: () => ChannelDetailNew()),
         GetPage(name: '/dsc/channels/new', page: () => NewChannels()),
-        GetPage(name: '/dsc/signal/', page: () => SignalDetail())
+        GetPage(name: '/dsc/signal/', page: () => SignalDetail()),
+        GetPage(name: '/forgot', page: () => Forgot()),
       ],
       home: const SplashScreen(),
       debugShowCheckedModeBanner: false,
@@ -245,155 +249,155 @@ class _MyAppState extends State<MyApp> {
   }
 }
 
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({Key? key}) : super(key: key);
+// class MyHomePage extends StatefulWidget {
+//   const MyHomePage({Key? key}) : super(key: key);
 
-  @override
-  _MyHomePageState createState() => _MyHomePageState();
-}
+//   @override
+//   _MyHomePageState createState() => _MyHomePageState();
+// }
 
-class _MyHomePageState extends State<MyHomePage>
-    with WidgetsBindingObserver, TickerProviderStateMixin {
-  final _layoutPage = [
-    Home(),
-    SignalDashboard(),
-    AddNewSignal(),
-    const MarketPage(),
-    Setting()
-    // SignalDashboard(),
-    // NewSignalsTab(),
-    // InboxTabListTile(),
-    // Setting()
-  ];
+// class _MyHomePageState extends State<MyHomePage>
+//     with WidgetsBindingObserver, TickerProviderStateMixin {
+//   final _layoutPage = [
+//     Home(),
+//     SignalDashboard(),
+//     AddNewSignal(),
+//     const MarketPage(),
+//     Setting()
+//     // SignalDashboard(),
+//     // NewSignalsTab(),
+//     // InboxTabListTile(),
+//     // Setting()
+//   ];
 
-  late TabController _tabController;
-  final appStateController = Get.find<AppStateController>();
+//   late TabController _tabController;
+//   final appStateController = Get.find<AppStateController>();
 
-  void _onTapItem(int index) {
-    final appStateController = Get.find<AppStateController>();
-    print("indexxxx: $index");
-    if (appStateController.currentTab == HomeTab.values[index]) {
-      Widget temp = _layoutPage[index];
-      if (temp is ScrollUpWidget) {
-        (temp as ScrollUpWidget).onResetTab();
-      }
-    }
-    FirebaseCrashlytics.instance.log("Home Screen: ${HomeTab.values[index]}");
-    appStateController.setHomeTab(HomeTab.values[index]);
-  }
+//   void _onTapItem(int index) {
+//     final appStateController = Get.find<AppStateController>();
+//     print("indexxxx: $index");
+//     if (appStateController.currentTab == HomeTab.values[index]) {
+//       Widget temp = _layoutPage[index];
+//       if (temp is ScrollUpWidget) {
+//         (temp as ScrollUpWidget).onResetTab();
+//       }
+//     }
+//     FirebaseCrashlytics.instance.log("Home Screen: ${HomeTab.values[index]}");
+//     appStateController.setHomeTab(HomeTab.values[index]);
+//   }
 
-  // void _onTapItem(int index) {
-  //   // Navigator.popUntil(context, ModalRoute.withName("/forms/editprofile"));
-  //   if (store!.state.homeTab == HomeTab.values[index]) {
-  //     StatefulWidget temp = _layoutPage[index];
-  //     if (temp is ScrollUpWidget) {
-  //       (temp as ScrollUpWidget).onResetTab();
-  //     }
-  //   }
-  //   // FirebaseCrashlytics.instance.log("Home Screen: ${HomeTab.values[index]}");
-  //   // store.dispatch(RouteReducer(
-  //   //     operation: Operation.bringToHome, payload: HomeTab.values[index]));
-  // }
+//   // void _onTapItem(int index) {
+//   //   // Navigator.popUntil(context, ModalRoute.withName("/forms/editprofile"));
+//   //   if (store!.state.homeTab == HomeTab.values[index]) {
+//   //     StatefulWidget temp = _layoutPage[index];
+//   //     if (temp is ScrollUpWidget) {
+//   //       (temp as ScrollUpWidget).onResetTab();
+//   //     }
+//   //   }
+//   //   // FirebaseCrashlytics.instance.log("Home Screen: ${HomeTab.values[index]}");
+//   //   // store.dispatch(RouteReducer(
+//   //   //     operation: Operation.bringToHome, payload: HomeTab.values[index]));
+//   // }
 
-  // UserInfo user;
-  // Widget iconProfile;
+//   // UserInfo user;
+//   // Widget iconProfile;
 
-  @override
-  void initState() {
-    super.initState();
-    print("kenini");
-    // _homeTabController = Get.put(HomeTabController());
-    _tabController = TabController(length: tabViews.length, vsync: this);
-  }
+//   @override
+//   void initState() {
+//     super.initState();
+//     print("kenini");
+//     // _homeTabController = Get.put(HomeTabController());
+//     _tabController = TabController(length: tabViews.length, vsync: this);
+//   }
 
-  double bottomMenuSize = 24;
+//   double bottomMenuSize = 24;
 
-  @override
-  void dispose() {
-    WidgetsBinding.instance?.removeObserver(this);
-    super.dispose();
-  }
+//   @override
+//   void dispose() {
+//     WidgetsBinding.instance?.removeObserver(this);
+//     super.dispose();
+//   }
 
-  @override
-  Widget build(BuildContext context) {
-    print("lebuild ulang");
-    return GetX<AppStateController>(builder: (controller) {
-      final tab = controller.homeTab.value;
-      _tabController.animateTo(tab.index);
+//   @override
+//   Widget build(BuildContext context) {
+//     print("lebuild ulang");
+//     return GetX<AppStateController>(builder: (controller) {
+//       final tab = controller.homeTab.value;
+//       _tabController.animateTo(tab.index);
 
-      print("${tab.index}");
-      // if (tab.index == 1) {
-      //   Get.lazyPut(() => SignalDashboardController());
-      //   Get.lazyPut(() => ListSignalWidgetController());
-      //   Get.lazyPut(() => ListChannelWidgetController());
-      // }
-      // if (tab.index == 2) {
-      //   Get.lazyPut(() => NewSignalController());
-      // }
-      return WillPopScope(
-          onWillPop: () async {
-            if (tab != HomeTab.home) {
-              appStateController.setAppState(
-                  Operation.bringToHome, HomeTab.home);
-              return false;
-            } else {
-              bool result = await showDialog(
-                  context: context,
-                  builder: (ctx) {
-                    return const DialogConfirmation(
-                      title: 'Peringatan',
-                      desc: 'Anda yakin ingin keluar dari aplikasi',
-                      caps: 'KELUAR',
-                    );
-                  });
-              return result;
-            }
-          },
-          child: Scaffold(
-            body: _layoutPage.elementAt(tab.index),
-            bottomNavigationBar: Container(
-              height: 90,
-              padding: const EdgeInsets.symmetric(horizontal: 10.0),
-              decoration: const BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(30.0),
-                  topRight: Radius.circular(30.0),
-                ),
-              ),
-              child: Container(
-                padding: const EdgeInsets.symmetric(horizontal: 9),
-                child: TabBar(
-                  controller: _tabController,
-                  labelColor: Colors.black,
-                  unselectedLabelColor: Colors.black,
-                  indicatorSize: TabBarIndicatorSize.tab,
-                  // indicatorPadding: EdgeInsets.all(5.0),
-                  indicatorColor: Colors.blue,
-                  indicator: BoxDecoration(
-                    border: const Border(
-                      top: BorderSide(color: Color(0xFF350699), width: 3.0),
-                    ),
-                    gradient: LinearGradient(
-                      colors: [
-                        const Color(0xFF2E2AFF).withOpacity(0.1),
-                        const Color(0xFF2E2AFF).withOpacity(0),
-                      ],
-                      begin: Alignment.topCenter,
-                      end: Alignment.bottomCenter,
-                      stops: const [0.0, 1.0],
-                      tileMode: TileMode.clamp,
-                    ),
-                  ),
-                  tabs: tabViews,
-                  onTap: _onTapItem,
-                ),
-              ),
-            ),
-          ));
-    });
-  }
-}
+//       print("${tab.index}");
+//       // if (tab.index == 1) {
+//       //   Get.lazyPut(() => SignalDashboardController());
+//       //   Get.lazyPut(() => ListSignalWidgetController());
+//       //   Get.lazyPut(() => ListChannelWidgetController());
+//       // }
+//       // if (tab.index == 2) {
+//       //   Get.lazyPut(() => NewSignalController());
+//       // }
+//       return WillPopScope(
+//           onWillPop: () async {
+//             if (tab != HomeTab.home) {
+//               appStateController.setAppState(
+//                   Operation.bringToHome, HomeTab.home);
+//               return false;
+//             } else {
+//               bool result = await showDialog(
+//                   context: context,
+//                   builder: (ctx) {
+//                     return const DialogConfirmation(
+//                       title: 'Peringatan',
+//                       desc: 'Anda yakin ingin keluar dari aplikasi',
+//                       caps: 'KELUAR',
+//                     );
+//                   });
+//               return result;
+//             }
+//           },
+//           child: Scaffold(
+//             body: _layoutPage.elementAt(tab.index),
+//             bottomNavigationBar: Container(
+//               height: 90,
+//               padding: const EdgeInsets.symmetric(horizontal: 10.0),
+//               decoration: const BoxDecoration(
+//                 color: Colors.white,
+//                 borderRadius: BorderRadius.only(
+//                   topLeft: Radius.circular(30.0),
+//                   topRight: Radius.circular(30.0),
+//                 ),
+//               ),
+//               child: Container(
+//                 padding: const EdgeInsets.symmetric(horizontal: 9),
+//                 child: TabBar(
+//                   controller: _tabController,
+//                   labelColor: Colors.black,
+//                   unselectedLabelColor: Colors.black,
+//                   indicatorSize: TabBarIndicatorSize.tab,
+//                   // indicatorPadding: EdgeInsets.all(5.0),
+//                   indicatorColor: Colors.blue,
+//                   indicator: BoxDecoration(
+//                     border: const Border(
+//                       top: BorderSide(color: Color(0xFF350699), width: 3.0),
+//                     ),
+//                     gradient: LinearGradient(
+//                       colors: [
+//                         const Color(0xFF2E2AFF).withOpacity(0.1),
+//                         const Color(0xFF2E2AFF).withOpacity(0),
+//                       ],
+//                       begin: Alignment.topCenter,
+//                       end: Alignment.bottomCenter,
+//                       stops: const [0.0, 1.0],
+//                       tileMode: TileMode.clamp,
+//                     ),
+//                   ),
+//                   tabs: tabViews,
+//                   onTap: _onTapItem,
+//                 ),
+//               ),
+//             ),
+//           ));
+//     });
+//   }
+// }
 
 class NewHomePage extends StatelessWidget {
   final NewHomeTabController newHomeTabController = Get.find();
@@ -451,6 +455,7 @@ class NewHomePage extends StatelessWidget {
               }
             },
             child: Scaffold(
+              backgroundColor: AppColors.light,
               body: layoutPage.elementAt(newHomeTabController.tab.value.index),
               bottomNavigationBar: Container(
                 height: 90,
@@ -458,12 +463,12 @@ class NewHomePage extends StatelessWidget {
                 decoration: const BoxDecoration(
                   color: Colors.white,
                   borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(30.0),
-                    topRight: Radius.circular(30.0)
+                    topLeft: Radius.circular(16.0),
+                    topRight: Radius.circular(16.0)
                   ),
                 ),
                 child: Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 9),
+                  padding: const EdgeInsets.symmetric(horizontal: 4),
                   child: TabBar(
                     controller: newHomeTabController.tabController,
                     labelColor: Colors.black,

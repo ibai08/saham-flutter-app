@@ -5,7 +5,7 @@ import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:firebase_remote_config/firebase_remote_config.dart';
 import 'package:flutter/services.dart';
 import 'package:saham_01_app/constants/app_route.dart';
-import 'package:saham_01_app/core/get_connect.dart';
+import 'package:saham_01_app/controller/signal_tab_controller.dart';
 import 'package:saham_01_app/remote_config.dart';
 import 'package:saham_01_app/splash_screen_new.dart';
 import 'package:saham_01_app/views/pages/add_new_signal.dart';
@@ -57,7 +57,6 @@ void main() async {
    Get.put(AppStateController());
    Get.put(NewHomeTabController());
    Get.put(CheckInternetController());
-   Get.put(TF2Request());
   // Get.put(DialogLoadingController());
   Get.put(GrowthChartController());
   Get.put(HomeTabController());
@@ -195,9 +194,6 @@ class NewHomePage extends StatelessWidget {
   NewHomePage({Key? key}) : super(key: key);
 
   void onTapItem(int index) {
-    print("ketap");
-    print("indexxxx: $index");
-    print("appstatetab: ${appStateController.homeTab.value}");
     // if(appStateController.homeTab.value == HomeTab.values[index]) {
     //   Widget temp = newHomeTabController.layoutPage[index];
     //   if (temp is ScrollUpWidget) {
@@ -207,7 +203,13 @@ class NewHomePage extends StatelessWidget {
     // print("udah firebase");
     // print("udah setstate");
     // }
-    print("Home Screen: ${HomeTab.values[index]}");
+    if (index != 1 && HomeTab.values[index] != HomeTab.signal) {
+      var controller = Get.find<SignalDashboardController>();
+      var controller2 = Get.find<ListChannelWidgetController>();
+      controller.tabController.animateTo(0, duration: const Duration(microseconds: 500));
+      controller2.sort.value = 0;
+      controller2.onRefreshChannel();
+    }
     FirebaseCrashlytics.instance.log("Home Screen: ${HomeTab.values[index]}");
     newHomeTabController.tab.value = HomeTab.values[index];
     // appStateController.setAppState(Operation.bringToHome, HomeTab.values[index]);

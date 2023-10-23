@@ -4,7 +4,6 @@ import 'dart:io';
 
 import 'package:dio/dio.dart';
 import 'package:get/get.dart' as Get;
-import 'package:saham_01_app/core/get_connect.dart' as connect;
 import '../../constants/channel_sort.dart';
 import '../controller/app_state_controller.dart';
 import '../core/cache_factory.dart';
@@ -296,7 +295,7 @@ class ChannelModel {
       }
       dynamic data =
           await CacheFactory.getCache(CacheKey.channelMostConsistent, () async {
-        Map fetchData = await connect.TF2Request.basicRequest(
+        Map fetchData = await TF2Request.request(
             url: getHostName() + "/ois/api/v1/channel/consistent/",
             method: 'POST',
             postParam: {"limit": limit});

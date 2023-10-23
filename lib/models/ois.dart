@@ -3,7 +3,6 @@
 import 'package:dio/dio.dart';
 import 'package:get/get.dart' as Get;
 import 'package:get_storage/get_storage.dart';
-import 'package:saham_01_app/core/get_connect.dart' as connect;
 import '../controller/app_state_controller.dart';
 import '../core/cache_factory.dart';
 import '../core/get_storage.dart';
@@ -103,7 +102,7 @@ class OisModel {
     }
     List<dynamic> data =
         await CacheFactory.getCache(CacheKey.oisMyChannelListOnly, () async {
-      Map fetchData = await connect.TF2Request.authorizeRequest(
+      Map fetchData = await TF2Request.authorizeRequest(
           url: getHostName() + "/ois/api/v1/my-channel/", postParam: {});
       if (!fetchData.containsKey("error") &&
           fetchData.containsKey("message") &&

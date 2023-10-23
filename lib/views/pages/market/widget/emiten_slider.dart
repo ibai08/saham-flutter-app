@@ -11,6 +11,8 @@ class EmitenCategory extends StatelessWidget {
   final RxList<Map<String, String?>> activeDataButton =
       <Map<String, String?>>[].obs;
 
+  EmitenCategory({Key? key}) : super(key: key);
+
   Future<EmitenModels> getDataFromJson() async {
     String jsonString =
         await rootBundle.loadString('assets/dummy/emitenItem.json');

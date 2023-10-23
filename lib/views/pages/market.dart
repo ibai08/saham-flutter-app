@@ -3,17 +3,17 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
-import 'package:saham_01_app/controller/homeTabController.dart';
+import 'package:saham_01_app/controller/home_tab_controller.dart';
 import '../../constants/app_colors.dart';
-import '../../controller/appStatesController.dart';
-import '../../core/getStorage.dart';
+import '../../controller/app_state_controller.dart';
+import '../../core/get_storage.dart';
 // import 'package:tradersfamily_app/appbar/navmain.dart';
 import '../../views/pages/market/widget/index_saham.dart';
 // import 'package:tradersfamily_app/pages/market/widget/slider.dart';
 import '../../views/pages/market/widget/grid_sektor_saham.dart';
 import '../../views/pages/market/widget/stock_info.dart';
 import '../../views/pages/market/widget/top_container.dart';
-import '../../views/pages/market/widget/emiten_slider.dart' as EmitenSlider;
+import '../../views/pages/market/widget/emiten_slider.dart' as emitenslider;
 
 import '../appbar/navmain.dart';
 
@@ -123,7 +123,7 @@ class _MarketPageState extends State<MarketPage> {
                   margin: const EdgeInsets.only(bottom: 20.0),
                   child: Column(
                     children: [
-                      EmitenSlider.EmitenCategory(),
+                      emitenslider.EmitenCategory(),
                       // SizedBox(width: 10,),
                       Row(
                         crossAxisAlignment: CrossAxisAlignment.center,

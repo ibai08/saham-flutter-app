@@ -1,24 +1,22 @@
-// ignore_for_file: prefer_is_empty, use_key_in_widget_constructors
+// ignore_for_file: prefer_is_empty
 
 import 'package:flutter/material.dart';
+import 'package:charts_flutter/flutter.dart' as charts;
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
-import '../../../../controller/statisticsController.dart';
-import '../../../../models/entities/ois.dart';
-import '../../../../views/widgets/info.dart';
-import 'package:charts_flutter/flutter.dart' as charts;
-import '../../../../views/widgets/labelChart.dart';
+import 'package:saham_01_app/controller/statistic_controller.dart';
+import 'package:saham_01_app/models/entities/ois.dart';
+import 'package:saham_01_app/views/widgets/info.dart';
+import 'package:saham_01_app/views/widgets/label_chart.dart';
 
 class StatisticsChannel extends StatelessWidget {
-  final StatisticsChannelController controller =
-      Get.put(StatisticsChannelController());
-  final int channel;
-  StatisticsChannel(this.channel, {Key? key}) : super(key: key);
+  StatisticsChannel({Key? key}) : super(key: key);
 
+  final StatisticsController controller = Get.find();
+  
   @override
   Widget build(BuildContext context) {
-    var unitHeight = 75.0;
-
+    double unitHeight = 75.0;
     double symbolFreqHeight;
     double plHeight;
 
@@ -26,8 +24,7 @@ class StatisticsChannel extends StatelessWidget {
       padding: const EdgeInsets.only(top: 15),
       color: Colors.grey[200],
       child: Obx(() {
-        if (controller.statChannelObs == null &&
-            !controller.hasError.value == true) {
+        if (controller.statStreamCtrl.value == null && controller.hasError.value == false && controller.hasLoad.value == false) {
           return const Center(
             child: Text(
               "Tunggu ya..!!",
@@ -35,8 +32,7 @@ class StatisticsChannel extends StatelessWidget {
             ),
           );
         }
-        if (controller.statChannelObs?.value?.listSymbolStat?.length == 0 &&
-            !controller.hasError.value) {
+        if (controller.statStreamCtrl.value?.listSymbolStat?.length == 0 && controller.hasError.value == false && controller.hasLoad.value == true) {
           return const Center(
             child: Text(
               "Maaf.. data tidak ditemukan",
@@ -44,27 +40,20 @@ class StatisticsChannel extends StatelessWidget {
             ),
           );
         }
-        if (controller.hasError.value) {
-          return ListView(
-            children: <Widget>[
-              Info(
-                onTap: controller.onLoading,
-                image: const SizedBox(),
-              )
-            ],
+        if (controller.hasError.value == true && controller.hasLoad.value == false) {
+          return Center(
+            child: Info(
+              image: const SizedBox(),
+              title: "Terjadi Error",
+              desc: controller.errorMessage.value,
+              onTap: controller.onLoading,
+            ),
           );
         }
-        symbolFreqHeight = unitHeight /
-                2 *
-                controller.statChannelObs!.value!.listSymbolStat!.length +
-            45;
-        plHeight = unitHeight /
-                2 *
-                controller.statChannelObs!.value!.listSymbolStat!.length
-                    .toDouble() +
-            45;
-        controller.statChannelObs?.value?.listSymbolStat?.sort((b, a) =>
-            (a.sellCount! + a.buyCount!).compareTo(b.sellCount! + b.buyCount!));
+
+        symbolFreqHeight = unitHeight / 2 * controller.statStreamCtrl.value!.listSymbolStat!.length + 45;
+        plHeight = unitHeight / 2 * controller.statStreamCtrl.value!.listSymbolStat!.length.toDouble();
+        controller.statStreamCtrl.value!.listSymbolStat!.sort((b, a) => (a.sellCount! + a.buyCount!).compareTo(b.sellCount! + b.buyCount!));
         return ListView(
           children: <Widget>[
             Container(
@@ -74,28 +63,34 @@ class StatisticsChannel extends StatelessWidget {
               child: Column(
                 children: <Widget>[
                   const Text(
-                    'Symbol Frequency',
-                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
+                    "Symbol Frequency",
+                    style: TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.w600
+                    ),
                     textAlign: TextAlign.center,
                   ),
                   Container(
                     width: double.infinity,
                     height: symbolFreqHeight,
                     padding: const EdgeInsets.symmetric(horizontal: 5),
-                    child: SymbolFrequence(controller.statChannelObs!.value!),
-                  ),
+                    child: SymbolsFrequence(channelStat: controller.statStreamCtrl.value!),
+                  )
                 ],
               ),
             ),
             Container(
               color: Colors.white,
               margin: const EdgeInsets.only(bottom: 15),
-              padding: const EdgeInsets.only(bottom: 10, top: 25),
+              padding: const EdgeInsets.only(top: 25, bottom: 10),
               child: Column(
                 children: <Widget>[
                   const Text(
-                    'Profit / Loss (IDR)',
-                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
+                    "Profit / Loss (IDR)",
+                    style: TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.w600
+                    ),
                     textAlign: TextAlign.center,
                   ),
                   const SizedBox(
@@ -109,39 +104,36 @@ class StatisticsChannel extends StatelessWidget {
                     width: double.infinity,
                     height: plHeight,
                     padding: const EdgeInsets.symmetric(horizontal: 5),
-                    child:
-                        ProfitLossFrequence(controller.statChannelObs!.value!),
+                    child: ProfitLossFrequence(channelStat: controller.statStreamCtrl.value!),
                   )
                 ],
               ),
             )
           ],
         );
-      }),
+      })
     );
   }
 }
 
-class SymbolFrequence extends StatelessWidget {
+class SymbolsFrequence extends StatelessWidget {
   final ChannelStat channelStat;
-  const SymbolFrequence(this.channelStat, {Key? key}) : super(key: key);
+  const SymbolsFrequence({Key? key, required this.channelStat}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     List<charts.Series<SymbolData, String>> generateData() {
-      List<SymbolData> data = channelStat.listSymbolStat!
-          .map<SymbolData>(
-              (json) => SymbolData(json.symbol!, json.signalCount!))
-          .toList();
+      List<SymbolData> data = channelStat.listSymbolStat!.map((json) => SymbolData(json.symbol!, json.signalCount!)).toList();
+
       return [
         charts.Series<SymbolData, String>(
-            id: 'Symbols',
-            domainFn: (SymbolData symbols, _) => symbols.symbols,
-            measureFn: (SymbolData symbols, _) => symbols.frequence,
-            seriesColor: charts.Color.fromHex(code: "#00B451"),
-            data: data,
-            labelAccessorFn: (SymbolData symbols, _) =>
-                '${symbols.symbols}: ${symbols.frequence.toString()} Deals')
+          id: 'Symbol',
+          domainFn: (SymbolData symbols, _) => symbols.symbols,
+          measureFn: (SymbolData symbols, _) => symbols.frequence,
+          seriesColor: charts.Color.fromHex(code: "#00B451"),
+          data: data,
+          labelAccessorFn: (SymbolData symbols, _) => '${symbols.symbols}: ${symbols.frequence.toString()} Deals'
+        )
       ];
     }
 
@@ -150,8 +142,7 @@ class SymbolFrequence extends StatelessWidget {
       animate: true,
       vertical: false,
       barRendererDecorator: charts.BarLabelDecorator<String>(),
-      primaryMeasureAxis:
-          const charts.NumericAxisSpec(renderSpec: charts.NoneRenderSpec()),
+      primaryMeasureAxis: const charts.NumericAxisSpec(renderSpec: charts.NoneRenderSpec()),
       domainAxis: const charts.OrdinalAxisSpec(renderSpec: charts.NoneRenderSpec()),
     );
   }
@@ -159,37 +150,34 @@ class SymbolFrequence extends StatelessWidget {
 
 class ProfitLossFrequence extends StatelessWidget {
   final ChannelStat channelStat;
-  const ProfitLossFrequence(this.channelStat);
+  const ProfitLossFrequence({Key? key, required this.channelStat}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    List<charts.Series<SymbolProfitLoss, String>> generateData() {
-      List<SymbolProfitLoss> profit = channelStat.listSymbolStat!
-          .map<SymbolProfitLoss>((json) => SymbolProfitLoss(
-              json.symbol!, (json.profitSum! + json.lossSum!) * 10000))
-          .toList();
+    List<charts.Series<SymbolProfitLoss, String>> generateDate() {
+      List<SymbolProfitLoss> profit = channelStat.listSymbolStat!.map((json) => SymbolProfitLoss(json.symbol!, (json.profitSum! + json.lossSum!) * 10000)).toList();
+
       return [
         charts.Series<SymbolProfitLoss, String>(
-            id: 'Profit/Loss',
-            domainFn: (SymbolProfitLoss symbols, _) => symbols.symbols,
-            measureFn: (SymbolProfitLoss symbols, _) => symbols.frequence,
-            data: profit,
-            colorFn: (SymbolProfitLoss symbols, _) => charts.Color.fromHex(
-                code: symbols.frequence > 0 ? "#2962ff" : "#e52e29"),
-            labelAccessorFn: (SymbolProfitLoss symbols, _) =>
-                '${symbols.symbols}: ${NumberFormat("#,###.##", "ID").format(symbols.frequence)}')
+          id: 'Profit/Loss',
+          domainFn: (SymbolProfitLoss symbols, _) => symbols.symbols,
+          measureFn: (SymbolProfitLoss symbols, _) => symbols.frequence,
+          data: profit,
+          colorFn: (SymbolProfitLoss symbols, _) => charts.Color.fromHex(
+            code: symbols.frequence > 0 ? "#2962ff" : "#e52e29"
+          ),
+          labelAccessorFn: (SymbolProfitLoss symbols, _) => '${symbols.symbols}: ${NumberFormat("#,###.##", "ID").format(symbols.frequence)}'
+        )
       ];
     }
 
     return charts.BarChart(
-      generateData(),
+      generateDate(),
       animate: true,
       vertical: false,
       barRendererDecorator: charts.BarLabelDecorator<String>(),
-      primaryMeasureAxis:
-          const charts.NumericAxisSpec(renderSpec: charts.NoneRenderSpec()),
-      domainAxis: const charts.OrdinalAxisSpec(
-          renderSpec: charts.NoneRenderSpec(), showAxisLine: false),
+      primaryMeasureAxis: const  charts.NumericAxisSpec(renderSpec: charts.NoneRenderSpec()),
+      domainAxis: const  charts.OrdinalAxisSpec(renderSpec: charts.NoneRenderSpec(), showAxisLine: false)
     );
   }
 }

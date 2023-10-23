@@ -2,27 +2,24 @@
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:saham_01_app/controller/homeTabController.dart';
-import 'package:saham_01_app/controller/newSignalController.dart';
-import 'package:saham_01_app/controller/signalTabController.dart';
-import 'package:saham_01_app/views/pages/form/forgot.dart';
-import 'package:saham_01_app/views/widgets/getAlert.dart';
+import 'package:saham_01_app/controller/home_tab_controller.dart';
+import 'package:saham_01_app/controller/new_signal_controller.dart';
+import 'package:saham_01_app/controller/signal_tab_controller.dart';
+import 'package:saham_01_app/views/widgets/get_alert.dart';
 import '../../../constants/app_colors.dart';
-import '../../../controller/appStatesController.dart';
-import '../../../function/changeFocus.dart';
+import '../../../controller/app_state_controller.dart';
+import '../../../function/change_focus.dart';
 import '../../../function/helper.dart';
-import '../../../function/removeFocus.dart';
-import '../../../function/showAlert.dart';
+import '../../../function/remove_focus.dart';
 import '../../../models/user.dart';
 import '../../../views/appbar/navtxt.dart';
-import '../../../views/pages/form/verifyEmail.dart';
-import '../../../views/widgets/btnBlock.dart';
-import '../../../views/widgets/dialogCabang.dart';
-import '../../../views/widgets/dialogConfirmation.dart';
+import 'verify_email.dart';
+import '../../widgets/btn_block.dart';
+import '../../widgets/dialog_cabang.dart';
+import '../../widgets/dialog_confirmation.dart';
 import '../../../views/widgets/line.dart';
-import '../../../views/widgets/passwordIcon.dart';
-import '../../../views/widgets/registerHint.dart';
-import '../../../views/widgets/toast.dart';
+import '../../widgets/password_icon.dart';
+import '../../widgets/register_hint.dart';
 
 // class Login extends StatefulWidget {
 //   const Login({Key? key}) : super(key: key);
@@ -109,7 +106,7 @@ class LoginFormController extends GetxController {
         dialogController.showToast(res["error"], "TUTUP");
       } else  {
         if (res.containsKey("users")) {
-          await Future.delayed(Duration(milliseconds: 0));
+          await Future.delayed(const Duration(milliseconds: 0));
           Navigator.pop(ctx);
           DialogCabang? dc;
           await showDialog(
@@ -174,7 +171,7 @@ class LoginFormController extends GetxController {
 
   @override
   void onInit() {
-    Future.delayed(Duration(milliseconds: 0)).then((_) {
+    Future.delayed(const Duration(milliseconds: 0)).then((_) {
       if (appStateController.users.value.id > 0) {
         if (appStateController.users.value.isProfileComplete() == false) {
           Get.offAndToNamed("/forms/editprofile");

@@ -2,15 +2,14 @@
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:saham_01_app/controller/homeTabController.dart';
-import 'package:saham_01_app/views/widgets/getAlert.dart';
-import '../../controller/appStatesController.dart';
+import 'package:saham_01_app/controller/home_tab_controller.dart';
+import 'package:saham_01_app/views/widgets/get_alert.dart';
+import '../../controller/app_state_controller.dart';
 // import '../../function/showAlert.dart';
 import '../../models/entities/user.dart';
-import '../../models/user.dart';
 import '../../views/appbar/navmain.dart';
 // import '../../views/widgets/dialogLoading.dart';
-import '../../views/widgets/listItemProfile.dart';
+import '../widgets/list_item_profile.dart';
 
 // class Setting extends StatefulWidget {
 //   @override
@@ -22,12 +21,11 @@ class Setting extends GetView<AppStateController> {
   final NewHomeTabController newHomeTabController = Get.find();
   final DialogController dialogController = Get.find();
 
+  Setting({Key? key}) : super(key: key);
+
   List<Widget> prepareWidget(UserInfo user) {
     List<Widget> silverlist = [];
     double iconSize = 22;
-
-    print(user.username);
-    print("ini user: ${appStateController.users.value.username}");
 
     if (user.id > 0) {
       silverlist = [
@@ -139,7 +137,7 @@ class Setting extends GetView<AppStateController> {
           context: Get.context,
           onTap: () {
             // Navigator.pushNamed(context, '/refresh/');
-            Get.toNamed('/refresh/');
+            Get.toNamed('/refresh');
           },
           icon: Image.asset(
             "assets/icon/light/refresh.png",
@@ -232,7 +230,7 @@ class Setting extends GetView<AppStateController> {
           currentPage: "Settings",
           backPage: () async {
             newHomeTabController.tab.value = HomeTab.home;
-          newHomeTabController.tabController.animateTo(0,duration: Duration(milliseconds: 200),curve:Curves.easeIn);
+          newHomeTabController.tabController.animateTo(0,duration: const Duration(milliseconds: 200),curve:Curves.easeIn);
           },
         ),
         body: GetX<AppStateController>(builder: (controller) {

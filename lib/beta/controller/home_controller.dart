@@ -4,12 +4,12 @@ import 'package:get/get.dart';
 import 'package:saham_01_app/beta/binding/add_signal_binding.dart';
 import 'package:saham_01_app/beta/binding/beranda_binding.dart';
 import 'package:saham_01_app/beta/binding/explore_binding.dart';
-import 'package:saham_01_app/controller/appStatesController.dart';
-import 'package:saham_01_app/views/pages/addNewSignal.dart';
+import 'package:saham_01_app/controller/app_state_controller.dart';
+import 'package:saham_01_app/views/pages/add_new_signal.dart';
 import 'package:saham_01_app/views/pages/home.dart';
 import 'package:saham_01_app/views/pages/market.dart';
 import 'package:saham_01_app/views/pages/setting.dart';
-import 'package:saham_01_app/views/pages/signalPage.dart';
+import 'package:saham_01_app/views/pages/signal_page.dart';
 
 class HomeController extends GetxController with GetTickerProviderStateMixin {
   static HomeController get to => Get.find();
@@ -55,7 +55,7 @@ class HomeController extends GetxController with GetTickerProviderStateMixin {
     if (settings.name == "/market") {
       return GetPageRoute(
         settings: settings,
-        page: () => MarketPage()
+        page: () => const  MarketPage()
       );
     }
     if (settings.name == "/settings") {

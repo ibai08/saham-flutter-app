@@ -1,3 +1,5 @@
+// ignore_for_file: unnecessary_null_comparison
+
 import 'package:dio/dio.dart';
 import '../../core/config.dart';
 
@@ -63,6 +65,7 @@ class TF2Request {
             temp[file.key] = file.value;
           }
           FormData fd = FormData.fromMap(temp);
+          /// TODOs: Cek ini
           res = await dio.post(url!, data: (formData != null ? fd : postParam));
         }
       }
@@ -88,17 +91,15 @@ class TF2Request {
 
   static Future<bool> refreshLogin() async {
     String? enc = await getCfgAsync("crd");
-    print("enc: $enc");
     Map data = {};
     if (enc != null) {
       Response res;
       Dio dio = Dio();
-      dio.options.connectTimeout = const Duration(milliseconds: 5000);
-      dio.options.receiveTimeout = const Duration(milliseconds: 3000);
+      dio.options.connectTimeout = const Duration(seconds: 5);
+      dio.options.receiveTimeout = const Duration(seconds: 3);
       res = await dio.post(getHostName() + "/traders/api/v1/refreshlogin/",
           data: {"enc": enc});
       data = res.data;
-
       if (data.containsKey("message") && !data.containsKey("error")) {
         bool result = await updateCfgAsync("token", data["message"]["result"]);
         bool crd = await updateCfgAsync("crd", data["message"]["enc"]);

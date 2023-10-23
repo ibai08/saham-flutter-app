@@ -4,28 +4,27 @@ import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
-import 'package:get_storage/get_storage.dart';
 import 'package:intl/intl.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
-import 'package:saham_01_app/interface/clickListener.dart';
+import 'package:saham_01_app/interface/click_listener.dart';
 import 'package:saham_01_app/library/dynamic_widgets/dynamic_widget.dart';
-import '../../controller/homeTabController.dart';
+import '../../controller/home_tab_controller.dart';
 
 import '../../constants/app_colors.dart';
-import '../../controller/appStatesController.dart';
-import '../../controller/checkInternetController.dart';
-import '../../controller/navChannelNew.dart';
+import '../../controller/app_state_controller.dart';
+import '../../controller/check_internet_controller.dart';
+import '../../controller/nav_channel_new.dart';
 import '../../core/analytics.dart';
 import '../../core/string.dart';
-import '../../function/showAlert.dart';
-import '../../function/subscribeChannel.dart';
+import '../../function/show_alert.dart';
+import '../../function/subscribe_channel.dart';
 import '../../models/entities/ois.dart';
 import '../../models/entities/user.dart';
 import '../../models/ois.dart';
-import '../widgets/channelAvatar.dart';
-import '../widgets/dialogLoading.dart';
-import '../widgets/homeTopRankShimmer.dart';
-import '../widgets/recentProfitSignalNew.dart';
+import '../widgets/channel_avatar.dart';
+import '../widgets/dialog_loading.dart';
+import '../widgets/home_top_rank_shimmer.dart';
+import '../widgets/recent_profit_signal_new.dart';
 
 class Home extends StatelessWidget {
   Home({Key? key}) : super(key: key);
@@ -104,7 +103,7 @@ class Home extends StatelessWidget {
 
   Future<Widget?> buildWidgetFromJson(BuildContext buildContext) async {
     var response = await rootBundle.loadString('assets/json/coba.json');
-    await Future.delayed(Duration(seconds: 2));
+    await Future.delayed(const Duration(seconds: 2));
     return DynamicWidgetBuilder.build(response, buildContext, DefaultClickListener(buildContext));
   }
 }
@@ -349,7 +348,6 @@ class MostConsistentChannelThumbNew extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final double screenHeight = MediaQuery.of(context).size.height;
-    print("medal gestur : ${medal?.level}");
     if (medal?.level == null) {
       return MostConsistentChannelShimmer(sH: screenHeight);
     }

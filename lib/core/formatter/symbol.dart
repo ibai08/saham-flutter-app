@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_is_empty
+
 import 'package:flutter/services.dart';
 import '../../models/entities/symbols.dart';
 
@@ -28,6 +30,7 @@ class SymbolInputFormatter extends TextInputFormatter {
   late int digit;
   late Function fnSymbol;
   SymbolInputFormatter(this.fnSymbol);
+  @override
   TextEditingValue formatEditUpdate(
       TextEditingValue oldValue, TextEditingValue newValue) {
     TradeSymbol symbol = fnSymbol();
@@ -75,8 +78,8 @@ class SymbolInputFormatter extends TextInputFormatter {
           firstDecimal = "1";
           return newValue.copyWith(
               text: double.parse(firstDecimal + "." + lastDecimal)
-                  .toStringAsFixed(this.digit),
-              selection: new TextSelection.collapsed(offset: 1));
+                  .toStringAsFixed(digit),
+              selection: const TextSelection.collapsed(offset: 1));
         }
       }
 
@@ -85,38 +88,38 @@ class SymbolInputFormatter extends TextInputFormatter {
         firstDecimal = "0";
         return newValue.copyWith(
             text: double.parse(firstDecimal + "." + lastDecimal)
-                .toStringAsFixed(this.digit),
-            selection: new TextSelection.collapsed(offset: 0));
+                .toStringAsFixed(digit),
+            selection:const TextSelection.collapsed(offset: 0));
       }
 
       if (firstDecimal.length > 10) {
         return oldValue;
       }
 
-      if (lastDecimal.length > this.digit) {
+      if (lastDecimal.length > digit) {
         String newText = double.parse(
-                firstDecimal + "." + lastDecimal.substring(0, this.digit))
-            .toStringAsFixed(this.digit);
+                firstDecimal + "." + lastDecimal.substring(0, digit))
+            .toStringAsFixed(digit);
         if (newText.length < offset) {
           offset--;
         }
         return newValue.copyWith(
             text: newText,
-            selection: new TextSelection.collapsed(offset: offset));
+            selection: TextSelection.collapsed(offset: offset));
       }
     }
     if (newValue.selection.baseOffset == 0) {
       return newValue;
     }
-    if (this.digit > extDecimalArray.length ||
-        this.digit > extNumberFormat.length) {
+    if (digit > extDecimalArray.length ||
+        digit > extNumberFormat.length) {
       return newValue;
     }
     if (!newValue.text.contains(".") && newValue.text.length > 1) {
-      value = value / extDecimalArray[this.digit];
+      value = value / extDecimalArray[digit];
     }
-    String newText = value.toStringAsFixed(this.digit);
+    String newText = value.toStringAsFixed(digit);
     return newValue.copyWith(
-        text: newText, selection: new TextSelection.collapsed(offset: offset));
+        text: newText, selection: TextSelection.collapsed(offset: offset));
   }
 }

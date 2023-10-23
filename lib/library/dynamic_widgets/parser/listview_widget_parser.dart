@@ -1,3 +1,5 @@
+// ignore_for_file: unnecessary_null_in_if_null_operators, use_key_in_widget_constructors, no_logic_in_create_state, prefer_final_fields
+
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
@@ -44,7 +46,7 @@ class ListViewWidgetParser extends WidgetParser {
         loadMoreUrl: loadMoreUrl,
         isDemo: isDemo);
 
-    return new ListViewWidget(params, buildContext);
+    return ListViewWidget(params, buildContext);
   }
 
   @override
@@ -89,7 +91,7 @@ class ListViewWidget extends StatefulWidget {
   final ListViewParams _params;
   final BuildContext _buildContext;
 
-  ListViewWidget(this._params, this._buildContext);
+  const ListViewWidget(this._params, this._buildContext);
 
   @override
   _ListViewWidgetState createState() => _ListViewWidgetState(_params);
@@ -99,7 +101,7 @@ class _ListViewWidgetState extends State<ListViewWidget> {
   ListViewParams _params;
   List<Widget?> _items = [];
 
-  ScrollController _scrollController = new ScrollController();
+  ScrollController _scrollController = ScrollController();
   bool isPerformingRequest = false;
 
   //If there are no more items, it should not try to load more data while scroll
@@ -152,12 +154,12 @@ class _ListViewWidgetState extends State<ListViewWidget> {
   }
 
   Widget _buildProgressIndicator() {
-    return new Padding(
+    return Padding(
       padding: const EdgeInsets.all(8.0),
-      child: new Center(
-        child: new Opacity(
+      child: Center(
+        child: Opacity(
           opacity: isPerformingRequest ? 1.0 : 0.0,
-          child: new CircularProgressIndicator(),
+          child: const CircularProgressIndicator(),
         ),
       ),
     );
@@ -185,7 +187,7 @@ class _ListViewWidgetState extends State<ListViewWidget> {
 
   fakeRequest() async {
 // 如果对Future不熟悉，可以参考 https://juejin.im/post/5b2c67a351882574a756f2eb
-    return Future.delayed(Duration(seconds: 2), () {
+    return Future.delayed(const Duration(seconds: 2), () {
       return """
 [
     {
@@ -221,8 +223,7 @@ class _ListViewWidgetState extends State<ListViewWidget> {
       if (response.statusCode == 200) {
         return response.body;
       }
-    } on Exception catch (e) {
-      print(e);
+    } on Exception catch (_) {
     }
     return "";
   }

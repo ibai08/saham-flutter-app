@@ -6,7 +6,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get_rx/src/rx_types/rx_types.dart';
 import 'package:sprintf/sprintf.dart';
-import '../../core/getStorage.dart';
+import '../../core/get_storage.dart';
 
 enum TransactionType { subscribePayment, withdraw, reward }
 

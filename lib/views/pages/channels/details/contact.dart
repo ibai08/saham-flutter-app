@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../../../../function/launchUrl.dart';
+import '../../../../function/launch_url.dart';
 import '../../../../models/entities/ois.dart';
 
 // class ContactChannel extends StatefulWidget {

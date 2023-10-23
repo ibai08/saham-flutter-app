@@ -1,3 +1,5 @@
+// ignore_for_file: deprecated_member_use, prefer_null_aware_operators
+
 import 'package:flutter/material.dart';
 
 import '../dynamic_widget.dart';

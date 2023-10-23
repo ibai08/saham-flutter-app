@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:saham_01_app/constants/app_colors.dart';
-import 'package:saham_01_app/controller/forgetPasswordController.dart';
+import 'package:saham_01_app/controller/forgot_password_controller.dart';
 
 import '../../appbar/navtxt.dart';
-import '../../widgets/btnBlock.dart';
+import '../../widgets/btn_block.dart';
 import '../../widgets/logo.dart';
 
 class ForgotPassWord extends StatelessWidget {

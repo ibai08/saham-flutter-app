@@ -1,4 +1,4 @@
-// ignore_for_file: empty_catches, library_prefixes
+// ignore_for_file: empty_catches, library_prefixes, unnecessary_null_comparison
 
 import 'dart:collection';
 import 'dart:convert';
@@ -6,9 +6,9 @@ import 'dart:convert';
 import 'package:dio/dio.dart';
 import 'package:get/get.dart' as Get;
 import 'package:get/state_manager.dart';
-import '../../controller/appStatesController.dart';
+import '../controller/app_state_controller.dart';
 import '../../core/config.dart';
-import '../../core/getStorage.dart';
+import '../core/get_storage.dart';
 import '../../core/http.dart';
 import '../../function/helper.dart';
 import '../../models/entities/inbox.dart';

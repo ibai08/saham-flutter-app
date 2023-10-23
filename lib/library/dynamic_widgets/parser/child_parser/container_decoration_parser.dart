@@ -1,3 +1,5 @@
+// ignore_for_file: unnecessary_null_in_if_null_operators
+
 import 'package:flutter/material.dart';
 
 import '../../utils/utils.dart';
@@ -13,19 +15,17 @@ class ContainerDecorationParser {
       boxDecoration.shape == BoxShape.rectangle &&
       boxDecoration.image == null &&
       boxDecoration.boxShadow == null) {
-        print("lena kena takol");
         return null;
     }
     BorderRadius borderRadius = (boxDecoration.borderRadius != null) ? boxDecoration.borderRadius as BorderRadius : BorderRadius.zero;
     final Color color = boxDecoration.color as Color;
     final Map<String, dynamic> map = {
-      "borderRadius": "${exportBorderRadius(borderRadius)}",
+      "borderRadius": exportBorderRadius(borderRadius),
       "color": color.value.toRadixString(16),
       "gradient": exportLinearGradient(boxDecoration.gradient as LinearGradient),
       "shape": exportShapeInDecoration(boxDecoration.shape),
       "border": exportBoxBorder(boxDecoration.border)
     };
-    print("parsing parsing parsing");
     return map;
   }
 

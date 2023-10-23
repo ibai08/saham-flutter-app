@@ -13,7 +13,7 @@ class SelectableTextWidgetParser implements WidgetParser {
     int? maxLines = map['maxLines'];
     String? textDirectionString = map['textDirection'];
 //    double textScaleFactor = map['textScaleFactor'];
-    var textSpan;
+    dynamic textSpan;
     var textSpanParser = SelectableTextSpanParser();
     if (map.containsKey("textSpan")) {
       textSpan = textSpanParser.parse(map['textSpan'], listener);
@@ -89,7 +89,7 @@ class SelectableTextSpanParser {
           ..onTap = () {
             listener!.onClicked(clickEvent);
           },
-        children: []);
+        children: const []);
 
     if (map.containsKey('children')) {
       parseChildren(textSpan, map['children'], listener);

@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_function_literals_in_foreach_calls, unnecessary_null_comparison
+
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -7,8 +9,8 @@ import '../../../../../models/entities/ois.dart';
 
 class ChartGrowth extends StatelessWidget {
   final List<ChannelSummaryGrowth> listGrowth;
-  String time;
-  ChartGrowth(this.listGrowth, this.time);
+  final String time;
+  const ChartGrowth(this.listGrowth, this.time, {Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -43,7 +45,7 @@ class ChartGrowth extends StatelessWidget {
 
     List<Map> listGrowthDatas = [];
     if (time == "1W") {
-      dateEnd = DateTime.now().subtract(Duration(days: 7));
+      dateEnd = DateTime.now().subtract(const Duration(days: 7));
     } else if (time == "1M") {
       dateEnd = DateTime(now.year, now.month - 1, now.day);
     } else if (time == "3M") {
@@ -112,7 +114,7 @@ class ChartGrowth extends StatelessWidget {
             )).toList();
           },
           touchTooltipData: LineTouchTooltipData(
-            tooltipPadding: EdgeInsets.symmetric(vertical: 10, horizontal: 8),
+            tooltipPadding: const EdgeInsets.symmetric(vertical: 10, horizontal: 8),
             tooltipBgColor: Colors.black.withOpacity(0.6),
             fitInsideHorizontally: true,
             fitInsideVertically: true,
@@ -156,7 +158,7 @@ class ChartGrowth extends StatelessWidget {
         gridData: FlGridData(
           getDrawingHorizontalLine: (value) {
             return FlLine(
-              color: Color.fromARGB(255, 203, 203, 203),
+              color: const Color.fromARGB(255, 203, 203, 203),
               strokeWidth: 0.5
             );
           },

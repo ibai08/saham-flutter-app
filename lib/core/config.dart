@@ -1,7 +1,7 @@
 // ignore_for_file: avoid_print
 
 import 'package:firebase_remote_config/firebase_remote_config.dart';
-import '../../core/getStorage.dart';
+import 'get_storage.dart';
 
 var settings = {"mode": "production"};
 
@@ -47,6 +47,7 @@ Future<String?> getCfgAsync(String id) async {
     SharedBoxHelper? boxs = SharedHelper.instance.getBox(BoxName.config);
     // print(boxs?.init());
     String data = await boxs!.get(id);
+    print("datass: $data");
     return data;
   } catch (e) {
     print("GetCfgAsync Error");

@@ -35,8 +35,9 @@ class CardParser extends WidgetParser {
       if (widget.shape != null && widget.shape is RoundedRectangleBorder) {
         shape = RoundedRectangleBorderParser.export(
             widget.shape as RoundedRectangleBorder);
-      } else
+      } else {
         shape = null;
+      }
 
       final Map<String, dynamic> map = {
         "type": widgetName,
@@ -53,6 +54,7 @@ class CardParser extends WidgetParser {
 
       return map;
     }
+    return null;
   }
 
   @override

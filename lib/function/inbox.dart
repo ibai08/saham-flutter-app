@@ -5,7 +5,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import '../../models/entities/inbox.dart';
-import '../../views/widgets/inboxItem.dart';
+import '../views/widgets/inbox_item.dart';
 
 List<Widget> prepareInboxItem(Map data, {InboxType? type}) {
   List<Widget> items = [];

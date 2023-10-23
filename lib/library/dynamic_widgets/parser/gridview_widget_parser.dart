@@ -1,7 +1,8 @@
+// ignore_for_file: unnecessary_null_in_if_null_operators, use_key_in_widget_constructors, no_logic_in_create_state, prefer_final_fields
+
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:http/http.dart' as http;
 
 import '../dynamic_widget.dart';
@@ -100,7 +101,7 @@ class GridViewWidget extends StatefulWidget {
 
   final BuildContext _buildContext;
 
-  GridViewWidget(this._params, this._buildContext);
+  const GridViewWidget(this._params, this._buildContext);
 
   @override
   _GridViewWidgetState createState() => _GridViewWidgetState(_params);
@@ -210,7 +211,7 @@ class _GridViewWidgetState extends State<GridViewWidget> {
 
   fakeRequest() async {
 // 如果对Future不熟悉，可以参考 https://juejin.im/post/5b2c67a351882574a756f2eb
-    return Future.delayed(Duration(seconds: 2), () {
+    return Future.delayed(const Duration(seconds: 2), () {
       return """
 [
     {
@@ -242,8 +243,7 @@ class _GridViewWidgetState extends State<GridViewWidget> {
       if (response.statusCode == 200) {
         return response.body;
       }
-    } on Exception catch (e) {
-      print(e);
+    } on Exception catch (_) {
     }
     return "";
   }

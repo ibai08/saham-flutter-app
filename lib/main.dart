@@ -4,55 +4,48 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:firebase_remote_config/firebase_remote_config.dart';
 import 'package:flutter/services.dart';
-import 'package:saham_01_app/beta/binding/home_binding.dart';
-import 'package:saham_01_app/remoteConfig.dart';
-import 'package:saham_01_app/testWidget.dart';
-import 'package:saham_01_app/views/pages/addNewSignal.dart';
-import 'package:saham_01_app/views/pages/channels/channelDetailNew.dart';
-import 'package:saham_01_app/views/pages/channels/form/newChannels.dart';
-import 'package:saham_01_app/views/pages/channels/signalDetail.dart';
+import 'package:saham_01_app/constants/app_route.dart';
+import 'package:saham_01_app/core/get_connect.dart';
+import 'package:saham_01_app/remote_config.dart';
+import 'package:saham_01_app/splash_screen_new.dart';
+import 'package:saham_01_app/views/pages/add_new_signal.dart';
+import 'package:saham_01_app/views/pages/channels/channel_detail.dart';
+import 'package:saham_01_app/views/pages/channels/form/new_channel.dart';
+import 'package:saham_01_app/views/pages/channels/signal_detail.dart';
 import 'package:saham_01_app/views/pages/form/forgot.dart';
 import 'package:saham_01_app/views/pages/form/register.dart';
-import 'package:saham_01_app/views/pages/more/profile/forms/editPassword.dart';
+import 'package:saham_01_app/views/pages/more/profile/forms/edit_password.dart';
 import 'package:saham_01_app/views/pages/more/profile/profile.dart';
-import 'package:saham_01_app/views/pages/search/searchDomisili.dart';
+import 'package:saham_01_app/views/pages/refresh_page.dart';
+import 'package:saham_01_app/views/pages/search/search_domisili.dart';
 import '../../config/tab_list.dart';
 import '../../constants/app_colors.dart';
-import '../../controller/appStatesController.dart';
-import '../../controller/growthChartController.dart';
-import '../../controller/signalTabController.dart';
+import 'controller/app_state_controller.dart';
+import 'controller/growth_chart_controller.dart';
 import '../../core/analytics.dart';
 import '../../core/config.dart';
-import '../../core/firebasecm.dart';
-import '../../core/getStorage.dart';
-// import '../../controller/homeTabController.dart';
+import 'core/get_storage.dart';
 import '../../firebase_options.dart';
 import 'package:flutter/material.dart';
 import '../../maintenance.dart';
-import '../../models/askap.dart';
-import '../../models/mrg.dart';
 import '../../models/user.dart';
-import '../../splashScreen.dart';
 import 'package:get/get.dart';
-import '../../views/pages/channels/channelDetail.dart';
-import '../../views/pages/channels/searchChannels.dart';
-import '../../views/pages/form/editProfile.dart';
+import 'update_version.dart';
+import 'views/pages/channels/search_channel.dart';
+import 'views/pages/form/edit_profile.dart';
 import '../../views/pages/form/login.dart';
 import '../../views/pages/market.dart';
-import '../../views/pages/search/searchChannelspop.dart';
+import 'views/pages/search/search_channels_pop.dart';
 import '../../views/pages/setting.dart';
-import '../../views/pages/signalPage.dart';
-import '../../views/widgets/dialogConfirmation.dart';
-import '../../views/widgets/dialogLoading.dart';
+import 'views/pages/signal_page.dart';
+import 'views/widgets/dialog_confirmation.dart';
 // import 'package:mixpanel_flutter/mixpanel_flutter.dart';
 // import 'package:redux/redux.dart';
 // import '../../updateVersion.dart';
-import 'controller/checkInternetController.dart';
-import 'controller/homeTabController.dart';
-import 'controller/newSignalController.dart';
-import 'interface/scrollUpWidget.dart';
+import 'controller/check_internet_controller.dart';
+import 'controller/home_tab_controller.dart';
 import 'views/pages/home.dart';
-import 'views/widgets/getAlert.dart';
+import 'views/widgets/get_alert.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -64,6 +57,7 @@ void main() async {
    Get.put(AppStateController());
    Get.put(NewHomeTabController());
    Get.put(CheckInternetController());
+   Get.put(TF2Request());
   // Get.put(DialogLoadingController());
   Get.put(GrowthChartController());
   Get.put(HomeTabController());
@@ -156,32 +150,31 @@ class NewMyApp extends StatelessWidget {
       ),
       initialRoute: '/',
       getPages: [
-        GetPage(name: '/home', page: () =>  NewHomePage()),
-        GetPage(name: '/homes', page: () => HomePage(), binding: HomeBinding()),
-        GetPage(name: '/remote-config', page: () => const RemoteConfigView()),
+        GetPage(name: AppRoutes.home, page: () =>  NewHomePage()),
+        // GetPage(name: '/homes', page: () => const HomePage(), binding: HomeBinding()),
+        GetPage(name: AppRoutes.remoteConfig, page: () => const RemoteConfigView()),
         GetPage(name: '/homepage', page: () => Home()),
-        GetPage(name: '/channel-signal', page: () => SignalDashboard()),
-        GetPage(name: '/maintenance', page: () => const MaintenanceView()),
-        // GetPage(name: '/update-app', page: () => UpdateVersionView()),
+        GetPage(name: AppRoutes.channelSignal, page: () => SignalDashboard()),
+        GetPage(name: AppRoutes.maintenance, page: () => const MaintenanceView()),
+        GetPage(name: AppRoutes.updateApp, page: () => UpdateVersionView()),
+        GetPage(name: AppRoutes.refresh, page: () => RefreshPage()),
 
-        GetPage(name: '/forms/login', page: () => Login()),
-        GetPage(name: '/forms/register', page: () => Register()),
-        GetPage(
-            name: '/forms/editprofile', page: () => const EditProfile()),
-        GetPage(name: '/forms/editpassword', page: () => EditPassword()),
-        GetPage(name: '/forms/forgot', page: () => ForgotPassWord()),
-        GetPage(name: '/more/profile', page: () => Profile()),
+        GetPage(name: AppRoutes.login, page: () => Login()),
+        GetPage(name: AppRoutes.register, page: () => Register()),
+        GetPage(name: AppRoutes.editProfile, page: () => const EditProfile()),
+        GetPage(name: AppRoutes.editPassword, page: () => EditPassword()),
+        GetPage(name: AppRoutes.forgotPassword, page: () => ForgotPassWord()),
+        GetPage(name: AppRoutes.profile, page: () => Profile()),
 
-        GetPage(
-            name: '/search/channels/pop', page: () => SearchChannelsPop()),
-        GetPage(name: '/search/domisili', page: () => SearchDomisili()),
+        GetPage(name: AppRoutes.searchChannelsPop, page: () => SearchChannelsPop()),
+        GetPage(name: AppRoutes.searchDomisili, page: () => SearchDomisili()),
 
-        GetPage(name: '/dsc/search', page: () => SearchChannelsTab()),
-        GetPage(name: '/dsc/channels/', page: () => ChannelDetailNew()),
-        GetPage(name: '/dsc/channels/new', page: () => NewChannels()),
-        GetPage(name: '/dsc/signal/', page: () => SignalDetail())
+        GetPage(name: AppRoutes.searchChannelsTab, page: () => SearchChannelsTab()),
+        GetPage(name: AppRoutes.channelDetail, page: () => ChannelDetailNew()),
+        GetPage(name: AppRoutes.newChannels, page: () => NewChannels()),
+        GetPage(name: AppRoutes.signalDetail, page: () => SignalDetail())
       ],
-      home: const SplashScreen(),
+      home: SplashScreen(),
       debugShowCheckedModeBanner: false,
     );
   }
@@ -198,6 +191,8 @@ class NewHomePage extends StatelessWidget {
     const MarketPage(),
     Setting(),
   ];
+
+  NewHomePage({Key? key}) : super(key: key);
 
   void onTapItem(int index) {
     print("ketap");

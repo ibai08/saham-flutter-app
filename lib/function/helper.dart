@@ -1,4 +1,4 @@
-// ignore_for_file: null_check_always_fails
+// ignore_for_file: null_check_always_fails, unnecessary_null_comparison
 
 import 'package:intl/intl.dart';
 

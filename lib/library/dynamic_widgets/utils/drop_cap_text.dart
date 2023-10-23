@@ -1,8 +1,9 @@
+// ignore_for_file: unnecessary_null_comparison, constant_identifier_names
+
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'dart:math';
-import 'package:flutter/rendering.dart';
 
 enum DropCapMode {
   /// default
@@ -24,7 +25,7 @@ class DropCap extends StatelessWidget {
   final Widget? child;
   final double width, height;
 
-  DropCap({
+  const DropCap({
     Key? key,
     this.child,
     required this.width,
@@ -55,7 +56,7 @@ class DropCapText extends StatelessWidget {
   final int? maxLines;
   final TextOverflow? overflow;
 
-  DropCapText(
+  const DropCapText(
       {Key? key,
       required this.data,
       this.selectable,
@@ -233,7 +234,7 @@ class DropCapText extends StatelessWidget {
                           maxLines: maxLines,
                           textAlign: textAlign,
                           textDirection: textDirection,
-                          scrollPhysics: NeverScrollableScrollPhysics(),
+                          scrollPhysics: const NeverScrollableScrollPhysics(),
                         )
                       : Text.rich(
                           textSpan,
@@ -266,7 +267,7 @@ class DropCapText extends StatelessWidget {
                             fontSizeFactor:
                                 MediaQuery.of(context).textScaleFactor),
                       ),
-                      scrollPhysics: NeverScrollableScrollPhysics(),
+                      scrollPhysics: const NeverScrollableScrollPhysics(),
                       maxLines: maxLines != null && maxLines! > rows
                           ? maxLines! - rows
                           : null,
@@ -309,7 +310,7 @@ class DropCapText extends StatelessWidget {
               children: <TextSpan>[
                 TextSpan(
                   text: mdData.plainText!.substring(0, dropCapChars),
-                  style: capStyle.merge(TextStyle(height: 0)),
+                  style: capStyle.merge(const TextStyle(height: 0)),
                 ),
                 TextSpan(
                   children: mdData.subchars(dropCapChars).toTextSpanList(),
@@ -326,7 +327,7 @@ class DropCapText extends StatelessWidget {
               children: <TextSpan>[
                 TextSpan(
                   text: mdData.plainText!.substring(0, dropCapChars),
-                  style: capStyle.merge(TextStyle(height: 0)),
+                  style: capStyle.merge(const TextStyle(height: 0)),
                 ),
                 TextSpan(
                   children: mdData.subchars(dropCapChars).toTextSpanList(),
@@ -387,7 +388,7 @@ class MarkdownParser {
 
   MarkdownParser(this.data) {
     plainText = '';
-    spans = [MarkdownSpan(text: '', markups: [], style: TextStyle())];
+    spans = [MarkdownSpan(text: '', markups: [], style: const TextStyle())];
 
     bool bold = false;
     bool italic = false;

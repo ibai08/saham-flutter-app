@@ -4,7 +4,7 @@ import 'dart:convert';
 
 import 'package:dio/dio.dart';
 import 'package:get/get.dart' as Get;
-import '../../controller/appStatesController.dart';
+import '../controller/app_state_controller.dart';
 import '../../core/http.dart';
 import '../../models/user.dart';
 

@@ -156,7 +156,7 @@ class UserInfo {
   }
 
   bool isProfileComplete() {
-    if (username == null || address1 == null || villageid == null) {
+    if ((username == null || username == "") || (address1 == null || address1 == "") || (villageid == null || villageid == "")) {
       return false;
     }
     return true;

@@ -12,7 +12,7 @@ import 'package:charts_flutter/flutter.dart' as charts;
 
 class SignalFrequence extends StatelessWidget {
   final Rx<ChannelSummaryDetail?> summary;
-  SignalFrequence(this.summary);
+  const SignalFrequence(this.summary, {Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     List<charts.Series<OrdinalSummary, String>> _generateData() {
@@ -74,12 +74,12 @@ class SignalFrequence extends StatelessWidget {
       _generateData(),
       animate: false,
       barGroupingType: charts.BarGroupingType.grouped,
-      domainAxis: charts.OrdinalAxisSpec(renderSpec: charts.NoneRenderSpec()),
+      domainAxis: const charts.OrdinalAxisSpec(renderSpec: charts.NoneRenderSpec()),
       behaviors: [
         charts.SeriesLegend(
           position: charts.BehaviorPosition.end,
           horizontalFirst: false,
-          cellPadding: EdgeInsets.only(right: 4.0, bottom: 4.0),
+          cellPadding: const EdgeInsets.only(right: 4.0, bottom: 4.0),
           showMeasures: true,
         ),
       ],

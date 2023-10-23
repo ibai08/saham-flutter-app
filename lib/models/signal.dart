@@ -1,11 +1,11 @@
-// ignore_for_file: prefer_conditional_assignment, avoid_print, avoid_function_literals_in_foreach_calls
+// ignore_for_file: prefer_conditional_assignment, avoid_print, avoid_function_literals_in_foreach_calls, unnecessary_null_comparison
 
 import 'dart:convert';
 
 import 'package:get/get.dart';
-import '../../controller/appStatesController.dart';
-import '../../core/cachefactory.dart';
-import '../../core/getStorage.dart';
+import '../controller/app_state_controller.dart';
+import '../core/cache_factory.dart';
+import '../core/get_storage.dart';
 import '../../core/http.dart';
 import '../../models/channel.dart';
 import '../../models/entities/ois.dart';

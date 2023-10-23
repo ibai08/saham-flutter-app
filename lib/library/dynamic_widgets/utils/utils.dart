@@ -1,7 +1,6 @@
-import 'dart:ui';
+// ignore_for_file: prefer_typing_uninitialized_variables, prefer_is_empty, unused_local_variable, unnecessary_null_in_if_null_operators
 
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 
 import '../dynamic_widget.dart';
 import 'drop_cap_text.dart';
@@ -253,7 +252,7 @@ TextStyle? parseTextStyle(Map<String, dynamic>? map) {
   if (map == null) {
     return null;
   }
-  //TODO: more properties need to be implemented, such as decorationColor, decorationStyle, wordSpacing and so on.
+  //TODOs: more properties need to be implemented, such as decorationColor, decorationStyle, wordSpacing and so on.
   String? color = map['color'];
   String? debugLabel = map['debugLabel'];
   String? decoration = map['decoration'];
@@ -1175,7 +1174,7 @@ BorderSide? parseBorderSide(Map<String, dynamic>? map) {
   if (map == null) return BorderSide.none;
   if (!map.containsKey('color')) return BorderSide.none;
   return BorderSide(
-    color: parseHexColor(map['color']) ?? Color(0xFF000000),
+    color: parseHexColor(map['color']) ?? const Color(0xFF000000),
     width: map['width'] ?? 0,
     style: map['style'] == 'solid' ? BorderStyle.solid : BorderStyle.none,
   );
@@ -1220,8 +1219,8 @@ Map<String, dynamic> exportLinearGradient(LinearGradient gradient) {
   final List<String> colorValues = gradient.colors.map((color) => color.value.toRadixString(16).toString()).toList();
   return {
     'colors': colorValues,
-    'begin': "${exportAlignment(gradient.begin as Alignment)}" ,
-    'end':"${exportAlignment(gradient.end as Alignment)}"
+    'begin': exportAlignment(gradient.begin as Alignment) ,
+    'end':exportAlignment(gradient.end as Alignment)
   };
 }
 

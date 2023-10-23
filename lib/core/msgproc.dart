@@ -1,7 +1,9 @@
+// ignore_for_file: unnecessary_type_check
+
 import 'dart:convert';
 
 import 'package:firebase_messaging/firebase_messaging.dart';
-import '../../controller/appStatesController.dart';
+import '../controller/app_state_controller.dart';
 import '../../core/msgdef.dart';
 import '../../function/helper.dart';
 import '../../models/askap.dart';

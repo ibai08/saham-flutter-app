@@ -1,14 +1,3 @@
-// import 'package:flutter/material.dart';
-
-// class Home extends StatelessWidget {
-//   const Home({Key? key}) : super(key: key);
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return Container();
-//   }
-// }
-
 // ignore_for_file: sized_box_for_whitespace, avoid_unnecessary_containers, prefer_is_empty, avoid_print, empty_catches, unused_field
 
 import 'dart:convert';
@@ -20,11 +9,11 @@ import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import '../../constants/app_colors.dart';
-import '../../controller/appStatesController.dart';
+import '../../controller/app_state_controller.dart';
 import '../../core/analytics.dart';
 import '../../core/config.dart';
 import '../../core/string.dart';
-import '../../function/showAlert.dart';
+import '../../function/show_alert.dart';
 import '../../models/channel.dart';
 import '../../models/entities/ois.dart';
 import '../../models/entities/post.dart';
@@ -32,12 +21,11 @@ import '../../models/entities/user.dart';
 import '../../models/ois.dart';
 import '../../models/post.dart';
 import '../../models/signal.dart';
-import '../../views/widgets/channelAvatar.dart';
-import '../../views/widgets/dialogLoading.dart';
-import '../../views/widgets/homeTopRankShimmer.dart';
-import '../../views/widgets/recentProfitSignalNew.dart';
+import '../widgets/channel_avatar.dart';
+import '../widgets/dialog_loading.dart';
+import '../widgets/recent_profit_signal_new.dart';
 
-import '../../interface/scrollUpWidget.dart';
+import '../../interface/scroll_up_widget.dart';
 import '../appbar/navmain.dart';
 
 class Home extends StatefulWidget implements ScrollUpWidget {

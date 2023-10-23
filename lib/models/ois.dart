@@ -3,9 +3,10 @@
 import 'package:dio/dio.dart';
 import 'package:get/get.dart' as Get;
 import 'package:get_storage/get_storage.dart';
-import '../../controller/appStatesController.dart';
-import '../../core/cachefactory.dart';
-import '../../core/getStorage.dart';
+import 'package:saham_01_app/core/get_connect.dart' as connect;
+import '../controller/app_state_controller.dart';
+import '../core/cache_factory.dart';
+import '../core/get_storage.dart';
 import '../../core/http.dart';
 import '../../models/channel.dart';
 import '../../models/entities/ois.dart';
@@ -102,7 +103,7 @@ class OisModel {
     }
     List<dynamic> data =
         await CacheFactory.getCache(CacheKey.oisMyChannelListOnly, () async {
-      Map fetchData = await TF2Request.authorizeRequest(
+      Map fetchData = await connect.TF2Request.authorizeRequest(
           url: getHostName() + "/ois/api/v1/my-channel/", postParam: {});
       if (!fetchData.containsKey("error") &&
           fetchData.containsKey("message") &&
@@ -438,7 +439,6 @@ class OisModel {
       return Future.value(
           List<String>.from(sp.read(CacheKey.oisSearchHistory)));
     } catch (error) {
-      print("Error while fetching search history: $error");
       return []; // Return an empty list or handle the error accordingly.
     }
   }
@@ -457,7 +457,6 @@ class OisModel {
         sp.write(CacheKey.oisSearchHistory, [term]);
       }
     } catch (error) {
-      print("Error updating local search history: $error");
       // Handle the error here as needed
     }
   }

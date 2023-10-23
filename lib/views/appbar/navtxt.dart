@@ -27,7 +27,7 @@ class NavTxt extends AppBar {
               () => Text(
                 title?.value ?? "",
                 textAlign: TextAlign.center,
-                style: TextStyle(color: Colors.black),
+                style: const TextStyle(color: Colors.black),
               ),
             ),
             centerTitle: true,
@@ -36,5 +36,10 @@ class NavTxt extends AppBar {
             elevation: 2,
             systemOverlayStyle:
                 SystemUiOverlayStyle(statusBarColor: AppColors.white),
-            iconTheme: IconThemeData(color: Colors.black));
+            iconTheme: const IconThemeData(color: Colors.black),
+            leading: IconButton(
+              color: Colors.black,
+              icon: const Icon(Icons.arrow_back),
+              onPressed: tap,
+            ));
 }

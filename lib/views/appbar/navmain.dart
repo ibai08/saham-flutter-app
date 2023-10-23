@@ -4,8 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import '../../constants/app_colors.dart';
-import '../../controller/appStatesController.dart';
-import '../../views/widgets/imageFromNetwork.dart';
+import '../../controller/app_state_controller.dart';
+import '../widgets/image_from_network.dart';
 
 // class NavMain extends AppBar {
 //   NavMain({Key? key, Widget? title})
@@ -47,7 +47,6 @@ class NavMain extends AppBar {
                 ? GetBuilder<AppStateController>(
                     init: AppStateController(),
                     builder: (controller) {
-                      print("user: ${controller.users.value.avatar}");
                       return Column(
                         children: [
                           const SizedBox(height: 15),
@@ -91,18 +90,16 @@ class NavMain extends AppBar {
                                     ),
                                     const SizedBox(width: 10),
                                     Container(
-                                      child: Container(
-                                        width: 35,
-                                        height: 35,
-                                        child: CircleAvatar(
-                                          child: ImageFromNetwork(
-                                            controller.users.value.avatar,
-                                            defaultImage: Image.asset(
-                                                'assets/default-channel-icon.jpg'),
-                                            // defaultImage: Image.asset(
-                                            //   'assets/'
-                                            // ),
-                                          ),
+                                      width: 35,
+                                      height: 35,
+                                      child: CircleAvatar(
+                                        child: ImageFromNetwork(
+                                          controller.users.value.avatar,
+                                          defaultImage: Image.asset(
+                                              'assets/default-channel-icon.jpg'),
+                                          // defaultImage: Image.asset(
+                                          //   'assets/'
+                                          // ),
                                         ),
                                       ),
                                     ),

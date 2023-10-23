@@ -3,15 +3,15 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
-import 'package:saham_01_app/views/widgets/getAlert.dart';
+import 'package:saham_01_app/views/widgets/get_alert.dart';
 import '../../../../constants/app_colors.dart';
-import '../../../../controller/appStatesController.dart';
-import '../../../../controller/profileController.dart';
+import '../../../../controller/app_state_controller.dart';
+import '../../../../controller/profile_controller.dart';
 import '../../../../views/appbar/navtxt.dart';
-import '../../../../views/widgets/btnWithImage.dart';
-import '../../../../views/widgets/defaultImage.dart';
-import '../../../../views/widgets/imageFromNetwork.dart';
-import '../../../../views/widgets/promptText.dart';
+import '../../../widgets/btn_with_image.dart';
+import '../../../widgets/default_image.dart';
+import '../../../widgets/image_from_network.dart';
+import '../../../widgets/prompt_text.dart';
 
 import '../../../../function/helper.dart';
 import '../../../../models/user.dart';
@@ -27,6 +27,7 @@ class Profile extends StatelessWidget {
     return Obx(() {
       return Scaffold(
         appBar: NavTxt(title: "Profile"),
+        backgroundColor: AppColors.grey2,
         body: SmartRefresher(
           controller: profileController.refreshController,
           onRefresh: profileController.onRefresh,
@@ -89,7 +90,7 @@ class Profile extends StatelessWidget {
                       const SizedBox(
                         height: 20,
                       ),
-                      profileController.image.value != null ? UploadBtn(image: profileController.image.value) : SizedBox(),
+                      profileController.image.value != null ? UploadBtn(image: profileController.image.value) : const SizedBox(),
                       Text(
                         appStateController.users.value.fullname!,
                         style: const TextStyle(
@@ -197,7 +198,7 @@ class UploadBtn extends StatelessWidget {
       //     barrierDismissible: false,
       //     context: Get.context!,
       //     builder: (context) => dlg).catchError((err) => throw err);
-      await Future.delayed(Duration(seconds: 1));
+      await Future.delayed(const Duration(seconds: 1));
       if (await UserModel.instance.updateProfilePicture(image!)) {
         // Navigator.pop(Get.context!);
         // Navigator.pop(Get.context!);
@@ -207,7 +208,6 @@ class UploadBtn extends StatelessWidget {
         // showAlert(Get.context!, LoadingState.success, "Profile berhasil diperbarui");
         dialogController.setProgress(LoadingState.success, "Profile berhasil diperbarui");
         profileController.image.value = null;
-        
       }
     } catch (e) {
       // Navigator.pop(context);
@@ -228,8 +228,8 @@ class UploadBtn extends StatelessWidget {
         GestureDetector(
           onTap: upload,
           child: Container(
-            padding: EdgeInsets.symmetric(vertical: 7, horizontal: 15),
-            margin: EdgeInsets.only(bottom: 10),
+            padding: const EdgeInsets.symmetric(vertical: 7, horizontal: 15),
+            margin: const EdgeInsets.only(bottom: 10),
             decoration: BoxDecoration(
                 color: AppColors.primaryGreen,
                 borderRadius: BorderRadius.circular(5)),

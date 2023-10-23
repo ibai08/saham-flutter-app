@@ -10,7 +10,7 @@ class RoundedRectangleBorderParser {
     final BorderRadius borderRadius = rectangleBorder.borderRadius as BorderRadius;
     final Map<String, dynamic> map = {
       "side": exportBorderSide(rectangleBorder.side),
-      "borderRadius": "${exportBorderRadius(borderRadius)}"
+      "borderRadius": exportBorderRadius(borderRadius)
     };
     return map;
   }

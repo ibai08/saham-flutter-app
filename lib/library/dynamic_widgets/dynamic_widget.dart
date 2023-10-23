@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_if_null_operators, body_might_complete_normally_nullable
+
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
@@ -110,7 +112,7 @@ class DynamicWidgetBuilder {
   }
 
   static Widget? build(
-      String json, BuildContext buildContext, ClickListener listener) {
+      String json, BuildContext buildContext, ClickListener? listener) {
     
     try {
     initDefaultParsersIfNess();
@@ -119,10 +121,7 @@ class DynamicWidgetBuilder {
         listener == null ? NonResponseWidgetClickListener() : listener;
     var widget = buildFromMap(map, buildContext, _listener);
     return widget;
-    }catch(e, stack) {
-      print("e: $e");
-      print("stack: $stack");
-    }
+    }catch(_) {}
   }
 
   static Widget? buildFromMap(Map<String, dynamic>? map,
@@ -220,6 +219,5 @@ class NonResponseWidgetClickListener implements ClickListener {
   @override
   void onClicked(dynamic event) {
     log.info("receiver click event: " + event!);
-    print("receiver click event: " + event);
   }
 }

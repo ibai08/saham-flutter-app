@@ -1,3 +1,5 @@
+// ignore_for_file: unnecessary_null_in_if_null_operators
+
 import 'package:flutter/material.dart';
 
 import '../dynamic_widget.dart';
@@ -11,7 +13,7 @@ class ContainerWidgetParser extends WidgetParser {
     Alignment? alignment = parseAlignment(map['alignment']);
     Color? color = parseHexColor(map['color']);
     BoxConstraints constraints = parseBoxConstraints(map['constraints']);
-    //TODO: dekorasi nya perlu di koreksi
+    //TODOs: dekorasi nya perlu di koreksi
     EdgeInsetsGeometry? margin = parseEdgeInsetsGeometry(map['margin']);
     EdgeInsetsGeometry? padding = parseEdgeInsetsGeometry(map['padding']);
     Map<String, dynamic>? childMap = map['child'];

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import '../../constants/app_colors.dart';
 
 class Info extends StatefulWidget {
-  Info({
+  const Info({Key? key, 
     this.marginTop,
     this.title,
     this.desc,
@@ -12,7 +12,7 @@ class Info extends StatefulWidget {
     this.caption,
     this.colorCaption,
     @required this.onTap,
-  });
+  }) : super(key: key);
   final double? marginTop;
   final String? title;
   final String? desc;

@@ -10,18 +10,16 @@ import 'package:get/get.dart' as Get;
 import 'package:http_parser/http_parser.dart';
 import 'package:image/image.dart';
 import 'package:intl/intl.dart';
-import '../../controller/appStatesController.dart';
+import '../controller/app_state_controller.dart';
 import '../../core/analytics.dart';
-import '../../core/cachefactory.dart';
+import '../core/cache_factory.dart';
 import '../../core/config.dart';
-import '../../core/firebasecm.dart';
-import '../../core/getStorage.dart';
+import '../core/firebase_cm.dart';
+import '../core/get_storage.dart';
 import '../../core/http.dart';
 import '../../core/string.dart';
 import '../../models/entities/user.dart';
-import '../controller/homeTabController.dart';
-import '../controller/newSignalController.dart';
-import '../controller/signalTabController.dart';
+import '../controller/home_tab_controller.dart';
 
 class UserModel {
   UserModel._privateConstructor();
@@ -202,6 +200,9 @@ class UserModel {
       bool result = await updateCfgAsync("token", token);
       bool crd = await updateCfgAsync("crd", credential);
       bool upduser = await updateCfgAsync("usrdat", userJson);
+      String? usrdat = await getCfgAsync("usrdat");
+      Map? uers = await jsonDecode(usrdat!);
+      print("uerdsss: $uers");
       print("resultss: $result");
       print("CRDSSSSS: $crd");
       print("upduserrrrr: $upduser");
@@ -232,7 +233,7 @@ class UserModel {
           appStateController.setAppState(Operation.pushNamed,
               {"route": "/forms/login", "arguments": arguments});
         }
-      } else if (appStateController.users.value.verify!) {
+      } else if (!appStateController.users.value.verify!) {
         appStateController
             .setAppState(Operation.pushNamed, {"route": "/forms/login"});
       }
@@ -276,7 +277,6 @@ class UserModel {
 
   Future<bool> editProfile(UserInfo user) async {
     bool isLogin = hasLogin();
-    Response res;
     Map data = {};
     if (!user.isProfileComplete()) {
       throw Exception("PROFILE_IS_NOT_COMPLETE");
@@ -289,14 +289,21 @@ class UserModel {
     int i = 0;
     do {
       i++;
-      Dio dio = Dio(); // with default Options
-      dio.options.connectTimeout = const Duration(milliseconds: 5000); //5s
-      dio.options.receiveTimeout = const Duration(milliseconds: 3000);
-      String? token = await getUserToken();
-      dio.options.headers = {"Authorization": "Bearer " + token!};
-      res = await dio.post(getHostName() + "/traders/api/v1/user/edit/profile/",
-          data: user.toMap());
-      data = res.data;
+      // Dio dio = Dio(); // with default Options
+      // dio.options.connectTimeout = const Duration(milliseconds: 5000); //5s
+      // dio.options.receiveTimeout = const Duration(milliseconds: 3000);
+      // String? token = await getUserToken();
+      // print("token: $token");
+      // // dio.options.headers = {"Authorization": "Bearer " + token!};
+      // res = await dio.post(getHostName() + "/traders/api/v1/user/edit/profile/", data: user.toMap());
+      // print("userrss: ${user.toMap()}");
+      // data = res.data;
+      try {
+        data = await TF2Request.authorizeRequest(url: getHostName() + "/traders/api/v1/user/edit/profile/", postParam: user.toMap(), method: 'POST');
+      } catch(eroor, stack) {
+        print(stack);
+      }
+      
       if (data.containsKey("error") &&
           data["error"] == "UnauthorizedError" &&
           i == 1) {
@@ -305,7 +312,6 @@ class UserModel {
       }
       break;
     } while (i < 2);
-
     if (data.containsKey("error")) {
       throw Exception("${data["error"]}: ${data["message"]}");
     }
@@ -402,7 +408,7 @@ class UserModel {
       appStateController.setAppState(Operation.clearState, null);
       homeTabController.onRefresh();
       newHomeTabController.tab.value = HomeTab.home;
-      newHomeTabController.tabController.animateTo(0,duration: Duration(milliseconds: 200),curve:Curves.easeIn);
+      newHomeTabController.tabController.animateTo(0,duration: const Duration(milliseconds: 200),curve:Curves.easeIn);
       await FCM.instance.deleteInstanceID();
       // Get.Get.delete<HomeTabController>().then((value) => Get.Get.put(HomeTabController()));
       // Get.Get.delete<SignalDashboardController>().then((value) => Get.Get.put(SignalDashboardController()));
@@ -527,6 +533,8 @@ class UserModel {
     dio.options.connectTimeout = const Duration(milliseconds: 10000); //5s
     dio.options.receiveTimeout = const Duration(milliseconds: 30000);
 
+    print("PROSESSSSSSS REGIST1");
+
     Response res =
         await dio.post(getHostName() + "/traders/api/v2/user/register/", data: {
       "email": email.replaceAll(' ', ''),
@@ -539,22 +547,32 @@ class UserModel {
       "referrer": await getCfgAsync(ConfigKey.installReferrer),
       "aff": await getCfgAsync(ConfigKey.installAff),
     });
+    print("PROSESSSSSSS REGIST2");
     if (res.data is Map) {
+      print("PROSESSSSSSS REGIST3");
       if (res.data.containsKey("error") && res.data.containsKey("message")) {
+        print("PROSESSSSSSS REGIST3.1");
         throw Exception("${res.data["error"]}: ${res.data["message"]}");
       }
+      print("PROSESSSSSSS REGIST4");
       if (!res.data.containsKey("error") &&
           res.data.containsKey("message") &&
           res.data["message"] is Map) {
+        print("PROSESSSSSSS REGIST4.1");
         Map data = res.data["message"];
+        print("PROSESSSSSSS REGIST4.2");
         if (!data.containsKey("error") &&
             data.containsKey("result") &&
             data.containsKey("enc") &&
             data.containsKey("user")) {
+              print("PROSESSSSSSS REGIST4.2.1");
           await updateCfgAsync(ConfigKey.installAff, "");
+          print("PROSESSSSSSS REGIST4.2.2");
           bool ul = await setUserLogin(
               data["result"], data["enc"], data["user"],
               arguments: arguments);
+          print("-0-0-0-0-0-0-0-0-0-0-0-0-0-0-0$ul-0-0-0-0-0-0-0-0-0-0-0-");
+          print("PROSESSSSSSS REGIST4.2.3");
           if (ul) {
             firebaseAnalytics
                 .setUserId(id: '${jsonDecode(data["user"])["id"]}')
@@ -563,13 +581,15 @@ class UserModel {
                   signUpMethod: token == "" ? "Email" : "Google");
             });
           }
+          print("PROSESSSSSSS REGIST4.2.4");
           return true;
         } else {
+          print("PROSESSSSSSS REGIST4.3");
           throw Exception("OUTPUT_PROSES_PENDAFTARAN_TIDAK_DIKETAHUI");
         }
       }
     }
-
+    print("PROSESSSSSSS REGIST4.4");
     return true;
   }
 

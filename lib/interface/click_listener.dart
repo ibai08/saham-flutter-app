@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:saham_01_app/function/launch_url.dart';
 import 'package:saham_01_app/models/ois.dart';
+import 'package:saham_01_app/views/widgets/get_alert.dart';
 
 import '../library/dynamic_widgets/dynamic_widget.dart';
 
@@ -19,6 +20,8 @@ class DefaultClickListener implements ClickListener {
     var channelId = event['channelId'];
     var actionName = event['actionName'];
     var stateName = event['stateName'];
+    var alertType = event['alertType'];
+    var alertMessage = event['alertMessage'];
     switch (eventType) {
       case 'routing':
         routing(routeName, routeType, arguments);
@@ -30,7 +33,21 @@ class DefaultClickListener implements ClickListener {
       case 'logAndPush':
         logAndPush(channelId, actionName, stateName, routeName, arguments);
         break; 
+      case 'showAlert':
+        showAlert(alertType, alertMessage);
+        break;
     }
+  }
+
+  showAlert(String alertType, String? alertMessage) {
+    dynamic value;
+    DialogController dialogController = Get.find();
+    switch(alertType) {
+      case 'comingSoon':
+        value = dialogController.setProgress(LoadingState.info, "Coming Soon",  null, null, null);
+        break;
+    }
+    return value;
   }
 
   routing(String routeName, String routeType, dynamic argument) {

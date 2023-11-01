@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_if_null_operators, body_might_complete_normally_nullable
+// ignore_for_file: prefer_if_null_operators, body_might_complete_normally_nullable, avoid_print
 
 import 'dart:convert';
 
@@ -121,7 +121,10 @@ class DynamicWidgetBuilder {
         listener == null ? NonResponseWidgetClickListener() : listener;
     var widget = buildFromMap(map, buildContext, _listener);
     return widget;
-    }catch(_) {}
+    }catch(eror, stack) {
+      print("errorr: $eror");
+      print(stack);
+    }
   }
 
   static Widget? buildFromMap(Map<String, dynamic>? map,

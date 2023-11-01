@@ -215,7 +215,7 @@ class AddNewSignal extends StatelessWidget {
         dialog = true;
 
         // DialogLoading dlg = DialogLoading();
-        dialogController.setProgress(LoadingState.progress, "Mohon Tunggu");
+        dialogController.setProgress(LoadingState.progress, "Mohon Tunggu", null, null, null);
         int signalid = 0;
         removeFocus(context);
         // showDialog(
@@ -230,7 +230,7 @@ class AddNewSignal extends StatelessWidget {
         );
 
         Get.back();
-        await dialogController.setProgress(LoadingState.success, "Signal Berhasil Dibuat");
+        await dialogController.setProgress(LoadingState.success, "Signal Berhasil Dibuat", null, null, null);
         await Future.delayed(const Duration(seconds: 0)).then((_) {
           if (signalid > 0) {
             try {
@@ -284,7 +284,7 @@ class AddNewSignal extends StatelessWidget {
         Get.back();
       }
       // showAlert(context, LoadingState.error, e.toString());
-      dialogController.setProgress(LoadingState.error, e.toString());
+      dialogController.setProgress(LoadingState.error, e.toString(), null, null, null);
     }
   }
   

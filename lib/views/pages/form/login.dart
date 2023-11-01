@@ -91,7 +91,7 @@ class LoginFormController extends GetxController {
 
   Future<void> performLogin(BuildContext ctx) async {
     removeFocus(ctx);
-    dialogController.setProgress(LoadingState.progress, "Mohon Tunggu");
+    dialogController.setProgress(LoadingState.progress, "Mohon Tunggu", null, null, null);
     try {
       String email = emailController.text;
       String password = passwordController.text;
@@ -141,7 +141,7 @@ class LoginFormController extends GetxController {
             newHomeTabController.tab.value = HomeTab.home;
             newHomeTabController.tabController.animateTo(0,duration: const Duration(milliseconds: 200),curve:Curves.easeIn);
           }
-          dialogController.setProgress(LoadingState.success, "Login Berhasil");
+          dialogController.setProgress(LoadingState.success, "Login Berhasil", null, null, null);
           emailController.text = "";
           passwordController.text = "";
         }
@@ -164,7 +164,7 @@ class LoginFormController extends GetxController {
       } else {
         // showAlert(
         //     context, LoadingState.error, translateFromPattern(x.toString()));
-        dialogController.setProgress(LoadingState.error, translateFromPattern(ex.toString()));
+        dialogController.setProgress(LoadingState.error, translateFromPattern(ex.toString()), null, null, null);
       }
     }
   }

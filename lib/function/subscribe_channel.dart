@@ -22,13 +22,13 @@ Future<void> subscribe(ChannelCardSlim channel, BuildContext context,
   //     builder: (context) {
   //       return dlg;
   //     });
-  dialogController.setProgress(LoadingState.progress, "Mohon Tunggu");
+  dialogController.setProgress(LoadingState.progress, "Mohon Tunggu",  null, null, null);
   try {
     /// TODOs: Ganti alert jadi GetALert
     await OisModel.instance.subscribe(channel);
     Get.back();
     // showAlert(context, LoadingState.success, "Subscribe Berhasil");
-    dialogController.setProgress(LoadingState.success, "Subscribe Berhasil");
+    dialogController.setProgress(LoadingState.success, "Subscribe Berhasil", null, null, null);
     // dlg.setProgress(LoadingState.success, "Subscribe Berhasil");
     // await Future.delayed(Duration(seconds: 2));
   } catch (xerr) {
@@ -43,7 +43,7 @@ Future<void> subscribe(ChannelCardSlim channel, BuildContext context,
       refreshController?.requestRefresh(needMove: false);
     } else {
       Get.back();
-      dialogController.setProgress(LoadingState.error, translateFromPattern(xerr.toString()));
+      dialogController.setProgress(LoadingState.error, translateFromPattern(xerr.toString()), null, null, null);
       // showAlert(
       //     context, LoadingState.error, translateFromPattern(xerr.toString()));
       // dlg.setError(xerr.message);
@@ -76,7 +76,7 @@ Future<void> confirmPayment(ChannelCardSlim channel, BuildContext context,
           });
     } else {
       // DialogLoading dlg = DialogLoading();
-      dialogController.setProgress(LoadingState.progress, "Mohon Tunggu");
+      dialogController.setProgress(LoadingState.progress, "Mohon Tunggu", null, null, null);
       try {
         // showDialog(
         //     context: context,
@@ -95,7 +95,7 @@ Future<void> confirmPayment(ChannelCardSlim channel, BuildContext context,
       } catch (ex) {
         // Navigator.pop(context);
         Get.back();
-        dialogController.setProgress(LoadingState.error, translateFromPattern(ex.toString()));
+        dialogController.setProgress(LoadingState.error, translateFromPattern(ex.toString()), null, null, null);
         // showAlert(
         //     context, LoadingState.error, translateFromPattern(ex.toString()));
       }
@@ -136,7 +136,7 @@ subcribeChannel(ChannelCardSlim channels, BuildContext context,
     if (lanjut == 0) return;
 
     // DialogLoading dlg = DialogLoading();
-    dialogController.setProgress(LoadingState.progress, "Mohon Tunggu");
+    dialogController.setProgress(LoadingState.progress, "Mohon Tunggu", null, null, null);
     try {
       // showDialog(
       //     context: context,
@@ -161,7 +161,7 @@ subcribeChannel(ChannelCardSlim channels, BuildContext context,
       Get.back();
       // showAlert(
       //     context, LoadingState.success, "Berhenti berlangganan berhasil");
-      dialogController.setProgress(LoadingState.success, "Berhenti berlangganan berhasil");
+      dialogController.setProgress(LoadingState.success, "Berhenti berlangganan berhasil", null, null, null);
       // await Future.delayed(const Duration(seconds: 2));
       Get.back();
       // dlg.setProgress(LoadingState.success, "Berhenti berlangganan berhasil");
@@ -171,7 +171,7 @@ subcribeChannel(ChannelCardSlim channels, BuildContext context,
       // showAlert(
       //     context, LoadingState.error, translateFromPattern(xerr.toString()));
       Get.back();
-      dialogController.setProgress(LoadingState.error, translateFromPattern(xerr.toString()));
+      dialogController.setProgress(LoadingState.error, translateFromPattern(xerr.toString()), null, null, null);
       // dlg.setError(xerr.message);
       // await Future.delayed(Duration(seconds: 2));
       // Navigator.pop(context);

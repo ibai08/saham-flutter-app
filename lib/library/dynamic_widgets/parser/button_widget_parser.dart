@@ -108,9 +108,8 @@ class ElevatedButtonParser extends WidgetParser {
   @override
   Widget parse(Map<String, dynamic> map, BuildContext buildContext,
       ClickListener? listener) {
-    String? clickEvent =
+    dynamic clickEvent =
         map.containsKey("click_event") ? map['click_event'] : "";
-
     return ElevatedButton(
       onPressed: () {
         listener!.onClicked(clickEvent);

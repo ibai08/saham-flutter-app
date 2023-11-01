@@ -20,7 +20,8 @@ class _RecentSignalListWidget extends State<RecentSignalListWidget> {
         child: Column(
           children: List.generate(
             signal?.length ?? 0,
-            (i) => SignalDetailWithHeaderNew(
+            (i) { 
+              return SignalDetailWithHeaderNew(
               subscriber: signal?[i].channel?.subscriber,
               level: medal,
               medals: signal?[i].channel?.medals,
@@ -31,8 +32,8 @@ class _RecentSignalListWidget extends State<RecentSignalListWidget> {
               symbol: signal?[i].symbol,
               createdAt: signal?[i].createdAt,
               profit: signal?[i].profit,
-            ),
-          ),
+            );
+  }),
         ),
       ),
     );

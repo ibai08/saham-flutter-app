@@ -45,9 +45,7 @@ Future<bool> updateCfgAsync(String id, String params) async {
 Future<String?> getCfgAsync(String id) async {
   try {
     SharedBoxHelper? boxs = SharedHelper.instance.getBox(BoxName.config);
-    // print(boxs?.init());
     String data = await boxs!.get(id);
-    print("datass: $data");
     return data;
   } catch (e) {
     print("GetCfgAsync Error");

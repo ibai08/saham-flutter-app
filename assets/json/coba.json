@@ -56,7 +56,7 @@
                                         "child": {
                                             "type": "AssetImage",
                                             "name": "assets/Lotus Logo.png",
-                                            "width": 16.0,
+                                            "width": 61.0,
                                             "height": 46.0
                                         }
                                     }
@@ -108,7 +108,10 @@
                                             "padding": "0.0,0.0,15.0,0.0",
                                             "child": {
                                                 "type": "ElevatedButton",
-                                                "click_event": "",
+                                                "click_event": {
+                                                    "eventType": "showAlert",
+                                                    "alertType": "comingSoon"
+                                                },
                                                 "primary": "#FFC6EC29",
                                                 "child": {
                                                     "type": "Row",
@@ -301,10 +304,8 @@
                                         "child": {
                                             "type": "TextButton",
                                             "click_event": {
-                                                "eventType": "routing",
-                                                "routeType": "pushNamed",
-                                                "routeName": "/dsc/channels/",
-                                                "arguments": 90220
+                                                "eventType": "showAlert",
+                                                "alertType": "comingSoon"
                                             },
                                             "backgroundColor": "#FF350699",
                                             "tapTargetSize": "shrinkWrap",
@@ -594,6 +595,10 @@
                                         "width": 9999999999.0,
                                         "child": {
                                             "type": "TextButton",
+                                            "click_event": {
+                                                "eventType": "showAlert",
+                                                "alertType": "comingSoon"
+                                            },
                                             "backgroundColor": "#FF350699",
                                             "tapTargetSize": "shrinkWrap",
                                             "padding": "10.0,10.0,10.0,10.0",
@@ -738,6 +743,10 @@
                                             "type": "TextButton",
                                             "backgroundColor": "#FF350699",
                                             "tapTargetSize": "shrinkWrap",
+                                            "click_event": {
+                                                "eventType": "showAlert",
+                                                "alertType": "comingSoon"
+                                            },
                                             "padding": "10.0,10.0,10.0,10.0",
                                             "borderRadius": "4.0,4.0,4.0,4.0",
                                             "child": {
@@ -880,6 +889,10 @@
                                             "type": "TextButton",
                                             "backgroundColor": "#FF350699",
                                             "tapTargetSize": "shrinkWrap",
+                                            "click_event": {
+                                                "eventType": "showAlert",
+                                                "alertType": "comingSoon"
+                                            },
                                             "padding": "10.0,10.0,10.0,10.0",
                                             "borderRadius": "4.0,4.0,4.0,4.0",
                                             "child": {
@@ -1022,6 +1035,10 @@
                                             "type": "TextButton",
                                             "backgroundColor": "#FF350699",
                                             "tapTargetSize": "shrinkWrap",
+                                            "click_event": {
+                                                "eventType": "showAlert",
+                                                "alertType": "comingSoon"
+                                            },
                                             "padding": "10.0,10.0,10.0,10.0",
                                             "borderRadius": "4.0,4.0,4.0,4.0",
                                             "child": {

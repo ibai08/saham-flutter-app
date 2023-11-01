@@ -133,19 +133,23 @@ class SignalModel {
         Map? postParam = {"page": page};
         // print("postparam: ${UserModel.instance.hasLogin()}");
         if (UserModel.instance.hasLogin() == true) {
+          print("kena ini");
           fetchData = await TF2Request.authorizeRequest(
               url: url, method: 'POST', postParam: postParam);
         } else {
+          print("kena ini 2");
           fetchData = await TF2Request.request(
               url: url, method: 'POST', postParam: postParam);
         }
+        print("------------------------");
+        print("fetchdata: ${fetchData["message"]}");
         return fetchData["message"];
       }, refreshSecond);
       // log(data.toString(), name: "myLog");
-
       if (data is List) {
         return data
-            .map((signalMap) => SignalInfo?.createObject(
+            .map((signalMap) { 
+              return SignalInfo?.createObject(
                   active: int?.tryParse(signalMap["active"].toString()) ?? 0,
                   caption: signalMap?["caption"],
                   channelId:
@@ -174,7 +178,7 @@ class SignalModel {
                       double?.tryParse(signalMap["pips"].toString()) ?? 0.00,
                   sl: double?.tryParse(signalMap["sl"].toString()) ?? 0.00,
                   tp: double?.tryParse(signalMap["tp"].toString()) ?? 0.00,
-                  subs: int?.tryParse(signalMap["subs"].toString()) ?? 0,
+                  subs: int?.tryParse(signalMap["subscount"].toString()) ?? 0,
                   symbol: signalMap?["symbol"],
                   title: signalMap?["title"],
                   userid: int?.tryParse(signalMap["userid"].toString()) ?? 0,
@@ -183,7 +187,7 @@ class SignalModel {
                   medals: int?.tryParse(signalMap["medals"].toString()) ?? 0,
                   point:
                       double?.tryParse(signalMap["point"].toString()) ?? 0.00,
-                ))
+                );})
             .toList();
       }
     } catch (xerr) {

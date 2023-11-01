@@ -193,7 +193,7 @@ class UploadBtn extends StatelessWidget {
 
     // DialogLoading dlg = DialogLoading();
     try {
-      dialogController.setProgress(LoadingState.progress, "Mohon Tunggu");
+      dialogController.setProgress(LoadingState.progress, "Mohon Tunggu", null, null, null);
       // showDialog(
       //     barrierDismissible: false,
       //     context: Get.context!,
@@ -206,7 +206,7 @@ class UploadBtn extends StatelessWidget {
         // Navigator.pushNamed(context, "/more/profile");
         // Get.toNamed('/more/profile');
         // showAlert(Get.context!, LoadingState.success, "Profile berhasil diperbarui");
-        dialogController.setProgress(LoadingState.success, "Profile berhasil diperbarui");
+        dialogController.setProgress(LoadingState.success, "Profile berhasil diperbarui", null, null, null);
         profileController.image.value = null;
       }
     } catch (e) {
@@ -214,7 +214,7 @@ class UploadBtn extends StatelessWidget {
       Get.back();
       // showAlert(
       //     Get.context!, LoadingState.error, translateFromPattern(e.toString()));
-      dialogController.setProgress(LoadingState.error, translateFromPattern(e.toString()));
+      dialogController.setProgress(LoadingState.error, translateFromPattern(e.toString()), null, null, null);
     }
   }
 

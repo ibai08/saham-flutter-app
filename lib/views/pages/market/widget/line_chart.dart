@@ -82,7 +82,6 @@ class _ChartSahamState extends State<ChartSaham> {
         }).toList();
       });
     } );
-    print("ini spots: $_spots");
   }
 
   @override

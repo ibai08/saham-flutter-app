@@ -288,13 +288,13 @@ class NewSignalController extends GetxController {
         //     return dlg;
         //   }
         // );
-        dialogController.setProgress(LoadingState.progress, "Signal berhasil dibuat");
+        dialogController.setProgress(LoadingState.progress, "Signal berhasil dibuat", null, null, null);
         signalid = await SignalModel.instance.createSignal(
           channelid: data["isSelected"], cmd: cmd, price: price, sl: sl, tp: tp, symbol: data["pair"], hour: int.parse("10")
         );
 
         Get.back();
-        await dialogController.setProgress(LoadingState.success, "Signal berhasil dibuat");
+        await dialogController.setProgress(LoadingState.success, "Signal berhasil dibuat", null, null, null);
         if (signalid > 0) {
           Get.toNamed('/dsc/signal', arguments: {"signalId": signalid});
         }
@@ -321,7 +321,7 @@ class NewSignalController extends GetxController {
       }
       Get.back();
       // showAlert(context, LoadingState.error, e.toString());
-      dialogController.setProgress(LoadingState.error, e.toString());
+      dialogController.setProgress(LoadingState.error, e.toString(), null, null, null);
     }
   }
 

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:permission_handler/permission_handler.dart';
+import 'package:saham_01_app/constants/app_colors.dart';
 
 import '../../models/user.dart';
 
@@ -177,7 +179,7 @@ class DialogController extends GetxController {
   //   }
   // }
  
-  setProgress(LoadingState status, String caps) {
+  setProgress(LoadingState status, String caps, String? buttonText, bool? onCustom, dynamic action) {
     Image iconSt;
     switch (status) {
       case LoadingState.progress: 
@@ -326,6 +328,31 @@ class DialogController extends GetxController {
           iconSt: iconSt
         );
         return Get.defaultDialog(
+          confirm: buttonText != null && onCustom != false ? GestureDetector(
+            onTap: () {
+              if (buttonText == "Izinkan akses") {
+                openAppSettings();
+              }
+            },
+            child: Container(
+              alignment: Alignment.center,
+              width: double.infinity,
+              padding: const EdgeInsets.symmetric(vertical: 7),
+              margin: const EdgeInsets.only(bottom: 10),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(10),
+                color: AppColors.purplePrimary
+              ),
+              child: Text(
+                buttonText,
+                style: TextStyle(
+                  fontWeight: FontWeight.w600,
+                  fontSize: 16,
+                  color: AppColors.white
+                ),
+              ),
+            ),
+          ) : null,
           content: Container(
             decoration: BoxDecoration(
               color: caption.value.backgroundColor,
@@ -349,9 +376,9 @@ class DialogController extends GetxController {
                         fontWeight: FontWeight.w600,
                         color: caption.value.fontColor),
                   ),
-                  const SizedBox(
-                    height: 10,
-                  ),
+                  // const SizedBox(
+                  //   height: 10,
+                  // ),
                 ],
               ),
             ),

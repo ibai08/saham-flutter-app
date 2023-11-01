@@ -51,14 +51,14 @@ class VerifyEmailController extends GetxController {
     //     builder: (ctx) {
     //       return dlg;
     //     });
-    dialogController.setProgress(alert.LoadingState.progress, "Mohon Tunggu");
+    dialogController.setProgress(alert.LoadingState.progress, "Mohon Tunggu", null, null, null);
     try {
       if (await UserModel.instance.resendVerifyEmailAuthorized()) {
         // Navigator.pop(ctx);
         Get.back();
         // showAlert(ctx, LoadingState.success,
         //     translateFromPattern("RESEND_VERIFY_EMAIL_SUCCESS"));
-        dialogController.setProgress(alert.LoadingState.success, translateFromPattern("RESEND_VERIFY_EMAIL_SUCCESS"));
+        dialogController.setProgress(alert.LoadingState.success, translateFromPattern("RESEND_VERIFY_EMAIL_SUCCESS"), null, null, null);
       } else {
         throw Exception("RESEND_VERIFY_EMAIL_FAILED");
       }
@@ -68,7 +68,7 @@ class VerifyEmailController extends GetxController {
       Get.back();
       // TODOs: Ganti getalert
       // showAlert(ctx, LoadingState.error, translateFromPattern(ex.toString()));
-      dialogController.setProgress(alert.LoadingState.error, translateFromPattern(ex.toString()));
+      dialogController.setProgress(alert.LoadingState.error, translateFromPattern(ex.toString()), null, null, null);
     }
   }
 
@@ -118,7 +118,7 @@ class VerifyEmailController extends GetxController {
         homeTabController.onRefresh();
         newHomeTabController.tab.value = HomeTab.home;
         newHomeTabController.tabController.animateTo(0,duration: const Duration(milliseconds: 200),curve:Curves.easeIn);
-        dialogController.setProgress(alert.LoadingState.success, "Login Berhasil");
+        dialogController.setProgress(alert.LoadingState.success, "Login Berhasil", null, null, null);
         return;
       }
 
@@ -136,7 +136,7 @@ class VerifyEmailController extends GetxController {
           if (await UserModel.instance.verifyEmail(token: token!)) {
             Get.back();
             // TODOs: ganti GetALert
-            await dialogController.setProgress(alert.LoadingState.success, translateFromPattern("VERIFY_EMAIL_SUCCESS"));
+            await dialogController.setProgress(alert.LoadingState.success, translateFromPattern("VERIFY_EMAIL_SUCCESS"), null, null, null);
             Get.toNamed("/forms/afterverify");
             // showAlert(Get.context!, LoadingState.success,
             //     translateFromPattern("VERIFY_EMAIL_SUCCESS"), thens: (x) {
@@ -147,7 +147,7 @@ class VerifyEmailController extends GetxController {
           }
         } catch (ex) {
           Get.back();
-          dialogController.setProgress(alert.LoadingState.error, translateFromPattern(ex.toString()));
+          dialogController.setProgress(alert.LoadingState.error, translateFromPattern(ex.toString()), null, null, null);
           // showAlert(Get.context!, LoadingState.error,
           //     translateFromPattern(ex.toString()));
         }

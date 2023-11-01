@@ -101,7 +101,7 @@ class EditProfileFormController extends GetxController {
     //     builder: (context) {
     //       return dlg;
     //     });
-    dialogController.setProgress(LoadingState.progress, "Mohon Tunggu");
+    dialogController.setProgress(LoadingState.progress, "Mohon Tunggu", null, null, null);
     UserInfo editProf = UserInfo.clone(appStateController.usersEdit.value);
     editProf.fullname = fullnameCon.text;
     editProf.phone = phoneCon.text;
@@ -117,7 +117,7 @@ class EditProfileFormController extends GetxController {
       result = await UserModel.instance.editProfile(editProf);
       if (result) {
         Get.back();
-        await dialogController.setProgress(LoadingState.success, "Update profile berhasil");
+        await dialogController.setProgress(LoadingState.success, "Update profile berhasil", null, null, null);
         Get.until((route) => route.isFirst || route.settings.name == '/home');
         newHomeTabController.tab.value = HomeTab.home;
         newHomeTabController.tabController.animateTo(0,duration: const Duration(milliseconds: 200),curve:Curves.easeIn);
@@ -125,7 +125,7 @@ class EditProfileFormController extends GetxController {
       }
     } catch (e) {
       Get.back();
-      dialogController.setProgress(LoadingState.error, e.toString());
+      dialogController.setProgress(LoadingState.error, e.toString(), null, null, null);
     }
   }
 

@@ -61,7 +61,7 @@ class EditPasswordController extends GetxController {
       //     builder: (context) {
       //       return DialogLoading();
       //     });
-      dialogController.setProgress(LoadingState.progress, "Mohon Tunggu");
+      dialogController.setProgress(LoadingState.progress, "Mohon Tunggu", null, null, null);
 
       // gunakan do while untuk jaga" apakah token sudah expired...
       try {
@@ -72,7 +72,7 @@ class EditPasswordController extends GetxController {
           //     thens: (x) {
           //   Get.back(canPop: true);
           // });
-          await dialogController.setProgress(LoadingState.success, "SUKSES MERUBAH PASSWORD");
+          await dialogController.setProgress(LoadingState.success, "SUKSES MERUBAH PASSWORD", null, null, null);
           // showToast(context, "SUKSES_MERUBAH_PASSWORD", "CLOSE_TOAST");
           // await Future.delayed(const Duration(seconds: 2));
           Get.back();
@@ -80,7 +80,7 @@ class EditPasswordController extends GetxController {
         }
       } catch (xerr) {
         Get.back();
-        dialogController.setProgress(LoadingState.error, translateFromPattern(xerr.toString()));
+        dialogController.setProgress(LoadingState.error, translateFromPattern(xerr.toString()), null, null, null);
         // showAlert(
         //     context, LoadingState.error, translateFromPattern(xerr.toString()));
       }

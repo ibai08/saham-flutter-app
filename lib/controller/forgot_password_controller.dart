@@ -18,17 +18,17 @@ class ForgotPassController extends GetxController {
     valid.value = formKey.currentState!.validate();
     if (valid.value) {
       formKey.currentState!.save();
-      dialogController.setProgress(LoadingState.progress, "Mohon Tunggu");
+      dialogController.setProgress(LoadingState.progress, "Mohon Tunggu", null, null, null);
       try {
         if (await UserModel.instance.resetPassword(data["email"])) {
           Get.back();
-          dialogController.setProgress(LoadingState.success, "Password berhasil direset. Silahkan untuk memeriksa email Anda");
+          dialogController.setProgress(LoadingState.success, "Password berhasil direset. Silahkan untuk memeriksa email Anda", null, null, null);
         } else {
           throw Exception("CONNECTION_FAILED");
         }
       } catch (x) {
         Get.back();
-        dialogController.setProgress(LoadingState.error, translateFromPattern(x.toString()));
+        dialogController.setProgress(LoadingState.error, translateFromPattern(x.toString()), null, null, null);
       }
     }
   }

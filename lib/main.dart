@@ -18,7 +18,6 @@ import 'package:saham_01_app/views/pages/more/profile/forms/edit_password.dart';
 import 'package:saham_01_app/views/pages/more/profile/profile.dart';
 import 'package:saham_01_app/views/pages/refresh_page.dart';
 import 'package:saham_01_app/views/pages/search/search_domisili.dart';
-import '../../config/tab_list.dart';
 import '../../constants/app_colors.dart';
 import 'controller/app_state_controller.dart';
 import 'controller/growth_chart_controller.dart';
@@ -218,9 +217,66 @@ class NewHomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    double fontSizes(BuildContext context) {
+      var size = MediaQuery.of(context).size.width;
+      if (size <= 360.0) {
+        return 9;
+      }
+      if (size <= 600) {
+        return 11;
+      }
+      if (size <= 900) {
+        return 13;
+      }
+      if (size > 900) {
+        return 15;
+      }
+      return 0;
+    }
+
+    List<Tab> tabViews = [
+      Tab(
+        icon: Image.asset(
+          'assets/icon/bottomNavBar/home.png',
+          width: 24,
+          height: 24,
+        ),
+        child: Text("Beranda", style: TextStyle(fontSize: fontSizes(context))),
+      ),
+      Tab(
+        icon: Image.asset(
+          'assets/icon/bottomNavBar/compass 1.png',
+          width: 24,
+          height: 24,
+        ),
+        child: Text("Jelajahi", style: TextStyle(fontSize: fontSizes(context))),
+      ),
+      Tab(
+        icon: Image.asset(
+          'assets/icon/bottomNavBar/plus-circle 1.png',
+          width: 24,
+          height: 24,
+        ),
+        child: Text("Signal", style: TextStyle(fontSize: fontSizes(context))),
+      ),
+      Tab(
+        icon: Image.asset(
+          'assets/icon/bottomNavBar/bar-chart.png',
+          width: 24,
+          height: 24,
+        ),
+        child: Text("Market", style: TextStyle(fontSize: fontSizes(context))),
+      ),
+      Tab(
+        icon: Image.asset(
+          'assets/icon/bottomNavBar/user 1.png',
+          width: 24,
+          height: 24,
+        ),
+        child: Text("Profile", style: TextStyle(fontSize: fontSizes(context))),
+      ),
+    ];
       return Obx(() {
-        print("render ulang");
-        print("tabcontroller: ${newHomeTabController.tabController.index}");
           return WillPopScope(
             onWillPop: () async {
               if (newHomeTabController.tab.value == HomeTab.home) {
@@ -252,31 +308,29 @@ class NewHomePage extends StatelessWidget {
                     topRight: Radius.circular(16.0)
                   ),
                 ),
-                child: Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 4),
-                  child: TabBar(
-                    controller: newHomeTabController.tabController,
-                    labelColor: Colors.black,
-                    unselectedLabelColor: Colors.black,
-                    indicatorSize: TabBarIndicatorSize.tab,
-                    indicator: BoxDecoration(
-                      border: const Border(
-                        top: BorderSide(color: Color(0xFF350699), width: 3.0),
-                      ),
-                      gradient: LinearGradient(
-                        colors: [
-                          const Color(0xFF2E2AFF).withOpacity(0.1),
-                          const Color(0xFF2E2AFF).withOpacity(0),
-                        ],
-                        begin: Alignment.topCenter,
-                        end: Alignment.bottomCenter,
-                        stops: const [0.0, 1.0],
-                        tileMode: TileMode.clamp,
-                      ),
+                child: TabBar(
+                  controller: newHomeTabController.tabController,
+                  padding: const EdgeInsets.all(0),
+                  labelColor: Colors.black,
+                  unselectedLabelColor: Colors.black,
+                  indicatorSize: TabBarIndicatorSize.tab,
+                  indicator: BoxDecoration(
+                    border: const Border(
+                      top: BorderSide(color: Color(0xFF350699), width: 3.0),
                     ),
-                    tabs: tabViews,
-                    onTap: onTapItem,
+                    gradient: LinearGradient(
+                      colors: [
+                        const Color(0xFF2E2AFF).withOpacity(0.1),
+                        const Color(0xFF2E2AFF).withOpacity(0),
+                      ],
+                      begin: Alignment.topCenter,
+                      end: Alignment.bottomCenter,
+                      stops: const [0.0, 1.0],
+                      tileMode: TileMode.clamp,
+                    ),
                   ),
+                  tabs: tabViews,
+                  onTap: onTapItem,
                 ),
               ),
             ),

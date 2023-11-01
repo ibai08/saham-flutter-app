@@ -114,6 +114,7 @@ class ChannelModel {
           postParam: {"CHANNELID": channelid});
       return fetchData["message"];
     }, refreshSecond);
+    print("dataa: $v");
     ChannelCardSlim ccs = ChannelCardSlim.fromMap(v);
 
     return ccs;

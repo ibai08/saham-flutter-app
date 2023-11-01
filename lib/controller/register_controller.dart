@@ -67,7 +67,7 @@ class RegisterController extends GetxController {
         //     builder: (context) {
         //       return dlg;
         //     });
-        dialogController.setProgress(LoadingState.progress, "Mohon Tunggu");
+        dialogController.setProgress(LoadingState.progress, "Mohon Tunggu", null, null, null);
 
         bool result = await UserModel.instance.registerWithCity(
             token: token,
@@ -90,7 +90,7 @@ class RegisterController extends GetxController {
           //   LoadingState.success,
           //   "Pendaftaran berhasil, silahkan cek email Anda untuk meverifikasi email Anda",
           // );
-          dialogController.setProgress(LoadingState.success, "Pendaftaran berhasil, silahkan cek email Anda untuk memverifikasi email Anda");
+          dialogController.setProgress(LoadingState.success, "Pendaftaran berhasil, silahkan cek email Anda untuk memverifikasi email Anda", null, null, null);
         } else if (token != '') {
           // Navigator.popUntil(context, ModalRoute.withName("/home"));
           Get.until((route) => route.settings.name == '/home');
@@ -99,7 +99,7 @@ class RegisterController extends GetxController {
           //   LoadingState.success,
           //   "Pendaftaran berhasil",
           // );
-          dialogController.setProgress(LoadingState.success, "Pendaftaran berhasil");
+          dialogController.setProgress(LoadingState.success, "Pendaftaran berhasil", null, null, null);
           newHomeTabController.tab.value = HomeTab.home;
           newHomeTabController.tabController.animateTo(0,duration: const Duration(milliseconds: 200),curve:Curves.easeIn);
           // return true;
@@ -110,7 +110,7 @@ class RegisterController extends GetxController {
         // // Navigator.pop(context);
         // // showAlert(context, LoadingState.error, translateFromPattern(e.toString()));
         Get.back();
-        dialogController.setProgress(LoadingState.error, translateFromPattern(e.toString()));
+        dialogController.setProgress(LoadingState.error, translateFromPattern(e.toString()), null, null, null);
       }
       // return false;
     }

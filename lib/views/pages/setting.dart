@@ -60,7 +60,7 @@ class Setting extends GetView<AppStateController> {
           onTap: () {
             // Navigator.pushNamed(context, '/more/mrg');
             // showAlert(Get.context!, LoadingState.warning, "Coming Soon");
-            dialogController.setProgress(LoadingState.warning, "Coming Soon");
+            dialogController.setProgress(LoadingState.warning, "Coming Soon", null, null, null);
           },
           icon: Image.asset(
             // "assets/icon/brands/mrg.png",

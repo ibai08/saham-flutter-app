@@ -16,7 +16,7 @@ import '../widgets/list_item_profile.dart';
 //   _SettingState createState() => _SettingState();
 // }
 
-class Setting extends GetView<AppStateController> {
+class Setting extends StatelessWidget {
   final AppStateController appStateController = Get.find();
   final NewHomeTabController newHomeTabController = Get.find();
   final DialogController dialogController = Get.find();
@@ -47,6 +47,7 @@ class Setting extends GetView<AppStateController> {
           onTap: () {
             // Navigator.pushNamed(context, '/more/channel');
             Get.toNamed('/more/channel');
+            // dialogController.setProgress(LoadingState.info, "Coming Soon", null, null, null);
           },
           icon: Image.asset(
             "assets/icon/light/copy-signal.png",
@@ -60,7 +61,7 @@ class Setting extends GetView<AppStateController> {
           onTap: () {
             // Navigator.pushNamed(context, '/more/mrg');
             // showAlert(Get.context!, LoadingState.warning, "Coming Soon");
-            dialogController.setProgress(LoadingState.warning, "Coming Soon", null, null, null);
+            dialogController.setProgress(LoadingState.info, "Coming Soon", null, null, null);
           },
           icon: Image.asset(
             // "assets/icon/brands/mrg.png",
@@ -73,10 +74,12 @@ class Setting extends GetView<AppStateController> {
         ),
         ListItemSettings(
           context: Get.context,
-          // onTap: () {
-          //   // Navigator.pushNamed(context, '/more/askap');
-          //   showAlert(context, LoadingState.warning, "Coming Soon");
-          // },
+          onTap: () {
+            // Navigator.pushNamed(context, '/more/askap');
+            // showAlert(context, LoadingState.warning, "Coming Soon");
+            dialogController.setProgress(LoadingState.info, "Coming Soon", null, null, null);
+          },
+          
           icon: Image.asset(
             // "assets/icon/brands/mmb.png",
             'assets/logo-black.png',

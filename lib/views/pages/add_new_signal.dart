@@ -234,10 +234,17 @@ class AddNewSignal extends StatelessWidget {
         await Future.delayed(const Duration(seconds: 0)).then((_) {
           if (signalid > 0) {
             try {
+              controlle.symbolsCon.clear();
+              controlle.priceValue.clear();
+              controlle.stopLosValue.clear();
+              controlle.takeProfitValue.clear();
+              controlle.data.clear();
               //  Navigator.popUntil(context, ModalRoute.withName("/home"));
               Get.toNamed('/dsc/signal/', arguments: {
                 "signalId": signalid
               });
+              newHomeTabController.tab.value = HomeTab.home;
+          newHomeTabController.tabController.animateTo(0,duration: const Duration(milliseconds: 200),curve:Curves.easeIn);
             } catch(_) {
 
             }
@@ -245,14 +252,14 @@ class AddNewSignal extends StatelessWidget {
             // Get.toNamed('/dsc/signal/', arguments: signalid);
           }
         });
-        await Future.delayed(const Duration(seconds: 0)).then((value) {
-          controlle.symbolsCon.clear();
-          controlle.priceCon.clear();
-          controlle.slCon.clear();
-          controlle.tpCon.clear();
-          newHomeTabController.tab.value = HomeTab.home;
-          newHomeTabController.tabController.animateTo(0,duration: const Duration(milliseconds: 200),curve:Curves.easeIn);
-        } );
+        // await Future.delayed(const Duration(seconds: 0)).then((value) {
+        //   controlle.symbolsCon.clear();
+        //   controlle.priceCon.clear();
+        //   controlle.slCon.clear();
+        //   controlle.tpCon.clear();
+        //   newHomeTabController.tab.value = HomeTab.home;
+        //   newHomeTabController.tabController.animateTo(0,duration: const Duration(milliseconds: 200),curve:Curves.easeIn);
+        // } );
         
         // showAlert(context, LoadingState.success, "Signal berhasil dibuat", thens: (x) {
         //   appStateController.setAppState(Operation.bringToHome, HomeTab.home);
@@ -320,8 +327,12 @@ class AddNewSignal extends StatelessWidget {
       appBar: NavMain(
         currentPage: 'Buat Signal',
         backPage: () {
-          newHomeTabController.tab.value = HomeTab.home;
-          newHomeTabController.tabController.animateTo(0,duration: const Duration(milliseconds: 200),curve:Curves.easeIn);
+          if (ModalRoute.of(context)?.settings.name != "/home") {
+            Get.back();
+          } else {
+            newHomeTabController.tab.value = HomeTab.home;
+            newHomeTabController.tabController.animateTo(0,duration: const Duration(milliseconds: 200),curve:Curves.easeIn);
+          }
         },
       ),
       backgroundColor: AppColors.light,

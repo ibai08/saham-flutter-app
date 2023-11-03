@@ -1,7 +1,11 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:saham_01_app/constants/app_colors.dart';
+import 'package:saham_01_app/views/widgets/btn_block.dart';
+import 'package:saham_01_app/views/widgets/custom_dropdown_button.dart';
 
 import '../../models/user.dart';
 
@@ -29,10 +33,108 @@ class DialogController extends GetxController {
   ));
   // RxBool login = false.obs;
   // RxBool cekLog = false.obs;
+  RxBool cekLog = false.obs;
+  RxBool login = false.obs;
+  RxString errors = "".obs;
 
-  // cekLogin() {
-  //   if (cekLog.value)
-  // }
+  cekLogin() {
+    if (cekLog.value) {
+
+    }
+  }
+  dialogCabang(List<dynamic> users, Map? arguments) {
+    RxString? dropdownValue = "".obs;
+    dropdownValue.value = users[0]["id"].toString();
+
+    Future<bool> performLogin(List<dynamic> users) async {
+      for (int i = 0; i < users.length; i++) {
+        if (dropdownValue.value == users[i]["id"].toString()) {
+          String jwtToken = users[i]["result"];
+          String enc = users[i]["enc"];
+          Map user = users[i];
+          user.remove("result");
+          user.remove("enc");
+          bool ul = await UserModel.instance.setUserLogin(jwtToken, enc, jsonEncode(user), arguments: arguments);
+          if (ul) {
+            return true;
+          } else {
+            return false;
+          }
+        }
+      }
+      throw Exception("PLEASE_LOGIN_AGAIN");
+    }
+
+    return Get.defaultDialog(
+      middleText: "",
+      content: Container(
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(25),
+          color: Colors.transparent
+        ),
+        child: Stack(
+          children: <Widget>[
+            Container(
+              padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 25),
+              margin: const EdgeInsets.only(top: 66.0),
+              decoration: BoxDecoration(
+                color: Colors.white,
+                shape: BoxShape.rectangle,
+                borderRadius: BorderRadius.circular(16.0),
+                boxShadow: const[
+                  BoxShadow(
+                    color: Colors.black26,
+                    blurRadius: 10.0,
+                    offset: Offset(0.0, 10.0)
+                  )
+                ]
+              ),
+              child: Column(
+                mainAxisSize: MainAxisSize.max,
+                children: <Widget>[
+                  const Text(
+                    "Pilih Cabang",
+                    style: TextStyle(
+                      fontSize: 22.0,
+                      fontWeight: FontWeight.w600
+                    ),
+                  ),
+                  const SizedBox(height: 16.0),
+                  DropdownWithLabel<String>(
+                    value: dropdownValue.value,
+                    title: "Pilih Cabang",
+                    label: "Pilih Cabang",
+                    onChange: (String newValue) {
+                      dropdownValue.value = newValue;
+                    },
+                    items: users.map<DropdownMenuItem<String>>((value) {
+                      return DropdownMenuItem<String>(
+                        value: value["id"].toString(),
+                        child: Text(value["cabang_city"]),
+                      );
+                    }).toList(),
+                  ),
+                  const SizedBox(height: 24.0),
+                  BtnBlock(
+                    title: "Login",
+                    onTap: () async {
+                      try {
+                        cekLog.value = true;
+                        await performLogin(users);
+                      } catch(err) {
+                        cekLog.value = false;
+                        errors.value = err.toString();
+                      }
+                    },
+                  )
+                ],
+              ),
+            )
+          ]
+        ),
+      )
+    );
+  }
 
   showToast(String message, String label) {
     return Get.showSnackbar(

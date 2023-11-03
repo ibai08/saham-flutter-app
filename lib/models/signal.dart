@@ -293,18 +293,12 @@ class SignalModel {
       {bool clearCache = false}) async {
     try {
       dynamic data = await _signalBox?.get(signalid.toString());
-      print("=======signalid: $signalid");
-      print("=====data :$data");
       SignalInfo _signalData;
       if (data == null || data == "" || clearCache == false) {
-        print("=====progress111");
         Map fetchData = await TF2Request.authorizeRequest(
             url: getHostName() + "/ois/api/v2/signal/detail/",
             postParam: {"signalid": signalid});
-            print("=====progress2324");
-        print("=====fetchData: $fetchData");
         Map signalMap = fetchData["message"];
-        print("=====progress1123231");
         _signalData = SignalInfo.createObject(
           active: int.tryParse(signalMap["active"].toString()) ?? 0,
           caption: signalMap["caption"],
@@ -335,12 +329,9 @@ class SignalModel {
           medals: int.tryParse(signalMap["medals"].toString()) ?? 0,
           point: double.tryParse(signalMap["point"].toString()) ?? 0.00,
         );
-        print("=====progress11wewef1");
         await _signalBox?.putMap(
             _signalData.id.toString(), _signalData.toMap()!);
-            print("=====progressqweqwe");
       } else {
-        print("=====progressfjsdjfj");
         Map mapData = jsonDecode(data);
         _signalData = SignalInfo.fromMap(mapData);
       }

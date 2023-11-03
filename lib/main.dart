@@ -11,9 +11,11 @@ import 'package:saham_01_app/splash_screen_new.dart';
 import 'package:saham_01_app/views/pages/add_new_signal.dart';
 import 'package:saham_01_app/views/pages/channels/channel_detail.dart';
 import 'package:saham_01_app/views/pages/channels/form/new_channel.dart';
+import 'package:saham_01_app/views/pages/channels/my_channels.dart';
 import 'package:saham_01_app/views/pages/channels/signal_detail.dart';
 import 'package:saham_01_app/views/pages/form/forgot.dart';
 import 'package:saham_01_app/views/pages/form/register.dart';
+import 'package:saham_01_app/views/pages/more/ois/ois_dashboard.dart';
 import 'package:saham_01_app/views/pages/more/profile/forms/edit_password.dart';
 import 'package:saham_01_app/views/pages/more/profile/profile.dart';
 import 'package:saham_01_app/views/pages/refresh_page.dart';
@@ -163,14 +165,17 @@ class NewMyApp extends StatelessWidget {
         GetPage(name: AppRoutes.editPassword, page: () => EditPassword()),
         GetPage(name: AppRoutes.forgotPassword, page: () => ForgotPassWord()),
         GetPage(name: AppRoutes.profile, page: () => Profile()),
+        GetPage(name: AppRoutes.copySignal, page: () => OisDashboard()),
 
         GetPage(name: AppRoutes.searchChannelsPop, page: () => SearchChannelsPop()),
         GetPage(name: AppRoutes.searchDomisili, page: () => SearchDomisili()),
 
         GetPage(name: AppRoutes.searchChannelsTab, page: () => SearchChannelsTab()),
         GetPage(name: AppRoutes.channelDetail, page: () => ChannelDetailNew()),
+        GetPage(name: AppRoutes.newSignal, page: () => AddNewSignal()),
         GetPage(name: AppRoutes.newChannels, page: () => NewChannels()),
-        GetPage(name: AppRoutes.signalDetail, page: () => SignalDetail())
+        GetPage(name: AppRoutes.signalDetail, page: () => SignalDetail()),
+        GetPage(name: AppRoutes.myChannel, page: () => MyChannels()),
       ],
       home: SplashScreen(),
       debugShowCheckedModeBanner: false,
@@ -219,16 +224,22 @@ class NewHomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     double fontSizes(BuildContext context) {
       var size = MediaQuery.of(context).size.width;
-      if (size <= 360.0) {
+      if (size <= 320.0) {
+        return 7;
+      }
+      if (size <= 375.0) {
         return 9;
       }
-      if (size <= 600) {
+      if (size <= 400.0) {
+        return 10;
+      }
+      if (size <= 600.0) {
         return 11;
       }
-      if (size <= 900) {
+      if (size <= 900.0) {
         return 13;
       }
-      if (size > 900) {
+      if (size > 900.0) {
         return 15;
       }
       return 0;
@@ -277,6 +288,7 @@ class NewHomePage extends StatelessWidget {
       ),
     ];
       return Obx(() {
+        print(MediaQuery.of(context).size.width);
           return WillPopScope(
             onWillPop: () async {
               if (newHomeTabController.tab.value == HomeTab.home) {

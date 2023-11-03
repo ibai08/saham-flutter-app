@@ -19,6 +19,13 @@ class AppRoutes {
   static String channelDetail = "/dsc/channels";
   static String newChannels = "/dsc/channels/new";
   static String signalDetail = "/dsc/signal/";
+  static String mySubscription = "/dsc/subscriptions";
+  static String withdraw = "/dsc/withdraw";
+  static String newSignal = "/dsc/signal/new";
+  static String myChannel = "/dsc/channels/my";
+  static String subscribers = "/dsc/subscribers";
 
   static String profile = "/more/profile";
+  static String copySignal = "/more/channel";
+  static String maxRichGroup = "/more/mrg";
 }

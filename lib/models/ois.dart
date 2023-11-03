@@ -92,6 +92,8 @@ class OisModel {
       return null;
     }, 3600);
 
+    print("ayolah data: $data");
+
     return OisMyChannelPageData.fromMap(data);
   }
 

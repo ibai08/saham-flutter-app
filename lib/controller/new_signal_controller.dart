@@ -36,7 +36,7 @@ class NewSignalController extends GetxController {
       {"id": "1", "title": "Good Till Cancelled (GTC)"},
     ].where((item) => item["id"] != null).toList();
 
-  final Map data = {};
+  Map data = {};
   RxString expiredAtValue = "0".obs;
 
   final symbolsCon = TextEditingController();

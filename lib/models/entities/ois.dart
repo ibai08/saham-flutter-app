@@ -1215,37 +1215,34 @@ class TransactionPaymentSlim {
 }
 
 class OisDashboardPageData {
-  double? lastSync;
-  int? totalChannel;
-  int? totalSignal;
-  int? totalSubscriber;
-  int? totalPayment;
-  double? totalBalance;
-  double? totalActiveBalance;
-  List<TransactionPaymentSlim>? transactionPayment;
-  String? bankName;
-  String? bankAccount;
-  String? bankUsername;
+  final double? lastSync;
+  final int? totalChannel;
+  final int? totalSignal;
+  final int? totalSubscriber;
+  final int? totalPayment;
+  final double? totalBalance;
+  final double? totalActiveBalance;
+  final List<TransactionPaymentSlim> transactionPayment;
+  final String? bankName;
+  final String? bankAccount;
+  final String? bankUsername;
 
-  OisDashboardPageData(
-      {this.lastSync,
-      this.totalChannel,
-      this.totalSignal,
-      this.totalSubscriber,
-      this.totalPayment,
-      this.totalBalance,
-      this.totalActiveBalance,
-      this.transactionPayment,
-      this.bankName,
-      this.bankAccount,
-      this.bankUsername});
+  OisDashboardPageData({
+    this.lastSync,
+    this.totalChannel,
+    this.totalSignal,
+    this.totalSubscriber,
+    this.totalPayment,
+    this.totalBalance,
+    this.totalActiveBalance,
+    required this.transactionPayment,
+    this.bankName,
+    this.bankAccount,
+    this.bankUsername,
+  });
 
-  Map toMap() {
-    List<Map> data = [];
-    transactionPayment?.forEach((v) {
-      data.add(v.toMap());
-    });
-
+  Map<dynamic, dynamic> toMap() {
+    final data = transactionPayment.map((v) => v.toMap()).toList();
     return {
       "lastSync": lastSync,
       "totalChannel": totalChannel,
@@ -1257,11 +1254,11 @@ class OisDashboardPageData {
       "transactionPayment": data,
       "bankName": bankName,
       "bankAccount": bankAccount,
-      "bankUsername": bankUsername
+      "bankUsername": bankUsername,
     };
   }
 
-  factory OisDashboardPageData.fromMap(Map data) {
+  factory OisDashboardPageData.fromMap(Map<dynamic, dynamic> data) {
     if (!data.containsKey("lastSync") ||
         !data.containsKey("totalChannel") ||
         !data.containsKey("totalSignal") ||
@@ -1272,17 +1269,42 @@ class OisDashboardPageData {
         !data.containsKey("bankName") ||
         !data.containsKey("bankAccount") ||
         !data.containsKey("bankUsername")) {
-      return null!;
+      return OisDashboardPageData(
+        lastSync: null,
+        totalChannel: null,
+        totalSignal: null,
+        totalSubscriber: null,
+        totalPayment: null,
+        totalBalance: null,
+        totalActiveBalance: null,
+        transactionPayment: [],
+        bankName: null,
+        bankAccount: null,
+        bankUsername: null,
+      );
     }
 
-    if (data["transactionPayment"] is List) {
-      return null!;
+    if (data["transactionPayment"] is! List) {
+      return OisDashboardPageData(
+        lastSync: null,
+        totalChannel: null,
+        totalSignal: null,
+        totalSubscriber: null,
+        totalPayment: null,
+        totalBalance: null,
+        totalActiveBalance: null,
+        transactionPayment: [],
+        bankName: null,
+        bankAccount: null,
+        bankUsername: null,
+      );
     }
 
-    List<TransactionPaymentSlim> listPayment = [];
-    data["transactionPayment"].forEach((v) {
-      listPayment.add(TransactionPaymentSlim.fromMap(v));
-    });
+    final listPayment = List<TransactionPaymentSlim>.from(
+      data["transactionPayment"].map((v) => TransactionPaymentSlim.fromMap(v)),
+    );
+
+    print("oisda: ${data["totalBalance"]}");
 
     return OisDashboardPageData(
       lastSync: data["lastSync"],
@@ -1291,8 +1313,7 @@ class OisDashboardPageData {
       totalSubscriber: data["totalSubscriber"],
       totalPayment: data["totalPayment"],
       totalBalance: double.tryParse(data["totalBalance"].toString()) ?? 0.0,
-      totalActiveBalance:
-          double.tryParse(data["totalActiveBalance"].toString()) ?? 0.0,
+      totalActiveBalance: double.tryParse(data["totalActiveBalance"].toString()) ?? 0.0,
       transactionPayment: listPayment,
       bankName: data["bankName"],
       bankAccount: data["bankAccount"],
@@ -1333,14 +1354,18 @@ class OisMyChannelPageData {
     if (!data.containsKey("lastSync") ||
         !data.containsKey("listMyChannel") ||
         !data.containsKey("listChannelBalance")) {
+          print("kondisi 1");
       return OisMyChannelPageData.init();
     }
 
-    if (data["listMyChannel"] is List ||
-        data["listChannelBalance"] is Map ||
+    if (data["listMyChannel"] is! List ||
+        data["listChannelBalance"] is! Map ||
         data["listChannelBalance"].length == 0) {
+          print("kondisi 2");
       return OisMyChannelPageData.init();
     }
+
+    print("kondisi 3");
 
     return OisMyChannelPageData(
         lastSync: data["lastSync"],

@@ -41,6 +41,7 @@ class ProfileController extends GetxController {
 
   Future<void> optionsDialogBox() async {
     cek.value = await cekPermission();
+    print("cek: ${cek.value}");
     if (cek.value == false) {
       // showAlert(Get.context!, LoadingState.warning, "Izinkan untuk mulai mengupload foto");
       await dialogController.setProgress(LoadingState.warning, "Izinkan untuk mulai mengupload foto", "Izinkan akses", true, null);

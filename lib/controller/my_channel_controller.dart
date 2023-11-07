@@ -29,6 +29,7 @@ class MyChannelController extends GetxController {
   }
 
   void search(String txt) {
+    print(txt);
     filterData.listMyChannel = [];
     for (int i = 0; i < data.listMyChannel!.length; i++) {
       if (!data.listMyChannel![i].name.toString().toLowerCase().contains(txt.toLowerCase()) && (txt != null || txt != "")) {
@@ -36,6 +37,7 @@ class MyChannelController extends GetxController {
       }
       filterData.listMyChannel?.add(data.listMyChannel![i]);
     }
+    
     oisStream.value = filterData;
   }
 

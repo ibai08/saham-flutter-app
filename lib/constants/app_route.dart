@@ -24,8 +24,17 @@ class AppRoutes {
   static String newSignal = "/dsc/signal/new";
   static String myChannel = "/dsc/channels/my";
   static String subscribers = "/dsc/subscribers";
+  static String dashboard2 = "/dsc/channels/info";
 
   static String profile = "/more/profile";
   static String copySignal = "/more/channel";
-  static String maxRichGroup = "/more/mrg";
+  static String mrg = "/more/mrg";
+
+  static String requestAccMrg = "/mrg/requestacc";
+  static String openAccMrg = "/mrg/openacc";
+  static String depositMrg = "/mrg/deposit";
+  static String withdrawMrg = "/mrg/withdraw";
+  static String demoAccMrg = "/mrg/demo";
+  static String contestAccMrg = "/mrg/contest";
+  static String uploadId = "/mrg/uploadid"; 
 }

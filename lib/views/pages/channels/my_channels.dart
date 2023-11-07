@@ -42,8 +42,8 @@ class MyChannels extends StatelessWidget {
                 height: 80,
                 padding: const EdgeInsets.all(15),
                 child: TextFormField(
-                  onChanged:  (_) async {
-                    controller.search(_);
+                  onChanged:  (txt) async {
+                    controller.search(txt);
                   },
                   decoration: InputDecoration(
                     hintText: "Cari Channel",
@@ -156,15 +156,15 @@ class ChannelListTile extends StatelessWidget {
                 onSelected: (value) {
                   switch (value) {
                     case '1':
-                      Navigator.pushNamed(context, "/dsc/signal/new",
+                      Get.toNamed("/dsc/signal/new",
                           arguments: channelCard?.id);
                       break;
                     case '2':
-                      Navigator.pushNamed(context, "/dsc/channels/",
+                      Get.toNamed("/dsc/channels/",
                           arguments: channelCard?.id);
                       break;
                     case '3':
-                      Navigator.pushNamed(context, "/dsc/channels/new",
+                      Get.toNamed("/dsc/channels/new",
                           arguments: channelCard);
                       break;
                   }

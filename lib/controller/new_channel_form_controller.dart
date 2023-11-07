@@ -16,7 +16,7 @@ import 'package:saham_01_app/models/entities/ois.dart';
 import 'package:saham_01_app/models/entities/user.dart';
 import 'package:saham_01_app/models/ois.dart';
 import 'package:saham_01_app/views/widgets/dialog_confirmation.dart';
-import 'package:saham_01_app/views/widgets/dialog_loading.dart';
+import 'package:saham_01_app/views/widgets/get_alert.dart';
 
 class NewChannelsFormController extends GetxController {
   final TextEditingController txtChannel = TextEditingController();
@@ -46,7 +46,7 @@ class NewChannelsFormController extends GetxController {
 
   Widget nominal = const Text("");
   RxString dropdownValue = "".obs;
-  File? image;
+  Rx<File?> image = Rx<File?>(null);
 
   final ImagePicker picker = ImagePicker();
   int channel = 0;
@@ -67,17 +67,21 @@ class NewChannelsFormController extends GetxController {
   }
 
   Future openCamera() async {
-    final pickedFile = await picker.pickImage(source: ImageSource.camera);
+    final XFile? pickedFile = await picker.pickImage(source: ImageSource.camera);
     if (pickedFile != null) {
-      image = File(pickedFile.path);
+      image.value = File(pickedFile.path);
       Get.back();
     }
   }
 
   Future openFile() async {
-    final pickedFile = await picker.pickImage(source: ImageSource.gallery, imageQuality: 10);
+    final XFile? pickedFile = await picker.pickImage(source: ImageSource.gallery, imageQuality: 10);
     if (pickedFile != null) {
-      image = File(pickedFile.path);
+      try {
+        image.value = File(pickedFile.path);
+      } catch(ex) {
+        throw Exception(ex.toString());
+      }
       Get.back();
     }
   }
@@ -184,14 +188,15 @@ class NewChannelsFormController extends GetxController {
           return;
         }
       }
-      DialogLoading dlg = DialogLoading();
-      showDialog(
-        barrierDismissible: false,
-        context: context,
-        builder: (context) {
-          return dlg;
-        }
-      );
+      // DialogLoading dlg = DialogLoading();
+      // showDialog(
+      //   barrierDismissible: false,
+      //   context: context,
+      //   builder: (context) {
+      //     return dlg;
+      //   }
+      // );
+      Get.find<DialogController>().setProgress(LoadingState.progress, "Mohon Tunggu", null, null, null);
       Future.delayed(Duration.zero).then((_) async {
         try {
           String message = "Sukses membuat channel baru";
@@ -219,18 +224,23 @@ class NewChannelsFormController extends GetxController {
               account: data["account"],
               pricing: priceList
             );
-            if (image != null) {
+            if (image.value != null) {
               await ChannelModel.instance.uploadAvatarChannel(
-                image: image, channelid: channels.value!.id
+                image: image.value, channelid: channels.value!.id
               );
             }
             message = "Sukses mengubah channel";
           }
           await OisModel.instance.synchronizeMyChannel(clearCache: true);
-          Get.offAllNamed("/dsc/channels/info", predicate: ModalRoute.withName("/home"), arguments: {"dialog": message, "state": LoadingState.success});
+          // Get.offAllNamed("/dsc/channels/info", predicate: ModalRoute.withName("/home"), arguments: {"dialog": message, "state": LoadingState.success});
+          Navigator.pushNamedAndRemoveUntil(
+              context, "/dsc/channels/info", ModalRoute.withName("/home"),
+              arguments: {"dialog": message, "state": LoadingState.success});
+          Get.find<DialogController>().setProgress(LoadingState.success, message, null, null, null);
         } catch(e) {
           Get.back(canPop: true);
-          showAlert(context, LoadingState.error, translateFromPattern(e.toString()));
+          Get.find<DialogController>().setProgress(LoadingState.error, translateFromPattern(e.toString()), null, null, null);
+          // showAlert(context, LoadingState.error, translateFromPattern(e.toString()));
         }
       });
     }
@@ -248,8 +258,8 @@ class NewChannelsFormController extends GetxController {
   }
 
   @override
-  void onInit() {
-    super.onInit();
+  void onReady() {
+    super.onReady();
     try {
       user = appStateController.users.value;
       handleRadioValueChangeNominal(0);

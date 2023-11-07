@@ -11,10 +11,14 @@ import 'package:saham_01_app/splash_screen_new.dart';
 import 'package:saham_01_app/views/pages/add_new_signal.dart';
 import 'package:saham_01_app/views/pages/channels/channel_detail.dart';
 import 'package:saham_01_app/views/pages/channels/form/new_channel.dart';
+import 'package:saham_01_app/views/pages/channels/form/withdraws.dart';
 import 'package:saham_01_app/views/pages/channels/my_channels.dart';
+import 'package:saham_01_app/views/pages/channels/my_subscribers.dart';
+import 'package:saham_01_app/views/pages/channels/my_subscription.dart';
 import 'package:saham_01_app/views/pages/channels/signal_detail.dart';
 import 'package:saham_01_app/views/pages/form/forgot.dart';
 import 'package:saham_01_app/views/pages/form/register.dart';
+import 'package:saham_01_app/views/pages/more/mrg/mrg.dart';
 import 'package:saham_01_app/views/pages/more/ois/ois_dashboard.dart';
 import 'package:saham_01_app/views/pages/more/profile/forms/edit_password.dart';
 import 'package:saham_01_app/views/pages/more/profile/profile.dart';
@@ -166,6 +170,8 @@ class NewMyApp extends StatelessWidget {
         GetPage(name: AppRoutes.forgotPassword, page: () => ForgotPassWord()),
         GetPage(name: AppRoutes.profile, page: () => Profile()),
         GetPage(name: AppRoutes.copySignal, page: () => OisDashboard()),
+        GetPage(name: AppRoutes.dashboard2, page: () => OisDashboard()),
+        GetPage(name: AppRoutes.newChannels, page: () => NewChannels()),
 
         GetPage(name: AppRoutes.searchChannelsPop, page: () => SearchChannelsPop()),
         GetPage(name: AppRoutes.searchDomisili, page: () => SearchDomisili()),
@@ -173,9 +179,13 @@ class NewMyApp extends StatelessWidget {
         GetPage(name: AppRoutes.searchChannelsTab, page: () => SearchChannelsTab()),
         GetPage(name: AppRoutes.channelDetail, page: () => ChannelDetailNew()),
         GetPage(name: AppRoutes.newSignal, page: () => AddNewSignal()),
-        GetPage(name: AppRoutes.newChannels, page: () => NewChannels()),
         GetPage(name: AppRoutes.signalDetail, page: () => SignalDetail()),
         GetPage(name: AppRoutes.myChannel, page: () => MyChannels()),
+        GetPage(name: AppRoutes.subscribers, page: () => MySubscribers()),
+        GetPage(name: AppRoutes.mySubscription, page: () => MySubscription()),
+        GetPage(name: AppRoutes.withdraw, page: () => Withdraw()),
+
+        GetPage(name: AppRoutes.mrg, page: () => Mrg())
       ],
       home: SplashScreen(),
       debugShowCheckedModeBanner: false,

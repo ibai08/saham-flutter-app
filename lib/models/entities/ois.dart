@@ -1467,7 +1467,7 @@ class ChannelSubscriber {
       channelId: map["channelId"],
       title: map["title"],
       userId: map["userId"],
-      username: map["username"],
+      username: map["username"] ?? "",
       subsDate: DateTime.parse(map["subsDate"].replaceAll("Z", "") + "Z"),
       subsExpired: DateTime.parse(map["subsDate"].replaceAll("Z", "") + "Z"));
 

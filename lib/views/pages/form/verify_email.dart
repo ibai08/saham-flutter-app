@@ -122,7 +122,7 @@ class VerifyEmailController extends GetxController {
         return;
       }
 
-      if (ModalRoute.of(Get.context!)!.settings.arguments is String) {
+      if (ModalRoute.of(Get.context!)?.settings.arguments is String) {
         String? token =
             ModalRoute.of(Get.context!)?.settings.arguments as String?;
         DialogLoading dlg = DialogLoading();

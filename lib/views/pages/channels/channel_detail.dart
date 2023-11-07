@@ -47,7 +47,11 @@ class ChannelDetailNew extends StatelessWidget {
       )
     ];
     if (arguments != null) {
-      controller.channel.value = arguments['channelId'];
+      if (arguments is Map) {
+        controller.channel.value = arguments['channelId'];
+      } else {
+        controller.channel.value = arguments;
+      }
       controller.getChannel();
     }
 
@@ -70,20 +74,24 @@ class ChannelDetailNew extends StatelessWidget {
       }
       if (controller.hasError.value == true) {
         if (controller.errorMessage.value == "ResultNotFoundError") {
-          return const Center(
-            child: Text(
-              "Maaf..data tidak ditemukan",
-              style: TextStyle(
-                fontWeight: FontWeight.w600,
-                fontSize: 18
+          return const Scaffold(
+            body:  Center(
+              child: Text(
+                "Maaf..data tidak ditemukan",
+                style: TextStyle(
+                  fontWeight: FontWeight.w600,
+                  fontSize: 18
+                ),
               ),
             ),
           );
         }
-        return Info(
-          onTap: controller.refreshChannel,
-          title: "Error",
-          desc: controller.errorMessage.value,
+        return Scaffold(
+          body: Info(
+            onTap: controller.refreshChannel,
+            title: "Error",
+            desc: controller.errorMessage.value,
+          ),
         );
       }
 

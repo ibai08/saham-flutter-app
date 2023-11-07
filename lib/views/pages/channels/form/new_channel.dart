@@ -31,8 +31,17 @@ class NewChannels extends StatelessWidget {
     final arguments = Get.arguments;
     ChannelCardSlim channel = ChannelCardSlim();
     if (arguments != null) {
-      channel = arguments['channel'];
-      controller.channels.value = channel;
+      print("arguments: $arguments");
+      if (arguments is Map) {
+        channel = arguments['channel'];
+        controller.channels.value = channel;
+      }
+      if (arguments is ChannelCardSlim) {
+        channel = arguments;
+        controller.channels.value = channel;
+        print("kena ini: ${ controller.channels.value?.id}");
+        print(controller.channels.value?.id == null ? false : true);
+      }
     }
     controller.context = context;
     Future.delayed(const Duration(milliseconds: 0)).then((_) {
@@ -81,35 +90,39 @@ class NewChannelsForm extends StatelessWidget {
                 channel?.id != null ? Column(
                   children: [
                     const SizedBox(height: 25),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.end,
-                      children: <Widget>[
-                        GestureDetector(
-                          onTap: () {
-                            controller.optionsDialogBox();
-                          },
-                          child: controller.image == null ? ImageFromNetwork(
-                            channel?.avatar,
-                            defaultImage: const ChannelAvatar(
-                              width: 120,
+                    Obx(() {
+                      // print(channel?.id == null ? false : true);
+                        return Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.end,
+                          children: <Widget>[
+                            GestureDetector(
+                              onTap: () {
+                                controller.optionsDialogBox();
+                              },
+                              child: controller.image.value == null ? ImageFromNetwork(
+                                channel?.avatar,
+                                defaultImage: const ChannelAvatar(
+                                  width: 120,
+                                ),
+                                width: 120,
+                              ) : DefaultImage(
+                                option: "1",
+                                tex: controller.image.value,
+                              ),
                             ),
-                            width: 120,
-                          ) : DefaultImage(
-                            option: "1",
-                            tex: controller.image,
-                          ),
-                        ),
-                        GestureDetector(
-                          onTap: () {
-                            controller.optionsDialogBox();
-                          },
-                          child: Image.asset(
-                            "assets/icon-pencil-green.png",
-                            width: 20,
-                          ),
-                        )
-                      ],
+                            GestureDetector(
+                              onTap: () {
+                                controller.optionsDialogBox();
+                              },
+                              child: Image.asset(
+                                "assets/icon-pencil-green.png",
+                                width: 20,
+                              ),
+                            )
+                          ],
+                        );
+                      }
                     )
                   ],
                 ) : const SizedBox(),
@@ -129,7 +142,7 @@ class NewChannelsForm extends StatelessWidget {
                     )
                   ),
                   keyboardType: TextInputType.text,
-                  readOnly: channel?.id == null ? false : true,
+                  readOnly: controller.channels.value?.id == null ? false : true,
                   validator: (val) {
                     if (val!.isEmpty) {
                       return "Mohon untuk mengisi nama channel";

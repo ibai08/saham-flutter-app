@@ -24,17 +24,17 @@ class OisDashboard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // if (appStateController.users.value.id > 0 && appStateController.users.value.isProfileComplete() != false && appStateController.users.value.verify == true) {
-    //   Get.offAndToNamed("/forms/editprofile", arguments: {
-    //     "route": "/dsc/channels/info",
-    //     "arguments": Get.arguments
-    //   });
-    // } else if (appStateController.users.value.id < 1 || appStateController.users.value.verify != true) {
-    //   Get.offAndToNamed("/forms/login", arguments: {
-    //     "route": "/dsc/channels/info",
-    //     "arguments": Get.arguments
-    //   });
-    // }
+    if (appStateController.users.value.id > 0 && appStateController.users.value.isProfileComplete() == false && appStateController.users.value.verify == true) {
+      Get.offAndToNamed("/forms/editprofile", arguments: {
+        "route": "/dsc/channels/info",
+        "arguments": Get.arguments
+      });
+    } else if (appStateController.users.value.id < 1 || !appStateController.users.value.verify!) {
+      Get.offAndToNamed("/forms/login", arguments: {
+        "route": "/dsc/channels/info",
+        "arguments": Get.arguments
+      });
+    }
     return Scaffold(
       backgroundColor: AppColors.white3,
       appBar: NavTxt(

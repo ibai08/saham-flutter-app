@@ -485,6 +485,7 @@ class ChannelModel {
       }, refreshSecond);
 
       if (data is List) {
+        print("data: $data");
         return data.map((map) => ChannelSubscriber.fromMap(map)).toList();
       }
     } catch (xerr) {

@@ -60,8 +60,9 @@ class Setting extends StatelessWidget {
           context: Get.context,
           onTap: () {
             // Navigator.pushNamed(context, '/more/mrg');
+            Get.toNamed('/more/mrg');
             // showAlert(Get.context!, LoadingState.warning, "Coming Soon");
-            dialogController.setProgress(LoadingState.info, "Coming Soon", null, null, null);
+            // dialogController.setProgress(LoadingState.info, "Coming Soon", null, null, null);
           },
           icon: Image.asset(
             // "assets/icon/brands/mrg.png",

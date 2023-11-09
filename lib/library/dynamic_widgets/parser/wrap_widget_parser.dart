@@ -14,12 +14,12 @@ class WrapWidgetParser extends WidgetParser {
       alignment: map.containsKey("alignment")
           ? parseWrapAlignment(map["alignment"])
           : WrapAlignment.start,
-      spacing: map.containsKey("spacing") ? map["spacing"]?.toDouble() : 0.0,
+      spacing: map.containsKey("spacing") ? double.tryParse(map["spacing"].toString())! : 0.0,
       runAlignment: map.containsKey("runAlignment")
           ? parseWrapAlignment(map["runAlignment"])
           : WrapAlignment.start,
       runSpacing:
-          map.containsKey("runSpacing") ? map["runSpacing"]?.toDouble() : 0.0,
+          map.containsKey("runSpacing") ? double.tryParse(map["runSpacing"].toString())! : 0.0,
       crossAxisAlignment: map.containsKey("crossAxisAlignment")
           ? parseWrapCrossAlignment(map["crossAxisAlignment"])
           : WrapCrossAlignment.start,

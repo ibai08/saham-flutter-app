@@ -11,6 +11,9 @@ import 'package:saham_01_app/splash_screen_new.dart';
 import 'package:saham_01_app/views/pages/add_new_signal.dart';
 import 'package:saham_01_app/views/pages/channels/channel_detail.dart';
 import 'package:saham_01_app/views/pages/channels/form/new_channel.dart';
+import 'package:saham_01_app/views/pages/channels/form/payment.dart';
+import 'package:saham_01_app/views/pages/channels/form/payment_status.dart';
+import 'package:saham_01_app/views/pages/channels/form/paymet_detail.dart';
 import 'package:saham_01_app/views/pages/channels/form/withdraws.dart';
 import 'package:saham_01_app/views/pages/channels/my_channels.dart';
 import 'package:saham_01_app/views/pages/channels/my_subscribers.dart';
@@ -185,7 +188,11 @@ class NewMyApp extends StatelessWidget {
         GetPage(name: AppRoutes.mySubscription, page: () => MySubscription()),
         GetPage(name: AppRoutes.withdraw, page: () => Withdraw()),
 
-        GetPage(name: AppRoutes.mrg, page: () => Mrg())
+        GetPage(name: AppRoutes.mrg, page: () => Mrg()),
+
+        GetPage(name: AppRoutes.channelPayment, page: () => Payment()),
+        GetPage(name: AppRoutes.paymentDetail, page: () => PaymentDetails()),
+        GetPage(name: AppRoutes.paymentStatus, page: () => PaymentStatus())
       ],
       home: SplashScreen(),
       debugShowCheckedModeBanner: false,

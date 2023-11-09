@@ -1,3 +1,5 @@
+// ignore_for_file: unnecessary_null_in_if_null_operators
+
 import 'package:flutter/widgets.dart';
 
 import '../dynamic_widget.dart';
@@ -8,17 +10,17 @@ class ClipRRectWidgetParser extends WidgetParser {
   Widget parse(Map<String, dynamic> map, BuildContext buildContext,
       ClickListener? listener) {
     var radius = map['borderRadius'].toString().split(",");
-    double topLeft = double.parse(radius[0]);
-    double topRight = double.parse(radius[1]);
-    double bottomLeft = double.parse(radius[2]);
-    double bottomRight = double.parse(radius[3]);
+    double? topLeft = double.tryParse(radius[0]) ?? null;
+    double? topRight = double.tryParse(radius[1]) ?? null;
+    double? bottomLeft = double.tryParse(radius[2]) ?? null;
+    double? bottomRight = double.tryParse(radius[3]) ?? null;
     var clipBehaviorString = map['clipBehavior'];
     return ClipRRect(
       borderRadius: BorderRadius.only(
-          topLeft: Radius.circular(topLeft),
-          topRight: Radius.circular(topRight),
-          bottomLeft: Radius.circular(bottomLeft),
-          bottomRight: Radius.circular(bottomRight)),
+          topLeft: topLeft != null ? Radius.circular(topLeft) : Radius.zero,
+          topRight: topRight != null ? Radius.circular(topRight) : Radius.zero,
+          bottomLeft: bottomLeft != null ? Radius.circular(bottomLeft) : Radius.zero,
+          bottomRight: bottomRight != null ? Radius.circular(bottomRight) : Radius.zero),
       clipBehavior: parseClipBehavior(clipBehaviorString),
       child: DynamicWidgetBuilder.buildFromMap(
           map["child"], buildContext, listener),

@@ -122,7 +122,7 @@ subcribeChannel(ChannelCardSlim channels, BuildContext context,
                 // Navigator.pop(context);
                 Get.back();
               },
-              caps: "Unsubs",
+              caps: "UNSUBS",
             );
           });
       print("Sukses unsubscribe");
@@ -178,7 +178,26 @@ subcribeChannel(ChannelCardSlim channels, BuildContext context,
     }
   } else {
     //SUBSCRIBE
+    int lanjut = 0;
     try {
+      await showDialog(
+          barrierDismissible: false,
+          context: context,
+          builder: (context) {
+            return DialogConfirmation(
+              desc:
+                  "Anda yakin ingin mensubscribe channel ini?",
+              action: () {
+                lanjut = 1;
+                // Navigator.pop(context);
+                Get.back();
+              },
+              caps: "Subscribe",
+            );
+          });
+
+      if (lanjut == 0) return;
+      
       await subscribe(channels, context, refreshController);
       print("cekkk");
       if (refreshController != null) {

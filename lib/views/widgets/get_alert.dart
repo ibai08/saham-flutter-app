@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:saham_01_app/constants/app_colors.dart';
+import 'package:saham_01_app/function/subscribe_channel.dart';
 import 'package:saham_01_app/views/widgets/btn_block.dart';
 import 'package:saham_01_app/views/widgets/custom_dropdown_button.dart';
 
@@ -131,6 +132,52 @@ class DialogController extends GetxController {
               ),
             )
           ]
+        ),
+      )
+    );
+  }
+
+  dialogConfirm(Function subscribe) {
+    return Get.defaultDialog(
+      title: "Subscribe Channe;",
+      textConfirm: "Konfirmasi",
+      textCancel: "Cancel",
+      buttonColor: Colors.transparent,
+      confirmTextColor: Colors.blue,
+      onCancel: () {
+        Get.back();
+      },
+      onConfirm: () async {
+       subscribe;
+      },
+      content: Container(
+        decoration: BoxDecoration(
+          color: Colors.white,
+          shape: BoxShape.rectangle,
+          borderRadius: BorderRadius.circular(4)
+        ),
+        child: SizedBox(
+          width: double.infinity,
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: <Widget>[
+              Image.asset(
+                "assets/icon-alert-warning.png",
+                width: 50,
+              ),
+              const SizedBox(
+                height: 15,
+              ),
+              const Text(
+                "Are you sure you want to Logout?",
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.w600,
+                    color: Colors.black),
+              ),
+            ],
+          ),
         ),
       )
     );

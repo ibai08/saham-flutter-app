@@ -7,7 +7,7 @@ class BaselineWidgetParser extends WidgetParser {
   Widget parse(Map<String, dynamic> map, BuildContext buildContext,
       ClickListener? listener) {
     return Baseline(
-      baseline: map["baseline"]?.toDouble(),
+      baseline: double.tryParse(map['baseline'].toString())!,
       baselineType: map["baselineType"] == "alphabetic"
           ? TextBaseline.alphabetic
           : TextBaseline.ideographic,

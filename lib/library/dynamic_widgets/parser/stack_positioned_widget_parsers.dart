@@ -12,12 +12,18 @@ class PositionedWidgetParser extends WidgetParser {
     return Positioned(
       child: DynamicWidgetBuilder.buildFromMap(
           map["child"], buildContext, listener)!,
-      top: map.containsKey("top") ? map["top"]?.toDouble() : null,
-      right: map.containsKey("right") ? map["right"]?.toDouble() : null,
-      bottom: map.containsKey("bottom") ? map["bottom"]?.toDouble() : null,
-      left: map.containsKey("left") ? map["left"]?.toDouble() : null,
-      width: map.containsKey("width") ? map["width"]?.toDouble() : null,
-      height: map.containsKey("height") ? map["height"]?.toDouble() : null,
+      top: map.containsKey("top") ? double.tryParse(map["top"].toString()) : null,
+      right: map.containsKey("right") ? double.tryParse(map["right"].toString()) : null,
+      bottom: map.containsKey("bottom") ? double.tryParse(map["bottom"].toString()) : null,
+      left: map.containsKey("left") ? double.tryParse(map["left"].toString()) : null,
+      width: map.containsKey("width") ? double.tryParse(map["width"].toString()) : null,
+      height: map.containsKey("height") ? double.tryParse(map["height"].toString()) : null,
+      // top: map.containsKey("top") ? map["top"]?.toDouble() : null,
+      // right: map.containsKey("right") ? map["right"]?.toDouble() : null,
+      // bottom: map.containsKey("bottom") ? map["bottom"]?.toDouble() : null,
+      // left: map.containsKey("left") ? map["left"]?.toDouble() : null,
+      // width: map.containsKey("width") ? map["width"]?.toDouble() : null,
+      // height: map.containsKey("height") ? map["height"]?.toDouble() : null,
     );
   }
 

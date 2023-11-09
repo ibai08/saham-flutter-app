@@ -12,6 +12,7 @@ import 'package:saham_01_app/core/string.dart';
 import 'package:saham_01_app/models/entities/ois.dart';
 import 'package:saham_01_app/models/ois.dart';
 import 'package:saham_01_app/models/user.dart';
+import 'package:saham_01_app/views/widgets/get_alert.dart';
 import 'package:saham_01_app/views/widgets/heading_channel_info_new.dart';
 import 'package:saham_01_app/views/widgets/channel_power.dart';
 
@@ -225,6 +226,7 @@ class ChannelThumb extends StatelessWidget {
                             "channelId": tChannel.id
                           });
                         } else {
+                          // Get.find<DialogController>().dialogConfirm(subcribeChannel(tChannel, context, controller.refreshController));
                           subcribeChannel(tChannel, context, controller.refreshController);
                         }
                       },

@@ -122,6 +122,7 @@ class OisModel {
     if (token != null) {
       postParam["TOKEN"] = token;
     }
+    print("price: ${channel?.price}");
 
     Map data = await TF2Request.authorizeRequest(
         method: "POST",

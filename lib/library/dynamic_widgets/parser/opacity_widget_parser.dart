@@ -7,7 +7,7 @@ class OpacityWidgetParser extends WidgetParser {
   Widget parse(Map<String, dynamic> map, BuildContext buildContext,
       ClickListener? listener) {
     return Opacity(
-      opacity: map["opacity"]?.toDouble(),
+      opacity: double.tryParse(map['opacity'].toString())!,
       alwaysIncludeSemantics: map.containsKey("alwaysIncludeSemantics")
           ? map["alwaysIncludeSemantics"]
           : false,

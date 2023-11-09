@@ -25,6 +25,9 @@ class AppRoutes {
   static String myChannel = "/dsc/channels/my";
   static String subscribers = "/dsc/subscribers";
   static String dashboard2 = "/dsc/channels/info";
+  static String channelPayment = "/dsc/payment";
+  static String paymentStatus = "/dsc/payment/status";
+  static String paymentDetail = "/dsc/payment/detail";
 
   static String profile = "/more/profile";
   static String copySignal = "/more/channel";

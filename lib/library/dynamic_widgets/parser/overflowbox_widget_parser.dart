@@ -24,10 +24,10 @@ class OverflowBoxWidgetParser extends WidgetParser{
       alignment: map.containsKey("alignment")
           ? parseAlignment(map["alignment"])!
           : Alignment.center,
-      minWidth: map.containsKey("minWidth")?map['minWidth']:null,
-      maxWidth: map.containsKey("maxWidth")?map['maxWidth']:null,
-      minHeight: map.containsKey("minHeight")?map['minHeight']:null,
-      maxHeight: map.containsKey("maxHeight")?map['maxHeight']:null,
+      minWidth: map.containsKey("minWidth") ? double.tryParse(map['minWidth'].toString()) : null,
+      maxWidth: map.containsKey("maxWidth") ? double.tryParse(map['maxWidth'].toString()) : null,
+      minHeight: map.containsKey("minHeight") ? double.tryParse(map['minHeight'].toString()) : null,
+      maxHeight: map.containsKey("maxHeight") ? double.tryParse(map['maxHeight'].toString()) : null,
       child: DynamicWidgetBuilder.buildFromMap(map['child'], buildContext, listener),
     );
   }

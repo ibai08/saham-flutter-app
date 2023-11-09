@@ -17,7 +17,7 @@ class TextWidgetParser implements WidgetParser {
     String? semanticsLabel = map['semanticsLabel'];
     bool? softWrap = map['softWrap'];
     String? textDirectionString = map['textDirection'];
-    double? textScaleFactor = map['textScaleFactor']?.toDouble();
+    double? textScaleFactor = double.tryParse(map['textScaleFactor'].toString());
     dynamic textSpan;
     var textSpanParser = TextSpanParser();
     if (map.containsKey("textSpan")) {

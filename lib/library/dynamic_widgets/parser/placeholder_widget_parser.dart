@@ -14,12 +14,12 @@ class PlaceholderWidgetParser extends WidgetParser {
           ? parseHexColor(map['color'])!
           : const Color(0xFF455A64),
       strokeWidth:
-          map.containsKey('strokeWidth') ? map['strokeWidth']?.toDouble() : 2.0,
+          map.containsKey('strokeWidth') ? double.tryParse(map['strokeWidth'].toString())! : 2.0,
       fallbackWidth: map.containsKey('fallbackWidth')
-          ? map['fallbackWidth']?.toDouble()
+          ? double.tryParse(map['fallbackWidth'].toString())!
           : 400.0,
       fallbackHeight: map.containsKey('fallbackHeight')
-          ? map['fallbackHeight']?.toDouble()
+          ? double.tryParse(map['fallbackHeight'].toString())!
           : 400.0,
     );
   }

@@ -102,7 +102,7 @@ class Home extends StatelessWidget {
   }
 
   Future<Widget?> buildWidgetFromJson(BuildContext buildContext) async {
-    var response = await rootBundle.loadString('assets/json/coba.json');
+    var response = await rootBundle.loadString('assets/json/coba2.json');
     await Future.delayed(const Duration(seconds: 2));
     return DynamicWidgetBuilder.build(response, buildContext, DefaultClickListener(buildContext));
   }

@@ -45,7 +45,16 @@ class _MarketPageState extends State<MarketPage> {
       SharedHelper.instance.getBox(CacheKey.oisSearchHistory);
   GetStorage store = GetStorage();
   void saya() async {
-    print("ini boxs: ${store.read(CacheKey.oisSearchHistory)}");
+    int n = 5;
+    for (var i = 0; i < n; i++) {
+      List<String> tets = [];
+      for (var j = 0; j < n; j++) {
+        tets.add("#");
+        print(tets.length);
+        break;
+      }
+      print("");
+    }
   }
 
   @override

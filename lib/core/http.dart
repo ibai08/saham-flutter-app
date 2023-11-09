@@ -71,6 +71,7 @@ class TF2Request {
       }
 
       data = res.data;
+      print("datatest: $data");
       if (data.containsKey("error")) {
         if (data["error"] == "UnauthorizedError" && reqNo == 1) {
           await refreshLogin();

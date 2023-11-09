@@ -31,8 +31,8 @@ class SizedBoxWidgetParser extends WidgetParser {
   Widget parse(Map<String, dynamic> map, BuildContext buildContext,
       ClickListener? listener) {
     return SizedBox(
-      width: map["width"],
-      height: map["height"],
+      width: map["width"] is double ? map["width"] : double.tryParse(map["width"].toString()),
+      height: map["height"] is double ? map["height"] : double.tryParse(map["height"].toString()),
       child: DynamicWidgetBuilder.buildFromMap(
           map["child"], buildContext, listener),
     );

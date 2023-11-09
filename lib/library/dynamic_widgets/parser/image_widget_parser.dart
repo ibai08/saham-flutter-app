@@ -15,10 +15,10 @@ class AssetImageWidgetParser extends WidgetParser {
     bool excludeFromSemantics = map.containsKey('excludeFromSemantics')
         ? map['excludeFromSemantics']
         : false;
-    double? scale = map.containsKey("scale") ? map['scale']?.toDouble() : null;
-    double? width = map.containsKey('width') ? map['width']?.toDouble() : null;
+    double? scale = map.containsKey("scale") ? double.tryParse(map['scale'].toString()) : null;
+    double? width = map.containsKey('width') ? double.tryParse(map['width'].toString()) : null;
     double? height =
-        map.containsKey('height') ? map['height']?.toDouble() : null;
+        map.containsKey('height') ? double.tryParse(map['height'].toString()) : null;
     Color? color = map.containsKey('color') ? parseHexColor(map['color']) : null;
     BlendMode? colorBlendMode =
         map.containsKey('colorBlendMode') ? parseBlendMode(map['colorBlendMode']) : null;
@@ -206,10 +206,10 @@ class NetworkImageWidgetParser extends WidgetParser {
     bool excludeFromSemantics = map.containsKey('excludeFromSemantics')
         ? map['excludeFromSemantics']
         : false;
-    double scale = map.containsKey("scale") ? map['scale']?.toDouble() : 1.0;
-    double? width = map.containsKey('width') ? map['width']?.toDouble() : null;
+    double scale = map.containsKey("scale") ? double.tryParse(map['scale'].toString())! : 1.0;
+    double? width = map.containsKey('width') ? double.tryParse(map['width'].toString()) : null;
     double? height =
-        map.containsKey('height') ? map['height']?.toDouble() : null;
+        map.containsKey('height') ? double.tryParse(map['height'].toString()) : null;
     Color? color = map.containsKey('color') ? parseHexColor(map['color']) : null;
     BlendMode? colorBlendMode =
         map.containsKey('colorBlendMode') ? parseBlendMode(map['colorBlendMode']) : null;

@@ -23,10 +23,10 @@ class DividerWidgetParser extends WidgetParser{
   Widget parse(Map<String, dynamic> map, BuildContext buildContext, ClickListener? listener) {
 
     return Divider(
-      height: map["height"],
-      thickness: map["thickness"],
-      indent: map["indent"],
-      endIndent: map["endIndent"],
+      height: double.tryParse(map['height'].toString()),
+      thickness: double.tryParse(map['thickness'].toString()),
+      indent: double.tryParse(map['indent'].toString()),
+      endIndent: double.tryParse(map['endIndent'].toString()),
       color: parseHexColor(map['color']),
     );
   }

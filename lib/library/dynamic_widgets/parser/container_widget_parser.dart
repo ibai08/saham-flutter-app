@@ -25,6 +25,7 @@ class ContainerWidgetParser extends WidgetParser {
         map.containsKey("click_event") ? map['click_event'] : null;
     bool? inkWellOn = map['inkWellOn'];
     double? width = map['width'] != null && map['width'] is String || map['width'] is int ? double.parse(map['width'].toString()) : map['width'] ?? null;
+    double? height = map['height'] != null && map['height'] is String || map['height'] is int ? double.parse(map['height'].toString()) : map['height'] ?? null;
 
     var containerWidget = Container(
       alignment: alignment,
@@ -32,7 +33,7 @@ class ContainerWidgetParser extends WidgetParser {
       color: color,
       margin: margin,
       width: width ?? null,
-      height: map['height'],
+      height: height ?? null,
       constraints: constraints,
       decoration: decoration ?? null,
       child: child,

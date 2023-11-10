@@ -41,26 +41,26 @@ class _MarketPageState extends State<MarketPage> {
   //   _tabController.dispose();
   //   super.dispose();
   // }
-  SharedBoxHelper? boxs =
-      SharedHelper.instance.getBox(CacheKey.oisSearchHistory);
-  GetStorage store = GetStorage();
-  void saya() async {
-    int n = 5;
-    for (var i = 0; i < n; i++) {
-      List<String> tets = [];
-      for (var j = 0; j < n; j++) {
-        tets.add("#");
-        print(tets.length);
-        break;
-      }
-      print("");
-    }
-  }
+  // SharedBoxHelper? boxs =
+  //     SharedHelper.instance.getBox(CacheKey.oisSearchHistory);
+  // GetStorage store = GetStorage();
+  // void saya() async {
+  //   int n = 5;
+  //   for (var i = 0; i < n; i++) {
+  //     List<String> tets = [];
+  //     for (var j = 0; j < n; j++) {
+  //       tets.add("#");
+  //       print(tets.length);
+  //       break;
+  //     }
+  //     print("");
+  //   }
+  // }
 
-  @override
-  void initState() {
-    saya();
-  }
+  // @override
+  // void initState() {
+  //   saya();
+  // }
 
   @override
   Widget build(BuildContext context) {

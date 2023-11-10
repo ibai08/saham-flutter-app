@@ -211,6 +211,7 @@ class NewHomePage extends StatelessWidget {
     const MarketPage(),
     Setting(),
   ];
+  
 
   NewHomePage({Key? key}) : super(key: key);
 
